@@ -9,7 +9,7 @@ os.environ['PGPASSFILE']=r'C:\Users\OWNER\AppData\Roaming\postgresql\pgpass.conf
 import numpy as np, pandas as pd, wrds
 from sklearn.ensemble import HistGradientBoostingRegressor
 from scipy import stats
-P=r"C:\Users\OWNER\Claude\Projects\GBC Project"; lg=lambda s:print(s,flush=True); t0=time.time()
+P=r"."; lg=lambda s:print(s,flush=True); t0=time.time()
 db=wrds.Connection(wrds_username='seanqin2028'); lg("CONNECTED %ds"%(time.time()-t0))
 nm=db.raw_sql("select permno,ticker,siccd,st_date,shrcd from crsp.stocknames where shrcd in (10,11) and ticker is not null")
 nm['st_date']=pd.to_datetime(nm['st_date']); nm=nm.sort_values('st_date').groupby('permno',as_index=False).last()

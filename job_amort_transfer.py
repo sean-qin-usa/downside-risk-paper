@@ -1,7 +1,7 @@
 # AMORTIZATION FLAGSHIP: ONE shared distribution-free quantile model (conditioned on per-name features + static chars)
 # vs per-name GARCH-t, evaluated on HELD-OUT names never trained on (transfer). Does the amortized edge GROW on small/young names?
 import os, json, time, math
-P=r"C:\Users\OWNER\Claude\Projects\GBC Project"; lg=lambda s:print(s,flush=True); t0=time.time()
+P=r"."; lg=lambda s:print(s,flush=True); t0=time.time()
 import numpy as np, pandas as pd
 from arch import arch_model
 from scipy import stats as sps
