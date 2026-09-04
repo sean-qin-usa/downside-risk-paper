@@ -2,11 +2,11 @@
 
 Research code and results for amortized (transfer) conditional-quantile estimation of financial downside risk, with Prof. Wenxin Jiang (Northwestern).
 
-## Key finding: amortization edge vs listing age
+## Key finding
 
-A single cross-sectionally-trained (amortized) quantile model, conditioned on characteristics, beats a name's own return history at every listing age -- largest when the name is brand-new (about 6.4% lower pinball at days 15-30) and still ahead (about 2.6%) at maturity. Cold-start (under 250 days, where GARCH cannot fit) is the regime where the amortized model is the only option.
+A single cross-sectionally trained (amortized) quantile model, conditioned on characteristics, beats a name's own return history at every listing age. The edge is largest when the name is brand-new (about 6.4% lower pinball loss at days 15–30) and persists at maturity (about 2.6%). In the cold-start regime (under 250 days, where GARCH cannot fit) the amortized model is the only option.
 
-A naive age-weighted blend toward own-history does NOT help; the amortized model should be treated as a prior (Gibbs / partial-pooling), not shrunk toward the weaker own-empirical estimate.
+A naive age-weighted blend toward own history does not help. The amortized model works better as a prior (Gibbs / partial pooling) than as something to shrink toward the weaker own-empirical estimate.
 
 ## Contents
 
