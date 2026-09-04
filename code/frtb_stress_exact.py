@@ -1,4 +1,9 @@
-# frtb_stress_exact.py (= job_stress_es.py) -- TRUE ES for the ten-day sections (both eras).
+# frtb_stress_exact.py v2 (= job_stress_purged.py) -- TRUE ES for the ten-day
+# sections (both eras), WITH THE h-1 BOUNDARY PURGE. Adversarial review, wave 6:
+# the h-day cumulative target at index t contains returns t..t+h-1, so training
+# rows sp-(h-1)..sp-1 had labels containing test-era returns. Training now
+# requires the WHOLE label window to precede the split: idx < sp-(h-1).
+# (h=1 is unaffected.) Everything else identical to the exact-ES rerun.
 # Adversarial review: the h=10 stress battery and the 2000-2013 horizon rerun computed
 # the nonparametric model's ES as a 3- or 5-node tail-quantile average while GARCH's ES
 # was (in the holdout job) already the closed form -- an inconsistent and non-integral
@@ -49,7 +54,9 @@ def run_panel(csv,minobs,ncap,h,calmyears=None,stressyears=None):
         ztr=z[:sp]
         for t in TAUS: df['fhs_%g'%t]=float(np.quantile(ztr,t))
         qa=np.quantile(ztr,A); df['fhsES']=float(np.mean(ztr[ztr<=qa]))
-        dd=df.dropna(subset=FEAT+['yc']); trn=dd[dd['idx']<sp]; tst=dd[dd['idx']>=sp]
+        dd=df.dropna(subset=FEAT+['yc'])
+        trn=dd[dd['idx']<sp-(h-1)]        # PURGE: label window t..t+h-1 must end before sp
+        tst=dd[dd['idx']>=sp]
         if len(tst)<60: continue
         TRr.append(trn[FEAT+['yc']]); t2=tst.copy(); t2['permno']=pn; TEr.append(t2)
     TR=pd.concat(TRr); TE=pd.concat(TEr).reset_index(drop=True)
@@ -85,7 +92,7 @@ def run_panel(csv,minobs,ncap,h,calmyears=None,stressyears=None):
         out['calm']=block(np.isin(yr,calmyears)); out['stress']=block(np.isin(yr,stressyears))
     return out
 
-OUT={'note':'TRUE ES97.5 for the ten-day sections, both eras, uniform methods: closed-form t ES for sqrt-h GARCH, exact empirical train-z tail mean for per-name FHS, 20-node midpoint sub-alpha GBM integral for the direct/hybrid model. Replaces the 3-node (design) and 5-node (holdout) tail-average proxies. Overlapping h-day targets as before.',
+OUT={'note':'PURGED + TRUE ES97.5 for the ten-day sections, both eras: training labels whose h-day window crosses the split are excluded (idx < sp-(h-1)), removing the boundary look-ahead found in adversarial review. Uniform exact ES methods: closed-form t ES for sqrt-h GARCH, exact empirical train-z tail mean for per-name FHS, 20-node midpoint sub-alpha GBM integral for the direct/hybrid model. Replaces the 3-node (design) and 5-node (holdout) tail-average proxies. Overlapping h-day targets as before.',
      'design_2014_2024':{}}
 lg("design era h=1...")
 OUT['design_2014_2024']['h1']=run_panel(os.path.join(P,"crsp_panel_returns.csv"),1800,150,1,
