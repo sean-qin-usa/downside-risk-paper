@@ -1,26 +1,29 @@
 # Semiparametric Value-at-Risk and Expected Shortfall with a Real-Time Misspecification Score
 
-**The paper: [paper_A_frontier.pdf](paper_A_frontier.pdf)** ([LaTeX](paper_A_frontier.tex) | [bibliography](refs_v3.bib) | [online appendix](paper_A_online_appendix.tex))
+A semiparametric VaR/ES engine — parametric scale, amortized flexible tails — and a real-time misspecification score for when it beats industry-standard risk models.
 
-A semiparametric VaR/ES engine — parametric scale, amortized flexible tails — and a real-time misspecification score for when it beats industry-standard risk models. Sole-authored by Sean Qin; developed with the guidance of Prof. Wenxin Jiang (Northwestern).
+**Current live draft: [paper_A_frontier.pdf](paper_A_frontier.pdf)** ([LaTeX source](paper_A_frontier.tex) · [bibliography](refs_v3.bib))
 
-Repository layout: `code/` holds the study scripts, `results/` the derived statistics behind every number in the paper, `figures/` exported charts, `docs/` submission material (cover letter, journal requirements, abstracts). No licensed data (CRSP/WRDS, Bloomberg) are redistributed; every panel rebuilds from the queries documented in the paper's data section for licensed subscribers. Day-to-day working notes live in a separate private working repository; this repository carries the paper of record and everything needed to replicate it.
+The draft at the link above is the working version and is updated continuously; dated snapshots live in `paper/archive_pdfs/`.
 
----
+## What the paper shows
 
-## The amortization study (original contents of this repository)
+A single measurable quantity — the excess kurtosis and asymmetry of recent GARCH-standardized residuals — governs when flexible-shape quantile methods beat parametric VaR/ES. Where that misspecification score is high, an amortized nonparametric engine wins decisively (top decile +2.7% pinball, DM 6.5; replicated on an untouched 2000–2013 holdout under registered predictions); where it is low, the engine and the parametric model tie. The engine passes Kupiec and Christoffersen backtests at both regulatory levels through a 2008-crisis test window, and its accuracy layer attains the lowest joint (VaR, ES) FZ0 score at both regulatory levels on the full panel — the deployed coverage shift's one measured concession (the 2.5% joint score, DM −2.0) is quantified in the paper rather than averaged away.
 
-Research code and results for amortized (transfer) conditional-quantile estimation of financial downside risk.
+## Repository layout
 
-### Key finding
+| Folder | Contents |
+|---|---|
+| `paper/` | Other manuscripts (online appendix, companion drafts) and `archive_pdfs/` with dated snapshots |
+| `code/` | Study and job scripts (standalone; each documents its data inputs at the top) |
+| `results/` | Derived statistics as JSON — every number in the paper traces to one of these |
+| `logs/` | Run consoles and pipeline logs |
+| `docs/` | Research notes, review syntheses, submission strategy, cover letter |
+| `figures/` | Exported charts |
+| `tools/` | Utility scripts |
+| `autojobs/`, `ai2jobs/` | Job-runner queues (consumed jobs move to `done/`) |
+| `live_paper/` | Live data-capture pipeline (options-surface archive, watchlist) |
 
-A single cross-sectionally trained (amortized) quantile model, conditioned on characteristics, beats a name's own return history at every listing age. The edge is largest when the name is brand-new (about 6.4% lower pinball loss at days 15-30) and persists at maturity (about 2.6%). In the cold-start regime (under 250 days, where GARCH cannot fit) the amortized model is the only option.
+## Data and licensing
 
-A naive age-weighted blend toward own history does not help. The amortized model works better as a prior (Gibbs / partial pooling) than as something to shrink toward the weaker own-empirical estimate.
-
-### Contents
-
-`code/` - neural IQN and amortized gradient-boosted quantile training and evaluation, plus the paper's study scripts.
-`results/` - pinball-loss results by listing-age bucket and history length (held-out CRSP names), plus the paper's derived statistics.
-
-Trading applications are maintained separately and are not part of this repository.
+Return data derive from CRSP/WRDS and Bloomberg under the author's licenses and are **not** redistributed here — no raw data files are tracked. Every panel rebuilds from the documented queries in `code/` for any licensed subscriber, and the paper's Data and evaluation protocol section states the exact filters and sample flow. A synthetic end-to-end example (`code/toy_example.py`) runs the full pipeline without licensed data.
