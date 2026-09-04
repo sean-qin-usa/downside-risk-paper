@@ -45,7 +45,7 @@ for a new asset is evaluation, not estimation; the generative-Bayes
 reading is the inverse map $z \overset{D}{=} H(s,\tau)$
 (\S\ref{sec:gbcmethod}).
 \item[Gibbs / generalized-Bayes posterior] A posterior built from a
-loss instead of a likelihood, (Paper~B); $\omega$ tempers how
+loss instead of a likelihood; $\omega$ tempers how
 fast the loss overwhelms the prior.
 \item[SBC] Simulation-based calibration: simulate known truths, check
 the posterior's ranks are uniform; the audit in Algorithm 3.
@@ -65,12 +65,11 @@ GARCH benchmark for portfolio tails.
 \item[VRP; $\PP$ vs.\ $\Q$] Variance risk premium: option-implied
 variance exceeds realized on average. $\PP$ is the physical measure
 (what happens); $\Q$ the risk-neutral measure (what option prices
-imply); their wedge at the put wing is the crash premium studied in the
-companion paper.
+imply); their wedge at the put wing is the crash premium.
 \item[Misspecification frontier] The trailing residual-shape score
 \eqref{eq:score} and the empirical fact that the nonparametric edge
 concentrates in its top decile.
 \end{description}
 
 
-%% ===== PROOFS: regret + conformal + wedge (sampler proof -> Paper B) =====
+%% ===== PROOFS: regret + conformal + wedge =====
