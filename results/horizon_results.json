@@ -1,0 +1,29 @@
+{
+  "note": "Horizon study (ai2): amortized GBM-quantile vs GARCH-style scaling for h-day-ahead CUMULATIVE return quantiles. GBM learns h-day quantiles directly; GARCH baseline = mu*h + sqrt(h)*sig_t * t-quantile (per-name GARCH-t current sigma). ratio=gbm/garch avg pinball (<1=nonparam better). Thesis: edge grows with horizon (fat tails compound).",
+  "by_horizon": {
+    "h1": {
+      "n": 202208,
+      "garch": 0.6876,
+      "gbm": 0.6644,
+      "ratio": 0.9662
+    },
+    "h5": {
+      "n": 201756,
+      "garch": 1.5607,
+      "gbm": 1.5041,
+      "ratio": 0.9637
+    },
+    "h10": {
+      "n": 201074,
+      "garch": 2.2077,
+      "gbm": 2.1193,
+      "ratio": 0.96
+    },
+    "h20": {
+      "n": 200168,
+      "garch": 3.1437,
+      "gbm": 2.9886,
+      "ratio": 0.9507
+    }
+  }
+}

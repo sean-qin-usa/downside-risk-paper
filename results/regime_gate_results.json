@@ -1,0 +1,29 @@
+{
+  "note": "Learned regime gate: HGB classifier predicts P(nonparam beats GARCH today) from causal misspecification signals (mk63,skew63,jump5,prv21,sigpct,absz21). Trained on TEST_A (OOS), evaluated on TEST_B. Compares GARCH-t vs always-nonparam vs gate_learned vs oracle(per-day min). gate_capture_of_oracle_pct = how much of the achievable gap the learned gate captures. Deployable \"GBC-as-standard\" object.",
+  "n_names": 200,
+  "n_testB": 110800,
+  "results": {
+    "garch_t": 0.4,
+    "always_nonparam": 0.3987,
+    "gate_learned": 0.3987,
+    "oracle_upperbound": 0.3824,
+    "gate_threshold": 0.38,
+    "pct_days_gated_to_nonparam": 0.905,
+    "gate_vs_garch_pct": 0.33,
+    "gate_vs_alwaysnonparam_pct": 0.0,
+    "oracle_vs_garch_pct": 4.4,
+    "gate_capture_of_oracle_pct": 7.4,
+    "gate_rate_by_mk63_decile": [
+      0.995,
+      0.994,
+      0.992,
+      0.987,
+      0.986,
+      0.984,
+      0.964,
+      0.871,
+      0.712,
+      0.565
+    ]
+  }
+}
