@@ -1,9 +1,12 @@
-# job_wrds_holdout.py -- THE CONFIRMATORY HOLDOUT (referee point 1.7 / forking paths).
+# job_wrds_holdout.py -- THE UNTOUCHED-ERA HOLDOUT (frozen specification; referee point 1.7 / forking paths).
+# Terminology note: the paper deliberately avoids the word 'registered' -- no third-party
+# timestamp exists for this freeze; the claim is line-for-line diffability against the
+# design-era pipeline, plus the predictions written in advance below.
 # Pulls CRSP daily returns 2000-2013 -- an era NO prior run in this program has touched
 # (existing panels are 2014+ / 2016+) -- and runs the FROZEN frontier specification on it:
 # same signals (.shift(1) causal), same features, same GBM hyperparameters, same 60/40
 # per-name temporal split, same date-level NW DM. Nothing tuned on this data, ever.
-# Registered predictions: (i) top-mk63-decile edge positive and significant, bottom ~0;
+# Predictions written in advance: (i) top-mk63-decile edge positive and significant, bottom ~0;
 # (ii) overall edge small positive; (iii) decile profile qualitatively matches Table 2.
 # Data stays LOCAL (holdout_panel_2000_2013.csv is gitignored; CRSP no-redistribution).
 import builtins, os, json, time, math, warnings; warnings.filterwarnings("ignore")
