@@ -96,10 +96,10 @@
     },
     "resid_hybrid_ML": {
       "avg_pinball": 0.3551,
-      "ES975_pred_true": -6.379,
-      "ES975_realized_ownVaR": -5.827,
-      "overstatement_pct": 9.5,
-      "breach99": 0.0111,
+      "ES975_pred_true": -6.345,
+      "ES975_realized_ownVaR": -5.822,
+      "overstatement_pct": 9.0,
+      "breach99": 0.0112,
       "breach975": 0.0282,
       "kupiec99_p": 0.0,
       "christoffersen99_p": 0.0,
@@ -109,48 +109,48 @@
     "hybrid_EVT": {
       "avg_pinball": 0.3555,
       "ES975_pred_true": -6.92,
-      "ES975_realized_ownVaR": -5.905,
-      "overstatement_pct": 17.2,
-      "breach99": 0.0092,
+      "ES975_realized_ownVaR": -5.898,
+      "overstatement_pct": 17.3,
+      "breach99": 0.0091,
       "breach975": 0.0243,
-      "kupiec99_p": 0.0008,
-      "christoffersen99_p": 0.0003,
-      "kupiec975_p": 0.058,
-      "christoffersen975_p": 0.0021
+      "kupiec99_p": 0.0001,
+      "christoffersen99_p": 0.0001,
+      "kupiec975_p": 0.099,
+      "christoffersen975_p": 0.0026
     }
   },
   "best_model": "resid_hybrid_ML",
   "DM_vs_best": {
     "hist_sim": {
-      "DM_stat": 7.5,
+      "DM_stat": 7.49,
       "p_one_sided": 0.0
     },
     "ewma_rm": {
-      "DM_stat": 8.65,
+      "DM_stat": 8.67,
       "p_one_sided": 0.0
     },
     "garch_t": {
-      "DM_stat": 4.94,
+      "DM_stat": 5.0,
       "p_one_sided": 0.0
     },
     "gjr_skewt": {
-      "DM_stat": 4.96,
+      "DM_stat": 4.99,
       "p_one_sided": 0.0
     },
     "fhs": {
-      "DM_stat": 6.12,
+      "DM_stat": 6.18,
       "p_one_sided": 0.0
     },
     "fhs_pername": {
-      "DM_stat": 5.17,
+      "DM_stat": 5.21,
       "p_one_sided": 0.0
     },
     "fhs_roll500": {
-      "DM_stat": 5.68,
+      "DM_stat": 5.74,
       "p_one_sided": 0.0
     },
     "hybrid_EVT": {
-      "DM_stat": 6.39,
+      "DM_stat": 6.0,
       "p_one_sided": 0.0
     }
   },
@@ -159,14 +159,25 @@
       "resid_hybrid_ML"
     ],
     "elimination_pvals": {
-      "hist_sim": 0.0,
       "ewma_rm": 0.0,
-      "fhs_roll500": 0.0,
+      "hist_sim": 0.0,
+      "hybrid_EVT": 0.0,
       "fhs": 0.0,
+      "fhs_roll500": 0.0,
       "fhs_pername": 0.0,
-      "gjr_skewt": 0.0,
       "garch_t": 0.0,
-      "hybrid_EVT": 0.0
+      "gjr_skewt": 0.0
     }
+  },
+  "passrate99_perasset": {
+    "hist_sim": 0.929,
+    "ewma_rm": 0.529,
+    "garch_t": 0.807,
+    "gjr_skewt": 0.857,
+    "fhs": 0.836,
+    "fhs_pername": 0.8,
+    "fhs_roll500": 0.986,
+    "resid_hybrid_ML": 0.8,
+    "hybrid_EVT": 0.843
   }
 }
