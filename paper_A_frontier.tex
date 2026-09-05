@@ -44,11 +44,16 @@
 \theoremstyle{remark}
 \newtheorem{remark}{Remark}
 
-
 \title{Semiparametric Value-at-Risk and Expected Shortfall\\
 with a Real-Time Misspecification Score}
-\author{Sean Qin \and Wenxin Jiang}
-\date{Draft --- \today}
+\author{%
+  Sean Qin\thanks{Corresponding author. E-mail:
+  \texttt{sean.qin@u.northwestern.edu}.}
+  \and
+  Wenxin Jiang\\[4pt]
+  \normalsize Department of Statistics and Data Science, Northwestern
+  University, Evanston, IL 60208}
+\date{Draft: \today}
 
 \begin{document}
 \maketitle
@@ -75,7 +80,7 @@ misspecification; amortized estimation.
 \noindent\textbf{JEL classification:} C14; C22; C52; C58; G17; G28.
 
 %% ===== INTRODUCTION =====
-\section{Introduction}\label{sec:intro}
+\section*{Introduction}\label{sec:intro}
 
 Two communities measure conditional downside risk. Econometrics builds
 parametric filters (GARCH and its leverage and skew extensions) whose
@@ -105,14 +110,14 @@ therefore beat HS and FHS on ES$_{97.5}$ under exception-test
 discipline; beating a vanilla GARCH on average loss is not enough.
 
 One distinction comes first. When the misspecification score is quiet, on
-roughly ninety percent of asset-days, the engine we deploy and the
+roughly ninety percent of asset-days, the estimator we deploy and the
 parametric benchmark are statistically indistinguishable
 (Section~\ref{sec:frontier} reports the widths): \emph{no
 detectable loss on the accuracy yardstick}. On that yardstick the
-engine's worst cell in our tests is that bounded tie (the coverage
+estimator's worst cell in our tests is that bounded tie (the coverage
 shift's 2.5\% joint-score concession, priced in
 Section~\ref{sec:frtb}, is the one measured exception), so holding the
-engine carries no detectable accuracy penalty on quiet days. What does lose on quiet days is a configuration we study only
+estimator carries no detectable accuracy penalty on quiet days. What does lose on quiet days is a configuration we study only
 as a cautionary boundary and never deploy: a bare per-name neural
 quantile model, which a unit-matched GJR-GARCH-$t$ beats by
 4.5--6.2\% at every horizon (DM $t$ between $+12$ and
@@ -123,9 +128,9 @@ standard error. The difference is oriented so that positive $t$ favors
 the model reported as winning; the engine's headline comparisons use
 $d_t=\ell_t^{\text{benchmark}}-\ell_t^{\text{engine}}$. Headline tests
 are one-sided at the 5\% level ($t>1.645$); two-sided readings are
-noted where used.} That failure is what dictates the engine's hybrid design. The
+noted where used.} That failure is what dictates the estimator's hybrid design. The
 contribution is thus a \emph{predictive theory of when flexible-shape
-methods win}, an engine that converts the theory into a risk model
+methods win}, a method that converts the theory into a risk model
 whose forecasting advantage over the benchmarks banks commonly run
 concentrates in high-misspecification states, with no detectable loss
 elsewhere on the accuracy yardstick, and a demonstration that the generative members of the
@@ -135,87 +140,52 @@ offers at all.
 Recent-residual tail diagnostics, the excess kurtosis and asymmetry of
 the GARCH-standardized residuals, predict when distribution-free
 quantile methods improve on parametric VaR/ES. Where
-that misspecification is high the flexible engine has a large and
+that misspecification is high the flexible estimator has a large and
 significant advantage; where it is low the advantage is
 statistically indistinguishable from zero in the design panel, a small
 positive in the point-in-time universe, with no detectable loss. The
 score's content is the ordering of magnitudes (the top decile is
 roughly seven times the calm region), not a hard threshold.
 
-\subsection{Contributions}\label{sec:contributions}
-
-\begin{enumerate}[leftmargin=1.6em]
-\item \textbf{Amortization and the cold start}
-(Sections~\ref{sec:methods} and~\ref{sec:applications}). The shape
-stage is a single amortized model trained across hundreds of names:
-one fit replaces per-asset estimation of the innovation shape (the
-conditional-scale filter remains the industry's standard per-name
-recursion), transfers to names the model has
-never seen, and beats own-history benchmarks at \emph{every} listing
-age (the advantage largest for young listings). Its
-characteristics-only form, which needs no scale filter and hence
-no history, prices assets with no
-return history at all, the one regime where no per-asset model
-exists.
-\item \textbf{An FRTB-aligned risk engine}
-(Section~\ref{sec:frtb}). The residual-hybrid (GARCH conditional
-scale $\times$ state-conditioned nonparametric residual quantile)
-with an extreme-value left tail and an optional split-conformal
-coverage overlay:
-co-best with CAViaR\footnote{CAViaR \citep{engle2004caviar} models the
-quantile itself as an autoregressive process estimated on the pinball
-loss; the strongest non-nested rival in the battery.} in the 90\%
-Model Confidence Set\footnote{The MCS \citep{hansen2011mcs} is the
-subset of models that cannot be statistically rejected as best at a
-given confidence level; ``co-best'' means surviving the elimination
-sequence.}, significantly
-better than GARCH-$t$/FHS/EWMA/HS/GJR-skew-$t$, exception counts
-consistent with nominal at both
-regulatory levels
-(Kupiec$+$Christoffersen\footnote{\citet{kupiec1995} tests whether the
-\emph{number} of days losses exceed VaR matches the nominal rate;
-\citet{christoffersen1998} additionally tests that exceptions arrive
-\emph{independently} rather than in clusters. Both are standard in
-regulatory backtesting.} at 99\% via the EVT tail; conformal
-recalibration at 97.5\%); nominal on the aggregate date-clustered
-tests and through a 2008-crisis window rerun, with per-name pass rates
-disclosed as residual heterogeneity; the
-lowest joint $(\VaR,\ES)$ FZ0 score at both levels on the full panel
-for the engine's accuracy layer, with the conformal shift's
-sharpness-for-coverage cost at 2.5\% quantified rather than hidden
-(and removed overall by its adaptive form). A separate direct
-multi-day extension, not the residual-hybrid engine, shows the
-edge growing at the ten-day horizon in 2014--2024 and reversing out
-of era.
-\item \textbf{The misspecification frontier} (Section~\ref{sec:frontier}).
-A live, per-asset, per-day score that predicts when nonparametric
-quantiles beat GARCH-$t$, with per-date Diebold--Mariano
-significance, validated across four universes: CRSP US equities
-(top-decile edge $+2.71\%$, DM 6.54), FX (hyperinflation tier pooled DM
-4.12), twenty-six country indices (developed$\to$frontier gradient,
-corr 0.53), and forty-three cross-asset instruments (corr 0.43), with
-Korea-2026 as a sharpening negative control: price crashes are not
-residual misspecification.
-\item \textbf{A theory of where the edge lives}
-(Section~\ref{sec:methods}, proofs in Appendix~\ref{app:proofs}). A
-pinball regret identity showing that a forecaster's excess loss is
-quadratic in its quantile wedge, so any edge must concentrate where the
-wedge is largest, and a tail-wedge proposition showing that innovation-shape
-misspecification creates that wedge in the tail, together the motivation for looking where the empirical edge in fact appears.
-\end{enumerate}
+\medskip\noindent The paper contributes to three literatures. To the
+evaluation of VaR and ES forecasts and the comparison of competing
+conditional models, it offers the misspecification frontier: a live,
+causal, per-asset, per-day score that predicts when distribution-free
+quantiles beat a GARCH-$t$ benchmark, with per-date Diebold--Mariano
+significance and validation across four universes---CRSP US equities
+(top-decile edge $+2.71\%$, DM 6.54), foreign exchange (hyperinflation
+tier, pooled DM 4.12), twenty-six country indices (a
+developed-to-frontier gradient), and forty-three cross-asset
+instruments---with Korea-2026 as a negative control that sharpens the
+claim: price crashes are not residual misspecification. To global,
+pooled forecasting and cross-asset transfer, it shows that a single
+amortized shape model trained across hundreds of names carries
+transferable information about conditional tail shape: one fit replaces
+per-asset estimation of the innovation shape, transfers to names never
+seen in training, and, in its characteristics-only form, prices assets
+with no return history at all---the day-one regime in which no
+per-asset model exists. To semiparametric conditional tail-risk
+forecasting, it develops the estimator that captures the frontier, a
+GARCH conditional scale times a state-conditioned nonparametric
+residual quantile with an extreme-value left tail and an optional
+split-conformal overlay, which is co-best with CAViaR
+\citep{engle2004caviar} in the $90\%$ Model Confidence Set
+\citep{hansen2011mcs}, improves significantly on GARCH-$t$, FHS, EWMA,
+HS, and GJR-skew-$t$, and attains the lowest joint $(\VaR,\ES)$ FZ0
+score at both FRTB levels with exception counts near nominal through a
+2008-crisis window. Two formal results motivate the search: a pinball
+regret identity, by which a forecaster's excess loss is quadratic in
+its quantile wedge so any edge concentrates where the wedge is largest,
+and a tail-wedge proposition, by which innovation-shape misspecification
+opens that wedge in the tail.
 
 \medskip
-\noindent Some neighboring questions are out of scope and claimed
-nowhere in this paper: posterior uncertainty bands on the reported
-$(\VaR,\ES)$; likelihood-free amortized posteriors for parametric
-simulators; and the multivariate portfolio tail. This is a
-point-forecasting paper, and it is self-contained: every stage the
-deployed engine uses is developed, and every formal result it relies
-on proved, here.
-
+\noindent This is a self-contained point-forecasting paper; posterior
+uncertainty bands, likelihood-free amortized posteriors, and the
+multivariate portfolio tail are outside its scope.
 
 The loss profile is asymmetric in the score: when the frontier is
-quiet the engine ties or edges the parametric benchmark (calm-quintile
+quiet the estimator ties or edges the parametric benchmark (calm-quintile
 edge $\approx 0$, never negative), and the top-decile improvement is
 $+2.7\%$ (and $12$--$14\%$ on the hyperinflation currencies where the
 parametric assumption breaks entirely). These are reductions in a
@@ -225,28 +195,19 @@ loss at the quoted level; the joint FZ0 score of
 Section~\ref{sec:frtb} carries the economic comparison, and no
 capital-release arithmetic is attempted.
 
-We fix three reporting conventions.
-First, the strongest tabular estimator\footnote{``Tabular'' data:
-observations that are rows of engineered features (here, the state
-vector $s_t$) rather than raw sequences or images, the setting where
-tree ensembles remain the strongest general-purpose learners.} in the
-family is gradient-boosted
-trees, not the neural network; we present GBC as the framework, trees as
-the strongest estimator, and the tail-aware neural IQN as the
-generative realization, competitive after tuning and able to draw
-directly from a learned continuous conditional quantile map. Second, residual kurtosis is predictive but neither necessary nor
-sufficient for a nonparametric win (carbon and corn are high-kurtosis
-ties; Baltic freight wins at moderate kurtosis through limit-move
-dynamics); the frontier is a strong regularity with counterexamples,
-and we show them. Third, the negative results
-that shaped the design (the retired same-universe artifact, the
-electricity log-return artifact, the failed hierarchical blends, the
-failed learned gate, and the three multivariate losses) are reported
-in the text.
-
-
 %% ===== BACKGROUND =====
-\section{Background and industry benchmark}\label{sec:background}
+\medskip\noindent The paper proceeds as follows.
+Section~\ref{sec:background} places the method against the industry
+benchmark and the forecasting literature; Section~\ref{sec:methods}
+develops the semiparametric estimator and the two results that motivate
+the frontier; Section~\ref{sec:protocol} sets out the data and the
+forecast-evaluation protocol; Section~\ref{sec:frontier} presents the
+misspecification frontier; Section~\ref{sec:frtb} reports the joint VaR
+and ES evaluation; Section~\ref{sec:applications} covers cross-sectional
+transfer, longer horizons, and cross-asset evidence; and
+Section~\ref{sec:limitations} concludes.
+
+\section{Related literature and benchmark models}\label{sec:background}
 
 \subsection{Risk measures and the FRTB discipline}
 
@@ -263,15 +224,11 @@ more than twelve exceptions at 99\%, or thirty at 97.5\%, in a 250-day
 year pushes a desk off the internal-models approach. The empirical bar
 for ``beating the industry standard'' is
 therefore joint: accuracy on ES$_{97.5}$ and pinball, \emph{and}
-unconditional \citep{kupiec1995} (the Kupiec test: are there the right
-number of VaR breaches?) plus independence
-\citep{christoffersen1998} (the Christoffersen test: are breaches
-independent, rather than clustered in time?) exception tests at both levels, with
+unconditional \citep{kupiec1995} plus independence
+\citep{christoffersen1998} exception tests at both levels, with
 significance assessed by per-date Diebold--Mariano tests
-\citep{dieboldmariano1995} (a $t$-test on the difference in loss between
-two forecasts) and the Model Confidence Set
-\citep{hansen2011mcs} (the set of models statistically indistinguishable
-from the best one).
+\citep{dieboldmariano1995} and the Model Confidence Set
+\citep{hansen2011mcs}.
 
 \subsection{The parametric family, the simulation family, and CAViaR}
 
@@ -336,9 +293,8 @@ data so that coverage holds without a parametric distributional
 model, under exchangeability)
 \citep{gibbs2021aci}.
 
-
 %% ===== METHODS (notation, engine, tree/IQN estimator, formal results, toy, Polson delta, misspec score) =====
-\section{Methods}\label{sec:methods}
+\section{Semiparametric VaR and ES model}\label{sec:methods}
 
 Every estimator below can be reimplemented from the formulas and
 algorithm boxes given; a glossary of acronyms is in the Online
@@ -416,7 +372,7 @@ pre-committed extension (Section~\ref{sec:limitations}). (c)~Likelihood is
 unavailable by design: several competitors have no tractable density, and likelihood scores
 would silently exclude them.
 
-\subsection{The final model: the residual-hybrid engine}\label{sec:hybrid}
+\subsection{The final model: the residual-hybrid estimator}\label{sec:hybrid}
 
 The deployable model is a four-stage composition. The parametric
 filter estimates conditional scale, which it does well and with few
@@ -559,7 +515,7 @@ the benchmark (identical information sets); the overlay's shift does
 use it, so the audit was rerun end-to-end strict, filter estimation
 stopped at the calibration boundary. Against the matched-information
 benchmark the advantage is intact (DM 5.1 and 5.4 at the two levels);
-the strict engine's gap to the full-window benchmark ($-0.6$, $-2.5$)
+the strict estimator's gap to the full-window benchmark ($-0.6$, $-2.5$)
 matches that benchmark's own margin over its short-window twin (2.8, 3.8), a quarter less estimation data, not leakage (replication
 artifacts: \texttt{job\_fz\_strict\_calibration.py} $\to$
 \texttt{fz\_strict\_calibration\_results.json}). The static shift
@@ -569,7 +525,7 @@ update \citep{gibbs2021aci} walks the shift from $-0.51$ to $-0.20$,
 lifts the per-name pass rate to 57\%, and shrinks the joint-score gap
 to GARCH-$t$ from DM $-3.2$ (static) to $-1.5$, not significant at the
 two-sided 5\% level: the adaptive form is established as the remedy
-under the same information architecture. The engine's annual-refit
+under the same information architecture. The estimator's annual-refit
 schedule sits between the static and adaptive poles, and the exception
 tests decide between them.
 
@@ -589,7 +545,7 @@ nodes), and both risk measures come from this one curve. Recomputing
 ES$_\alpha$ as the numerical integral of \eqref{eq:hybrid} rather than
 the GPD closed form leaves every comparison in place (at 2.5\%, FZ0
 1.849 against 1.851, the integral marginally better, DM 5.3;
-engine-over-GARCH DM 4.8 at both levels), and the splice level is
+estimator-over-GARCH DM 4.8 at both levels), and the splice level is
 immaterial ($p_0\in\{1.5\%,2.5\%,5\%\}$: DM 4.6--4.8).
 
 \noindent\textbf{Industry models as special cases.} Equation
@@ -601,11 +557,11 @@ parametric shape. The hybrid nests FHS: whatever
 FHS captures, \eqref{eq:shapeERM} can represent, and it adds
 conditional shape.
 (CAViaR sits outside the nesting: it autoregresses on the quantile
-directly, with no scale/shape split, and is the one rival the engine
+directly, with no scale/shape split, and is the one rival the estimator
 ties, Section~\ref{sec:frtb}.)
 
 \medskip\noindent\fbox{\parbox{0.96\textwidth}{
-\textbf{Algorithm 1 (residual-hybrid engine).}
+\textbf{Algorithm 1 (residual-hybrid estimator).}
 (i)~Fit \eqref{eq:garch} per asset on a trailing window; store
 $\widehat{\sigma}_t$, $\widehat{z}_t$.
 (ii)~Pool $(s_{j,t}, \widehat{z}_{j,t})$ across names; train the shape
@@ -648,7 +604,7 @@ the true annual-refit schedule.
 \draw[arr, dashed] ([xshift=5mm]garch.south) |-
   node[lab, left, pos=0.22] {$\widehat\sigma_t$} (out.west);
 \end{tikzpicture}
-\caption{The residual-hybrid engine as a pipeline. Solid arrows carry
+\caption{The residual-hybrid estimator as a pipeline. Solid arrows carry
 data; the dashed top arrow carries the conditional scale
 $\widehat\sigma_t$ that rescales the finished residual quantile curve;
 dashed boxes are inputs shared across assets (the pooled panel that
@@ -931,7 +887,7 @@ construction, and the out-of-sample comparisons of
 Section~\ref{sec:frtb} test whether that dominance survives estimation
 noise. It does; the converse is that the same argument does
 \emph{not} apply to CAViaR, which is why CAViaR is the one rival the
-engine only ties.
+estimator only ties.
 \end{remark}
 
 \subsection{A synthetic boundary check: when the frontier does
@@ -1062,14 +1018,13 @@ re-ranked into deciles.
 (iv)~Act by Table~\ref{tab:decision}: top decile $\Rightarrow$ the
 parametric model's average pinball loss runs $\sim$2--3\% higher
 within this score region (a conditional average over the region, not a per-name point estimate), flag the asset for the nonparametric /
-residual-hybrid engine and for model-risk review; elsewhere
+residual-hybrid estimator and for model-risk review; elsewhere
 $\Rightarrow$ no action (in the amortized setting the engine is run
 regardless; the meter serves surveillance, and day-level switching is
 unsupported, Section~\ref{sec:gate}).
 (v)~Latency: detection lags episode onset by median 0 / mean 2--4 days;
 the edge is back-loaded within episodes, so the lag forfeits little.
 }}
-
 
 %% ===== THE MISSPECIFICATION FRONTIER =====
 \section{Data and evaluation protocol}\label{sec:protocol}
@@ -1415,7 +1370,7 @@ normalization, for a clean reason: a name's fitted $\nu$ is estimated
 from the same residuals, and a low value is itself a symptom of the tail
 activity that matters, so dividing it out removes part of the signal. The
 fixed-shape model is inadequate wherever recent standardized-residual tail
-activity is high, which is exactly where the flexible engine wins.
+activity is high, which is exactly where the flexible estimator wins.
 
 \paragraph{Timing diagnostics.} The score is computed from residuals
 through day $t-1$ and paired with the day-$t$ loss;
@@ -1746,7 +1701,6 @@ day-level switching adds nothing. (Detection latency is small, median zero, and 
 within episodes, so the lag costs little even in the per-name
 setting.)
 
-
 %% ===== FRTB BATTERY =====
 \section{VaR and Expected Shortfall forecast evaluation}\label{sec:frtb}
 
@@ -2015,7 +1969,7 @@ the overall cost.
 \subsection{The ten-day horizon: a direct multi-day extension}
 
 The multi-day results in this subsection come from a \emph{direct} amortized model, a pooled quantile learner trained on $h$-day
-cumulative returns with GARCH-derived features, and \emph{not} from the residual-hybrid engine of Algorithm~1, whose residual
+cumulative returns with GARCH-derived features, and \emph{not} from the residual-hybrid estimator of Algorithm~1, whose residual
 architecture is one-day; the two are separate objects, and no
 ten-day claim in this paper attaches to the deployed engine. Training
 labels whose $h$-day window crosses the split are excluded, so no
@@ -2045,7 +1999,7 @@ ratio at $h = 1, 5, 10, 20$ days (150-name design panel; training
 labels whose $h$-day window crosses the split are purged): fat tails
 compound while $\sqrt{h}$ scaling compounds the shape error, from $0.45\%$ at $h{=}1$ to $2.1\%$ at $h{=}20$. The forecaster is the
 direct multi-day model of the main text's ten-day subsection,
-\emph{not} the residual-hybrid engine, whose architecture is
+\emph{not} the residual-hybrid estimator, whose architecture is
 one-day. An earlier version of this figure showed larger ratios from
 an unpurged run; the purged rerun supersedes it.}
 \label{fig:horizon}
@@ -2099,9 +2053,8 @@ from the win list. The GPD tail also \emph{hurts} some volatility
 series (VVIX, V2X, MOVE flip from win to tie/loss), motivating the
 selective-application rule of Section~\ref{sec:hybrid}.
 
-
 %% ===== APPLICATIONS =====
-\section{Applications and deployment}\label{sec:applications}
+\section{Extensions and implications}\label{sec:applications}
 
 \medskip\noindent\fbox{\parbox{0.96\textwidth}{
 \textbf{The production loop.}
@@ -2184,7 +2137,7 @@ for an asset with \emph{no return history}: an IPO or newly listed
 ETF gets day-one quantiles from its characteristics and
 its first ticks, because the model was trained on the pooled
 (state, loss) pairs of hundreds of other names. (The day-one forecaster is the raw amortized model; the
-residual-hybrid engine of Section~\ref{sec:hybrid} attaches once a
+residual-hybrid estimator of Section~\ref{sec:hybrid} attaches once a
 scale filter is estimable.) The practical numbers:
 the amortized forecast beats own-history benchmarks at \emph{every}
 listing age, largest when young ($\sim$6--10\% of pinball in the
@@ -2210,7 +2163,6 @@ tail-risk measurement, not a market-timing signal.
 inverse-CDF sampler, calibrating intractable scenario generators
 (rough volatility, Hawkes, jump-diffusions) for CCAR/ICAAP-style
 stress design is a natural extension; it is not developed here.
-
 
 %% ===== CONCLUSION =====
 \section{Conclusion and limitations}\label{sec:limitations}
@@ -2409,8 +2361,6 @@ $t_{\nu_1}$, applying \eqref{eq:quadratic} with $q=Q_{\nu_2}(\tau)$ and
 $q_F=Q_{\nu_1}(\tau)$ bounds the regret below by
 $\tfrac{m}{2}(Q_{\nu_1}(\tau)-Q_{\nu_2}(\tau))^2$, with $m$ the minimum
 of the $t_{\nu_1}$ density on the wedge interval. \hfill$\square$
-
-
 
 \subsection*{Proof of Lemma~2 of the paper (generative sampler)}
 Let $\widetilde{q}(\cdot \mid s)$ be nondecreasing and left-continuous
