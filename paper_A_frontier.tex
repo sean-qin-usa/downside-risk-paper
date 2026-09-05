@@ -157,7 +157,7 @@ split-conformal overlay, which is co-best with CAViaR
 HS, and GJR-skew-$t$, and attains the lowest joint $(\VaR,\ES)$ FZ0
 score at both FRTB levels with exception counts near nominal through a
 2008-crisis window. Two formal results motivate the search: a pinball
-regret identity, by which a forecaster's excess loss is quadratic in
+regret identity, by which a forecaster's excess loss is locally quadratic in
 its quantile wedge so any edge concentrates where the wedge is largest,
 and a tail-wedge proposition, by which innovation-shape misspecification
 opens that wedge in the tail.
@@ -485,7 +485,7 @@ Section~\ref{sec:frtb} (the conformal stage is the only reason any
 entrant passes Kupiec at 97.5\%). Conformal constructions with
 validity under dependence exist \citep{chernozhukov2018conformal}; we
 prefer the simple split form plus an empirical audit. One further
-implementation gap is disclosed rather than hidden: the first-stage
+implementation gap: the first-stage
 GARCH is fit on the full pre-test history, calibration window
 included, so the calibration errors are held out from the shape
 learner and the EVT tail but not from the filter. The accuracy-layer
@@ -743,7 +743,7 @@ the loss}\label{sec:theory}
 The paper's organizing claim, that the nonparametric edge lives where
 the fixed innovation shape is locally wrong, is an empirical finding with a structural motivation in the pinball loss. The results
 below are deliberately modest: a shape violation creates a quantile
-wedge, and regret is quadratic in that wedge: motivation for looking where trailing shape diagnostics are extreme, not proof that
+wedge, and regret is locally quadratic in that wedge: motivation for looking where trailing shape diagnostics are extreme, not proof that
 mk$_{63}$ estimates the wedge; that link is established empirically.
 
 \begin{lemma}[pinball regret identity]\label{lem:regret}
@@ -778,7 +778,7 @@ orientations of the integral, are in Appendix~\ref{app:proofs}.
 \end{proof}
 
 Lemma~\ref{lem:regret} says the extra loss a misspecified forecaster
-pays is \emph{quadratic in its quantile error}. The frontier claim then
+pays is \emph{locally quadratic in its quantile error}. The frontier claim then
 reduces to: does shape misspecification create a quantile wedge at the
 risk levels that matter? For the paper's canonical case, a fixed Student-$t$ shape when the true local shape is fatter, it must:
 
@@ -838,6 +838,52 @@ rather than sitting cleanly beyond it, and why the score of
 Section~\ref{sec:score} is used as a \emph{rank} rather than a moment
 estimate.
 \end{remark}
+
+\begin{proposition}[the score orders the frontier]\label{prop:scorefrontier}
+Let the standardized innovation $z_t=(r_t-\mu_t)/\sigma_t$ have true law
+$F$ with density $f>0$ at the quantiles of interest, while the benchmark
+imposes the fixed law $G=t_\nu$; both forecasters share the scale
+$\sigma_t$, reporting $\sigma_t G^{-1}(\tau)$ and the oracle
+$\sigma_t F^{-1}(\tau)$, the latter the target of the nonparametric
+estimator (attained up to $O_p(n^{-1/2})$). Embed the truth in a family
+$\{F_\delta\}_{\delta\ge0}$ with $F_0=G$, smooth in $\delta$, whose excess
+kurtosis $\kappa(\delta)$ is strictly increasing with
+$\kappa(0)=\kappa_{t_\nu}$, and write the level-$\tau$ advantage of the
+oracle over the benchmark as
+$A_\tau(\delta)=\mathbb{E}_{F_\delta}\rho_\tau(z-G^{-1}(\tau))
+-\mathbb{E}_{F_\delta}\rho_\tau(z-F_\delta^{-1}(\tau))$. Then, under the
+conditions of Lemma~\ref{lem:regret} and Proposition~\ref{prop:wedge}:
+\emph{(i)}~$A_\tau(\delta)=\tfrac12
+f_\delta(F_\delta^{-1}(\tau))(G^{-1}(\tau)-F_\delta^{-1}(\tau))^2+o(\cdot)\ge0$,
+with equality iff the laws agree at $\tau$; \emph{(ii)}~for $\tau$ below
+the crossover of Remark~\ref{rem:crossover},
+$|G^{-1}(\tau)-F_\delta^{-1}(\tau)|$ and hence $A_\tau(\delta)$ are
+strictly increasing in $\delta$, thus in $\kappa(\delta)$; and
+\emph{(iii)}~the trailing-window sample excess kurtosis $S_t$ satisfies
+$S_t\xrightarrow{p}\kappa(\delta)$ whenever $\mathbb{E}[z^4]<\infty$.
+Composing the monotone maps
+$S_t\mapsto\kappa(\delta)\mapsto|\text{wedge}|\mapsto A_\tau$, the
+population limit of the score orders the advantage: the nonparametric
+edge is largest, in expectation, where the score is largest.
+\end{proposition}
+\begin{proof}[Proof sketch]
+Part~(i) is Lemma~\ref{lem:regret} applied to the benchmark wedge;
+part~(ii) is Proposition~\ref{prop:wedge}, since raising $\kappa(\delta)$
+pushes the tail quantile $F_\delta^{-1}(\tau)$ outward while $G^{-1}(\tau)$
+is fixed; part~(iii) is the law of large numbers for the fourth
+standardized sample moment. Composing the three monotone maps gives the
+ordering; the tail restriction is the crossover of
+Remark~\ref{rem:crossover}. Full argument in Appendix~\ref{app:proofs}.
+\end{proof}
+
+\medskip\noindent This is a population, first-order statement: it
+explains why an \emph{observable} shape statistic must order the
+nonparametric edge, so the frontier is a predicted regularity and not
+only an estimated one. It abstracts from the estimator's $O_p(n^{-1/2})$
+error, the GARCH scale filter, and the aggregation over $\tau$ (the
+reported pinball edge is a $\tau$-weighted sum dominated by the tail
+terms); Sections~\ref{sec:frontier}--\ref{sec:frtb} confirm the ordering
+under all three.
 
 \begin{lemma}[validity of the generative sampler]\label{lem:sampler}
 If $\tau \mapsto \widetilde{q}(\tau \mid s)$ is nondecreasing and
@@ -951,24 +997,28 @@ with window mean $\bar{z}$ and standard deviation $s_z$:
 \Big(\frac{\widehat{z}_i - \bar{z}}{s_z}\Big)^{3},
 \label{eq:score}
 \end{equation}
+In the released code $\mathrm{mk}_{63}$ and $\mathrm{sk}_{63}$ are the
+bias-corrected sample excess kurtosis and skewness (pandas' \texttt{kurt}
+and \texttt{skew}); at the full window length the correction is a common
+affine rescaling of \eqref{eq:score}, so the pooled decile ranks that the
+frontier uses are unchanged.
 Terminology is fixed here once: \emph{skewness} is the signed third
 moment $\mathrm{sk}_{63}$; \emph{asymmetry} always means its absolute
 value $|\mathrm{sk}_{63}|$ (departure from symmetry in either
 direction, since a fixed symmetric $t$ is violated equally by either
 sign); everywhere the text says ``asymmetry,'' the statistic computed
 is $|\mathrm{sk}_{63}|$. The score also uses the five-day jump indicator
-$J_5(t) = \max_{i \in \{t-4,\dots,t\}} |\widehat{z}_i|$. The frontier
+$J_5(t) = \max_{i \in \{t-5,\dots,t-1\}} |\widehat{z}_i|$. The frontier
 score is the decile rank of these within the trailing cross-section.
 All three are causal (trailing-window) and computable on any asset with a fitted GARCH, which is what makes the frontier a deployable monitor
 rather than an ex-post classification. Informally we will call this the
-misspecification \emph{thermometer}: it reads the local temperature of
-the parametric assumption, and Table~\ref{tab:decision} is the treatment
-chart.
+residual-shape score; Table~\ref{tab:decision} reports the associated
+per-decile actions.
 
-\emph{Why these statistics.} The parametric model's one fragile
-assumption is that the standardized residual's \emph{shape} is a fixed
-$t_\nu$; its first two conditional moments are already absorbed by
-$\mu_t, \sigma_t$. The lowest-order ways a fixed symmetric law can be
+\emph{Why these statistics.} Conditional on the fitted location-scale
+specification $(\mu_t,\sigma_t)$, the distributional restriction the
+flexible family relaxes is the fixed $t_\nu$ innovation \emph{shape}.
+The lowest-order ways a fixed symmetric law can be
 locally wrong are precisely the third and fourth standardized moments:
 $\mathrm{sk}_{63}$ detects asymmetry no symmetric $t$ can carry, and
 $\mathrm{mk}_{63}$ detects tail mass beyond what the fitted $\nu$
@@ -978,11 +1028,9 @@ temporal variation matters, not its $t_\nu$ baseline). $J_5$ catches
 jump episodes too recent for the window moments to register. When these
 are elevated, the ERM shape model \eqref{eq:shapeERM} has something to
 learn that $t_\nu^{-1}$ cannot represent, and Section~\ref{sec:frontier} shows the realized edge concentrates there. Note the logical
-status of this choice: after $\mu_t$ and $\sigma_t$ are fitted, the
-fixed innovation shape is the parametric model's \emph{only} remaining
-free assumption. A signal that measures the local violation of that
-one assumption is therefore a natural axis along which flexible-shape
-models would be expected to win, which the frontier evidence below
+status of this choice: a signal that tracks departures from that fixed
+shape is a natural axis along which flexible-shape models would be
+expected to win, which the frontier evidence below
 and the $t_\nu$-relative normalization together support.
 
 \medskip\noindent\fbox{\parbox{0.96\textwidth}{
@@ -1330,7 +1378,7 @@ under the name's fitted $t_{\nu_i}$ leaves the frontier essentially
 unchanged (top decile $+3.0\%$, DM 8.5, against $+3.0\%$, DM 10.5 raw),
 but this normalization is nearly rank-preserving (Spearman $0.97$, $82\%$
 top-decile overlap) and so cannot by itself separate the two. A
-discriminating test settles it \emph{against} the model-relative reading.
+discriminating test instead favors the raw-tail-activity reading.
 In a within-date cross-sectional (Fama--MacBeth) regression of the
 per-observation edge on the raw score and the $\nu$-relative percentile,
 the raw score carries the predictive content ($t=7.8$) while the
@@ -1340,16 +1388,19 @@ edge \emph{falls} from $+1.9\%$ for the most fat-tailed (low-$\nu$) names
 to $+1.5\%$ for the thinnest-tailed, and observations high in the
 $\nu$-relative score but not in raw kurtosis carry no edge ($+0.3\%$, DM
 $0.5$). The signal is thus the absolute level of recent tail activity rather than
-a per-name $\nu$-normalized surprise. This does not make it less a
-misspecification diagnostic: $\mathrm{mk}_{63}$ is computed on the
-\emph{standardized} residuals the model itself assumes are stationary
-$t_\nu$, so an elevated value is by construction a departure from the
-fitted innovation shape; what the data reject is only the finer per-name
-normalization, for a clean reason: a name's fitted $\nu$ is estimated
-from the same residuals, and a low value is itself a symptom of the tail
+a per-name $\nu$-normalized surprise. The signal still measures shape
+stress relative to the fitted model: $\mathrm{mk}_{63}$ is computed on the
+\emph{standardized} residuals the model treats as stationary $t_\nu$, so
+elevated values flag states in which the realized residual shape is
+heavier or more asymmetric than the fitted law typically produces. A
+correctly specified low-$\nu$ $t_\nu$ can itself generate high realized
+kurtosis, so the score is a stress indicator rather than a formal
+specification test; what the data reject is the finer per-name
+normalization, plausibly because a name's fitted $\nu$ is estimated from
+the same residuals and a low value is itself a symptom of the tail
 activity that matters, so dividing it out removes part of the signal. The
-fixed-shape model is inadequate wherever recent standardized-residual tail
-activity is high, which is exactly where the flexible estimator wins.
+flexible estimator's advantage concentrates wherever recent
+standardized-residual tail activity is high.
 
 \paragraph{Timing diagnostics.} The score is computed from residuals
 through day $t-1$ and paired with the day-$t$ loss;
@@ -1400,11 +1451,11 @@ toward days whose mk$_{63}$ resembles today's (Gaussian kernel). On
 the full panel the reweighted FHS is significantly \emph{worse} than
 plain FHS overall (per-date DM $-11.3$) and in the top decile (pinball
 0.541 against 0.444), while the pooled model beats plain FHS there by
-$2.7\%$ (DM 8.8). The mechanism is effective-sample collapse: sharp
+$2.7\%$ (DM 8.8). The deterioration is consistent with effective-sample collapse: sharp
 univariate conditioning shrinks a name's usable history exactly when
 today is unusual. Pooling across names is what makes state-conditioning affordable: the amortized model borrows the shape information from every name's
-stressed days. The amortization of Section~\ref{sec:gbcmethod} is a
-precondition for the frontier result; a single name's history cannot
+stressed days. These results suggest the amortization of Section~\ref{sec:gbcmethod} is
+important for the frontier result: a single name's history cannot
 support sharp state-conditioning on its own.
 
 \paragraph{Robustness of the score.} Table~\ref{tab:doublesort} double-sorts the edge on the score and on
@@ -1642,8 +1693,8 @@ section rests on is pooled and structural: the crisis-tier FX
 comparison (DM 4.12, $p\approx2\times10^{-5}$, surviving any
 adjustment) and the kurtosis--edge gradients across universes.
 
-\paragraph{A frequency corollary.} Daily crypto belongs to GARCH (zero
-nonparametric wins on five liquid coins). At \emph{hourly} frequency the
+\paragraph{A frequency corollary.} In the five daily crypto series examined here, GARCH wins throughout (zero
+nonparametric wins). At \emph{hourly} frequency the
 picture inverts: the neural IQN beats the full benchmark ladder,
 including filtered historical simulation, by $\sim$0.6\% with per-date
 DM $p < 10^{-7}$. Sample density is itself a frontier dimension: more
@@ -1714,7 +1765,7 @@ Historical simulation & 0.3619 & $-7.21$ / $-6.86$ & 0.84\% & 0.00 \\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}\footnotesize
-\item One run, one artifact: every column is generated from
+\item All columns are generated from a single common-sample run:
 \texttt{frtb\_table\_results.json} on a single common sample (155k
 asset-days; the rolling-FHS burn-in trims all models identically).
 Predicted ES is the numerical tail integral
@@ -1818,7 +1869,7 @@ pre-crisis data, tilts conservative out of era (breach $2.21\%$ at
 calibration era is calmer than the test era, and the direction of the
 error is the one regulators prefer.
 
-The headline carries caveats. First, adding SAV-CAViaR, a model
+Adding SAV-CAViaR, a model
 absent from banks' standard toolkit
 but the strongest semiparametric
 academic benchmark, produces a statistical tie: CAViaR 0.3461 vs
@@ -2088,16 +2139,15 @@ test at both levels (per-name diagnostics show residual
 cross-sectional heterogeneity). This paper makes \emph{no}
 capital-release claim: the predicted-vs-realized ES wedge conditions
 on each model's own breach set and doubles under the exact tail
-integral, so no defensible arithmetic converts it to capital. What survives
-audit is a mechanism stated with its limits: the ES-based component
+integral, so no defensible arithmetic converts it to capital. The narrower implication is that the ES-based component
 of an IMA charge scales with the ES forecast, but actual FRTB capital
 also involves liquidity-horizon adjustment, stressed-period ES on a
 reduced factor set, constrained aggregation, non-modellable risk
 factors, and desk-level eligibility through backtesting and P\&L attribution, so no one-for-one mapping from a single-name ES
 forecast to desk capital exists, and none is claimed. Establishing
 genuine calibration differences requires a jointly valid standard,
-and the FZ0 comparison of Section~\ref{sec:frtb} is the version of
-that comparison this paper stands on. The ten-day rerun on
+and we therefore use the FZ0 comparison of Section~\ref{sec:frtb} for the
+formal VaR/ES ranking. The ten-day rerun on
 2000--2013 shows $\sqrt{h}$-scaled GARCH almost exactly calibrated
 through the crisis era while the direct-learned tail under-states it:
 multi-day capital economics would be regime-dependent in the direction
@@ -2144,7 +2194,7 @@ inverse-CDF sampler, calibrating intractable scenario generators
 stress design is a natural extension; it is not developed here.
 
 %% ===== CONCLUSION =====
-\section{Conclusion and limitations}\label{sec:limitations}
+\section{Conclusion}\label{sec:limitations}
 
 A fixed-shape parametric filter is hard to beat where its
 assumption holds: most assets on most days. The paper's answer to
@@ -2155,20 +2205,20 @@ engine that captures this improves on the market-risk benchmarks banks
 commonly run on FRTB-aligned diagnostics; the full IMA approval
 machinery is not claimed.
 
-Several limitations bound these conclusions. On this tabular state
-representation gradient-boosted trees remain the strongest point
-estimator, so the neural network earns its place through direct
-sampling rather than accuracy. The misspecification score is
-predictive, not a necessary or sufficient condition: high residual
+Three qualifications bound these conclusions. The misspecification score
+is predictive, not a necessary or sufficient condition: high residual
 kurtosis coincides with ties on carbon and corn, Baltic freight is a
 nonparametric win at moderate kurtosis, and credit and freight show
 accuracy edges alongside clustered exceptions whose calibration the
-current tail stages leave open. Finally, the study is daily-frequency:
-the 2000--2013 holdout and its exception-test re-run cover the
-frontier's 2008 exposure but an intraday extension awaits tick data,
-and because the per-day oracle gap of Section~\ref{sec:gate} is mostly
-realization noise rather than forecastable structure, the score is best
-read as a monitor of where the flexible model helps rather than a
+current tail stages leave open. Proposition~\ref{prop:scorefrontier}
+shows why an observable shape statistic must order the edge in a stylized
+misspecification family, but the data do not identify residual
+misspecification as its structural cause. Finally, the study is
+daily-frequency: the 2000--2013 holdout and its exception-test re-run
+cover the frontier's 2008 exposure but an intraday extension awaits tick
+data, and because the per-day oracle gap of Section~\ref{sec:gate} is
+mostly realization noise rather than forecastable structure, the score is
+best read as a monitor of where the flexible model helps rather than a
 daily switching rule.
 
 \section*{Acknowledgments}
@@ -2340,6 +2390,28 @@ $t_{\nu_1}$, applying \eqref{eq:quadratic} with $q=Q_{\nu_2}(\tau)$ and
 $q_F=Q_{\nu_1}(\tau)$ bounds the regret below by
 $\tfrac{m}{2}(Q_{\nu_1}(\tau)-Q_{\nu_2}(\tau))^2$, with $m$ the minimum
 of the $t_{\nu_1}$ density on the wedge interval. \hfill$\square$
+
+\subsection*{Proof of Proposition~\ref{prop:scorefrontier} (the score orders the frontier)}
+Fix $\tau$ below the crossover level of Remark~\ref{rem:crossover}, so that
+by Proposition~\ref{prop:wedge} $Q_G(\tau)$ is strictly less extreme than
+$Q_{F_\delta}(\tau)$ and the gap $w(\delta)=|Q_G(\tau)-Q_{F_\delta}(\tau)|$
+is strictly increasing in the excess kurtosis $\kappa(\delta)$: raising
+$\delta$ raises $\kappa(\delta)$ by construction of the family, which by
+the tail ordering of Proposition~\ref{prop:wedge} pushes $Q_{F_\delta}(\tau)$
+monotonically outward while $Q_G(\tau)$ is fixed, so $w'(\delta)>0$. By
+Lemma~\ref{lem:regret}, the benchmark's level-$\tau$ excess loss under local
+truth $F_\delta$ is $A_\tau(\delta)=\tfrac12 f_\delta(Q_{F_\delta}(\tau))\,w(\delta)^2+o(w(\delta)^2)$,
+strictly increasing in $w(\delta)$ and hence in $\delta$ near $\delta=0$;
+the oracle attains $Q_{F_\delta}(\tau)$ and carries no first-order regret,
+and the nonparametric estimator attains it up to $O_p(n^{-1/2})=o(1)$ in
+the advantage. Finally the trailing-window sample excess kurtosis $S_t$ is
+the fourth standardized sample moment minus three, so
+$S_t\xrightarrow{p}\kappa(\delta)$ whenever $\mathbb{E}[z^4]<\infty$ ($\nu>4$;
+sampling variance finite for $\nu>8$). Composing
+$S_t\mapsto\kappa(\delta)\mapsto w(\delta)\mapsto A_\tau(\delta)$ shows the
+probability limit of the score orders the level-$\tau$ advantage; the
+aggregate pinball edge ($\tau$-weighted, tail-dominated) and the joint
+$(\mathrm{VaR},\mathrm{ES})$ curve inherit it. \hfill$\square$
 
 \subsection*{Proof of Lemma~2 of the paper (generative sampler)}
 Let $\widetilde{q}(\cdot \mid s)$ be nondecreasing and left-continuous
