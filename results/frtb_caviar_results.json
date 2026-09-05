@@ -38,10 +38,10 @@
     },
     "hybrid_GBM": {
       "avg_pinball": 0.346,
-      "ES975_pred": -5.713,
-      "ES975_realized": -5.597,
-      "breach99": 0.0122,
-      "breach975": 0.0294,
+      "ES975_pred": -5.714,
+      "ES975_realized": -5.563,
+      "breach99": 0.012,
+      "breach975": 0.0298,
       "kupiec99_p": 0.0,
       "christ99_p": 0.0,
       "kupiec975_p": 0.0,
@@ -62,20 +62,20 @@
   "best_model": "hybrid_GBM",
   "DM_vs_best": {
     "garch_t": {
-      "DM_stat": 3.7,
-      "p_one_sided": 0.0001
+      "DM_stat": 3.4,
+      "p_one_sided": 0.0003
     },
     "fhs": {
-      "DM_stat": 3.94,
-      "p_one_sided": 0.0
+      "DM_stat": 3.65,
+      "p_one_sided": 0.0001
     },
     "caviar_sav": {
-      "DM_stat": 0.59,
-      "p_one_sided": 0.2777
+      "DM_stat": 0.4,
+      "p_one_sided": 0.3429
     },
     "hybrid_EVT": {
-      "DM_stat": 3.11,
-      "p_one_sided": 0.001
+      "DM_stat": 2.41,
+      "p_one_sided": 0.0079
     }
   },
   "MCS": {
@@ -85,9 +85,9 @@
     ],
     "elim_pvals": {
       "fhs": 0.0,
-      "garch_t": 0.001,
-      "hybrid_EVT": 0.009,
-      "caviar_sav": 0.544
+      "garch_t": 0.004,
+      "hybrid_EVT": 0.03,
+      "caviar_sav": 0.686
     }
   }
 }
