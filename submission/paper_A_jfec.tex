@@ -88,17 +88,7 @@ estimation.
 Two communities measure conditional downside risk. Econometrics builds
 parametric filters (GARCH and its leverage and skew extensions) whose
 conditional scale dynamics are excellent and whose innovation law
-is fixed by assumption.\footnote{For readers outside econometrics:
-GARCH (generalized autoregressive conditional heteroskedasticity;
-\citealp{engle1982, bollerslev1986}) captures the most robust fact
-about markets, that volatile days cluster, by letting today's variance
-be a weighted average of yesterday's variance and yesterday's squared
-surprise (Eq.~\ref{eq:garch}). ``Leverage'' extensions (GJR;
-\citealp{glosten1993}) let down-moves raise volatility more than
-up-moves; ``skew-$t$'' versions allow an asymmetric heavy-tailed
-innovation. What all of them fix in advance is the \emph{shape} of the
-standardized surprise; that assumption is what this paper's score
-monitors.} Machine learning builds distribution-free
+is fixed by assumption. Machine learning builds distribution-free
 conditional quantile estimators that assume nothing about the
 innovation law but must learn everything from data: gradient-boosted
 quantile trees, neural implicit quantile networks (IQN), and, most
@@ -124,14 +114,7 @@ estimator carries no detectable accuracy penalty on quiet days. What does lose o
 as a cautionary boundary and never deploy: a bare per-name neural
 quantile model, which a unit-matched GJR-GARCH-$t$ beats by
 4.5--6.2\% at every horizon (DM $t$ between $+12$ and
-$+18$)\footnote{Throughout, DM denotes the \citet{dieboldmariano1995}
-test: a $t$-statistic on the per-date mean loss difference of two
-forecasters (pinball loss unless stated), with a serial-correlation-robust
-standard error. The difference is oriented so that positive $t$ favors
-the model reported as winning; the engine's headline comparisons use
-$d_t=\ell_t^{\text{benchmark}}-\ell_t^{\text{engine}}$. Headline tests
-are one-sided at the 5\% level ($t>1.645$); two-sided readings are
-noted where used.} That failure is what dictates the estimator's hybrid design. The
+$+18$) That failure is what dictates the estimator's hybrid design. The
 contribution is thus a \emph{predictive theory of when flexible-shape
 methods win}, a method that converts the theory into a risk model
 whose forecasting advantage over the benchmarks banks commonly run
@@ -236,20 +219,16 @@ significance assessed by per-date Diebold--Mariano tests
 \subsection{The parametric family, the simulation family, and CAViaR}
 
 Our battery spans the models banks actually run: historical simulation;
-EWMA/RiskMetrics \citep{zumbach2007} (an exponentially weighted moving
-average of squared returns, giving recent days more weight); GARCH(1,1)-$t$
+EWMA/RiskMetrics \citep{zumbach2007}; GARCH(1,1)-$t$
 \citep{bollerslev1986}; GJR-GARCH-skew-$t$ \citep[adding leverage and
 skewness;][]{glosten1993};
 GARCH-FHS \citep[parametric scale, empirical standardized residuals, the volatile-regime best practice;][]{baroneadesi1999fhs}; and SAV-CAViaR
 \citep{engle2004caviar}, the strongest non-nested semiparametric
 rival, and the strongest available comparator for the accuracy claim.
-CAViaR (conditional autoregressive Value-at-Risk) skips modeling the
-distribution entirely and lets the quantile itself follow a recursion
-estimated on the pinball loss; the SAV (symmetric absolute value)
-specification is
-$q_t(\tau) = \beta_0 + \beta_1\, q_{t-1}(\tau) + \beta_2\,|r_{t-1}|$: today's VaR is yesterday's VaR adjusted by the size (not sign) of
-yesterday's move, making it the semiparametric analogue of a GARCH
-recursion written directly on the quantile.
+The SAV (symmetric absolute value) specification models the quantile
+directly on the pinball loss,
+$q_t(\tau) = \beta_0 + \beta_1\, q_{t-1}(\tau) + \beta_2\,|r_{t-1}|$, the
+semiparametric analogue of a GARCH recursion written on the quantile.
 
 \subsection{Distribution-free conditional quantiles and GBC}
 
@@ -1134,10 +1113,8 @@ upward. This point-in-time construction still requires the symmetric
 fitting floors, so 36 of the 200 names, those the estimators cannot
 fit, do not enter; the estimand is the 164 that clear them.
 
-\section{The misspecification frontier}\label{sec:frontier}
-
-\noindent\textbf{Conventions.}
-Conventions are fixed once, here. (i)~\emph{Edges} are percentage
+\subsection{Reporting and inference conventions}
+The reporting and inference conventions used in the empirical sections that follow are fixed here. (i)~\emph{Edges} are percentage
 reductions in pinball loss, so \emph{larger is better} for the named
 model; a ``$+2.7\%$ edge'' means the model's average loss is 2.7\%
 lower than the benchmark's. (ii)~\emph{Ratios} are model-over-benchmark
@@ -1170,6 +1147,8 @@ numbers are realized frequencies against a stated nominal (0.05 target:
 directions. (v)~\emph{Correlations} quoted for the frontier relate a universe's
 residual-kurtosis level to the size of the nonparametric edge across
 that universe's members. No other significance marks are used.
+
+\section{The misspecification frontier}\label{sec:frontier}
 
 \subsection{The within-universe result}
 
