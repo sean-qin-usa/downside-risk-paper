@@ -128,7 +128,7 @@ def mcs(L,alpha=0.10,B=800,blk=10):
         for bb in range(B): ix=bidx(Ls.shape[0]); mb=Ls[ix].mean(0); bd[bb]=mb[:,None]-mb[None,:]
         varij=bd.var(0)+1e-12; TR=np.nanmax(np.abs(dij)/np.sqrt(varij))
         bootTR=np.array([np.nanmax(np.abs(bd[bb]-dij)/np.sqrt(varij)) for bb in range(B)])
-        pval=float(np.mean(bootTR>=TR)); worst=surv[int(np.argmax(means))]; pv[cols[worst]]=round(pval,3)
+        pval=float(np.mean(bootTR>=TR)); worst=surv[int(np.argmax(np.nanmax(dij/np.sqrt(varij),axis=1)))]; pv[cols[worst]]=round(pval,3)
         if pval>=alpha: break
         surv.remove(worst)
     return {'in_MCS_90':[cols[i] for i in surv],'elim_pvals':pv}
