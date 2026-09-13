@@ -1,0 +1,1104 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,graphicx,booktabs,multirow,threeparttable,setspace,array}
+\usepackage[round]{natbib}
+\usepackage[hidelinks]{hyperref}
+\usepackage{caption,enumitem,tikz,pgfplots}
+\usetikzlibrary{positioning}
+\pgfplotsset{compat=1.17}
+\definecolor{npblue}{RGB}{31,78,121}
+\definecolor{npmid}{RGB}{72,120,168}
+\definecolor{gred}{RGB}{176,74,74}
+\definecolor{gold}{RGB}{200,162,74}
+\captionsetup{font=small,labelfont=bf}
+\setstretch{1.3}
+\newcommand{\VaR}{\mathrm{VaR}}
+\newcommand{\ES}{\mathrm{ES}}
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
+\renewcommand{\thefigure}{OA.\arabic{figure}}
+\renewcommand{\thetable}{OA.\arabic{table}}
+\renewcommand{\thesection}{OA.\arabic{section}}
+\title{Online Appendix\\ \large Semiparametric Value-at-Risk and Expected Shortfall with a Real-Time Misspecification Score}
+\author{Sean Qin}
+\date{September 2026}
+\begin{document}
+\maketitle
+\section{Glossary of acronyms}
+\begin{tabular}{ll}
+\toprule
+ARCD & autoregressive conditional density model \citep{hansen1994ARCD} \\
+CAViaR & conditional autoregressive value-at-risk \citep{engle2004caviar}; SAV, its symmetric absolute value form \\
+CC, UC & conditional coverage \citep{christoffersen1998} and unconditional coverage \citep{kupiec1995} exception tests \\
+CRPS & continuous ranked probability score \\
+CRSP, WRDS & Center for Research in Security Prices; Wharton Research Data Services \\
+DM & Diebold--Mariano test \citep{dieboldmariano1995} \\
+EM, IG, OAS & emerging markets; investment grade; option-adjusted spread \\
+ERM & empirical risk minimization \\
+ES, VaR & Expected Shortfall; Value-at-Risk \\
+EVT, GPD & extreme-value theory; generalized Pareto distribution \\
+EWMA & exponentially weighted moving average variance \citep{riskmetrics1996} \\
+FHS, HS & filtered historical simulation \citep{baroneadesi1999fhs}; historical simulation \\
+FRTB & Fundamental Review of the Trading Book \citep{bcbs2019frtb} \\
+FWER & family-wise error rate \\
+FZ0 & the zero-homogeneous Fissler--Ziegel joint (VaR, ES) scoring function \citep{fissler2016, patton2019} \\
+GARCH, GJR & generalized autoregressive conditional heteroskedasticity \citep{bollerslev1986}; the Glosten--Jagannathan--Runkle leverage form \citep{glosten1993} \\
+GAS & generalized autoregressive score model \citep{patton2019} \\
+GBC & generative Bayesian computation \citep{polson2023gbc} \\
+GBM & gradient boosting machine (gradient-boosted regression trees) \\
+GFC & the 2008 global financial crisis \\
+IQN & implicit quantile network \citep{dabney2018iqn} \\
+MCS & Model Confidence Set \citep{hansen2011mcs} \\
+PIT & probability integral transform \\
+PZC & Patton, Ziegel and Chen \citep{patton2019} \\
+QML & quasi-maximum likelihood \\
+RV & realized variance \\
+SPA & superior predictive ability test \citep{hansen2005spa} \\
+TAQ & NYSE Trade and Quote database \\
+\bottomrule
+\end{tabular}
+
+\section{Algorithms}
+\medskip\noindent\fbox{\parbox{0.96\textwidth}{
+\textbf{Algorithm OA.1 (amortized shape model).}
+(i)~Assemble the pooled panel $\{(s_{j,t}, \widehat{z}_{j,t})\}$ over
+names $j$ and days $t$.
+(ii)~Train $H_\phi$ by SGD on
+$\mathbb{E}_{\tau\sim\lambda}\,\rho_\tau(\widehat{z} - H_\phi(s,\tau))$
+[network], or boost per-$\tau$ regressions on a grid [trees]; enforce
+monotonicity by rearrangement.
+(iii)~For any asset, including one with no return history, using characteristics-only $s$, evaluate $H_\phi(s_t,\cdot)$; no per-asset
+estimation step exists.
+(iv)~To \emph{sample}, draw $\tau^{(m)}\sim U(0,1)$ and return
+$z^{(m)} = H_\phi(s_t,\tau^{(m)})$.
+}}
+
+\medskip\noindent\fbox{\parbox{0.96\textwidth}{
+\textbf{Algorithm OA.2 (the misspecification meter, as deployed).}
+(i)~Fit equation~(2) of the paper on a trailing window; store
+$\widehat{z}_{t-62},\dots,\widehat{z}_t$.
+(ii)~Compute $\mathrm{mk}_{63}$, $|\mathrm{sk}_{63}|$, $J_5$ by
+equation~(9) of the paper.
+(iii)~Convert each to its percentile against the trailing pooled panel
+(same asset class); the score is the maximum of the three percentiles,
+re-ranked into deciles.
+(iv)~Act by the paper: top decile $\Rightarrow$ the parametric
+model's average pinball loss runs $\sim$2--3\% higher within this
+score region (a conditional average, not a per-name point estimate), flag the asset for the nonparametric /
+residual-hybrid engine and for model-risk review; elsewhere
+$\Rightarrow$ no action (in the amortized setting the engine is run
+regardless; the meter serves surveillance, and day-level switching is
+unsupported, Section~4.3 of the paper).
+(v)~Latency: detection lags episode onset by median 0 / mean 2--4 days;
+the edge is back-loaded within episodes, so the lag forfeits little.
+}}
+
+\medskip\noindent\textbf{Deployed pipeline.} Each day: (i)~update each name's GARCH filter state
+$\widehat\sigma_{t+1}$ (recursion only; parameters refit annually);
+(ii)~assemble the state vector $s_t$ and evaluate the shared shape model $q_\phi(\tau\mid s_t)$, one model for the whole book, no
+per-name estimation; (iii)~apply the frozen GPD tail below $p_0$
+and, where the desk elects the coverage overlay, the conformal shift
+$c_\tau$ (static or adaptive); (iv)~report
+$\widehat Q_{t+1}(\tau) = \widehat\mu+\widehat\sigma_{t+1}\,\big(Q^{z}_{t+1}(\tau)+c_\tau\big)$
+at the desk's levels, with VaR and ES$_{97.5}$ both read from the coherent
+min-envelope curve $Q^{z}$ of equation~(5) of the paper (VaR at the $\alpha$
+node, ES its numerical tail integral); (v)~read
+the misspecification score equation~(9) of the paper as the model-risk monitor: top decile means the parametric fallback's conditional average loss
+in that score region runs $\sim$2--3\% higher. \emph{Annually:} refit filters, retrain the shape model,
+re-estimate tail and shifts, all on trailing data. \emph{New listing:}
+run the separate characteristics-only amortized forecaster until an
+own-history sample sufficient to initialize the per-name scale filter
+accrues; then attach this residual-hybrid pipeline. Total marginal
+cost per name per day: one filter update and
+one model evaluation.
+
+\section{Supplementary figures}
+% order fixes numbering: OA.1 timing, OA.2 passrates, OA.3 horizon, OA.4 frtb, OA.5 universes, OA.6 frontier
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}
+\begin{axis}[width=0.6\textwidth, height=4.6cm, ybar, bar width=14pt,
+  symbolic x coords={deployed $S_{t-1}$, aged $S_{t-5}$, contaminated $S_t$, lead $S_{t+1}$},
+  xtick=data, ymin=0, ymax=3.1, ylabel={Top-decile edge (\%)},
+  x tick label style={font=\scriptsize}, tick label style={font=\scriptsize},
+  nodes near coords, every node near coord/.append style={font=\scriptsize}]
+\addplot[fill=npblue, draw=npblue] coordinates
+  {(deployed $S_{t-1}$,2.69) (aged $S_{t-5}$,1.67) (contaminated $S_t$,1.91) (lead $S_{t+1}$,1.92)};
+\end{axis}
+\end{tikzpicture}
+\caption{Timing diagnostics for the frontier. Top-decile edge under four
+alignments of the mk$_{63}$ score with the daily loss (200 CRSP names;
+per-date DM 5.5--6.5 in all four). The deployed lag dominates, and the
+contaminated same-day alignment yields less, the opposite of what a look-ahead artifact would produce.}
+\label{fig:timing}
+\end{figure}
+\clearpage
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}
+\begin{axis}[width=0.86\textwidth, height=5cm, ybar, bar width=9pt,
+  symbolic x coords={HS, EWMA, GARCH-t, GJR, FHS, raw hybrid, hybrid+EVT},
+  xtick=data, ymin=0, ymax=1.05, ylabel={Per-asset Kupiec$_{99}$ pass rate},
+  x tick label style={font=\scriptsize, rotate=25}, tick label style={font=\scriptsize},
+  legend style={font=\scriptsize, at={(0.02,0.98)}, anchor=north west, draw=none}]
+\addplot[fill=npblue, draw=npblue] coordinates
+  {(HS,0.93) (EWMA,0.53) (GARCH-t,0.81) (GJR,0.86) (FHS,0.84) (raw hybrid,0.80) (hybrid+EVT,0.84)};
+\addplot[dashed, sharp plot, gray, mark=none] coordinates {(HS,0.95) (hybrid+EVT,0.95)};
+\addlegendentry{expected under exact calibration ($\approx$0.95)}
+\end{axis}
+\end{tikzpicture}
+\caption{Exception tests restated per asset (140 CRSP names, 99\% VaR):
+share of names whose individual Kupiec test is consistent with nominal.
+HS over-covers (conservative); EWMA fails; the EVT-tailed engine matches
+the parametric benchmarks while beating them on loss and the joint
+FZ0 score
+(Table~6 of the paper). Date-clustered tests in the table notes.}
+\label{fig:passrates}
+\end{figure}
+\clearpage
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}
+\begin{axis}[width=0.62\textwidth, height=4.8cm,
+  xlabel={Horizon $h$ (days)}, ylabel={Nonparam / GARCH-$\sqrt{h}$ ratio},
+  xtick={1,5,10,20}, ymin=0.973, ymax=1.003,
+  tick label style={font=\scriptsize}]
+\addplot[color=npblue, mark=*, thick] coordinates
+  {(1,0.9955) (5,0.9896) (10,0.9862) (20,0.9789)};
+\addplot[dashed, gray, mark=none] coordinates {(1,1) (20,1)};
+\node[font=\scriptsize, anchor=south] at (axis cs:20,0.9789) {0.979};
+\node[font=\scriptsize, anchor=south] at (axis cs:1,0.9955) {0.996};
+\end{axis}
+\end{tikzpicture}
+\caption{The edge grows with horizon. Direct-model/GARCH pinball
+ratio at $h = 1, 5, 10, 20$ days (150-name design panel; training
+labels whose $h$-day window crosses the split are purged): fat tails
+compound while $\sqrt{h}$ scaling compounds the shape error, from $0.45\%$ at $h{=}1$ to $2.1\%$ at $h{=}20$. The forecaster is the
+direct multi-day model of the main text's ten-day subsection,
+\emph{not} the residual-hybrid engine, whose architecture is
+one-day.}
+\label{fig:horizon}
+\end{figure}
+\clearpage
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}
+\begin{axis}[width=0.52\textwidth, height=5.2cm, ybar, bar width=7pt,
+  symbolic x coords={Hyb, Hyb+EVT, GARCH-t, FHS, GJR, EWMA, HS},
+  xtick=data, ymin=0.353, ymax=0.363,
+  ylabel={Avg.\ pinball}, x tick label style={font=\tiny, rotate=30},
+  tick label style={font=\scriptsize},
+  title={\small Accuracy (140 names, 155k obs)}]
+\addplot[fill=npblue, draw=npblue] coordinates
+  {(Hyb,0.3551) (Hyb+EVT,0.3555) (GARCH-t,0.3561) (FHS,0.3566)
+   (GJR,0.3562) (EWMA,0.3606) (HS,0.3619)};
+\end{axis}
+\end{tikzpicture}\hfill
+\begin{tikzpicture}
+\begin{axis}[width=0.44\textwidth, height=5.2cm, ybar, bar width=5pt,
+  symbolic x coords={Hyb, Hyb+EVT, GARCH-t, FHS},
+  xtick=data, ymin=-7.2, ymax=-5.2,
+  ylabel={ES$_{97.5}$}, x tick label style={font=\tiny, rotate=30},
+  tick label style={font=\scriptsize},
+  title={\small ES$_{97.5}$: predicted vs realized},
+  legend style={font=\tiny, at={(0.98,0.02)}, anchor=south east,
+                draw=none}]
+\addplot[fill=npmid, draw=npmid] coordinates
+  {(Hyb,-6.37) (Hyb+EVT,-6.90) (GARCH-t,-6.69) (FHS,-6.90)};
+\addlegendentry{predicted}
+\addplot[fill=gold, draw=gold] coordinates
+  {(Hyb,-5.83) (Hyb+EVT,-5.91) (GARCH-t,-5.65) (FHS,-5.67)};
+\addlegendentry{realized}
+\end{axis}
+\end{tikzpicture}
+\caption{The FRTB battery. Left: average pinball loss by model (axis
+truncated to resolve the ordering; differences carry DM 5.2--8.8 vs the
+hybrid, all $p \approx 0$); CAViaR, not shown, statistically ties the
+hybrid. Right: ES$_{97.5}$ predicted (exact tail integral) vs realized
+below each model's own VaR, a model-dependent diagnostic, not a
+ranking (every fat-tailed entrant's integral exceeds its own-tail
+mean); the joint FZ0 score of the paper is the ranking criterion.}
+\label{fig:frtb}
+\end{figure}
+\clearpage
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}
+\begin{axis}[width=0.88\textwidth, height=7cm, xmode=log,
+  xlabel={Post-GARCH residual excess kurtosis (log scale)},
+  ylabel={Nonparametric edge over GARCH-$t$ (\%)},
+  ymin=-4, ymax=17, xmin=3, xmax=8000,
+  tick label style={font=\scriptsize},
+  legend style={font=\scriptsize, at={(0.02,0.98)}, anchor=north west,
+                draw=none}]
+\addplot[only marks, mark=*, color=npblue] coordinates
+  {(10,0.7) (32.8,1.3) (1920,14.3) (3298,12.0)};
+\addlegendentry{nonparametric wins (significant)}
+\addplot[only marks, mark=square*, color=gred] coordinates
+  {(4.7,-0.7) (5.3,-1.2) (8,-1.3) (39,-1.9)};
+\addlegendentry{GARCH wins}
+\addplot[only marks, mark=triangle*, color=gray] coordinates
+  {(20,0) (288,0) (3357,2.0)};
+\addlegendentry{tie / counterexample}
+\node[font=\tiny, anchor=west] at (axis cs:11,0.7) {frontier idx (8)};
+\node[font=\tiny, anchor=west] at (axis cs:36,1.3) {vol idx (VIX+)};
+\node[font=\tiny, anchor=east] at (axis cs:1800,14.3) {USDEGP};
+\node[font=\tiny, anchor=west] at (axis cs:3500,12.0) {USDARS};
+\node[font=\tiny, anchor=north] at (axis cs:4.7,-0.9) {dev.\ idx};
+\node[font=\tiny, anchor=south] at (axis cs:5.3,-1.1) {emg.\ idx};
+\node[font=\tiny, anchor=north] at (axis cs:8,-1.5) {FX EM};
+\node[font=\tiny, anchor=west] at (axis cs:43,-1.9) {FX majors};
+\node[font=\tiny, anchor=south] at (axis cs:20,0.1) {corn};
+\node[font=\tiny, anchor=south] at (axis cs:288,0.1) {carbon};
+\node[font=\tiny, anchor=west] at (axis cs:3600,2.0) {USDNGN (ns)};
+\draw[dashed, gray] (axis cs:3,0) -- (axis cs:8000,0);
+\end{axis}
+\end{tikzpicture}
+\caption{The frontier across universes: nonparametric edge vs post-GARCH
+residual kurtosis, tier means and single assets with study-reported
+kurtosis only (country universe corr 0.53; cross-asset corr 0.43).
+The hyperinflation-FX tier (kurtosis $\sim$2000--3300) carries the only
+decisive standalone wins; high kurtosis is predictive but neither necessary nor sufficient: carbon (288) and corn (20) tie, and NGN's win is not significant.
+The Korea-2026 control (kurtosis 4--13, GARCH wins all 23 assets) sits
+in the lower-left regime.}
+\label{fig:universes}
+\end{figure}
+\clearpage
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}
+\begin{axis}[width=0.48\textwidth, height=4.6cm, ybar, bar width=4.5pt,
+  xlabel={Decile of $\mathrm{mk}_{63}$}, ylabel={Edge over GARCH-$t$ (\%)},
+  xtick={1,2,3,4,5,6,7,8,9,10}, ymin=-0.3, ymax=3.2,
+  title={\small Residual excess kurtosis}, tick label style={font=\scriptsize}]
+\addplot[fill=npblue, draw=npblue] coordinates
+  {(1,0)(2,0)(3,0)(4,0)(5,0)(6,0)(7,0)(8,0)(9,0.46)(10,2.98)};
+\end{axis}
+\end{tikzpicture}\hfill
+\begin{tikzpicture}
+\begin{axis}[width=0.48\textwidth, height=4.6cm, ybar, bar width=4.5pt,
+  xlabel={Decile of $|\mathrm{sk}_{63}|$},
+  xtick={1,2,3,4,5,6,7,8,9,10}, ymin=-0.3, ymax=3.2,
+  title={\small Residual asymmetry}, tick label style={font=\scriptsize}]
+\addplot[fill=npmid, draw=npmid] coordinates
+  {(1,0)(2,0)(3,0)(4,0)(5,0)(6,0)(7,0)(8,0)(9,0.59)(10,2.78)};
+\end{axis}
+\end{tikzpicture}
+\caption{The misspecification frontier. Nonparametric pinball edge over
+GARCH-$t$ by decile of the trailing 63-day residual excess kurtosis
+(left) and residual asymmetry (right), 200 CRSP names, 221.6k test
+asset-days. Deciles 1--8 are $\approx 0$ (drawn at zero; exact bulk
+values in the result file); the edge jumps in the top decile
+($+2.98\%$ kurtosis, $+2.78\%$ asymmetry; per-date DM 10.5 in the top
+kurtosis decile).}
+\label{fig:frontier}
+\end{figure}
+\clearpage
+\section{Supplementary tables}
+\begin{table}[htbp]
+\centering\small
+\begin{threeparttable}
+\caption{Summary of the paper's results and scope conditions. Edges are
+percentage pinball reductions unless noted; DM statistics are per-date
+(conventions note of Section~3 of the paper), one-sided. Panel A: the deployed amortized
+residual-hybrid engine (worst case on the accuracy yardstick: no
+detectable loss; calm-cell 90\% lower confidence bounds sit above
+$-0.25\%$). A separate block reports the direct multi-day
+extension, which is not the engine. Panel B: boundary
+evidence from configurations not deployed, which motivates the design.}
+\label{tab:winloss}
+\footnotesize\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.34\textwidth}>{\raggedright\arraybackslash}p{0.20\textwidth}>{\raggedright\arraybackslash}p{0.38\textwidth}}
+\toprule
+\multicolumn{3}{l}{\emph{Panel A: the engine}} \\
+Result & Magnitude & Significance \\
+\midrule
+vs GARCH-$t$ / EWMA / HS, $h{=}1$ (avg) & $+0.3$ / $+1.5$ / $+1.9\%$ & DM 4.4--8.3 \\
+Top misspecification decile & $+2.98\%$ & DM 10.5 \\
+Hyperinflation FX (ARS, EGP) & $+12$--$14\%$ & DM 2.9--3.8 \\
+Frontier equity indices (4 of 8) & $\sim$$+1$--$3\%$ & DM 2.1--3.5 \\
+2000--2013 frozen-spec holdout (untouched era) & top decile $+0.9\%$ & DM 2.2 (sort); recursive real-time rule $+1.0\%$, DM 2.15; frozen-constant restatement in text \\
+Point-in-time universe (Q1-2000 top 200, delistings kept) & top bucket $+2.9\%$; overall $+0.6\%$ & DM 6.6 / 9.0, frozen real-time thresholds \\
+Strict calendar splits; annual-refit walk-forward & top-decile edge holds under all three & DM 6.2 (2020 cut); 3.1 (overall, pre-GFC cut); 4.41 (annual-refit residual-hybrid walk-forward, $+2.12\%$) \\
+Familywise error over the $3\times10$ signal-decile grid & 9 cells survive 5\% FWER & Romano--Wolf step-down, incl.\ all three top deciles \\
+Exception battery through the 2008 crisis & Kupiec 94\% / Christof.\ 95\% at 99\% & date-clustered $t$ 0.17 at 99\%; at 97.5\%, 0.35 (EVT tail) and $-1.09$ (static overlay, conservative); HS, EWMA fail \\
+Joint $(\VaR,\ES)$ FZ0 score, full panel & accuracy layer lowest at both levels & DM 4.8--4.9 vs GARCH-$t$, FHS at 1\%, 5.1 at 2.5\%; 8.6--9.5 vs PZC GAS, 3.6-to-tie vs Taylor ES-CAViaR (multi-start); static shift concedes 2.5\% (DM $-2.0$), adaptive shift erases it (tie; top-decile cost remains) \\
+Cold start / young listings & $+6$--$10\%$ & full-scale panel; no per-asset model applies \\
+Calm-quintile edge & $\approx 0$ (point estimates $+0.0$--$+0.2\%$) & bottom-decile 90\% CIs lie above $-0.25\%$; no detectable loss \\
+CAViaR (strongest academic rival) & tie (both in 90\% MCS) & DM 0.4 \\
+\midrule
+\multicolumn{3}{l}{\emph{Extension (a separate direct multi-day model, not the engine)}} \\
+\midrule
+Ten-day horizon vs $\sqrt{h}$-scaling & $+1.4\%$ (2014--24) & holds in 2020--22 stress; 2000--13 rerun: tie, DM 0.07 (era-dependent) \\
+\midrule
+\multicolumn{3}{l}{\emph{Panel B: boundary evidence from configurations not deployed}} \\
+\midrule
+Bare standalone neural net, single names & $-4.5$ to $-6.2\%$ & DM $+12$ to $+18$; motivates the hybrid design \\
+Standalone nonparametric, calm single assets & GARCH as good or better & pooled DM $-9.5$ to $-13.7$; the shape edge needs misspecification \\
+Korea 2026 crisis, 23 assets (falsification case) & GARCH wins all & DM $-2.5$ to $-5$; a price crash is not a shape break \\
+mk$_{63}$-reweighted FHS (reweighting probe) & worse than plain FHS & DM $-11$ overall and top decile; sharp univariate conditioning collapses the sample \\
+Baltic freight; IG credit\tnote{a} & $+15\%$; $+52\%$ & DM 9.6; 30.6; accuracy only, calibration open \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\footnotesize
+\item[a] Credit and freight fail breach-independence (exceptions
+cluster); their entries are accuracy results only. The
+credit magnitude is from the FRTB-grade single-asset battery; the
+smaller $4\%$ figure in the paper's cross-universe table is from the separate lean hybrid-vs-GARCH sweep, different battery, both reported.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\begin{threeparttable}
+\caption{Double sort on the misspecification score and trailing volatility. Cells are the nonparametric-over-GARCH-$t$ pinball edge (\%)
+in independent quintiles of the misspecification score (rows) and
+trailing volatility (columns), design-era test panel.}
+\label{tab:doublesort}
+\footnotesize\setlength{\tabcolsep}{5pt}
+\begin{tabular}{lccccc}
+\toprule
+ & rv$_{63}$ Q1 (calm) & Q2 & Q3 & Q4 & Q5 (active) \\
+\midrule
+mk$_{63}$ Q1 (low) & $+0.24$ & $+0.34$ & $+0.10$ & $+0.01$ & $-0.14$ \\
+Q2 & $+0.16$ & $+0.20$ & $+0.22$ & $+0.09$ & $-0.57$ \\
+Q3 & $-0.02$ & $+0.19$ & $+0.25$ & $+0.44$ & $+0.04$ \\
+Q4 & $+0.08$ & $+0.15$ & $+0.35$ & $+0.23$ & $+0.10$ \\
+Q5 (high) & $-0.10$ & $+0.44$ & $+0.68$ & $+0.61$ & $\mathbf{+2.33}$ \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\footnotesize
+\item Top-row date-clustered DM by volatility quintile: 0.7, 2.3, 1.2,
+2.8, 6.4. The bottom-left and top-right regions are the point:
+neither ingredient alone produces the concentration.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+\begin{table}[htbp]
+\centering\small
+\caption{Model selection by task and regime.
+Each row is established in the section cited.}
+\label{tab:decision}
+\begin{tabular}{p{0.44\textwidth}p{0.30\textwidth}l}
+\toprule
+Task / regime & Winner & Where \\
+\midrule
+Point quantile accuracy, tabular state & GBM (trees) & Section~2.3 of the paper \\
+Single asset, calm ($\sim$90\% of asset-days) & GARCH-$t$ & Section~4 of the paper \\
+Single asset, top misspecification decile & Nonparametric ($+2.98\%$, DM 10.5) & Section~4 of the paper \\
+Amortized cross-name panel, any regime & Nonparametric always; no gate & Section~4.3 of the paper \\
+Regulatory ES with a $\ge$GARCH floor & Residual-hybrid $+$ EVT $+$ conformal & Section~5 of the paper \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\begin{threeparttable}
+\caption{Cross-universe multiplicity: Holm step-down over all 93
+instrument-level comparisons in the three exploratory universes of the
+paper's cross-universe table (24 FX pairs, 26 country indices, 43
+cross-asset instruments). One-sided $p$ from each instrument's date-clustered DM
+statistic; familywise $\alpha=5\%$. Ranks below twelve all have
+$p>0.02$ and are omitted.}
+\label{tab:holm}
+\footnotesize\setlength{\tabcolsep}{5pt}
+\begin{tabular}{rllcccl}
+\toprule
+Rank & Instrument & Universe & DM & $p$ (one-sided) & Holm cutoff & Verdict \\
+\midrule
+1 & PJM power\tnote{a} & cross-asset & 283.1 & $<10^{-16}$ & $5.38\times10^{-4}$ & artifact\tnote{a} \\
+2 & Baltic Dry & cross-asset & 9.36 & $<10^{-16}$ & $5.43\times10^{-4}$ & survives \\
+3 & VIX & cross-asset & 5.71 & $5.7\times10^{-9}$ & $5.49\times10^{-4}$ & survives \\
+4 & V2X & cross-asset & 5.03 & $2.5\times10^{-7}$ & $5.56\times10^{-4}$ & survives \\
+5 & VVIX & cross-asset & 4.66 & $1.6\times10^{-6}$ & $5.62\times10^{-4}$ & survives \\
+6 & USDEGP & FX & 3.80 & $7.2\times10^{-5}$ & $5.68\times10^{-4}$ & survives \\
+7 & Kenya NSE20 & indices & 3.52 & $2.2\times10^{-4}$ & $5.75\times10^{-4}$ & survives \\
+8 & Wheat & cross-asset & 3.51 & $2.2\times10^{-4}$ & $5.81\times10^{-4}$ & survives \\
+9 & MOVE & cross-asset & 3.22 & $6.4\times10^{-4}$ & $5.88\times10^{-4}$ & fails \\
+10 & Sri Lanka CSEALL & indices & 3.20 & $6.9\times10^{-4}$ & $5.95\times10^{-4}$ & fails \\
+11 & Gasoline & cross-asset & 3.20 & $6.9\times10^{-4}$ & $6.02\times10^{-4}$ & fails \\
+12 & USDARS & FX & 2.86 & $2.1\times10^{-3}$ & $6.10\times10^{-4}$ & fails \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\footnotesize
+\item The family is every instrument-level look in the three
+exploratory universes; the Korea-2026 falsification case (23 assets,
+GARCH-$t$ wins throughout) is not part of the win family. Bonferroni
+at $0.05/93$ gives the identical survivor set. The pooled crisis-FX
+comparison (DM 4.12, $p\approx1.9\times10^{-5}$) and the
+kurtosis--edge correlations (0.53 across indices, 0.43 cross-asset)
+are pooled and gradient statistics outside this instrument-level
+family; they are the replication evidence the paper's cross-universe
+claims rest on.
+\item[a] Retained in the family because the raw sweep contains it,
+but not a win: the paper's cross-asset audit reclassifies electricity
+as a log-return artifact on near-zero and negative prices, refit on price differences, GARCH wins PJM (DM $-2.73$), so the survivor count the text quotes is seven.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\subsection*{Direct expected-shortfall backtests}\label{sec:esbt-oa}
+Exception counts test the VaR level; they do not test ES. The main text adds two
+direct ES \emph{calibration} backtests: the McNeil--Frey (2000)
+exceedance-residual test, whose statistic is the mean standardized loss beyond
+VaR, zero under a correct ES \citep{mcneilfrey2000}; and the Acerbi--Sz\'ekely
+(2014) statistic $Z_2$, negative when ES understates the realized tail
+\citep{acerbi2014backtesting}. These complement the jointly consistent FZ0 loss
+used for forecast comparison; \citet{noldeziegel2017elicitability} and
+\citet{bayer2022esr} draw the distinction between backtesting the calibration of
+an ES forecast and comparing forecasts through a jointly consistent score.
+Table~\ref{tab:esbt} reports the two calibration tests on the same $200$-name
+panel and $221{,}600$ held-out asset-days ($1{,}108$ test dates) as the
+full-panel FZ0 re-scoring, with the engine's VaR and ES read from its own
+coherent min-envelope curve $Q^{z}$ of equation~(5) of the paper --- the exact forecasts the joint loss
+scores, not a simpler proxy --- and inference by a stationary block bootstrap
+over calendar dates. Gaussian innovations are decisively inadequate in this
+daily-data battery: the Gaussian filter is worst on every ES metric, its mean
+exceedance residual reaching $-0.77$ standard deviations at the $1\%$ level
+($Z_2=-0.99$). Among the fat-tailed entrants no model dominates every diagnostic.
+On the Acerbi--Sz\'ekely $Z_2$ the engine is best calibrated in the tail: it
+carries the statistic closest to zero at $1\%$ ($-0.07$, not rejected) and is
+effectively tied with GARCH-$t$ at $2.5\%$ ($-0.11$ against $-0.10$). The engine
+and GARCH-$t$ are the two entrants that pass the $1\%$ Kupiec
+unconditional-coverage test; FHS and the Gaussian filter fail it. On the
+McNeil--Frey exceedance residual FHS --- which fits the empirical residual tail
+directly --- sits closest to zero and is the only entrant the test does not
+reject at $1\%$ ($-0.10$, $p=0.07$); at $2.5\%$ FHS, GARCH-$t$ and the engine all
+fall inside the non-rejection region. The reading is consistent with the
+exception tests and the joint score: fat tails materially improve tail
+calibration, the engine and GARCH-$t$ are the best-calibrated pair on the direct
+tests, and the engine's decisive margin is the comparative FZ0 loss, where it
+beats both GARCH-$t$ and FHS at each level.
+
+\begin{table}[t]
+\centering
+\begin{threeparttable}
+\caption{Direct expected-shortfall backtests. $200$ CRSP names, pooled test
+panel --- the same held-out rows as the full-panel FZ0 re-scoring; the engine's
+VaR and ES are its own coherent min-envelope forecasts. Breach is the realized
+exception rate (target $\alpha$); Kupiec $p$ is the pooled unconditional-coverage
+test. $Z_2$ is the Acerbi--Sz\'ekely (2014) statistic, negative when ES
+understates the tail. MF is the McNeil--Frey (2000) mean exceedance residual
+(standardized loss beyond VaR, zero under correct ES) with its bootstrap $p$.}
+\label{tab:esbt}
+\small\setlength{\tabcolsep}{5pt}
+\begin{tabular}{lcccc|cccc}
+\toprule
+ & \multicolumn{4}{c}{$\alpha=2.5\%$} & \multicolumn{4}{c}{$\alpha=1\%$}\\
+\cmidrule(lr){2-5}\cmidrule(lr){6-9}
+Model & Breach & Kupiec\,$p$ & $Z_2$ & MF ($p$) & Breach & Kupiec\,$p$ & $Z_2$ & MF ($p$) \\
+\midrule
+GARCH-normal & $0.027$ & $0.00$ & $-0.31$ & $-0.55\,(0.00)$ & $0.016$ & $0.00$ & $-0.99$ & $-0.77\,(0.00)$ \\
+GARCH-$t$ & $0.027$ & $0.00$ & $\mathbf{-0.10}$ & $-0.05\,(0.14)$ & $0.010$ & $\mathbf{0.17}$ & $-0.09$ & $-0.23\,(0.00)$ \\
+GARCH-FHS & $0.031$ & $0.00$ & $-0.24$ & $\mathbf{+0.01\,(0.84)}$ & $0.012$ & $0.00$ & $-0.29$ & $\mathbf{-0.10\,(0.07)}$ \\
+Engine (EVT-tailed) & $0.027$ & $0.00$ & $-0.11$ & $-0.04\,(0.26)$ & $0.010$ & $\mathbf{0.15}$ & $\mathbf{-0.07}$ & $-0.14\,(0.04)$ \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\footnotesize
+\item Inference for the McNeil--Frey and $Z_2$ $p$-values is a stationary block
+bootstrap over the $1{,}108$ trading dates (mean block ten dates) rather than
+treating the $221{,}600$ asset-days as independent, since the $200$ names share
+within-day market shocks. Kupiec is the pooled analytic unconditional-coverage
+test, hypersensitive at this sample size (every model is rejected at $2.5\%$).
+The deployed engine adds a $97.5\%$ conformal shift and is conservative out of
+era (breach $1.66\%$, $Z_2=+0.29$ at $2.5\%$), overstating the tail in the
+regulator-preferred direction. Source: \texttt{engine\_esbt\_results.json}.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\subsection*{Realized measures and the scale--shape decomposition}\label{sec:rgarch-oa}
+The main-text battery reads only daily returns, the regime the estimator is built
+for. To place it against a method that reads intraday data, and to ask what the
+misspecification frontier is made of, we build five-minute realized measures from
+TAQ for thirty large-capitalization U.S.\ equities over 2014--2024 (realized
+variance is the sum of squared five-minute log-returns, cleaned by regular sale
+conditions, a daily price band, and a $20\%$ return clip) and fit a Realized GARCH
+\citep{hansen2012realized}: the log-linear conditional variance
+$\log h_t=\omega_R+\beta_R\log h_{t-1}+\gamma_R\log \mathrm{RV}_{t-1}$ with a measurement
+equation $\log\mathrm{RV}_t=\xi_R+\phi_R\log h_t+\tau_R(z_t)+u_{R,t}$ linking the realized
+measure to the latent variance, estimated jointly by Gaussian quasi-maximum
+likelihood. Table~\ref{tab:rgarch} reports the result on 1{,}108 common test dates.
+Two facts follow. The realized scale lowers FZ0 well below the daily-data accuracy
+core at both levels (DM $6.2$ at 2.5\%, $4.5$ at 1\%): intraday information prices
+volatility more sharply than any daily filter, and the economic gap is largest in
+the top misspecification decile, where the daily scale is coarsest. But the gain is
+scale, not shape. Holding the realized scale fixed and re-fitting the pooled
+state-conditioned residual-quantile learner, the EVT tail, and the misspecification
+score on the realized residuals moves FZ0 within noise: every stage's
+Diebold--Mariano statistic against the realized benchmark is below $1.4$ in
+magnitude, overall and in the top score decile, the largest being the shape learner's
+$-1.3$ at $1\%$ (directional, not significant). On these large-capitalization names a
+realized scale absorbs most of what the score detects on daily-GARCH residuals, so on
+the intraday-covered segment the two are substitutes; the score's distinctive value is
+in the daily-data regime and the cross-asset and day-one settings where a realized
+scale does not exist.
+
+\begin{table}[t]
+\centering
+\begin{threeparttable}
+\caption{The scale--shape decomposition. Thirty large-cap U.S.\ equities, 2014--2024
+(1{,}108 test dates), joint $(\VaR,\ES)$ FZ0 loss (lower is better) at both FRTB
+levels. The scale is a proper Realized GARCH except in the first row (the daily-data
+accuracy core). DM is date-clustered (Newey--West, 5 lags) against the realized scale
+with an unconditional residual quantile; a positive DM is worse than that benchmark.}
+\label{tab:rgarch}
+\small\setlength{\tabcolsep}{6pt}
+\begin{tabular}{lcccc}
+\toprule
+Model & FZ0 $2.5\%$ & DM & FZ0 $1\%$ & DM \\
+\midrule
+Daily core (GARCH-$t$ $+$ EVT) & $1.500$ & $+6.2$ & $1.774$ & $+4.5$ \\
+Realized scale $+$ residual quantile & $1.445$ & --- & $1.716$ & --- \\
+\quad $+$ EVT tail & $1.444$ & $-0.3$ & $1.716$ & $+0.5$ \\
+\quad $+$ pooled shape learner & $1.445$ & $+0.2$ & $1.710$ & $-1.3$ \\
+\quad $+$ shape $+$ EVT (realized-hybrid) & $1.447$ & $+0.7$ & $1.718$ & $+0.6$ \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\footnotesize
+\item All five rows are computed in one pipeline on the same test rows, with ES the
+$20$-node integral of each row's own quantile curve. The daily core's DM is against the
+realized benchmark (the intraday-scale gain). The pooled shape learner is the paper's
+state-conditioned residual-quantile model, retrained on the realized-scale residuals.
+Returns are CRSP daily; the intersection is common across models. Source:
+\texttt{scaleshape\_canonical\_results.json}.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\clearpage
+\section{Standalone GARCH-EVT on the canonical rows}\label{sec:garchevt-oa}
+The manuscript's comparison set omits standalone GARCH-EVT \citep{mcneilfrey2000}, which \citet{kuester2006} rank first among classical methods. This section reports it on exactly the rows, filter and splits of the frontier sorts (Table~1 of the paper) and of the full-panel FZ0 run (Figure~2 of the paper), from \texttt{job\_garch\_evt.py} (result file \texttt{garch\_evt\_results.json}). Two forms are run: per name, with the GPD tails fitted to each name's own training residuals, and pooled, with one threshold and one $(\xi,\beta)$ per tail across names. The pooled body row is the frontier engine of Table~1 (no EVT branch); the engine row adds the body/EVT minimum and rearrangement of equation~(5). Table~\ref{tab:garchevt-frontier} gives the eleven-level pinball comparison and Table~\ref{tab:garchevt-fz0} the joint score.
+
+\begin{table}[htbp]
+\centering
+\begin{threeparttable}
+\caption{GARCH-EVT on the frontier rows: pinball edge by score region and head-to-head comparisons.}
+\label{tab:garchevt-frontier}
+\small
+\begin{tabular}{lcccc}
+\toprule
+Model & Top $\mathrm{mk}_{63}$ decile & Deciles 1--9 & Top composite decile & Overall \\
+\midrule
+\multicolumn{5}{l}{\emph{Edge over GARCH-$t$, \% (per-date DM)}} \\
+GARCH-EVT, per name & $+0.31$ (3.62) & $-0.22$ (-6.61) & $+0.37$ (5.35) & $-0.16$ (-5.00) \\
+GARCH-EVT, pooled tail & $-0.16$ (-2.69) & $-0.12$ (-4.55) & $-0.06$ (-1.40) & $-0.12$ (-4.89) \\
+GARCH $+$ pooled body (no EVT) & $+2.98$ (10.48) & $+0.02$ (0.43) & $+2.79$ (8.91) & $+0.35$ (5.35) \\
+Engine (body/EVT minimum) & $+2.48$ (10.08) & $-0.01$ (-0.25) & $+2.19$ (8.00) & $+0.27$ (4.62) \\
+\midrule
+\multicolumn{5}{l}{\emph{Head-to-head, \% (per-date DM)}} \\
+Engine over GARCH-EVT pooled & $+2.64$ (8.91) & $+0.10$ (2.47) & $+2.24$ (7.51) & $+0.39$ (7.66) \\
+Engine over GARCH-EVT per name & $+2.18$ (9.63) & $+0.21$ (4.63) & $+1.82$ (7.39) & $+0.43$ (8.22) \\
+Pooled body over GARCH-EVT pooled & $+3.14$ (9.39) & $+0.14$ (2.84) & $+2.84$ (8.37) & $+0.47$ (7.96) \\
+Engine over pooled body & $-0.51$ (-9.04) & $-0.04$ (-2.28) & $-0.62$ (-9.64) & $-0.09$ (-5.25) \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\footnotesize
+\item 200 names, 221,600 test rows, same rows and splits as Table~1 of the paper and Figure~2 of the paper. Edge $=$ (reference pinball $-$ model pinball)/reference pinball over the eleven-level grid; DM is the per-date Newey--West(10) Diebold--Mariano statistic. GARCH-EVT is McNeil--Frey: GARCH(1,1)-$t$ filter, GPD tails fitted by maximum likelihood to the 10\% most extreme training residuals per tail (per name, or pooled across names), empirical residual quantiles between the thresholds. The engine's pooled GPD at $p_0=0.025$ has $\hat\xi=0.298$, $\hat\beta=0.639$ on 6075 exceedances; the EVT branch is the tighter of the two at the 1\% node on 60.1\% of test rows and at the 2.5\% node on 59.5\%.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\begin{threeparttable}
+\caption{GARCH-EVT on the full-panel FZ0 rows.}
+\label{tab:garchevt-fz0}
+\small
+\begin{tabular}{lcccccc}
+\toprule
+& \multicolumn{3}{c}{$\alpha=1\%$} & \multicolumn{3}{c}{$\alpha=2.5\%$} \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}
+Model & FZ0 & Breach & DM vs engine & FZ0 & Breach & DM vs engine \\
+\midrule
+Engine (body/EVT minimum) & 2.1473 & 1.04\% & --- & 1.8494 & 2.78\% & --- \\
+Engine $+$ conformal overlay (97.5\%) & 2.1473 & 1.04\% & 0.00 & 1.8656 & 1.66\% & 2.29 \\
+GARCH $+$ pooled body (no EVT) & 2.1411 & 1.32\% & -1.33 & 1.8433 & 3.25\% & -1.87 \\
+GARCH-EVT, pooled tail & 2.1551 & 1.06\% & 4.83 & 1.8583 & 2.89\% & 6.85 \\
+GARCH-EVT, per name & 2.1693 & 1.13\% & 5.23 & 1.8596 & 2.93\% & 5.39 \\
+GARCH(1,1)-$t$ & 2.1557 & 1.03\% & 5.00 & 1.8542 & 2.71\% & 4.55 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\footnotesize
+\item FZ0 is the zero-homogeneous Fissler--Ziegel joint (VaR, ES) loss, lower is better; DM $>0$ means the row model scores worse than the engine (per-date Newey--West(10)). The engine row is the accuracy layer (no conformal shift) at both levels and is the reference of every DM; the overlay row adds the split-conformal shift at 97.5\% and coincides with the engine at 1\%. GARCH-EVT ES is the McNeil--Frey closed form; the engine and body ES are the 20-node integral of the monotonized quantile curve. Top-$\mathrm{mk}_{63}$-decile DM of pooled GARCH-EVT versus the engine: 2.63 at 1\% and 4.26 at 2.5\%.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\noindent\emph{Threshold diagnostics.} Over a threshold grid $p_0\in\{0.025,0.05,0.10,0.15\}$ the pooled lower-tail fit gives $\hat\xi=0.298, 0.269, 0.204, 0.164$ on 6,075, 12,150, 24,300, 36,450 exceedances; per name at $p_0=0.10$ the interquartile range of $\hat\xi$ is 0.058 to 0.281 (median 0.174) with a median of 125 exceedances, and no name has $\hat\xi\ge1$. The EVT branch is the tighter of the two inside the engine's minimum on 60.1\% of test rows at the 1\% node and 59.5\% at the 2.5\% node. On the 2000--2013 holdout rows (\texttt{job\_holdout\_garch\_evt.py}) the frozen learner beats the pooled GARCH-EVT by $+1.16\%$ (DM 2.52) in the top holdout decile and by $+1.30\%$ (DM 1.38) in the frozen design-era bucket, and by $-0.01\%$ (DM $-0.31$) in deciles one through nine.
+
+
+\subsection*{Additional evaluation statistics on the same rows}
+The same run adds four statistics that go beyond mean loss. (i)~The conditional-predictive-ability test of \citet{giacominiwhite2006}, with the asset-day loss differential $d_{it}=L^{\mathrm{GARCH}\text{-}t}_{it}-L^{\mathrm{engine}}_{it}$ (eleven-level pinball) and instruments $(1,\mathrm{score}_{i,t-1})$; the Wald statistic uses a Newey--West(10) covariance of the per-date sums. (ii)~Murphy diagrams \citep{ehm2016}: the mean elementary quantile score $S_\theta(q,y)=(\mathbb{I}\{y<q\}-\alpha)(\mathbb{I}\{\theta<q\}-\mathbb{I}\{\theta<y\})$ of the accuracy layer minus that of a competitor, on a grid of forty return-space thresholds $\theta$ (the 0.1\% to 15\% quantiles of test returns); a negative value means the accuracy layer is better at that $\theta$, and a curve that is negative everywhere would mean dominance under every consistent scoring function for the $\alpha$-quantile. (iii)~The dynamic quantile test of \citet{engle2004caviar} per name with four hit lags and the VaR. (iv)~The dispersion of the per-date loss differential.
+
+\begin{table}[htbp]
+\centering
+\begin{threeparttable}
+\caption{Conditional predictive ability, dynamic quantile test, and loss-differential dispersion on the frontier rows.}
+\label{tab:extras}
+\small
+\begin{tabular}{lcccc}
+\toprule
+\multicolumn{5}{l}{\emph{Giacomini--White CPA of $d_{it}$ on $(1,\mathrm{score}_{i,t-1})$}} \\
+Comparison & Score & Wald $\chi^2_2$ & Slope of $d$ on score & Slope $t$ \\
+\midrule
+GARCH-$t$ minus engine & composite pct. & 73.6 & 0.0081 & 8.6 \\
+GARCH-$t$ minus engine & $\mathrm{mk}_{63}$ pct. & 90.0 & 0.0068 & 9.8 \\
+Pooled GARCH-EVT minus engine & composite pct. & 64.5 & 0.0072 & 7.5 \\
+GARCH-$t$ minus pooled body & composite pct. & 91.4 & 0.0105 & 9.8 \\
+\midrule
+\multicolumn{5}{l}{\emph{Dynamic quantile test, per-name pass rate at 5\% (200 names)}} \\
+Model & \multicolumn{2}{c}{$\alpha=1\%$} & \multicolumn{2}{c}{$\alpha=2.5\%$} \\
+\midrule
+Engine (accuracy layer) & \multicolumn{2}{c}{86\%} & \multicolumn{2}{c}{70\%} \\
+Engine $+$ conformal overlay & \multicolumn{2}{c}{86\%} & \multicolumn{2}{c}{84\%} \\
+GARCH(1,1)-$t$ & \multicolumn{2}{c}{84\%} & \multicolumn{2}{c}{68\%} \\
+GARCH-EVT, pooled tail & \multicolumn{2}{c}{83\%} & \multicolumn{2}{c}{62\%} \\
+GARCH-EVT, per name & \multicolumn{2}{c}{82\%} & \multicolumn{2}{c}{60\%} \\
+GARCH $+$ pooled body (no EVT) & \multicolumn{2}{c}{69\%} & \multicolumn{2}{c}{54\%} \\
+\midrule
+\multicolumn{5}{l}{\emph{Per-date loss differential, GARCH-$t$ minus engine (pinball units)}} \\
+Region & Win rate & Median & 5th--95th pct. & SD \\
+\midrule
+Top $\mathrm{mk}_{63}$ decile & 74\% & 0.0102 & -0.0258 to 0.0493 & 0.0265 \\
+Deciles 1--9 & 55\% & 0.0007 & -0.0114 to 0.0096 & 0.0072 \\
+Overall & 62\% & 0.0016 & -0.0102 to 0.0114 & 0.0076 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\footnotesize
+\item Same 200 names and 221,600 rows as Table~\ref{tab:garchevt-frontier}. Win rate is the share of the 1,108 test dates on which the date-averaged engine loss is below the reference. The pooled dynamic quantile test rejects for every model at both levels, as pooled asset-day tests do at this sample size (Section~5.1 of the paper).
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}
+\begin{axis}[width=0.48\linewidth,height=5cm, xlabel={threshold $\theta$ (daily return, \%)}, ylabel={elementary score difference ($\times10^{-4}$)},
+  title={$\alpha=1\%$}, xmin=-9, xmax=-1.5, ymajorgrids, legend style={font=\scriptsize,draw=none,at={(0.03,0.03)},anchor=south west},
+  tick label style={font=\scriptsize}, label style={font=\scriptsize}, title style={font=\footnotesize}]
+\addplot[npblue,thick] coordinates {(-15.879,-0.205) (-8.997,-0.418) (-7.431,-0.082) (-6.543,-0.203) (-5.911,0.413) (-5.462,-0.458) (-5.117,-0.149) (-4.830,0.203) (-4.584,-0.135) (-4.374,0.396) (-4.178,0.127) (-4.016,0.002) (-3.859,0.552) (-3.722,-0.026) (-3.594,-0.168) (-3.474,0.177) (-3.371,0.009) (-3.263,-0.151) (-3.166,0.067) (-3.073,0.000) (-2.993,0.324) (-2.913,-0.448) (-2.838,-1.619) (-2.765,-2.153) (-2.698,-1.874) (-2.632,-1.562) (-2.574,-1.432) (-2.516,-1.343) (-2.458,-0.839) (-2.402,-0.615) (-2.347,-0.607) (-2.292,-0.588) (-2.241,-0.211) (-2.192,-0.209) (-2.144,0.042) (-2.100,-0.057) (-2.055,-0.242) (-2.010,-0.284) (-1.969,-0.211) (-1.931,-0.140)};
+\addplot[npmid,thick,dashed] coordinates {(-15.879,-0.193) (-8.997,-0.385) (-7.431,-0.342) (-6.543,-0.557) (-5.911,0.102) (-5.462,-0.199) (-5.117,-0.176) (-4.830,0.235) (-4.584,-0.236) (-4.374,0.293) (-4.178,-0.022) (-4.016,-0.203) (-3.859,0.383) (-3.722,-0.298) (-3.594,-0.360) (-3.474,-0.180) (-3.371,-0.343) (-3.263,-0.295) (-3.166,-0.039) (-3.073,-0.526) (-2.993,0.212) (-2.913,-0.496) (-2.838,-1.926) (-2.765,-2.079) (-2.698,-2.182) (-2.632,-1.837) (-2.574,-1.366) (-2.516,-1.347) (-2.458,-1.183) (-2.402,-0.718) (-2.347,-0.713) (-2.292,-0.569) (-2.241,-0.306) (-2.192,-0.174) (-2.144,0.023) (-2.100,-0.218) (-2.055,-0.227) (-2.010,-0.314) (-1.969,-0.254) (-1.931,-0.090)};
+\addplot[black,thin] coordinates {(-9,0)(-1.5,0)};
+\legend{engine minus GARCH-$t$, engine minus pooled GARCH-EVT}
+\end{axis}
+\end{tikzpicture}
+\begin{tikzpicture}
+\begin{axis}[width=0.48\linewidth,height=5cm, xlabel={threshold $\theta$ (daily return, \%)},
+  title={$\alpha=2.5\%$}, xmin=-9, xmax=-1.5, ymajorgrids,
+  tick label style={font=\scriptsize}, label style={font=\scriptsize}, title style={font=\footnotesize}]
+\addplot[npblue,thick] coordinates {(-15.879,-0.080) (-8.997,-0.151) (-7.431,-0.288) (-6.543,-0.575) (-5.911,-0.532) (-5.462,-0.606) (-5.117,-0.491) (-4.830,-1.423) (-4.584,-0.519) (-4.374,0.079) (-4.178,0.369) (-4.016,-0.412) (-3.859,1.062) (-3.722,0.836) (-3.594,-0.126) (-3.474,-0.440) (-3.371,0.017) (-3.263,0.266) (-3.166,0.620) (-3.073,0.775) (-2.993,0.293) (-2.913,0.007) (-2.838,0.435) (-2.765,0.539) (-2.698,-0.360) (-2.632,-0.930) (-2.574,-0.494) (-2.516,-0.305) (-2.458,-0.719) (-2.402,-0.350) (-2.347,-0.176) (-2.292,0.692) (-2.241,0.243) (-2.192,-0.729) (-2.144,-1.323) (-2.100,-1.754) (-2.055,-2.459) (-2.010,-3.227) (-1.969,-2.711) (-1.931,-1.910)};
+\addplot[npmid,thick,dashed] coordinates {(-15.879,-0.036) (-8.997,-0.029) (-7.431,-0.340) (-6.543,-0.404) (-5.911,0.037) (-5.462,-0.252) (-5.117,-0.209) (-4.830,-0.388) (-4.584,0.087) (-4.374,0.152) (-4.178,0.141) (-4.016,-0.138) (-3.859,-0.097) (-3.722,-0.349) (-3.594,0.141) (-3.474,-0.426) (-3.371,-0.731) (-3.263,-0.426) (-3.166,0.464) (-3.073,-0.978) (-2.993,-1.892) (-2.913,-1.805) (-2.838,-1.451) (-2.765,-1.356) (-2.698,-3.018) (-2.632,-4.352) (-2.574,-3.815) (-2.516,-3.030) (-2.458,-3.818) (-2.402,-3.603) (-2.347,-3.527) (-2.292,-3.151) (-2.241,-2.900) (-2.192,-2.913) (-2.144,-2.935) (-2.100,-3.409) (-2.055,-4.461) (-2.010,-5.476) (-1.969,-6.361) (-1.931,-6.146)};
+\addplot[black,thin] coordinates {(-9,0)(-1.5,0)};
+\end{axis}
+\end{tikzpicture}
+\caption{Murphy diagrams for the VaR forecasts on the frontier rows: mean elementary quantile score of the accuracy layer minus that of GARCH-$t$ (solid) and of the pooled GARCH-EVT (dashed), against the threshold $\theta$. Negative values favor the accuracy layer. It is better on 70\% (GARCH-$t$) and 85\% (GARCH-EVT) of the grid at $\alpha=1\%$ and on 65\% and 85\% at $\alpha=2.5\%$; the competitors win in a band of thresholds near the typical VaR level, so the ranking is not uniform over all consistent quantile scores.}
+\label{fig:murphy}
+\end{figure}
+
+\subsection*{All benchmarks on the canonical rows}
+The GARCH-EVT comparison above is one row of a larger exercise (\texttt{job\_bench\_all.py}, result file \texttt{bench\_all\_results.json}): every model in the paper's comparison set is scored on the identical 221,600 test rows of the 200-name panel, through every statistic. GARCH-$t$, GJR-GARCH-skew-$t$, the two GARCH-EVT forms, the GAS and Taylor models and SAV-CAViaR are estimated per name on the estimation window; the FHS variants take the empirical quantiles of the GARCH-$t$ residuals (pooled across names, per name on the training window, or over a rolling 500-day window); EWMA is the RiskMetrics recursion with Gaussian quantiles; historical simulation is the rolling 500-day empirical return quantile. GAS and Taylor exist only at the two regulatory levels and enter the joint-score, dynamic-quantile and Murphy statistics. Table~\ref{tab:bench-pinball} gives the eleven-level pinball frontier, Table~\ref{tab:bench-fz0} the joint score, and Table~\ref{tab:bench-tests} the conditional-predictive-ability, dynamic-quantile, Murphy and win-rate statistics.
+
+\begin{table}[htbp]
+\centering
+\begin{threeparttable}
+\caption{Every benchmark on the frontier rows: eleven-level pinball edge over GARCH-$t$ by score region, engine head-to-head, and Model Confidence Set membership.}
+\label{tab:bench-pinball}
+\footnotesize
+\begin{tabular}{lccccc}
+\toprule
+Model & Top $\mathrm{mk}_{63}$ decile & Deciles 1--9 & Overall & Engine vs model (top) & MCS \\
+\midrule
+Engine (accuracy layer) & $+2.48$ (10.08) & $-0.01$ (-0.25) & $+0.27$ (4.62) & --- &  \\
+GARCH $+$ pooled body (no EVT) & $+2.98$ (10.48) & $+0.02$ (0.43) & $+0.35$ (5.35) & $-0.51$ (-9.04) & $\checkmark$ \\
+GARCH(1,1)-$t$ & (reference) & (reference) & (reference) & $+2.48$ (10.08) &  \\
+GJR-GARCH-skew-$t$ & $+0.16$ (0.60) & $-0.01$ (-0.13) & $+0.01$ (0.35) & $+2.32$ (9.70) &  \\
+GARCH-FHS (pooled) & $-0.14$ (-2.45) & $-0.12$ (-4.39) & $-0.13$ (-4.62) & $+2.62$ (8.86) &  \\
+GARCH-FHS (per name) & $+0.34$ (3.87) & $-0.27$ (-6.86) & $-0.20$ (-5.33) & $+2.15$ (9.67) &  \\
+GARCH-FHS (rolling 500d) & $-0.75$ (-6.68) & $-0.03$ (-0.55) & $-0.11$ (-2.19) & $+3.21$ (10.22) &  \\
+GARCH-EVT (pooled tail) & $-0.16$ (-2.69) & $-0.12$ (-4.55) & $-0.12$ (-4.89) & $+2.64$ (8.91) &  \\
+GARCH-EVT (per name) & $+0.31$ (3.62) & $-0.22$ (-6.61) & $-0.16$ (-5.00) & $+2.18$ (9.63) &  \\
+SAV-CAViaR & $+2.81$ (8.16) & $+0.08$ (1.60) & $+0.39$ (6.29) & $-0.33$ (-1.82) & $\checkmark$ \\
+EWMA (RiskMetrics) & $-7.31$ (-9.91) & $-0.43$ (-3.54) & $-1.20$ (-8.39) & $+9.13$ (12.07) &  \\
+Historical simulation (500d) & $+0.97$ (1.88) & $-1.98$ (-8.39) & $-1.65$ (-7.04) & $+1.53$ (4.46) &  \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\footnotesize
+\item 200 names, 221,600 test rows, the rows of Table~1 of the paper. Edge $=$ (GARCH-$t$ pinball $-$ model pinball)/GARCH-$t$ pinball over the eleven-level grid, per-date Newey--West(10) DM in parentheses. The last column is the 90\% Model Confidence Set on the per-date eleven-level pinball series (T$_{\max}$, stationary bootstrap over dates, mean block 10, $B=1{,}000$).
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\begin{threeparttable}
+\caption{Every benchmark on the full-panel FZ0 rows.}
+\label{tab:bench-fz0}
+\footnotesize
+\begin{tabular}{lcccccccc}
+\toprule
+& \multicolumn{4}{c}{$\alpha=1\%$} & \multicolumn{4}{c}{$\alpha=2.5\%$} \\
+\cmidrule(lr){2-5}\cmidrule(lr){6-9}
+Model & FZ0 & Breach & DM & MCS & FZ0 & Breach & DM & MCS \\
+\midrule
+Engine (accuracy layer) & 2.1473 & 1.04\% & --- & $\checkmark$ & 1.8494 & 2.78\% & --- & $\checkmark$ \\
+Engine $+$ conformal overlay & 2.1473 & 1.04\% & 0.00 & $\checkmark$ & 1.8656 & 1.66\% & 2.29 &  \\
+GARCH $+$ pooled body (no EVT) & 2.1411 & 1.32\% & -1.33 & $\checkmark$ & 1.8433 & 3.25\% & -1.87 & $\checkmark$ \\
+GARCH(1,1)-$t$ & 2.1557 & 1.03\% & 5.00 &  & 1.8542 & 2.71\% & 4.55 &  \\
+GJR-GARCH-skew-$t$ & 2.1506 & 1.02\% & 1.05 & $\checkmark$ & 1.8487 & 2.64\% & -0.28 & $\checkmark$ \\
+GARCH-FHS (pooled) & 2.1557 & 1.14\% & 4.15 &  & 1.8598 & 3.00\% & 6.37 &  \\
+GARCH-FHS (per name) & 2.1724 & 1.24\% & 5.02 &  & 1.8624 & 3.08\% & 5.56 &  \\
+GARCH-FHS (rolling 500d) & 2.1847 & 1.10\% & 6.62 &  & 1.8611 & 2.50\% & 3.71 &  \\
+GARCH-EVT (pooled tail) & 2.1551 & 1.06\% & 4.83 &  & 1.8583 & 2.89\% & 6.85 &  \\
+GARCH-EVT (per name) & 2.1693 & 1.13\% & 5.23 &  & 1.8596 & 2.93\% & 5.39 &  \\
+GAS-FZ (PZC) & 2.2324 & 0.92\% & 9.50 &  & 1.8990 & 2.53\% & 8.26 &  \\
+ES-CAViaR (Taylor) & 2.1647 & 0.98\% & 3.53 &  & 1.8490 & 2.62\% & -0.12 & $\checkmark$ \\
+EWMA (RiskMetrics) & 2.3211 & 1.61\% & 6.96 &  & 1.9035 & 2.73\% & 6.30 &  \\
+Historical simulation (500d) & 2.2512 & 0.87\% & 6.24 &  & 1.9182 & 2.06\% & 5.16 &  \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\footnotesize
+\item FZ0 is the zero-homogeneous Fissler--Ziegel joint (VaR, ES) loss, lower is better; DM $>0$ means the row model scores worse than the accuracy layer (per-date Newey--West(10)). ES: closed forms for the $t$, skew-$t$ and Gaussian entrants; empirical tail means for HS and FHS; McNeil--Frey closed form for GARCH-EVT; the FZ0-estimated dynamic pair for GAS and Taylor; the 20-node integral of the monotonized curve for the engine and body. SAV-CAViaR produces no ES and is absent here. MCS: 90\% Model Confidence Set on the per-date FZ0 series.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\begin{threeparttable}
+\caption{Conditional predictive ability, dynamic quantile test, Murphy diagrams and win rates for every benchmark against the accuracy layer.}
+\label{tab:bench-tests}
+\footnotesize
+\begin{tabular}{lcccccccc}
+\toprule
+& \multicolumn{2}{c}{CPA vs engine} & \multicolumn{2}{c}{DQ pass rate} & \multicolumn{2}{c}{Murphy: engine better} & \multicolumn{2}{c}{Engine win rate} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}\cmidrule(lr){8-9}
+Model & Wald $\chi^2_2$ & slope $t$ & 1\% & 2.5\% & 1\% & 2.5\% & top decile & overall \\
+\midrule
+Engine $+$ conformal overlay & --- & --- & 86\% & 84\% & 0\% & 45\% & --- & --- \\
+GARCH $+$ pooled body (no EVT) & 97.2 & -10.1 & 69\% & 54\% & 82\% & 72\% & 12\% & 26\% \\
+GARCH(1,1)-$t$ & 73.6 & 8.6 & 84\% & 68\% & 70\% & 65\% & 74\% & 62\% \\
+GJR-GARCH-skew-$t$ & 87.7 & 9.5 & 90\% & 77\% & 48\% & 40\% & 72\% & 62\% \\
+GARCH-FHS (pooled) & 63.4 & 7.2 & 78\% & 60\% & 88\% & 85\% & 73\% & 62\% \\
+GARCH-FHS (per name) & 80.3 & 4.6 & 73\% & 55\% & 92\% & 90\% & 72\% & 62\% \\
+GARCH-FHS (rolling 500d) & 138.2 & 12.0 & 84\% & 82\% & 85\% & 50\% & 74\% & 64\% \\
+GARCH-EVT (pooled tail) & 64.5 & 7.5 & 83\% & 62\% & 85\% & 85\% & 74\% & 62\% \\
+GARCH-EVT (per name) & 68.2 & 5.2 & 82\% & 60\% & 78\% & 72\% & 72\% & 62\% \\
+SAV-CAViaR & 2.6 & -0.2 & 78\% & 66\% & 80\% & 60\% & 52\% & 56\% \\
+GAS-FZ (PZC) & --- & --- & 92\% & 82\% & 50\% & 78\% & --- & --- \\
+ES-CAViaR (Taylor) & --- & --- & 78\% & 72\% & 70\% & 42\% & --- & --- \\
+EWMA (RiskMetrics) & 172.6 & 13.8 & 29\% & 56\% & 95\% & 78\% & 83\% & 71\% \\
+Historical simulation (500d) & 89.3 & -0.4 & 48\% & 51\% & 48\% & 60\% & 58\% & 72\% \\
+\midrule
+Engine (accuracy layer) & --- & --- & 86\% & 70\% & --- & --- & --- & --- \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\footnotesize
+\item CPA: Giacomini--White Wald test of equal conditional accuracy of the model and the engine with instruments (1, lagged composite score percentile), Newey--West(10) over per-date sums, and the date-clustered $t$ of the slope of the loss differential (model minus engine) on the score; a positive slope means the engine's advantage grows with the score. DQ: Engle--Manganelli dynamic quantile test with four hit lags and the VaR, share of names passing at 5\%. Murphy: share of a forty-point return-space threshold grid on which the engine has the lower elementary quantile score. Win rate: share of test dates on which the date-averaged engine pinball is below the model's. Models with an entry only at the regulatory levels (GAS, Taylor) have no pinball-based columns.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\section{Frontier robustness: calendar overlap, family-wise error, and the universe rule}
+This section collects the constructions summarized in Section~3 of the paper.
+
+\paragraph{Calendar overlap and the pooled learner.} The design panels are split per name, $60/40$ in each name's own time index. In an unbalanced panel such a rule can place one name's training window on another name's test dates, so a pooled learner could meet a systemic event in training that a per-name model would meet only out of sample, the panel form of overlap leakage that purging and embargo address. Near-complete histories put the split points on almost the same date, so the channel is nearly degenerate here, and a strict calendar-time split closes it: each stage (each GARCH fit, the pooled learner, the GPD tail) is re-estimated strictly before 2020-01-01 and tested from that date for every name simultaneously. The frontier survives, with the top decile at $+2.47\%$ (per-date DM 6.22 over 1{,}258 dates; per-name split $+2.7\%$, DM 6.5) and the overall edge $+0.71\%$ (DM 1.87). The bottom decile is elevated at $+1.3\%$ because a 2020--22 test era leaves few calm cells, but the top decile roughly doubles each other cell. Inside the 2000--2013 holdout, re-estimating strictly before 2007-01-01 and testing on 2007--2013 removes the 2008 crisis from every training window; the pooled learner still wins overall ($+0.29\%$, per-date DM 3.08 over 1{,}762 dates) and the decile profile keeps its shape (top three deciles $+0.45$--$+1.04\%$ against $+0.06$--$+0.09\%$). The annual walk-forward refits the per-name GARCH on expanding data at each January-1 cutoff from 2020 to 2024, rebuilds the residuals and score, and retrains the learner; the top decile carries $+2.09\%$ at DM 4.43 while the overall edge is no longer detectable ($-0.18\%$, DM $-0.52$).
+
+\paragraph{Family-wise error over the signal-decile grid.} The frontier grid spans three signals and ten deciles. Romano--Wolf step-down family-wise control over the full $3\times10$ grid takes studentized per-date mean edges per cell, a stationary bootstrap over dates that draws the same dates for every cell (mean block 10 days, $B=2{,}000$, block 20 as sensitivity), and one-sided step-down adjusted $p$-values. Nine of the thirty cells survive under both block lengths, all frontier cells: the top deciles of the three signals (mk$_{63}$ $t=9.4$, skew$_{63}$ $t=9.2$, jump$_5$ $t=5.1$, adjusted $p<0.001$), the ninth deciles of mk$_{63}$ (adjusted $p=0.022$) and skew$_{63}$, skew$_{63}$'s seventh, and jump$_5$'s U-shaped far cells. Mid-grid cells with an unadjusted $t$ near two lose significance under the adjustment.
+
+\paragraph{The point-in-time universe.} The holdout's observation filter conditions on names present for most of the era, tilting the universe toward survivors. A point-in-time re-selection fixes the universe at the top 200 names by market capitalization as of Q1-2000, applies no minimum-history filter, and rides each delisting return to the end. On the 164 of 200 names that clear the symmetric fitting floors (36 dropped, 79 delisting returns ridden to the end), the overall edge is $+0.58\%$ at per-date DM 8.96 over 2{,}692 dates, the frozen design-era top bucket carries $+2.94\%$ at DM 6.6 ($5.9\%$ occupancy), and the bottom bucket is $+0.44\%$ (DM 5.4). The edge is larger than in the survivor-tilted holdout, so the observation filter biased the reported edge downward.
+
+\section{Estimator schematic and evaluation panels}
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[
+  box/.style={draw, rounded corners=2pt, align=center, minimum height=8.5mm,
+    inner sep=4pt, font=\small},
+  lab/.style={font=\scriptsize\itshape, align=center},
+  arr/.style={->, thick}]
+\node[box, fill=gray!8]    (ret)   at (0,0)      {returns $r_t$\\(one asset)};
+\node[box, fill=blue!12]   (garch) at (3.2,0)    {\textbf{Stage 1}\\GARCH-$t$ filter};
+\node[box, fill=blue!12]   (shape) at (7.2,0)    {\textbf{Stage 2}\\shape model $q_\phi(\tau\,|\,s_t)$};
+\node[box, fill=red!12]    (evt)   at (11.2,0)   {\textbf{Stage 3}\\GPD tail, $\tau\le p_0$};
+\node[box, fill=orange!22] (conf)  at (11.2,-2.6){\textbf{Stage 4}\\conformal shift $c_\tau$};
+\node[box, fill=gray!8]    (out)   at (4.6,-2.6) {forecast $\widehat{Q}_t(\tau)$};
+\node[box, dashed, fill=white] (pool) at (7.2,-4.4) {pooled residual panel\\$\{(s_{j,t},\widehat z_{j,t})\}$, all names $j$};
+\node[box, dashed, fill=white] (cal)  at (11.2,-4.4) {held-out\\calibration split};
+\draw[arr] (ret) -- (garch);
+\draw[arr] (garch) -- node[lab, above] {$\widehat z_t$, $s_t$} (shape);
+\draw[arr] (shape) -- node[lab, above] {minimum at $\tau\le p_0$, rearrange} (evt);
+\draw[arr] (evt) -- (conf);
+\draw[arr] (conf) -- node[lab, above] {shifted curve $Q^{z}+c_\tau$ (overlay)} (out);
+\draw[arr] ([xshift=-5mm]garch.south) |- node[lab, left, pos=0.25]
+  {$\widehat z$} (pool.west);
+\draw[arr] (pool.north) -- node[lab, right] {train} (shape.south);
+\draw[arr] (cal.north) -- (conf.south);
+\draw[arr, dashed] ([xshift=5mm]garch.south) |-
+  node[lab, left, pos=0.22] {$\widehat\sigma_t$} (out.west);
+\end{tikzpicture}
+\caption{The residual-hybrid estimator as a pipeline (Section~2 of the paper). Solid arrows carry data; the dashed top arrow carries the conditional scale $\widehat\sigma_t$ that rescales the finished residual quantile curve. Dashed boxes are inputs shared across assets (the pooled panel that trains the amortized shape model) or held out from training (the calibration split behind the conformal overlay).}
+\label{fig:pipeline}
+\end{figure}
+
+\begin{table}[h]
+\centering\small
+\begin{threeparttable}
+\caption{Sample flow across evaluation panels (Section~3 of the paper).}
+\label{tab:sampleflow}
+\footnotesize\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lllrrl}
+\toprule
+Panel & Source & Era & Names & Test obs & Role \\
+\midrule
+Design equity panel & CRSP/WRDS & 2014--2024 & 200 & 221{,}600 & frontier map, estimator development \\
+Untouched-era holdout & CRSP/WRDS & 2000--2013 & 200 & 280{,}608 & frozen-spec replication \\
+Exception restatement & CRSP/WRDS & 2014--2024 & 140 & $\approx$155{,}000 & per-asset backtesting \\
+Cross-asset sweep & Bloomberg & through 2026 & 43 & \tnote{a} & frontier breadth \\
+Country indices & Bloomberg & through 2026 & 26 & \tnote{a} & frontier breadth \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\footnotesize
+\item[a] Frozen exhibits. Per-instrument windows vary and are documented instrument-by-instrument in the repository.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\section{The two-regime example}
+\subsection*{A synthetic boundary check: when the frontier does
+\emph{not} appear}\label{sec:toy}
+
+Before the real data, a simulation with known truth (run once, seed
+fixed) checks the formal results and, more usefully, delineates when
+the frontier edge should \emph{fail} to appear. The data-generating
+process is deliberately favorable to the score: unit-variance
+Student-$t$ residuals whose degrees of freedom switch between a calm
+regime ($\nu=12$) and a fat regime ($\nu=3$) under a persistent Markov
+chain; forecasters see the trailing 63-day kurtosis score and compete
+at $\tau \in \{0.01, 0.025\}$ (80{,}000 days; scale known, isolating
+shape). First, the Lemma~1 of the paper identity
+verifies numerically: the regret integral and the Monte-Carlo regret
+agree to five decimals ($3.5\times10^{-5}$ at $\tau=0.01$). Second, the
+conformal shift moves realized coverage toward nominal on the held-out
+split, as Proposition~1 of the paper promises. Third, and most instructive, the score-binned nonparametric
+forecaster does
+\emph{not} beat the fixed shape here: a single $t_{\widehat\nu}$
+fitted on the mixture ($\widehat\nu = 6.8$) is nearly unbeatable at
+these levels, with total regret under $0.5\%$ and no decile gradient.
+Two mechanisms explain it, and both teach. (i)~By
+Lemma~1 of the paper regret is \emph{quadratic} in the quantile
+wedge, and at $\tau \ge 0.01$ the wedge between the fitted compromise
+and either regime is small; static kurtosis \emph{blending} is a
+second-order sin. (ii)~The sample kurtosis of a $t_\nu$ law is a noisy statistic when
+tails are fat: its usual moment-based asymptotic variance requires a
+finite eighth moment ($\nu>8$), and the population kurtosis itself does
+not exist for $\nu\le4$, so sixty-three observations cannot reliably
+rank regimes that differ only in a static $\nu$. The jump and
+asymmetry signals, whose top deciles independently survive familywise
+control, corroborate the ordering, and a tail-index (Hill-type)
+variant of the score is an obvious robustness extension. For the empirical sections this means the real-data top-decile edge of Section~4 of the paper
+cannot be an artifact of stationary fat tails being averaged over
+(that configuration is the one the simulation shows a fixed shape
+handles) and is consistent with \emph{local} shape breaks a single
+fitted $\nu$ cannot straddle: asymmetry, jump clustering, and residual misfit
+that co-move with the score. This is the same conclusion the Korea 2026
+falsification case reaches from the opposite direction (price crashes
+are not residual misspecification), and it is why the score combines
+kurtosis with asymmetry and a jump indicator rather than kurtosis
+alone. (Simulation script \texttt{toy\_example.py} ships with the code
+release.)
+
+
+\section{Trading implications and scenario generation}
+\textbf{Trading implications.} The universes where the nonparametric tail wins (crisis FX, volatility indices, credit spreads, frontier equities) are the desks where tail-shape-aware
+sizing and hedging matter most. The \emph{direction} of the trade matters
+as much as its location: a correct physical-measure tail forecast
+does not by itself make bought crash insurance profitable, because the
+crash risk premium can survive conditioning on a correct forecast.
+The application the evidence supports is the opposite side, selling tail
+protection, where the model supplies tail control rather than alpha on
+the mean. The gating experiment provides no evidence that the score times
+individual crash days, so its role there is continuous tail-risk
+measurement, not a market-timing signal.
+
+\textbf{Scenario generation.} Because the shape stage carries an exact
+inverse-CDF sampler, calibrating intractable scenario generators
+(rough volatility, Hawkes, jump-diffusions) for CCAR/ICAAP-style
+stress design is a natural extension; it is not developed here.
+
+
+%% ===== CONCLUSION =====
+
+\clearpage
+\section{Proofs}\label{app:proofs}
+
+The four formal results of Section~2.4 of the paper are stated with
+proof sketches in the body; the complete arguments, with all regularity
+hypotheses made explicit, are collected here. Throughout, $\rho_\tau(u)
+= u(\tau - \mathbb{I}\{u<0\})$ and $q_F = F^{-1}(\tau) = \inf\{x:F(x)\ge
+\tau\}$ is the lower generalized inverse.
+
+\subsection*{Proof of Lemma~1 of the paper (pinball regret identity)}
+
+Assume $\mathbb{E}|Z|<\infty$, so
+\[
+S(q) = (1-\tau)\!\int_{(-\infty,q]}\!(q-z)\,dF(z)
+\;+\; \tau\!\int_{(q,\infty)}\!(z-q)\,dF(z)
+\]
+is finite for every $q$, and $S$ is convex (an expectation of the
+convex maps $q\mapsto\rho_\tau(z-q)$). For fixed $z$, $q\mapsto
+\rho_\tau(z-q)$ is Lipschitz with constant $\max(\tau,1-\tau)$, so the
+difference quotients $[\rho_\tau(Z-q')-\rho_\tau(Z-q)]/(q'-q)$ are
+bounded by the integrable constant $\max(\tau,1-\tau)$; dominated
+convergence justifies differentiating under the expectation wherever the
+one-sided limits exist. Off the atoms of $F$,
+\[
+\frac{d}{dq}\,\rho_\tau(z-q) = \mathbb{I}\{z<q\}-\tau ,
+\qquad\Longrightarrow\qquad
+S'(q) = \mathbb{E}\,\mathbb{I}\{Z<q\}-\tau = F(q^-)-\tau,
+\]
+which equals $F(q)-\tau$ for all but countably many $q$. Since $S$ is
+convex, hence absolutely continuous, the fundamental theorem of
+calculus gives
+\[
+S(q)-S(q_F)=\int_{q_F}^{q}\big(F(u)-\tau\big)\,du,
+\]
+the countable atom set being Lebesgue-null; \emph{no continuity
+hypothesis on $F$ is needed for this identity}. For nonnegativity,
+note $q_F=\inf\{x:F(x)\ge\tau\}$ implies $F(u)\ge\tau$ for $u\ge q_F$
+and $F(u)<\tau$ for $u<q_F$. If $q>q_F$ the integrand is $\ge0$ on
+$[q_F,q]$, so the integral is $\ge0$; if $q<q_F$,
+\[
+S(q)-S(q_F)=\int_{q_F}^{q}\big(F(u)-\tau\big)\,du
+=\int_{q}^{q_F}\big(\tau-F(u)\big)\,du\;\ge\;0 ,
+\]
+the integrand again $\ge0$ on $[q,q_F]$. Equality holds iff $F(u)=\tau$
+for Lebesgue-a.e.\ $u$ between $q_F$ and $q$. Finally, if $F$ is
+absolutely continuous with density $0<m\le f\le M$ on the interval
+joining $q_F$ and $q$, then $F$ is continuous there, so $F(q_F)=\tau$
+and $F(u)-\tau=\int_{q_F}^{u}f$; hence $m|u-q_F|\le|F(u)-\tau|\le
+M|u-q_F|$, and integrating over the interval yields
+$\tfrac{m}{2}(q-q_F)^2\le S(q)-S(q_F)\le\tfrac{M}{2}(q-q_F)^2$.
+\hfill$\square$
+
+\subsection*{Proof of Proposition~1 of the paper (split-conformal
+validity)}
+
+Let $k=\lceil(n{+}1)\tau\rceil$ and assume $1\le k\le n$ so that the
+$k$-th order statistic $e_{(k)}=c_\tau$ of the $n$ calibration errors
+$\{e_1,\dots,e_n\}$ exists; when $k=n+1$ (i.e.\ $\tau$ within $1/(n+1)$
+of $1$) set $c_\tau=+\infty$, giving coverage $1$. Suppose the $n+1$
+errors $e_1,\dots,e_{n+1}$ (calibration plus the test error
+$e_{n+1}=z_{n+1}-\widehat q(\tau\mid s_{n+1})$) are exchangeable and
+almost surely distinct. Then the rank $R$ of $e_{n+1}$ among the pooled
+$n+1$ values is uniformly distributed on $\{1,\dots,n+1\}$. By
+construction $\widetilde q(\tau\mid s_{n+1})=\widehat q(\tau\mid
+s_{n+1})+c_\tau$, so
+\[
+\{z_{n+1}\le\widetilde q(\tau\mid s_{n+1})\}
+=\{e_{n+1}\le c_\tau\}
+=\{e_{n+1}\le e_{(k)}\}
+=\{R\le k\},
+\]
+the middle equality using a.s.\ distinctness (with ties the middle
+equality fails; e.g.\ if all $e_i$ are equal the event has probability
+$1$, which can exceed the stated upper bound). Therefore
+\[
+\Pr\big(z_{n+1}\le\widetilde q(\tau\mid s_{n+1})\big)
+=\Pr(R\le k)=\frac{k}{n+1}
+=\frac{\lceil(n{+}1)\tau\rceil}{n+1}.
+\]
+Since $(n{+}1)\tau\le\lceil(n{+}1)\tau\rceil<(n{+}1)\tau+1$, dividing by
+$n+1$ gives $\tau\le k/(n+1)<\tau+\tfrac1{n+1}$. The probability is over
+the joint law of calibration and test points; the guarantee is
+marginal, not conditional on $s_{n+1}$, because a single scalar shift
+$c_\tau$ pooled across states cannot deliver state-conditional
+coverage. \hfill$\square$
+
+\subsection*{Proof of Proposition~2 of the paper (tail wedge)}
+
+Fix $\nu>2$, so the $t_\nu$ law has finite variance and its
+unit-variance version $Z=T_\nu\sqrt{(\nu-2)/\nu}$ is well defined. The
+$t_\nu$ density is $\sim C_\nu|x|^{-(\nu+1)}$ as $|x|\to\infty$, so the
+lower tail is regularly varying with index $-\nu$: $\Pr(T_\nu<-x)=
+\tilde c_\nu x^{-\nu}(1+o(1))$. Unit-variance scaling multiplies the
+constant, $\Pr(Z<-x)=c_\nu x^{-\nu}(1+o(1))$ with
+$c_\nu=\tilde c_\nu((\nu-2)/\nu)^{\nu/2}$, and leaves the index $\nu$
+unchanged. Writing $U(\tau)=|Q_\nu(\tau)|$ and inverting the regularly
+varying tail \citep{embrechts1997} gives $\tau=c_\nu U(\tau)^{-\nu}
+(1+o(1))$, hence $U(\tau)=(c_\nu/\tau)^{1/\nu}(1+o(1))$ as
+$\tau\downarrow0$, i.e.\ $Q_\nu(\tau)=-(c_\nu/\tau)^{1/\nu}(1+o(1))$.
+For $\nu_1<\nu_2$,
+\[
+\frac{|Q_{\nu_1}(\tau)|}{|Q_{\nu_2}(\tau)|}
+=\frac{(c_{\nu_1}/\tau)^{1/\nu_1}}{(c_{\nu_2}/\tau)^{1/\nu_2}}\,(1+o(1))
+=\text{const}\cdot\tau^{-(1/\nu_1-1/\nu_2)}(1+o(1))\;\longrightarrow\;\infty
+\]
+because $1/\nu_1>1/\nu_2$. Thus for all sufficiently small $\tau$ both
+quantiles are negative with $|Q_{\nu_1}(\tau)|>|Q_{\nu_2}(\tau)|$, i.e.\
+$Q_{\nu_1}(\tau)<Q_{\nu_2}(\tau)$, and the wedge
+$|Q_{\nu_1}(\tau)-Q_{\nu_2}(\tau)|\to\infty$. The ordering therefore
+holds for every $\tau<\delta$ for some $\delta>0$; putting
+$\tau^*=\min(\delta,\tfrac12)$ gives $\tau^*\in(0,\tfrac12)$ as
+asserted. (This establishes \emph{existence} of $\tau^*$; the actual
+crossover $\tau_c$ where the ordering flips is not claimed here and is
+located numerically in the crossover remark of the paper.) Under local truth
+$t_{\nu_1}$, applying the corresponding equation of the paper with $q=Q_{\nu_2}(\tau)$ and
+$q_F=Q_{\nu_1}(\tau)$ bounds the regret below by
+$\tfrac{m}{2}(Q_{\nu_1}(\tau)-Q_{\nu_2}(\tau))^2$, with $m$ the minimum
+of the $t_{\nu_1}$ density on the wedge interval. \hfill$\square$
+
+\subsection*{Remark on the score ordering}
+We state the score-ordering as an empirical regularity rather than a
+theorem, and record here why no clean monotonicity theorem holds at the
+deployable levels. The tail-wedge result (Proposition~2 of the paper)
+orders a given pair of Student-$t$ tail indices only below a pair-specific
+crossover level $\tau^*(\nu_1,\nu_2)$; it does not deliver monotonicity of
+the wedge in the tail index at a fixed operational $\tau$. More
+fundamentally, the innovations are unit-variance by construction, and for
+the unit-variance $t_\nu$ the level-$\tau$ quantile is
+$Q_\nu(\tau)=\sqrt{(\nu-2)/\nu}\;t_\nu^{-1}(\tau)$, which is \emph{not}
+monotone in $\nu$: as $\nu\downarrow2$ the normalization
+$\sqrt{(\nu-2)/\nu}\to0$ pulls the fixed-$\tau$ quantile back toward zero,
+so an arbitrarily heavy-tailed unit-variance $t$ eventually has a
+fixed-$\tau$ quantile arbitrarily close to the center rather than far into
+the tail. The non-monotonicity is already active at the regulatory levels:
+at $\tau=0.025$, $Q_5(0.025)\approx-1.99$ is \emph{less} extreme than
+$Q_8(0.025)\approx-2.00$, so a heavier-tailed standardized $t$ carries the
+less extreme $2.5\%$ quantile. A clean ordering theorem would therefore
+have to restrict the tail index to an explicit interval, isolate a range
+of $\tau$ on which $\partial Q_\nu(\tau)/\partial\nu$ has one sign, and
+control the density factor in the regret expansion; we do not pursue that
+narrow statement. The exact content we retain is the regret identity
+(Lemma~1 of the paper) and the tail-wedge ordering (Proposition~2 of the
+paper), and the frontier itself is documented empirically in the paper.
+\hfill$\square$
+
+
+
+\begin{spacing}{1.0}
+\bibliographystyle{plainnat}
+\bibliography{refs_v3}
+\end{spacing}
+
+\subsection*{Proof of Lemma~2 of the paper (generative sampler)}
+Let $\widetilde{q}(\cdot \mid s)$ be nondecreasing and left-continuous
+on $(0,1)$ and $\tau \sim U(0,1)$, and set
+$Z^*=\widetilde q(\tau\mid s)$ and
+$G(x)=\sup\{t\in(0,1):\widetilde q(t\mid s)\le x\}$ (with
+$\sup\emptyset=0$). Monotonicity makes
+$\{t:\widetilde q(t\mid s)\le x\}$ an interval with left endpoint $0$,
+and left-continuity ensures the supremum is attained when the set is
+nonempty, so the set equals $(0,G(x)]$; hence
+$\{Z^*\le x\}=\{\tau\le G(x)\}$ and
+$\Pr(Z^*\le x)=G(x)$, i.e.\ $Z^*$ has CDF $G$. Because $G$ so defined
+is the upper generalized inverse of $\widetilde q$, and a
+left-continuous nondecreasing $\widetilde q$ is in turn the lower
+generalized inverse of $G$, the quantile function of $Z^*$ is exactly
+$\widetilde q(\cdot\mid s)$. When $\widetilde q$ is an estimated curve,
+the argument applies verbatim to the estimate: the sampler is exact for
+the \emph{fitted} conditional law, which is the claim. $\square$
+
+\end{document}
