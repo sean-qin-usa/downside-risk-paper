@@ -47,6 +47,9 @@ Measured against a jump-robust GARCH that caps how far one shock propagates into
 | `code/paper/job_walkforward_hybrid.py` | `results/paper/walkforward_hybrid_results.json` | Residual-hybrid annual refit |
 | `code/paper/job_tenday_diag.py` | `results/paper/tenday_diag_results.json` | Ten-day extension against iterated GARCH-t, simulated GARCH-t paths and bootstrapped filtered paths, both eras, with the variance term-structure ratio and coverage by year |
 | `code/paper/job_composite_profiles.py` | `results/paper/composite_profiles_results.json` | Table 1 rerun with the full decile profile of each signal (Online Appendix Figure OA.6) |
+| `code/paper/job_feature_ablation.py` | `results/paper/feature_ablation_results.json` | Table 1 learner retrained without the residual-dispersion features and with the GARCH scale alone; decile profiles under each |
+| `code/paper/job_arcd_bench.py` | `results/paper/arcd_bench_results.json` | State-adaptive parametric benchmark: GARCH-t with a time-varying degrees-of-freedom law fitted per name, scored on the Table 1 rows |
+| `code/paper/job_frtb200.py` | `results/paper/frtb_table_200_results.json` | The Table 3 FRTB battery rerun on the 200-name panel of Table 1 |
 
 `code/paper/toy_example.py` runs the whole pipeline on synthetic data and needs no licensed input. Job scripts take the project root, where the licensed panel lives, from the `GBC_PROJ` or `GBC_PROJECT_DIR` environment variable where they read one, and otherwise from a path set at the top of the script.
 
