@@ -3,12 +3,15 @@
 # 2026-08-15 restatement that covered raw models only.  Closes referee point 1.2 fully.
 # Faithful-variant note: GPD fit on pooled TRAIN residual exceedances; conformal shifts
 # learned on the last 25% of TRAIN rows (disjoint from test); both frozen before test.
+# 2026-10-01: random_state=0 added to every HistGradientBoostingRegressor. Without it the early-stopping
+# validation split is drawn afresh each run, so the conformal shift and anything downstream of it were not
+# reproducible from this script; P now honours GBC_PROJ as the other job scripts do.
 import os, json, time, math, warnings; warnings.filterwarnings("ignore")
 import numpy as np, pandas as pd
 from sklearn.ensemble import HistGradientBoostingRegressor
 from scipy import stats
 from arch import arch_model
-P=r"C:\Users\OWNER\Claude\Projects\GBC Project"; t0=time.time(); lg=lambda s:print(s,flush=True)
+P=os.environ.get("GBC_PROJ",os.environ.get("GBC_PROJECT_DIR",r"C:\Users\OWNER\Claude\Projects\GBC Project")); t0=time.time(); lg=lambda s:print(s,flush=True)
 rr=pd.read_csv(os.path.join(P,"crsp_panel_returns.csv"),dtype={'permno':'int32'})
 rr['date']=pd.to_datetime(rr['date']); rr['ret']=pd.to_numeric(rr['ret'],errors='coerce')*100.0
 cnt=rr.groupby('permno')['ret'].count().sort_values(ascending=False); names=cnt[cnt>=1500].index.tolist()[:140]
@@ -41,7 +44,7 @@ TE=pd.concat(rows).reset_index(drop=True); TRzc=pd.concat(TRz); CALzc=pd.concat(
 # body models at the two regulatory tail levels
 ZQ={}; ZQcal={}
 for t in [0.01,0.025]:
-    m=HistGradientBoostingRegressor(loss='quantile',quantile=t,max_iter=250,max_depth=3,learning_rate=0.06).fit(TRzc[ZX].values,TRzc['z'].values)
+    m=HistGradientBoostingRegressor(loss='quantile',quantile=t,max_iter=250,max_depth=3,learning_rate=0.06,random_state=0).fit(TRzc[ZX].values,TRzc['z'].values)
     ZQ[t]=m.predict(TE[ZX].values); ZQcal[t]=m.predict(CALzc[ZX].values)
     lg("  ztau %.3f %.0fs"%(t,time.time()-t0))
 # GPD tail on pooled TRAIN residual exceedances below the empirical 2.5% threshold

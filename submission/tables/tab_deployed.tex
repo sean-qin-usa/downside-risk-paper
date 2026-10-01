@@ -1,0 +1,64 @@
+\begin{tabular}{lcc}
+\toprule
+Metric & $\alpha=1\%$ & $\alpha=2.5\%$ \\
+\midrule
+\multicolumn{3}{l}{\emph{Panel A. Accuracy, eleven-level pinball, 200 names, 221,600 asset-days}} \\
+Mean pinball, eleven levels & \multicolumn{2}{c}{0.39603 (GARCH-$t$ 0.39708)} \\
+Edge over GARCH-$t$, overall & \multicolumn{2}{c}{$+0.26$ (4.60)} \\
+\quad top mk$_{63}$ decile & \multicolumn{2}{c}{$+2.44$ (10.18)} \\
+\quad deciles 1--9 & \multicolumn{2}{c}{$-0.01$ (-0.20)} \\
+Edge over its own-scale parametric tail, top decile & \multicolumn{2}{c}{$+2.44$ (10.18)} \\
+In 90\% MCS on FZ0 at 1\% & \multicolumn{2}{c}{no (of 13 rows)} \\
+In 90\% MCS on FZ0 at 2.5\% & \multicolumn{2}{c}{no (of 13 rows)} \\
+\midrule
+\multicolumn{3}{l}{\emph{Panel B. Joint $(\VaR,\ES)$ score and calibration, one source, same rows}} \\
+Mean FZ0 & $2.14711$ & $1.84871$ \\
+DM against GARCH(1,1)-$t$ & $+5.00$ & $+4.57$ \\
+DM against the GARCH-$t$ engine & --- & --- \\
+DM against robust scale $+$ pooled residual quantile & $-1.75$ & $-2.32$ \\
+DM against bounded-news GARCH-$t$ & $-1.20$ & $-3.35$ \\
+Breach rate (nominal 1.0, 2.5) & $1.02\%$ & $2.72\%$ \\
+Unconditional coverage, date-clustered $p$ & $0.772$ & $0.110$ \\
+\quad same test pooled, treating rows as independent & $0.418$ & $<0.001$ \\
+\quad design effect, iid over clustered & $7.8$ & $16.5$ \\
+Date-clustered exception test, NW $t$ & $+0.29$ & $+1.60$ \\
+Kupiec per name, pass rate & $83.5\%$ & $73.0\%$ \\
+Christoffersen conditional coverage, pass rate & $89.0\%$ & $77.5\%$ \\
+Acerbi--Sz\'ekely $Z_2$ ($p$) & $-0.058$ ($0.348$) & $-0.101$ ($0.058$) \\
+McNeil--Frey ES residual, $p$ & $0.022$ & $0.240$ \\
+\midrule
+\multicolumn{3}{l}{\emph{Panel C. The same configuration re-estimated: robustness and reach}} \\
+Frozen 2000--2013 holdout at 1\%, FZ0 vs the GARCH-$t$ engine & \multicolumn{2}{c}{$1.81972$ against $1.81972$, DM ---} \\
+Frozen 2000--2013 holdout at 2.5\%, FZ0 vs the GARCH-$t$ engine & \multicolumn{2}{c}{$1.57084$ against $1.57084$, DM ---} \\
+2000--2013 holdout, frontier under the frozen specification & \multicolumn{2}{c}{overall $+0.02$ (0.23), top decile $+0.89$ (2.16)} \\
+Calendar-time split, train before 2020 & \multicolumn{2}{c}{overall $+0.71$ (1.87), top-decile DM 6.22} \\
+Annual walk-forward refit & \multicolumn{2}{c}{overall $+0.32$ (0.80), top decile $+2.47$} \\
+Point-in-time universe, delistings ridden & \multicolumn{2}{c}{overall $+0.58$ (8.96), top bucket $+2.94$ (6.60)} \\
+Flexible edge over this scale's parametric tail, design era & \multicolumn{2}{c}{$+2.44$ (10.18)} \\
+Flexible edge over this scale's parametric tail, frozen holdout & \multicolumn{2}{c}{$+1.08$ (4.99)} \\
+Ten-day horizon, 2014--2024 & \multicolumn{2}{c}{$+1.41$ (6.77) vs $\sqrt{h}$-GARCH-$t$, $+0.79$ (4.03) vs iterated} \\
+Cold start, ages 1--5: pooled peer model available on & \multicolumn{2}{c}{$100.0\%$ of rows, but breaching $7.13\%$ against a 1\% level} \\
+\quad ages 15--60: own 20-day scale beats that benchmark by & \multicolumn{2}{c}{$+11.07$ (5.69)} \\
+\midrule
+\multicolumn{3}{l}{\emph{Panel D. Stage-1 scale and Stage-4 variant: breach / NW $t$ / verdict, at $1\%$ then $2.5\%$}} \\
+GARCH(1,1)-$t$, engine$^{\dagger}$ & \multicolumn{2}{c}{1.02\% / $+0.29$ / pass \quad 2.72\% / $+1.60$ / pass} \\
+GARCH(1,1)-$t$, body (no EVT) & \multicolumn{2}{c}{1.30\% / $+4.11$ / \textbf{fail} \quad 3.19\% / $+4.43$ / \textbf{fail}} \\
+GARCH(1,1)-$t$, $+$ overlay as committed & \multicolumn{2}{c}{1.02\% / $+0.29$ / pass \quad 1.67\% / $-8.91$ / \textbf{fail}} \\
+GARCH(1,1)-$t$, $+$ overlay retargeted & \multicolumn{2}{c}{0.80\% / $-4.24$ / \textbf{fail} \quad 2.15\% / $-3.07$ / \textbf{fail}} \\
+bounded-news, engine & \multicolumn{2}{c}{1.05\% / $+0.83$ / pass \quad 2.79\% / $+2.08$ / \textbf{fail}} \\
+bounded-news, body (no EVT) & \multicolumn{2}{c}{1.28\% / $+3.95$ / \textbf{fail} \quad 3.21\% / $+4.59$ / \textbf{fail}} \\
+bounded-news, $+$ overlay as committed & \multicolumn{2}{c}{1.05\% / $+0.83$ / pass \quad 1.74\% / $-8.02$ / \textbf{fail}} \\
+bounded-news, $+$ overlay retargeted & \multicolumn{2}{c}{0.76\% / $-5.20$ / \textbf{fail} \quad 2.11\% / $-3.54$ / \textbf{fail}} \\
+Beta-$t$-EGARCH, engine & \multicolumn{2}{c}{0.90\% / $-1.89$ / pass \quad 2.42\% / $-0.68$ / pass} \\
+Beta-$t$-EGARCH, body (no EVT) & \multicolumn{2}{c}{1.20\% / $+3.00$ / \textbf{fail} \quad 2.99\% / $+3.32$ / \textbf{fail}} \\
+Beta-$t$-EGARCH, $+$ overlay as committed & \multicolumn{2}{c}{0.90\% / $-1.89$ / pass \quad 1.57\% / $-10.76$ / \textbf{fail}} \\
+Beta-$t$-EGARCH, $+$ overlay retargeted & \multicolumn{2}{c}{0.72\% / $-6.28$ / \textbf{fail} \quad 1.98\% / $-4.83$ / \textbf{fail}} \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\footnotesize
+\item[$\dagger$] The deployed configuration: a per-name GARCH(1,1)-$t$ Stage-1 scale, the pooled HistGBM residual-quantile body on the five features, and a pooled GPD left tail spliced at $p_0=0.025$ as the body/EVT minimum, rearranged, with no conformal overlay. A Beta-$t$-EGARCH Stage 1 was tested and not adopted: it wins on FZ0 under this frozen protocol (DM 3.31 and 4.55) and on the frozen 2000--2013 holdout (3.09 and 3.48), but under the annual refits recommended for production the two filters are indistinguishable (DM $-0.31$ and $-0.01$), so the frozen-fit gain is attributable to parameter staleness that refitting removes. Panel D reports its exception tests beside this one. 
+\item Unconditional coverage is read from the date-clustered test, as the paper does elsewhere: the pooled Kupiec statistic treats every row as independent, and on a panel whose names share each day's shock the effective sample is the number of dates. The design-effect row is the ratio of the iid to the clustered variance; it implies an intra-date breach correlation of a few per cent, which is why the pooled statistic rejects on deviations of under a tenth of a percentage point. 
+\item Stage 4 is off. The committed overlay estimates its shift from the \emph{body} on the calibration block and applies it to the \emph{engine}, which already carries the EVT branch, so the tail correction enters twice; re-estimating the shift against the engine itself recovers much of that (Panel D, retargeted rows) but the shift stays negative, because the calibration window and the test window disagree in the sign of their miscoverage. A single additive out-of-era shift is the wrong instrument for a bias of under a tenth of a point, so the stage is dropped rather than repaired. 
+\item Not yet re-scored against this Stage 1: GJR-GARCH-skew-$t$, the Taylor ES-CAViaR model, SAV-CAViaR, EWMA, historical simulation and the GARCH-EVT variants, all of which are scored in \texttt{bench\_all\_results.json} against the GARCH-$t$ engine only. 
+\item Sources: \texttt{exception\_battery\_results.json} (Panel B and D, 200 names), \texttt{robust\_engine\_results.json} and \texttt{robust\_engine\_results\_holdout.json} (Panels A and C), \texttt{holdout\_frontier\_results.json}, \texttt{calendar\_split\_results.json}, \texttt{walkforward\_results.json}, \texttt{pit\_universe\_results.json}, \texttt{tenday\_diag\_results.json}, \texttt{coldstart\_peers\_results.json}.
+\end{tablenotes}
