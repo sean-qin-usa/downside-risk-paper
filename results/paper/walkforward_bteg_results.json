@@ -1,0 +1,270 @@
+{
+  "note": "Annual-refit walk-forward with both Stage-1 scales on the same rows. At each Jan-1 cutoff 2020-2024 the per-name GARCH-t and Beta-t-EGARCH are both re-estimated on expanding pre-cutoff data, residuals, features, mk63, the pooled GBM body, the 20-node sub-alpha grid and the pooled GPD tail are all rebuilt, and the next calendar year is predicted. Comparable to walkforward_hybrid_results.json, whose learner is the body-only arm under garch_t.",
+  "predictions_written_before_run": "P1 (decision) engine_bteg keeps its FZ0 edge over engine_garch_t at both levels under refits, DM>2; P2 top-decile flexible edge over own-scale parametric near +2% under garch_t and under +0.5% under bteg; P3 overall edge undetectable for both, |DM|<2.",
+  "synthetic": false,
+  "test_years": [
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+  ],
+  "n_test": 251600,
+  "n_dates": 1258,
+  "n_dropped": 0,
+  "per_scale": {
+    "garch_t": {
+      "mean_pinball": {
+        "param": 0.43671,
+        "body": 0.4375,
+        "engine": 0.43688
+      },
+      "body_over_own_parametric": {
+        "overall": {
+          "edge_pct": -0.182,
+          "DM": -0.52,
+          "n": 251600
+        },
+        "top_decile": {
+          "edge_pct": 2.093,
+          "DM": 4.38,
+          "n": 25160
+        },
+        "deciles_1to9": {
+          "edge_pct": -0.453,
+          "DM": -1.21,
+          "n": 226440
+        }
+      },
+      "engine_over_own_parametric": {
+        "overall": {
+          "edge_pct": -0.04,
+          "DM": -0.19,
+          "n": 251600
+        },
+        "top_decile": {
+          "edge_pct": 1.804,
+          "DM": 5.34,
+          "n": 25160
+        },
+        "deciles_1to9": {
+          "edge_pct": -0.259,
+          "DM": -1.16,
+          "n": 226440
+        }
+      },
+      "decile_profile_engine_over_own_parametric": {
+        "1": {
+          "edge_pct": -0.032,
+          "DM": -0.66,
+          "n": 25160
+        },
+        "2": {
+          "edge_pct": -0.028,
+          "DM": -0.51,
+          "n": 25160
+        },
+        "3": {
+          "edge_pct": -0.21,
+          "DM": -1.0,
+          "n": 25160
+        },
+        "4": {
+          "edge_pct": -0.22,
+          "DM": -0.76,
+          "n": 25160
+        },
+        "5": {
+          "edge_pct": -0.186,
+          "DM": -0.89,
+          "n": 25160
+        },
+        "6": {
+          "edge_pct": -0.364,
+          "DM": -1.22,
+          "n": 25160
+        },
+        "7": {
+          "edge_pct": -0.598,
+          "DM": -1.8,
+          "n": 25160
+        },
+        "8": {
+          "edge_pct": -0.423,
+          "DM": -1.55,
+          "n": 25160
+        },
+        "9": {
+          "edge_pct": -0.217,
+          "DM": -0.79,
+          "n": 25160
+        },
+        "10": {
+          "edge_pct": 1.804,
+          "DM": 5.34,
+          "n": 25160
+        }
+      }
+    },
+    "bteg": {
+      "mean_pinball": {
+        "param": 0.43639,
+        "body": 0.43591,
+        "engine": 0.43561
+      },
+      "body_over_own_parametric": {
+        "overall": {
+          "edge_pct": 0.111,
+          "DM": 1.08,
+          "n": 251600
+        },
+        "top_decile": {
+          "edge_pct": 0.416,
+          "DM": 1.65,
+          "n": 25160
+        },
+        "deciles_1to9": {
+          "edge_pct": 0.076,
+          "DM": 0.8,
+          "n": 226440
+        }
+      },
+      "engine_over_own_parametric": {
+        "overall": {
+          "edge_pct": 0.179,
+          "DM": 1.17,
+          "n": 251600
+        },
+        "top_decile": {
+          "edge_pct": 0.419,
+          "DM": 1.68,
+          "n": 25160
+        },
+        "deciles_1to9": {
+          "edge_pct": 0.152,
+          "DM": 1.03,
+          "n": 226440
+        }
+      },
+      "decile_profile_engine_over_own_parametric": {
+        "1": {
+          "edge_pct": -0.039,
+          "DM": 0.61,
+          "n": 25160
+        },
+        "2": {
+          "edge_pct": -0.091,
+          "DM": 0.18,
+          "n": 25160
+        },
+        "3": {
+          "edge_pct": -0.003,
+          "DM": -0.02,
+          "n": 25160
+        },
+        "4": {
+          "edge_pct": 0.074,
+          "DM": 0.69,
+          "n": 25160
+        },
+        "5": {
+          "edge_pct": 0.128,
+          "DM": 1.37,
+          "n": 25160
+        },
+        "6": {
+          "edge_pct": 0.135,
+          "DM": 0.84,
+          "n": 25160
+        },
+        "7": {
+          "edge_pct": 0.304,
+          "DM": 0.94,
+          "n": 25160
+        },
+        "8": {
+          "edge_pct": 0.438,
+          "DM": 1.33,
+          "n": 25160
+        },
+        "9": {
+          "edge_pct": 0.364,
+          "DM": 1.6,
+          "n": 25160
+        },
+        "10": {
+          "edge_pct": 0.419,
+          "DM": 1.68,
+          "n": 25160
+        }
+      }
+    }
+  },
+  "engine_head_to_head": {
+    "pinball_bteg_over_garch_t": {
+      "overall": {
+        "edge_pct": 0.292,
+        "DM": 3.72,
+        "n": 251600
+      },
+      "top_decile": {
+        "edge_pct": 1.563,
+        "DM": 6.73,
+        "n": 25160
+      },
+      "deciles_1to9": {
+        "edge_pct": 0.143,
+        "DM": 1.7,
+        "n": 226440
+      }
+    }
+  },
+  "fz0": {
+    "0.01": {
+      "engine_garch_t": {
+        "meanFZ0": 2.23133,
+        "breach": 0.0117
+      },
+      "param_garch_t": {
+        "meanFZ0": 2.24204
+      },
+      "engine_bteg": {
+        "meanFZ0": 2.23636,
+        "breach": 0.0114
+      },
+      "param_bteg": {
+        "meanFZ0": 2.25573
+      },
+      "DM_engine_garch_t_vs_engine_bteg": {
+        "mean_diff": -0.00503,
+        "DM_t": -0.31,
+        "n": 251600
+      },
+      "uc_clustered_t_engine_bteg": 0.85,
+      "uc_clustered_p_engine_bteg": 0.3953
+    },
+    "0.025": {
+      "engine_garch_t": {
+        "meanFZ0": 1.9332,
+        "breach": 0.0288
+      },
+      "param_garch_t": {
+        "meanFZ0": 1.94013
+      },
+      "engine_bteg": {
+        "meanFZ0": 1.93332,
+        "breach": 0.0278
+      },
+      "param_bteg": {
+        "meanFZ0": 1.94402
+      },
+      "DM_engine_garch_t_vs_engine_bteg": {
+        "mean_diff": -0.00012,
+        "DM_t": -0.01,
+        "n": 251600
+      },
+      "uc_clustered_t_engine_bteg": 1.03,
+      "uc_clustered_p_engine_bteg": 0.303
+    }
+  }
+}

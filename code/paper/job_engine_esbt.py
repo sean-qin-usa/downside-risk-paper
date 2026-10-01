@@ -13,12 +13,15 @@
 # Reports the engine ACCURACY LAYER (no conformal, == the FZ0 'engine') and the DEPLOYED engine
 # (conformal shift at 97.5%) side by side, plus GARCH-normal, GARCH-t, FHS on the identical rows.
 # FZ0 means + date-clustered DM are recomputed too as an internal cross-check vs fz_fullpanel_results.json.
+# 2026-10-01: random_state=0 added to every HistGradientBoostingRegressor. Without it the early-stopping
+# validation split is drawn afresh each run, so the conformal shift and anything downstream of it were not
+# reproducible from this script; P now honours GBC_PROJ as the other job scripts do.
 import os, json, time, math, warnings; warnings.filterwarnings("ignore")
 import numpy as np, pandas as pd
 from sklearn.ensemble import HistGradientBoostingRegressor
 from scipy import stats
 from arch import arch_model
-P=r"C:\Users\OWNER\Claude\Projects\GBC Project"; t0=time.time(); lg=lambda s:print(s,flush=True)
+P=os.environ.get("GBC_PROJ",os.environ.get("GBC_PROJECT_DIR",r"C:\Users\OWNER\Claude\Projects\GBC Project")); t0=time.time(); lg=lambda s:print(s,flush=True)
 rng=np.random.default_rng(20260906)
 rr=pd.read_csv(os.path.join(P,"crsp_panel_returns.csv"),dtype={'permno':'int32'})
 rr['date']=pd.to_datetime(rr['date']); rr['ret']=pd.to_numeric(rr['ret'],errors='coerce')*100.0
@@ -69,14 +72,14 @@ lg("panels %d %.0fs"%(len(rows),time.time()-t0))
 TE=pd.concat(rows).reset_index(drop=True); TRzc=pd.concat(TRz); CALzc=pd.concat(CALz)
 ZQ={}; ZQcal={}
 for t in ALPHAS:
-    m=HistGradientBoostingRegressor(loss='quantile',quantile=t,max_iter=250,max_depth=3,learning_rate=0.06).fit(TRzc[ZX].values,TRzc['z'].values)
+    m=HistGradientBoostingRegressor(loss='quantile',quantile=t,max_iter=250,max_depth=3,learning_rate=0.06,random_state=0).fit(TRzc[ZX].values,TRzc['z'].values)
     ZQ[t]=m.predict(TE[ZX].values); ZQcal[t]=m.predict(CALzc[ZX].values)
     lg("  ztau %.3f %.0fs"%(t,time.time()-t0))
 SUBN=20; ZQSUB={a:{} for a in ALPHAS}
 for a in ALPHAS:
     for j in range(SUBN):
         u=a*(j+0.5)/SUBN
-        mz=HistGradientBoostingRegressor(loss='quantile',quantile=u,max_iter=250,max_depth=3,learning_rate=0.06).fit(TRzc[ZX].values,TRzc['z'].values)
+        mz=HistGradientBoostingRegressor(loss='quantile',quantile=u,max_iter=250,max_depth=3,learning_rate=0.06,random_state=0).fit(TRzc[ZX].values,TRzc['z'].values)
         ZQSUB[a][j]=mz.predict(TE[ZX].values)
     lg("  sub-alpha grid a=%.3f %.0fs"%(a,time.time()-t0))
 ztr=TRzc['z'].values; uu=np.quantile(ztr,0.025); exc=uu-ztr[ztr<uu]

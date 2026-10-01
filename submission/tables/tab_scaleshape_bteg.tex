@@ -1,0 +1,18 @@
+\begin{tabular}{lcccc}
+\toprule
+Model & FZ0 $2.5\%$ & DM & FZ0 $1\%$ & DM \\
+\midrule
+Daily core (GARCH-$t$ $+$ EVT), reproduction & $1.500$ & $+6.2$ & $1.778$ & $+4.9$ \\
+Realized scale $+$ residual quantile (reference) & $1.442$ & --- & $1.712$ & --- \\
+\quad $+$ pooled shape learner & $1.442$ & $+0.2$ & $1.716$ & $+0.7$ \\
+\quad $+$ shape $+$ EVT & $1.441$ & $-0.5$ & $1.715$ & $+2.0$ \\
+\midrule
+Beta-$t$-EGARCH scale $+$ residual quantile & $1.483$ & $+5.1$ & $1.756$ & $+3.8$ \\
+\quad $+$ parametric $t$ tail (the benchmark form) & $1.485$ & $+5.0$ & $1.760$ & $+3.6$ \\
+\quad $+$ pooled shape learner & $1.482$ & $+4.1$ & $1.747$ & $+2.5$ \\
+\quad $+$ shape $+$ EVT & $1.480$ & $+4.9$ & $1.754$ & $+3.8$ \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\footnotesize
+\item Added scale: Beta-$t$-EGARCH \citep{harveychakravarty2008}, $\lambda_{t+1} = \omega + \phi(\lambda_t-\omega) + \kappa u_t$ with $u_t = (\nu+1)e_t^2/(\nu+e_t^2) - 1$ the score of the Student-$t$ log-likelihood, a martingale difference bounded in $[-1,\nu]$, fitted per name by maximum likelihood on the training window. Median fitted $\phi = 0.961$, $\kappa = 0.080$, $\nu = 4.48$; the implied bound on one shock is $\kappa\nu = 0.369$ in log scale, a factor of $1.45$. It uses daily returns only, so unlike the realized scale it is available on every name in the panel. 30 names, 33,240 test rows, same rows for every model; DM is date-clustered Newey--West(10) against the realized scale with an unconditional residual quantile, and a positive DM is worse than that benchmark. Result file \texttt{robust\_engine\_results\_taq30.json}; predictions in the script header.
+\end{tablenotes}

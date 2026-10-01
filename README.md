@@ -50,6 +50,13 @@ Measured against a jump-robust GARCH that caps how far one shock propagates into
 | `code/paper/job_feature_ablation.py` | `results/paper/feature_ablation_results.json` | Table 1 learner retrained without the residual-dispersion features and with the GARCH scale alone; decile profiles under each |
 | `code/paper/job_arcd_bench.py` | `results/paper/arcd_bench_results.json` | State-adaptive parametric benchmark: GARCH-t with a time-varying degrees-of-freedom law fitted per name, scored on the Table 1 rows |
 | `code/paper/job_frtb200.py` | `results/paper/frtb_table_200_results.json` | The Table 3 FRTB battery rerun on the 200-name panel of Table 1 |
+| `code/paper/job_robust_engine.py` | `results/paper/robust_engine_results.json`, `..._taq30.json`, `..._holdout.json` | Beta-t-EGARCH (score-driven) Stage-1 scale beside GARCH-t and a bounded-news GARCH, as a benchmark and as the scale under the flexible shape; design era, the 30-name realized-variance panel and the frozen 2000-2013 holdout |
+| `code/paper/job_exception_battery.py` | `results/paper/exception_battery_results.json`, `..._holdout.json` | The per-asset and date-clustered exception tests and the ES backtests on every Stage-1 scale and Stage-4 variant, one row set; holdout run reports 2008-2009 on its own dates |
+| `code/paper/job_bench_all_bteg.py` | `results/paper/bench_all_bteg_results.json` | Every benchmark of `job_bench_all.py` re-scored against a Beta-t-EGARCH Stage 1 on the identical rows, with the decile profile referenced to that scale's own parametric tail |
+| `code/paper/job_walkforward_bteg.py` | `results/paper/walkforward_bteg_results.json` | The annual-refit walk-forward run for both Stage-1 scales side by side, pinball and FZ0 |
+| `code/paper/job_coldstart_peers.py` | `results/paper/coldstart_peers_results.json` | Cold start measured against pooled peer-group benchmarks by listing age, with leave-one-out point-in-time peer scales |
+| `code/paper/make_table_deployed.py` | `submission/tables/tab_deployed.tex` | Every recorded metric for one deployed configuration as a single exhibit |
+| `code/paper/make_table_scaleshape.py` | `submission/tables/tab_scaleshape_bteg.tex` | The Beta-t-EGARCH block for the scale-shape decomposition table |
 
 `code/paper/toy_example.py` runs the whole pipeline on synthetic data and needs no licensed input. Job scripts take the project root, where the licensed panel lives, from the `GBC_PROJ` or `GBC_PROJECT_DIR` environment variable where they read one, and otherwise from a path set at the top of the script.
 
