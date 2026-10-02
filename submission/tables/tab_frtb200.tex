@@ -1,0 +1,20 @@
+\begin{tabular}{lcccc}
+\toprule
+Model & Avg.\ pinball & ES$_{97.5}$ pred.\ vs realized & Breach$_{99}$ & Kupiec$_{99}$ $p$ \\
+\midrule
+\emph{Ideal value} & \emph{(smaller better)} & \emph{(pred.\ $=$ realized)} & \emph{1.00\%} & \emph{$>0.05$ (pass)} \\
+\midrule
+Residual-hybrid (GBM) & \textbf{0.3676} & $-6.63$ / $-6.12$ & 1.06\% & 0.00 \\
+\quad $+$ EVT tail & 0.3680 & $-7.21$ / $-6.15$ & 0.88\% & 0.00 \\
+GARCH(1,1)-$t$ & 0.3688 & $-6.98$ / $-5.92$ & 1.03\% & 0.167 \\
+GJR-GARCH-skew-$t$ & 0.3688 & $-6.85$ / $-6.09$ & 1.02\% & 0.431 \\
+GARCH-FHS (per-name) & 0.3689 & $-6.90$ / $-6.06$ & 1.08\% & 0.00 \\
+GARCH-FHS (pooled) & 0.3691 & $-7.17$ / $-5.89$ & 0.97\% & 0.206 \\
+GARCH-FHS (rolling 500d) & 0.3694 & $-6.71$ / $-6.21$ & 1.10\% & 0.00 \\
+EWMA (RiskMetrics) & 0.3735 & $-5.72$ / $-5.84$ & 1.61\% & 0.00 \\
+Historical simulation & 0.3752 & $-7.41$ / $-7.08$ & 0.87\% & 0.00 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\footnotesize
+\item 200 names, 221,600 test asset-days over 1108 dates -- the panel of Table~1, so the battery and the frontier share one set of rows. Twelve quantile levels; ES$_{97.5}$ is the exact tail integral of each model's own quantile function, and the realized column is the mean return below that model's own VaR, a model-dependent conditioning set kept as a diagnostic. Source: \texttt{frtb\_table\_200\_results.json}.
+\end{tablenotes}

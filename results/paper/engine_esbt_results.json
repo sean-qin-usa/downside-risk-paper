@@ -8,7 +8,7 @@
     "xi": 0.2932,
     "beta": 0.6412
   },
-  "conf975": -0.3354,
+  "conf975": -0.3275,
   "per_alpha": {
     "0.01": {
       "garch_norm": {
@@ -20,7 +20,7 @@
         "MF_p": 0.0,
         "n_breach": 3428,
         "meanFZ0": 2.27563,
-        "DM_vs_engine_noconf": 7.12,
+        "DM_vs_engine_noconf": 7.08,
         "n_dates": 1108
       },
       "garch_t": {
@@ -32,7 +32,7 @@
         "MF_p": 0.0002,
         "n_breach": 2281,
         "meanFZ0": 2.15572,
-        "DM_vs_engine_noconf": 4.8,
+        "DM_vs_engine_noconf": 4.77,
         "n_dates": 1108
       },
       "fhs": {
@@ -44,30 +44,30 @@
         "MF_p": 0.0701,
         "n_breach": 2737,
         "meanFZ0": 2.17241,
-        "DM_vs_engine_noconf": 4.97,
+        "DM_vs_engine_noconf": 4.91,
         "n_dates": 1108
       },
       "engine_noconf": {
-        "breach": 0.0103,
-        "kupiec_p": 0.1546,
-        "AS_Z2": -0.0674,
-        "AS_Z2_p": 0.2652,
-        "MF_exres": -0.1378,
-        "MF_p": 0.0377,
-        "n_breach": 2283,
-        "meanFZ0": 2.14749,
+        "breach": 0.0102,
+        "kupiec_p": 0.4185,
+        "AS_Z2": -0.0576,
+        "AS_Z2_p": 0.339,
+        "MF_exres": -0.1524,
+        "MF_p": 0.022,
+        "n_breach": 2254,
+        "meanFZ0": 2.14711,
         "DM_vs_engine_noconf": 0.0,
         "n_dates": 1108
       },
       "engine_conf": {
-        "breach": 0.0103,
-        "kupiec_p": 0.1546,
-        "AS_Z2": -0.0674,
-        "AS_Z2_p": 0.2683,
-        "MF_exres": -0.1378,
-        "MF_p": 0.0377,
-        "n_breach": 2283,
-        "meanFZ0": 2.14749,
+        "breach": 0.0102,
+        "kupiec_p": 0.4185,
+        "AS_Z2": -0.0576,
+        "AS_Z2_p": 0.342,
+        "MF_exres": -0.1524,
+        "MF_p": 0.0219,
+        "n_breach": 2254,
+        "meanFZ0": 2.14711,
         "DM_vs_engine_noconf": 0.0,
         "n_dates": 1108
       }
@@ -82,7 +82,7 @@
         "MF_p": 0.0,
         "n_breach": 5886,
         "meanFZ0": 1.88442,
-        "DM_vs_engine_noconf": 8.38,
+        "DM_vs_engine_noconf": 8.24,
         "n_dates": 1108
       },
       "garch_t": {
@@ -94,7 +94,7 @@
         "MF_p": 0.1429,
         "n_breach": 6009,
         "meanFZ0": 1.8542,
-        "DM_vs_engine_noconf": 5.12,
+        "DM_vs_engine_noconf": 5.03,
         "n_dates": 1108
       },
       "fhs": {
@@ -106,30 +106,30 @@
         "MF_p": 0.8374,
         "n_breach": 6832,
         "meanFZ0": 1.86245,
-        "DM_vs_engine_noconf": 5.46,
+        "DM_vs_engine_noconf": 5.35,
         "n_dates": 1108
       },
       "engine_noconf": {
-        "breach": 0.0273,
+        "breach": 0.0272,
         "kupiec_p": 0.0,
-        "AS_Z2": -0.1082,
-        "AS_Z2_p": 0.0394,
-        "MF_exres": -0.0383,
-        "MF_p": 0.2581,
-        "n_breach": 6060,
-        "meanFZ0": 1.84892,
+        "AS_Z2": -0.1013,
+        "AS_Z2_p": 0.0515,
+        "MF_exres": -0.0404,
+        "MF_p": 0.2354,
+        "n_breach": 6018,
+        "meanFZ0": 1.84871,
         "DM_vs_engine_noconf": 0.0,
         "n_dates": 1108
       },
       "engine_conf": {
-        "breach": 0.0166,
+        "breach": 0.0167,
         "kupiec_p": 0.0,
-        "AS_Z2": 0.2945,
+        "AS_Z2": 0.2903,
         "AS_Z2_p": 0.0,
-        "MF_exres": -0.1961,
+        "MF_exres": -0.1921,
         "MF_p": 0.0,
-        "n_breach": 3681,
-        "meanFZ0": 1.86542,
+        "n_breach": 3707,
+        "meanFZ0": 1.86484,
         "DM_vs_engine_noconf": 2.4,
         "n_dates": 1108
       }
