@@ -57,8 +57,20 @@ Measured against a jump-robust GARCH that caps how far one shock propagates into
 | `code/paper/job_coldstart_peers.py` | `results/paper/coldstart_peers_results.json` | Cold start measured against pooled peer-group benchmarks by listing age, with leave-one-out point-in-time peer scales |
 | `code/paper/make_table_deployed.py` | `submission/tables/tab_deployed.tex` | Every recorded metric for one deployed configuration as a single exhibit |
 | `code/paper/make_table_scaleshape.py` | `submission/tables/tab_scaleshape_bteg.tex` | The Beta-t-EGARCH block for the scale-shape decomposition table |
+| `code/paper/make_table_frtb200.py` | `submission/tables/tab_frtb200.tex` | The FRTB battery table regenerated on the 200-name panel of Table 1, so the battery and the frontier share one set of rows |
 
 `code/paper/toy_example.py` runs the whole pipeline on synthetic data and needs no licensed input. Job scripts take the project root, where the licensed panel lives, from the `GBC_PROJ` or `GBC_PROJECT_DIR` environment variable where they read one, and otherwise from a path set at the top of the script.
+
+## Environment
+
+Results committed from 2026-10-01 were produced with Python 3.10.12, numpy 1.26.4, scipy 1.15.3,
+pandas 2.3.3, **scikit-learn 1.7.2** and arch 8.0.0. The scikit-learn version is worth pinning rather
+than noting: the gradient-boosted residual-quantile stage is the one estimated component in the
+pipeline, and figures produced on a different build reproduce to roughly 0.04 percentage points of
+pinball rather than exactly. Every job now sets `random_state=0` on that stage, so a rerun on a fixed
+build is bit-reproducible; result files committed before that date were produced without the seed and
+are not reproducible from their own scripts. `docs/R57_RESULTS_HARVEST.md` lists every figure that
+moved when the seed was fixed.
 
 ## Data
 
