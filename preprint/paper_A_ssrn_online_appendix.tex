@@ -142,17 +142,17 @@ contaminated same-day alignment yields less, the opposite of what a look-ahead a
   x tick label style={font=\scriptsize, rotate=25}, tick label style={font=\scriptsize},
   legend style={font=\scriptsize, at={(0.02,0.98)}, anchor=north west, draw=none}]
 \addplot[fill=npblue, draw=npblue] coordinates
-  {(HS,0.93) (EWMA,0.53) (GARCH-t,0.81) (GJR,0.86) (FHS,0.84) (raw hybrid,0.80) (hybrid+EVT,0.84)};
+  {(HS,0.93) (EWMA,0.55) (GARCH-t,0.82) (GJR,0.88) (FHS,0.84) (raw hybrid,0.86) (hybrid+EVT,0.86)};
 \addplot[dashed, sharp plot, gray, mark=none] coordinates {(HS,0.95) (hybrid+EVT,0.95)};
 \addlegendentry{expected under exact calibration ($\approx$0.95)}
 \end{axis}
 \end{tikzpicture}
-\caption{Exception tests restated per asset (140 CRSP names, 99\% VaR):
+\caption{Exception tests restated per asset (200 CRSP names, 99\% VaR, the rows of Table~4 of the paper):
 share of names whose individual Kupiec test is consistent with nominal.
 HS over-covers (conservative); EWMA fails; the EVT-tailed engine matches
 the parametric benchmarks while beating them on loss and the joint
 FZ0 score
-(Table~3 of the paper). Date-clustered tests in the table notes.}
+(Table~4 of the paper). Date-clustered tests in the table notes.}
 \label{fig:passrates}
 \end{figure}
 \clearpage
@@ -189,34 +189,34 @@ one-day.}
 \begin{tikzpicture}
 \begin{axis}[width=0.52\textwidth, height=5.2cm, ybar, bar width=7pt,
   symbolic x coords={Hyb, Hyb+EVT, GARCH-t, FHS, GJR, EWMA, HS},
-  xtick=data, ymin=0.353, ymax=0.363,
+  xtick=data, ymin=0.366, ymax=0.376,
   ylabel={Avg.\ pinball}, x tick label style={font=\tiny, rotate=30},
   tick label style={font=\scriptsize},
-  title={\small Accuracy (140 names, 155k obs)}]
+  title={\small Accuracy (200 names, 221.6k obs)}]
 \addplot[fill=npblue, draw=npblue] coordinates
-  {(Hyb,0.3551) (Hyb+EVT,0.3555) (GARCH-t,0.3561) (FHS,0.3566)
-   (GJR,0.3562) (EWMA,0.3606) (HS,0.3619)};
+  {(Hyb,0.3676) (Hyb+EVT,0.3680) (GARCH-t,0.3688) (FHS,0.3691)
+   (GJR,0.3688) (EWMA,0.3735) (HS,0.3752)};
 \end{axis}
 \end{tikzpicture}\hfill
 \begin{tikzpicture}
 \begin{axis}[width=0.44\textwidth, height=5.2cm, ybar, bar width=5pt,
   symbolic x coords={Hyb, Hyb+EVT, GARCH-t, FHS},
-  xtick=data, ymin=-7.2, ymax=-5.2,
+  xtick=data, ymin=-7.4, ymax=-5.4,
   ylabel={ES$_{97.5}$}, x tick label style={font=\tiny, rotate=30},
   tick label style={font=\scriptsize},
   title={\small ES$_{97.5}$: predicted vs realized},
   legend style={font=\tiny, at={(0.98,0.02)}, anchor=south east,
                 draw=none}]
 \addplot[fill=npmid, draw=npmid] coordinates
-  {(Hyb,-6.37) (Hyb+EVT,-6.90) (GARCH-t,-6.69) (FHS,-6.90)};
+  {(Hyb,-6.63) (Hyb+EVT,-7.21) (GARCH-t,-6.98) (FHS,-7.17)};
 \addlegendentry{predicted}
 \addplot[fill=gold, draw=gold] coordinates
-  {(Hyb,-5.83) (Hyb+EVT,-5.91) (GARCH-t,-5.65) (FHS,-5.67)};
+  {(Hyb,-6.12) (Hyb+EVT,-6.15) (GARCH-t,-5.92) (FHS,-5.89)};
 \addlegendentry{realized}
 \end{axis}
 \end{tikzpicture}
 \caption{The FRTB battery. Left: average pinball loss by model (axis
-truncated to resolve the ordering; differences carry DM 5.2--8.8 vs the
+truncated to resolve the ordering; differences carry DM 5.6--9.7 vs the
 hybrid, all $p \approx 0$); CAViaR, not shown, statistically ties the
 hybrid. Right: ES$_{97.5}$ predicted (exact tail integral) vs realized
 below each model's own VaR, a model-dependent diagnostic, not a
@@ -456,19 +456,19 @@ an ES forecast and comparing forecasts through a jointly consistent score.
 Table~\ref{tab:esbt} reports the two calibration tests on the same $200$-name
 panel and $221{,}600$ held-out asset-days ($1{,}108$ test dates) as the
 full-panel FZ0 re-scoring, with the engine's VaR and ES read from its own
-coherent min-envelope curve $Q^{z}$ of equation~(5) of the paper --- the exact forecasts the joint loss
-scores, not a simpler proxy --- and inference by a stationary block bootstrap
+coherent min-envelope curve $Q^{z}$ of equation~(5) of the paper, the forecasts the joint loss
+scores, and inference by a stationary block bootstrap
 over calendar dates. Gaussian innovations are decisively inadequate in this
 daily-data battery: the Gaussian filter is worst on every ES metric, its mean
 exceedance residual reaching $-0.77$ standard deviations at the $1\%$ level
 ($Z_2=-0.99$). Among the fat-tailed entrants no model dominates every diagnostic.
 On the Acerbi--Sz\'ekely $Z_2$ the engine is best calibrated in the tail: it
-carries the statistic closest to zero at $1\%$ ($-0.07$, not rejected) and is
-effectively tied with GARCH-$t$ at $2.5\%$ ($-0.11$ against $-0.10$). The engine
+carries the statistic closest to zero at $1\%$ ($-0.06$, not rejected) and is
+tied with GARCH-$t$ at $2.5\%$ (both $-0.10$). The engine
 and GARCH-$t$ are the two entrants that pass the $1\%$ Kupiec
 unconditional-coverage test; FHS and the Gaussian filter fail it. On the
-McNeil--Frey exceedance residual FHS --- which fits the empirical residual tail
-directly --- sits closest to zero and is the only entrant the test does not
+McNeil--Frey exceedance residual FHS, which fits the empirical residual tail
+directly, sits closest to zero and is the only entrant the test does not
 reject at $1\%$ ($-0.10$, $p=0.07$); at $2.5\%$ FHS, GARCH-$t$ and the engine all
 fall inside the non-rejection region. The reading is consistent with the
 exception tests and the joint score: fat tails materially improve tail
@@ -480,7 +480,7 @@ beats both GARCH-$t$ and FHS at each level.
 \centering
 \begin{threeparttable}
 \caption{Direct expected-shortfall backtests. $200$ CRSP names, pooled test
-panel --- the same held-out rows as the full-panel FZ0 re-scoring; the engine's
+panel, the same held-out rows as the full-panel FZ0 re-scoring; the engine's
 VaR and ES are its own coherent min-envelope forecasts. Breach is the realized
 exception rate (target $\alpha$); Kupiec $p$ is the pooled unconditional-coverage
 test. $Z_2$ is the Acerbi--Sz\'ekely (2014) statistic, negative when ES
@@ -497,7 +497,7 @@ Model & Breach & Kupiec\,$p$ & $Z_2$ & MF ($p$) & Breach & Kupiec\,$p$ & $Z_2$ &
 GARCH-normal & $0.027$ & $0.00$ & $-0.31$ & $-0.55\,(0.00)$ & $0.016$ & $0.00$ & $-0.99$ & $-0.77\,(0.00)$ \\
 GARCH-$t$ & $0.027$ & $0.00$ & $\mathbf{-0.10}$ & $-0.05\,(0.14)$ & $0.010$ & $\mathbf{0.17}$ & $-0.09$ & $-0.23\,(0.00)$ \\
 GARCH-FHS & $0.031$ & $0.00$ & $-0.24$ & $\mathbf{+0.01\,(0.84)}$ & $0.012$ & $0.00$ & $-0.29$ & $\mathbf{-0.10\,(0.07)}$ \\
-Engine (EVT-tailed) & $0.027$ & $0.00$ & $-0.11$ & $-0.04\,(0.26)$ & $0.010$ & $\mathbf{0.15}$ & $\mathbf{-0.07}$ & $-0.14\,(0.04)$ \\
+Engine (EVT-tailed) & $0.027$ & $0.00$ & $\mathbf{-0.10}$ & $-0.04\,(0.24)$ & $0.010$ & $\mathbf{0.42}$ & $\mathbf{-0.06}$ & $-0.15\,(0.02)$ \\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}\footnotesize
@@ -826,7 +826,7 @@ Direct model & --- & 1.13 / 2.80 & --- & 1.24 / 2.82 \\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}\footnotesize
-\item Design era: 150 names, 164,850 test rows, 1,099 dates; holdout: 200 names, 278,808 rows, 1,486 dates. Edge $=$ (benchmark pinball $-$ direct pinball)/benchmark pinball over the eleven levels of the paper. Labels overlap (each row's target is the next ten days), so the DM statistic is computed on per-date mean loss differences with a Newey--West lag of 10; NO repeats it on every tenth test date (110 and 149 dates). The main text's holdout figure ($+0.49\%$, DM 0.07) is an earlier run of the same purged pipeline with a different learner seed. Coverage is the share of rows whose realized ten-day return falls below the forecast quantile. Iterated-variance GARCH-$t$ uses the closed-form sum of the fitted GARCH variance forecasts over the ten days with the one-day $t$ shape; the path benchmarks simulate 4,000 ten-day paths per row from the fitted GARCH-$t$ with $t$ innovations or with residuals bootstrapped from the training window. The ratio of the iterated ten-day variance to $h$ times the one-day variance averages 1.07 in 2020, 1.11 in 2021, 1.06 in 2022, 1.12 in 2023, 1.11 in 2024 in the design era and 0.99 in 2008, 1.00 in 2009, 1.02 in 2010, 1.02 in 2011, 1.04 in 2012, 1.04 in 2013, which is why the $\sqrt{h}$ rule under-scales in the later era only. Holdout standard errors are roughly 3--6\% of loss, so the out-of-era accuracy comparison is uninformative; see \texttt{tenday\_diag\_results.json}.
+\item Design era: 150 names, 164,850 test rows, 1,099 dates; holdout: 200 names, 278,808 rows, 1,486 dates. Edge $=$ (benchmark pinball $-$ direct pinball)/benchmark pinball over the eleven levels of the paper. Labels overlap (each row's target is the next ten days), so the DM statistic is computed on per-date mean loss differences with a Newey--West lag of 10; NO repeats it on every tenth test date (110 and 149 dates). Coverage is the share of rows whose realized ten-day return falls below the forecast quantile. Iterated-variance GARCH-$t$ uses the closed-form sum of the fitted GARCH variance forecasts over the ten days with the one-day $t$ shape; the path benchmarks simulate 4,000 ten-day paths per row from the fitted GARCH-$t$ with $t$ innovations or with residuals bootstrapped from the training window. The ratio of the iterated ten-day variance to $h$ times the one-day variance averages 1.07 in 2020, 1.11 in 2021, 1.06 in 2022, 1.12 in 2023, 1.11 in 2024 in the design era and 0.99 in 2008, 1.00 in 2009, 1.02 in 2010, 1.02 in 2011, 1.04 in 2012, 1.04 in 2013, which is why the $\sqrt{h}$ rule under-scales in the later era only. Holdout standard errors are roughly 3--6\% of loss, so the out-of-era accuracy comparison is uninformative; see \texttt{tenday\_diag\_results.json}.
 \end{tablenotes}
 \end{threeparttable}
 \end{table}
@@ -873,6 +873,9 @@ Learner over adaptive-$\nu$ GARCH-$t$ & $+2.72$ (9.7) & $+2.76$ (8.1) & $-0.05$ 
 \end{tablenotes}
 \end{threeparttable}
 \end{table}
+
+\subsection*{Expected-shortfall integral and an external transfer check}
+Two items recorded for completeness. (i)~Computing ES$_\alpha$ as the numerical integral of the min-envelope curve rather than by the GPD closed form of \citet{mcneilfrey2000} leaves each comparison in place: at 2.5\% the accuracy layer's FZ0 is 1.849 under the integral against 1.851 under the closed form (the integral marginally better, DM 5.3), and the estimator-over-GARCH-$t$ DM is 4.8 and 5.1 at the 1\% and 2.5\% levels under either convention. (ii)~As a transfer check outside finance, the same amortized pipeline scores a leakage-safe weighted scaled pinball of 0.269 (benchmark tier) on the M5 competition data.
 
 \section{Frontier robustness: calendar overlap, family-wise error, and the universe rule}
 This section collects the constructions summarized in Section~3 of the paper.
@@ -928,7 +931,7 @@ Panel & Source & Era & Names & Test obs & Role \\
 \midrule
 Design equity panel & CRSP/WRDS & 2014--2024 & 200 & 221{,}600 & frontier map, estimator development \\
 Untouched-era holdout & CRSP/WRDS & 2000--2013 & 200 & 280{,}608 & frozen-spec replication \\
-Exception restatement & CRSP/WRDS & 2014--2024 & 140 & $\approx$155{,}000 & per-asset backtesting \\
+Subpanel & CRSP/WRDS & 2014--2024 & 140 & $\approx$155{,}000 & neural-network comparison, auxiliary checks \\
 Cross-asset sweep & Bloomberg & through 2026 & 43 & \tnote{a} & frontier breadth \\
 Country indices & Bloomberg & through 2026 & 26 & \tnote{a} & frontier breadth \\
 \bottomrule
@@ -983,7 +986,7 @@ alone. (Simulation script \texttt{toy\_example.py} ships with the code
 release.)
 
 
-\section{Trading implications and scenario generation}
+\section{Trading implications}
 \textbf{Trading implications.} The universes where the nonparametric tail wins (crisis FX, volatility indices, credit spreads, frontier equities) are the desks where tail-shape-aware
 sizing and hedging matter most. The \emph{direction} of the trade matters
 as much as its location: a correct physical-measure tail forecast
@@ -996,10 +999,7 @@ direction and not a result. The gating experiment provides no evidence that the 
 individual crash days, so its role there is continuous tail-risk
 measurement, not a market-timing signal.
 
-\textbf{Scenario generation.} Because the shape stage carries an exact
-inverse-CDF sampler, calibrating intractable scenario generators
-(rough volatility, Hawkes, jump-diffusions) for CCAR/ICAAP-style
-stress design is a natural extension; it is not developed here.
+
 
 
 %% ===== CONCLUSION =====
@@ -1007,8 +1007,7 @@ stress design is a natural extension; it is not developed here.
 \clearpage
 \section{Proofs}\label{app:proofs}
 
-The four formal results of Section~2.4 of the paper are stated with
-proof sketches in the body; the complete arguments, with all regularity
+The three formal results of Sections~2.2 and~2.4 of the paper are stated in the body; the complete arguments, with all regularity
 hypotheses made explicit, are collected here. Throughout, $\rho_\tau(u)
 = u(\tau - \mathbb{I}\{u<0\})$ and $q_F = F^{-1}(\tau) = \inf\{x:F(x)\ge
 \tau\}$ is the lower generalized inverse.
@@ -1151,23 +1150,7 @@ paper), and the frontier itself is documented empirically in the paper.
 
 
 
-\subsection*{Proof of Lemma~2 of the paper (generative sampler)}
-Let $\widetilde{q}(\cdot \mid s)$ be nondecreasing and left-continuous
-on $(0,1)$ and $\tau \sim U(0,1)$, and set
-$Z^*=\widetilde q(\tau\mid s)$ and
-$G(x)=\sup\{t\in(0,1):\widetilde q(t\mid s)\le x\}$ (with
-$\sup\emptyset=0$). Monotonicity makes
-$\{t:\widetilde q(t\mid s)\le x\}$ an interval with left endpoint $0$,
-and left-continuity ensures the supremum is attained when the set is
-nonempty, so the set equals $(0,G(x)]$; hence
-$\{Z^*\le x\}=\{\tau\le G(x)\}$ and
-$\Pr(Z^*\le x)=G(x)$, i.e.\ $Z^*$ has CDF $G$. Because $G$ so defined
-is the upper generalized inverse of $\widetilde q$, and a
-left-continuous nondecreasing $\widetilde q$ is in turn the lower
-generalized inverse of $G$, the quantile function of $Z^*$ is exactly
-$\widetilde q(\cdot\mid s)$. When $\widetilde q$ is an estimated curve,
-the argument applies verbatim to the estimate: the sampler is exact for
-the \emph{fitted} conditional law, which is the claim. $\square$
+
 
 \begin{spacing}{1.0}
 \bibliographystyle{plainnat}
