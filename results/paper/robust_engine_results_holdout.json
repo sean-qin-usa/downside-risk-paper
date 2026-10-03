@@ -1,4 +1,47 @@
 {
+  "es_convention": {
+    "engine_rows": "converged integral (es_integral.converged_es, M=2000, 60 fitted body levels): body interpolated on [a/40,a], pooled GPD exact at every node, sub-floor region in closed form. VaR identical to the committed construction, so no VaR-only statistic can move.",
+    "body_rows": "committed 20-node rule: the body has no tail below its lowest fitted level, so there is no converged counterpart",
+    "parametric_rows": "closed form, unaffected",
+    "superseded_20node_values": {
+      "engine|0.01": {
+        "es_20node_mean_z": -3.51403,
+        "es_converged_mean_z": -3.57855,
+        "ratio": 1.01849,
+        "FZ0_under_20node": 1.81972
+      },
+      "engine|0.025": {
+        "es_20node_mean_z": -2.70164,
+        "es_converged_mean_z": -2.74709,
+        "ratio": 1.01691,
+        "FZ0_under_20node": 1.57084
+      },
+      "engine_bip|0.01": {
+        "es_20node_mean_z": -3.63112,
+        "es_converged_mean_z": -3.70284,
+        "ratio": 1.01975,
+        "FZ0_under_20node": 1.81635
+      },
+      "engine_bip|0.025": {
+        "es_20node_mean_z": -2.79171,
+        "es_converged_mean_z": -2.83621,
+        "ratio": 1.01615,
+        "FZ0_under_20node": 1.56742
+      },
+      "engine_bteg|0.01": {
+        "es_20node_mean_z": -3.42299,
+        "es_converged_mean_z": -3.48792,
+        "ratio": 1.01902,
+        "FZ0_under_20node": 1.80459
+      },
+      "engine_bteg|0.025": {
+        "es_20node_mean_z": -2.63363,
+        "es_converged_mean_z": -2.67934,
+        "ratio": 1.01745,
+        "FZ0_under_20node": 1.55939
+      }
+    }
+  },
   "note": "Beta-t-EGARCH (t-GAS) Stage-1 scale beside GARCH(1,1)-t and bounded-news (BIP) GARCH, each as a standalone parametric benchmark (rows garch_t / bip_t / bteg) and as the scale under the flexible shape (engine* / body*), one common set of test rows. DM_t>0 means the row model is worse than the named reference. The paper-comparable number is flexible_over_same_scale_parametric.top_decile under each sort.",
   "predictions_written_before_run": "P1 bteg beats garch_t on FZ0 at both levels by 0.005-0.03; P2 top-decile flexible edge over the same-scale parametric falls to +0.2..+0.9% (DM 2-5) under bteg; P3 engine_bteg FZ0 below engine at both levels but by less than P1; P4 top-decile sort overlap below 0.75.",
   "panel": "holdout",
@@ -2555,21 +2598,21 @@
   "fz0": {
     "0.01": {
       "engine": {
-        "meanFZ0": 1.81972,
+        "meanFZ0": 1.8199,
         "breach": 0.0108,
         "vs_garch_t": {
-          "mean_diff": -0.01401,
-          "DM_t": -2.12,
+          "mean_diff": -0.01383,
+          "DM_t": -1.88,
           "n": 280608
         },
         "vs_engine": null,
         "vs_engine_bteg": {
-          "mean_diff": 0.01513,
-          "DM_t": 3.09,
+          "mean_diff": 0.01523,
+          "DM_t": 3.14,
           "n": 280608
         },
         "vs_bteg_top_decile": {
-          "mean_diff": 0.0223,
+          "mean_diff": 0.02299,
           "DM_t": 0.86,
           "n": 28061
         }
@@ -2583,13 +2626,13 @@
           "n": 280608
         },
         "vs_engine": {
-          "mean_diff": 0.00794,
-          "DM_t": 0.59,
+          "mean_diff": 0.00777,
+          "DM_t": 0.49,
           "n": 280608
         },
         "vs_engine_bteg": {
-          "mean_diff": 0.02308,
-          "DM_t": 2.06,
+          "mean_diff": 0.02299,
+          "DM_t": 1.94,
           "n": 280608
         },
         "vs_bteg_top_decile": {
@@ -2599,26 +2642,26 @@
         }
       },
       "engine_bip": {
-        "meanFZ0": 1.81635,
+        "meanFZ0": 1.81669,
         "breach": 0.0106,
         "vs_garch_t": {
-          "mean_diff": -0.01737,
-          "DM_t": -1.76,
+          "mean_diff": -0.01704,
+          "DM_t": -1.6,
           "n": 280608
         },
         "vs_engine": {
-          "mean_diff": -0.00337,
+          "mean_diff": -0.00321,
           "DM_t": 0.07,
           "n": 280608
         },
         "vs_engine_bteg": {
-          "mean_diff": 0.01176,
-          "DM_t": 2.34,
+          "mean_diff": 0.01202,
+          "DM_t": 2.42,
           "n": 280608
         },
         "vs_bteg_top_decile": {
-          "mean_diff": 0.00285,
-          "DM_t": 0.73,
+          "mean_diff": 0.00186,
+          "DM_t": 0.65,
           "n": 28061
         }
       },
@@ -2631,13 +2674,13 @@
           "n": 280608
         },
         "vs_engine": {
-          "mean_diff": 0.00148,
-          "DM_t": 0.28,
+          "mean_diff": 0.0013,
+          "DM_t": 0.22,
           "n": 280608
         },
         "vs_engine_bteg": {
-          "mean_diff": 0.01661,
-          "DM_t": 1.8,
+          "mean_diff": 0.01653,
+          "DM_t": 1.7,
           "n": 280608
         },
         "vs_bteg_top_decile": {
@@ -2647,22 +2690,22 @@
         }
       },
       "engine_bteg": {
-        "meanFZ0": 1.80459,
+        "meanFZ0": 1.80468,
         "breach": 0.011,
         "vs_garch_t": {
-          "mean_diff": -0.02914,
-          "DM_t": -3.24,
+          "mean_diff": -0.02905,
+          "DM_t": -3.07,
           "n": 280608
         },
         "vs_engine": {
-          "mean_diff": -0.01513,
-          "DM_t": -3.09,
+          "mean_diff": -0.01523,
+          "DM_t": -3.14,
           "n": 280608
         },
         "vs_engine_bteg": null,
         "vs_bteg_top_decile": {
-          "mean_diff": -0.01547,
-          "DM_t": -2.11,
+          "mean_diff": -0.01682,
+          "DM_t": -2.44,
           "n": 28061
         }
       },
@@ -2675,13 +2718,13 @@
           "n": 280608
         },
         "vs_engine": {
-          "mean_diff": -0.00533,
-          "DM_t": -0.73,
+          "mean_diff": -0.00551,
+          "DM_t": -0.74,
           "n": 280608
         },
         "vs_engine_bteg": {
-          "mean_diff": 0.0098,
-          "DM_t": 1.25,
+          "mean_diff": 0.00971,
+          "DM_t": 1.11,
           "n": 280608
         },
         "vs_bteg_top_decile": {
@@ -2695,13 +2738,13 @@
         "breach": 0.0105,
         "vs_garch_t": null,
         "vs_engine": {
-          "mean_diff": 0.01401,
-          "DM_t": 2.12,
+          "mean_diff": 0.01383,
+          "DM_t": 1.88,
           "n": 280608
         },
         "vs_engine_bteg": {
-          "mean_diff": 0.02914,
-          "DM_t": 3.24,
+          "mean_diff": 0.02905,
+          "DM_t": 3.07,
           "n": 280608
         },
         "vs_bteg_top_decile": {
@@ -2719,13 +2762,13 @@
           "n": 280608
         },
         "vs_engine": {
-          "mean_diff": 0.02633,
-          "DM_t": 1.66,
+          "mean_diff": 0.02615,
+          "DM_t": 1.58,
           "n": 280608
         },
         "vs_engine_bteg": {
-          "mean_diff": 0.04147,
-          "DM_t": 2.29,
+          "mean_diff": 0.04138,
+          "DM_t": 2.22,
           "n": 280608
         },
         "vs_bteg_top_decile": {
@@ -2743,13 +2786,13 @@
           "n": 280608
         },
         "vs_engine": {
-          "mean_diff": -0.00415,
-          "DM_t": -0.54,
+          "mean_diff": -0.00433,
+          "DM_t": -0.6,
           "n": 280608
         },
         "vs_engine_bteg": {
-          "mean_diff": 0.01098,
-          "DM_t": 3.88,
+          "mean_diff": 0.0109,
+          "DM_t": 3.44,
           "n": 280608
         },
         "vs_bteg_top_decile": null
@@ -2763,13 +2806,13 @@
           "n": 280608
         },
         "vs_engine": {
-          "mean_diff": 0.01458,
-          "DM_t": 1.72,
+          "mean_diff": 0.0144,
+          "DM_t": 1.55,
           "n": 280608
         },
         "vs_engine_bteg": {
-          "mean_diff": 0.02971,
-          "DM_t": 2.74,
+          "mean_diff": 0.02962,
+          "DM_t": 2.6,
           "n": 280608
         },
         "vs_bteg_top_decile": {
@@ -2787,13 +2830,13 @@
           "n": 280608
         },
         "vs_engine": {
-          "mean_diff": 0.02241,
-          "DM_t": 1.73,
+          "mean_diff": 0.02223,
+          "DM_t": 1.65,
           "n": 280608
         },
         "vs_engine_bteg": {
-          "mean_diff": 0.03754,
-          "DM_t": 2.39,
+          "mean_diff": 0.03746,
+          "DM_t": 2.32,
           "n": 280608
         },
         "vs_bteg_top_decile": {
@@ -2811,13 +2854,13 @@
           "n": 280608
         },
         "vs_engine": {
-          "mean_diff": -0.00446,
-          "DM_t": -0.4,
+          "mean_diff": -0.00464,
+          "DM_t": -0.42,
           "n": 280608
         },
         "vs_engine_bteg": {
-          "mean_diff": 0.01068,
-          "DM_t": 1.63,
+          "mean_diff": 0.01059,
+          "DM_t": 1.46,
           "n": 280608
         },
         "vs_bteg_top_decile": {
@@ -2835,13 +2878,13 @@
           "n": 280608
         },
         "vs_engine": {
-          "mean_diff": 0.01458,
-          "DM_t": 1.72,
+          "mean_diff": 0.0144,
+          "DM_t": 1.55,
           "n": 280608
         },
         "vs_engine_bteg": {
-          "mean_diff": 0.02971,
-          "DM_t": 2.74,
+          "mean_diff": 0.02962,
+          "DM_t": 2.6,
           "n": 280608
         },
         "vs_bteg_top_decile": {
@@ -2853,22 +2896,22 @@
     },
     "0.025": {
       "engine": {
-        "meanFZ0": 1.57084,
+        "meanFZ0": 1.57082,
         "breach": 0.0257,
         "vs_garch_t": {
-          "mean_diff": -0.0083,
-          "DM_t": -2.24,
+          "mean_diff": -0.00832,
+          "DM_t": -2.05,
           "n": 280608
         },
         "vs_engine": null,
         "vs_engine_bteg": {
-          "mean_diff": 0.01145,
-          "DM_t": 3.48,
+          "mean_diff": 0.01169,
+          "DM_t": 3.63,
           "n": 280608
         },
         "vs_bteg_top_decile": {
-          "mean_diff": 0.03638,
-          "DM_t": 2.18,
+          "mean_diff": 0.03726,
+          "DM_t": 2.16,
           "n": 28061
         }
       },
@@ -2881,13 +2924,13 @@
           "n": 280608
         },
         "vs_engine": {
-          "mean_diff": 0.00529,
-          "DM_t": 0.81,
+          "mean_diff": 0.00531,
+          "DM_t": 0.71,
           "n": 280608
         },
         "vs_engine_bteg": {
-          "mean_diff": 0.01674,
-          "DM_t": 2.69,
+          "mean_diff": 0.017,
+          "DM_t": 2.57,
           "n": 280608
         },
         "vs_bteg_top_decile": {
@@ -2897,26 +2940,26 @@
         }
       },
       "engine_bip": {
-        "meanFZ0": 1.56742,
+        "meanFZ0": 1.56751,
         "breach": 0.0257,
         "vs_garch_t": {
-          "mean_diff": -0.01172,
-          "DM_t": -2.18,
+          "mean_diff": -0.01163,
+          "DM_t": -2.12,
           "n": 280608
         },
         "vs_engine": {
-          "mean_diff": -0.00343,
+          "mean_diff": -0.00331,
           "DM_t": -0.29,
           "n": 280608
         },
         "vs_engine_bteg": {
-          "mean_diff": 0.00803,
-          "DM_t": 2.47,
+          "mean_diff": 0.00838,
+          "DM_t": 2.55,
           "n": 280608
         },
         "vs_bteg_top_decile": {
-          "mean_diff": 0.0094,
-          "DM_t": 1.14,
+          "mean_diff": 0.00904,
+          "DM_t": 1.12,
           "n": 28061
         }
       },
@@ -2929,13 +2972,13 @@
           "n": 280608
         },
         "vs_engine": {
-          "mean_diff": 0.00026,
-          "DM_t": 0.16,
+          "mean_diff": 0.00028,
+          "DM_t": 0.13,
           "n": 280608
         },
         "vs_engine_bteg": {
-          "mean_diff": 0.01171,
-          "DM_t": 2.13,
+          "mean_diff": 0.01197,
+          "DM_t": 2.03,
           "n": 280608
         },
         "vs_bteg_top_decile": {
@@ -2945,22 +2988,22 @@
         }
       },
       "engine_bteg": {
-        "meanFZ0": 1.55939,
+        "meanFZ0": 1.55913,
         "breach": 0.0269,
         "vs_garch_t": {
-          "mean_diff": -0.01975,
-          "DM_t": -3.83,
+          "mean_diff": -0.02001,
+          "DM_t": -3.77,
           "n": 280608
         },
         "vs_engine": {
-          "mean_diff": -0.01145,
-          "DM_t": -3.48,
+          "mean_diff": -0.01169,
+          "DM_t": -3.63,
           "n": 280608
         },
         "vs_engine_bteg": null,
         "vs_bteg_top_decile": {
-          "mean_diff": -0.00526,
-          "DM_t": -1.18,
+          "mean_diff": -0.00604,
+          "DM_t": -1.47,
           "n": 28061
         }
       },
@@ -2973,13 +3016,13 @@
           "n": 280608
         },
         "vs_engine": {
-          "mean_diff": -0.00328,
-          "DM_t": -0.96,
+          "mean_diff": -0.00326,
+          "DM_t": -0.91,
           "n": 280608
         },
         "vs_engine_bteg": {
-          "mean_diff": 0.00817,
-          "DM_t": 1.34,
+          "mean_diff": 0.00843,
+          "DM_t": 1.23,
           "n": 280608
         },
         "vs_bteg_top_decile": {
@@ -2993,13 +3036,13 @@
         "breach": 0.0248,
         "vs_garch_t": null,
         "vs_engine": {
-          "mean_diff": 0.0083,
-          "DM_t": 2.24,
+          "mean_diff": 0.00832,
+          "DM_t": 2.05,
           "n": 280608
         },
         "vs_engine_bteg": {
-          "mean_diff": 0.01975,
-          "DM_t": 3.83,
+          "mean_diff": 0.02001,
+          "DM_t": 3.77,
           "n": 280608
         },
         "vs_bteg_top_decile": {
@@ -3017,13 +3060,13 @@
           "n": 280608
         },
         "vs_engine": {
-          "mean_diff": 0.01426,
-          "DM_t": 1.47,
+          "mean_diff": 0.01429,
+          "DM_t": 1.41,
           "n": 280608
         },
         "vs_engine_bteg": {
-          "mean_diff": 0.02572,
-          "DM_t": 2.47,
+          "mean_diff": 0.02597,
+          "DM_t": 2.4,
           "n": 280608
         },
         "vs_bteg_top_decile": {
@@ -3041,13 +3084,13 @@
           "n": 280608
         },
         "vs_engine": {
-          "mean_diff": -0.00824,
-          "DM_t": -1.61,
+          "mean_diff": -0.00822,
+          "DM_t": -1.7,
           "n": 280608
         },
         "vs_engine_bteg": {
-          "mean_diff": 0.00321,
-          "DM_t": 1.28,
+          "mean_diff": 0.00347,
+          "DM_t": 1.45,
           "n": 280608
         },
         "vs_bteg_top_decile": null
@@ -3061,13 +3104,13 @@
           "n": 280608
         },
         "vs_engine": {
-          "mean_diff": 0.00966,
-          "DM_t": 1.73,
+          "mean_diff": 0.00968,
+          "DM_t": 1.58,
           "n": 280608
         },
         "vs_engine_bteg": {
-          "mean_diff": 0.02111,
-          "DM_t": 3.26,
+          "mean_diff": 0.02137,
+          "DM_t": 3.12,
           "n": 280608
         },
         "vs_bteg_top_decile": {
@@ -3085,13 +3128,13 @@
           "n": 280608
         },
         "vs_engine": {
-          "mean_diff": 0.0136,
-          "DM_t": 1.49,
+          "mean_diff": 0.01362,
+          "DM_t": 1.42,
           "n": 280608
         },
         "vs_engine_bteg": {
-          "mean_diff": 0.02505,
-          "DM_t": 2.5,
+          "mean_diff": 0.02531,
+          "DM_t": 2.43,
           "n": 280608
         },
         "vs_bteg_top_decile": {
@@ -3109,13 +3152,13 @@
           "n": 280608
         },
         "vs_engine": {
-          "mean_diff": -0.00559,
-          "DM_t": -0.96,
+          "mean_diff": -0.00557,
+          "DM_t": -0.91,
           "n": 280608
         },
         "vs_engine_bteg": {
-          "mean_diff": 0.00586,
-          "DM_t": 1.63,
+          "mean_diff": 0.00612,
+          "DM_t": 1.47,
           "n": 280608
         },
         "vs_bteg_top_decile": {
@@ -3133,13 +3176,13 @@
           "n": 280608
         },
         "vs_engine": {
-          "mean_diff": 0.00966,
-          "DM_t": 1.73,
+          "mean_diff": 0.00968,
+          "DM_t": 1.58,
           "n": 280608
         },
         "vs_engine_bteg": {
-          "mean_diff": 0.02111,
-          "DM_t": 3.26,
+          "mean_diff": 0.02137,
+          "DM_t": 3.12,
           "n": 280608
         },
         "vs_bteg_top_decile": {
@@ -3168,19 +3211,19 @@
         "fhs_pool"
       ],
       "mcs_pvalues": {
-        "garch_t": 0.148,
-        "engine": 0.148,
-        "body": 0.148,
-        "engine_bip": 0.148,
-        "body_bip": 0.148,
-        "engine_bteg": 0.148,
-        "body_bteg": 0.148,
-        "bip_t": 0.148,
-        "bteg": 0.148,
-        "garch_t_uncond": 0.148,
-        "bip_t_uncond": 0.148,
-        "bteg_uncond": 0.148,
-        "fhs_pool": 0.148
+        "garch_t": 0.15,
+        "engine": 0.15,
+        "body": 0.15,
+        "engine_bip": 0.15,
+        "body_bip": 0.15,
+        "engine_bteg": 0.15,
+        "body_bteg": 0.15,
+        "bip_t": 0.15,
+        "bteg": 0.15,
+        "garch_t_uncond": 0.15,
+        "bip_t_uncond": 0.15,
+        "bteg_uncond": 0.15,
+        "fhs_pool": 0.15
       }
     },
     "fz0_0.025": {
@@ -3191,26 +3234,25 @@
         "body_bip",
         "engine_bteg",
         "body_bteg",
-        "garch_t",
         "bip_t",
         "bteg",
         "bip_t_uncond",
         "bteg_uncond"
       ],
       "mcs_pvalues": {
-        "garch_t_uncond": 0.048,
-        "fhs_pool": 0.05,
-        "garch_t": 0.109,
-        "engine": 0.109,
-        "body": 0.109,
-        "engine_bip": 0.109,
-        "body_bip": 0.109,
-        "engine_bteg": 0.109,
-        "body_bteg": 0.109,
-        "bip_t": 0.109,
-        "bteg": 0.109,
-        "bip_t_uncond": 0.109,
-        "bteg_uncond": 0.109
+        "garch_t_uncond": 0.056,
+        "fhs_pool": 0.057,
+        "garch_t": 0.097,
+        "bip_t_uncond": 0.142,
+        "engine": 0.142,
+        "body": 0.142,
+        "engine_bip": 0.142,
+        "body_bip": 0.142,
+        "engine_bteg": 0.142,
+        "body_bteg": 0.142,
+        "bip_t": 0.142,
+        "bteg": 0.142,
+        "bteg_uncond": 0.142
       }
     },
     "pinball_11tau": {

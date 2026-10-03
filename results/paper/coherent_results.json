@@ -1,4 +1,46 @@
 {
+  "es_convention": {
+    "coherent_and_shipped_rows": "converged integral (es_integral.converged_es, M=2000, 60 body nodes): body interpolated on [a/40,a], GPD exact at every node, sub-floor region in closed form. VaR unchanged.",
+    "garch_rows": "closed form, unaffected",
+    "superseded_NN_node_values": {
+      "p0_0.015": {
+        "alpha_0.01": {
+          "es_20node": -3.77469,
+          "es_converged": -3.84991,
+          "ratio": 1.01998
+        },
+        "alpha_0.025": {
+          "es_20node": -2.76167,
+          "es_converged": -2.86635,
+          "ratio": 1.03918
+        }
+      },
+      "p0_0.025": {
+        "alpha_0.01": {
+          "es_20node": -3.77489,
+          "es_converged": -3.84288,
+          "ratio": 1.01807
+        },
+        "alpha_0.025": {
+          "es_20node": -2.81378,
+          "es_converged": -2.86051,
+          "ratio": 1.01668
+        }
+      },
+      "p0_0.05": {
+        "alpha_0.01": {
+          "es_20node": -3.77016,
+          "es_converged": -3.82704,
+          "ratio": 1.01518
+        },
+        "alpha_0.025": {
+          "es_20node": -2.81572,
+          "es_converged": -2.85549,
+          "ratio": 1.0142
+        }
+      }
+    }
+  },
   "note": "Coherent-curve audit: final implemented quantile curve Q*(u)=min(body,EVT) for u<=p0 (body alone above p0), monotonized by rearrangement per observation; VaR_a=Q*(a); ES_a = 20-node midpoint integral of the SAME rearranged curve. Compared on identical rows with the shipped convention (VaR=min at a, ES=GPD closed form capped below VaR) and with GARCH-t closed forms. bind_frac = fraction of (row,node) pairs in u<=min(p0,a) where the body branch is the minimum. Also p0 splice sensitivity. All DMs date-clustered NW(10); positive DM favors the second-named.",
   "xi_guard": "ES formula requires xi<1; fitted xi reported per p0.",
   "per_p0": {
@@ -9,26 +51,26 @@
         "u": -2.2445
       },
       "alpha_0.01": {
-        "bind_frac_body_min": 0.39,
-        "breach": 0.0103,
-        "meanFZ0_coherent": 2.14742,
-        "meanFZ0_shipped": 2.14877,
-        "shipped_minus_coherent_DM": 2.5,
-        "garch_minus_coherent_DM": 4.82,
-        "garch_minus_shipped_DM": 4.4,
-        "mean_ES_coherent": -9.279,
+        "bind_frac_body_min": 0.4014,
+        "breach": 0.0102,
+        "meanFZ0_coherent": 2.14622,
+        "meanFZ0_shipped": 2.14852,
+        "shipped_minus_coherent_DM": 2.52,
+        "garch_minus_coherent_DM": 4.7,
+        "garch_minus_shipped_DM": 4.38,
+        "mean_ES_coherent": -9.462,
         "mean_ES_shipped": -9.256
       },
       "alpha_0.025": {
-        "bind_frac_body_min": 0.3882,
-        "breach": 0.0326,
-        "meanFZ0_coherent": 1.84364,
-        "meanFZ0_shipped": 1.84364,
+        "bind_frac_body_min": 0.4201,
+        "breach": 0.0319,
+        "meanFZ0_coherent": 1.84444,
+        "meanFZ0_shipped": 1.84444,
         "shipped_minus_coherent_DM": 0.0,
-        "garch_minus_coherent_DM": 3.52,
-        "garch_minus_shipped_DM": 3.52,
-        "mean_ES_coherent": -6.669,
-        "mean_ES_shipped": -6.669
+        "garch_minus_coherent_DM": 4.24,
+        "garch_minus_shipped_DM": 4.24,
+        "mean_ES_coherent": -7.017,
+        "mean_ES_shipped": -7.017
       }
     },
     "p0_0.025": {
@@ -38,25 +80,25 @@
         "u": -1.8866
       },
       "alpha_0.01": {
-        "bind_frac_body_min": 0.3849,
-        "breach": 0.0103,
-        "meanFZ0_coherent": 2.14753,
-        "meanFZ0_shipped": 2.14889,
-        "shipped_minus_coherent_DM": 2.46,
-        "garch_minus_coherent_DM": 4.78,
-        "garch_minus_shipped_DM": 4.34,
-        "mean_ES_coherent": -9.282,
+        "bind_frac_body_min": 0.3952,
+        "breach": 0.0102,
+        "meanFZ0_coherent": 2.1464,
+        "meanFZ0_shipped": 2.14865,
+        "shipped_minus_coherent_DM": 2.53,
+        "garch_minus_coherent_DM": 4.67,
+        "garch_minus_shipped_DM": 4.31,
+        "mean_ES_coherent": -9.446,
         "mean_ES_shipped": -9.246
       },
       "alpha_0.025": {
-        "bind_frac_body_min": 0.3876,
-        "breach": 0.0275,
-        "meanFZ0_coherent": 1.84918,
-        "meanFZ0_shipped": 1.85126,
-        "shipped_minus_coherent_DM": 5.31,
-        "garch_minus_coherent_DM": 4.76,
-        "garch_minus_shipped_DM": 3.58,
-        "mean_ES_coherent": -6.871,
+        "bind_frac_body_min": 0.4168,
+        "breach": 0.0272,
+        "meanFZ0_coherent": 1.84806,
+        "meanFZ0_shipped": 1.85084,
+        "shipped_minus_coherent_DM": 4.23,
+        "garch_minus_coherent_DM": 5.45,
+        "garch_minus_shipped_DM": 3.98,
+        "mean_ES_coherent": -7.002,
         "mean_ES_shipped": -6.883
       }
     },
@@ -67,25 +109,25 @@
         "u": -1.4617
       },
       "alpha_0.01": {
-        "bind_frac_body_min": 0.3768,
-        "breach": 0.0102,
-        "meanFZ0_coherent": 2.14791,
-        "meanFZ0_shipped": 2.14941,
-        "shipped_minus_coherent_DM": 2.45,
-        "garch_minus_coherent_DM": 4.6,
-        "garch_minus_shipped_DM": 4.06,
-        "mean_ES_coherent": -9.276,
+        "bind_frac_body_min": 0.3921,
+        "breach": 0.0101,
+        "meanFZ0_coherent": 2.14692,
+        "meanFZ0_shipped": 2.1492,
+        "shipped_minus_coherent_DM": 2.57,
+        "garch_minus_coherent_DM": 4.5,
+        "garch_minus_shipped_DM": 4.01,
+        "mean_ES_coherent": -9.41,
         "mean_ES_shipped": -9.209
       },
       "alpha_0.025": {
-        "bind_frac_body_min": 0.3747,
-        "breach": 0.0275,
-        "meanFZ0_coherent": 1.8492,
-        "meanFZ0_shipped": 1.85127,
-        "shipped_minus_coherent_DM": 5.21,
-        "garch_minus_coherent_DM": 4.72,
-        "garch_minus_shipped_DM": 3.47,
-        "mean_ES_coherent": -6.878,
+        "bind_frac_body_min": 0.4057,
+        "breach": 0.0272,
+        "meanFZ0_coherent": 1.84817,
+        "meanFZ0_shipped": 1.85085,
+        "shipped_minus_coherent_DM": 4.25,
+        "garch_minus_coherent_DM": 5.42,
+        "garch_minus_shipped_DM": 3.89,
+        "mean_ES_coherent": -6.992,
         "mean_ES_shipped": -6.878
       }
     }

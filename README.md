@@ -16,6 +16,8 @@ Measured against a jump-robust GARCH that caps how far one shock propagates into
 
 ## Layout
 
+Every result file whose ES is numerically integrated carries an `es_convention` key naming the convention it was computed under. Four files that print FZ0 numbers do not carry the key because their ES needs no quadrature: `fz_strict_calibration_results.json` and `fz_aci_results.json` (McNeil-Frey GPD closed form throughout), `fz_score_results.json` (no gradient-boosted body at all) and `frontier_robust_results.json` (pinball only, no ES).
+
 | Folder | Contents |
 |---|---|
 | `submission/` | Manuscript, online appendix, bibliography, generated table bodies |
@@ -30,15 +32,24 @@ Measured against a jump-robust GARCH that caps how far one shock propagates into
 |---|---|---|
 | `code/paper/job_composite.py` | `results/paper/composite_holdout_results.json` | Table 1, the score frontier on the 200-name panel |
 | `code/paper/job_wrds_holdout.py` | `results/paper/holdout_frontier_results.json` | Figure 1, the 2000 to 2013 holdout under the frozen specification |
-| `code/paper/job_fz_fullpanel.py` | `results/paper/fz_fullpanel_results.json` | Figure 2, full-panel FZ0 joint loss |
+| `code/paper/job_fz_fullpanel.py` | `results/paper/fz_fullpanel_results.json` | Full-panel FZ0 joint loss on its own engine build. **Figure 2's bars and the Section 5.1 DMs are taken from `bench_all_results.json`**, the canonical accuracy-layer forecast (FZ0 2.14653 / 1.84863, conf975 -0.3426) that `job_bench_all.py`, `job_exception_battery.py`, `job_robust_engine.py` and `job_garch_evt.py` all reproduce bit-identically; it is also the GAS fit of record, since GAS is fitted per name by multi-start Nelder-Mead and its own FZ0 differs in the fourth decimal between runs |
 | `code/paper/frtb_table_canonical.py` | `results/paper/frtb_table_results.json` | The twelve-level FRTB battery with exact tail-integral ES on the 140-name subpanel (the source of Table 4 through R57) |
-| `code/paper/job_pzc_taylor.py` | `results/paper/pzc_taylor_results.json` | GAS and Taylor ES-CAViaR entries of Figure 2 |
+| `code/paper/job_pzc_taylor.py` | `results/paper/pzc_taylor_acc_results.json` | GAS and Taylor ES-CAViaR entries of Figure 2, scored against the accuracy layer. `results/paper/pzc_taylor_results.json` is **superseded**: no script in the repository writes that filename, and the two agree exactly on every benchmark FZ0, so the `_acc` file is the same computation under its current name |
 | `code/paper/frtb_stress_exact.py`, `code/paper/job_stress_dm.py` | `results/paper/stress_es_results.json` | Ten-day sections in both eras with the boundary purge |
 | `code/paper/job_fz_strict_calibration.py` | `results/paper/fz_strict_calibration_results.json` | Strict-split conformal and FZ audit with the matched-information GARCH control |
 | `code/paper/job_pit_universe.py` | `results/paper/pit_universe_results.json` | Point-in-time universe with delisting returns |
 | `code/paper/job_calendar_split.py`, `code/paper/job_walkforward.py` | `results/paper/calendar_split_results.json`, `results/paper/walkforward_results.json` | Calendar splits and the annual-refit walk-forward |
 | `code/paper/job_nurel.py`, `code/paper/job_mechanism.py` | `results/paper/nurel_results.json`, `results/paper/mechanism_results.json` | The nu-relative score and the Fama-MacBeth mechanism test |
-| `code/paper/job_coherent.py` | `results/paper/coherent_results.json` | Monotonized curve audit; ES as the integral of the same curve |
+| `code/paper/job_coherent.py` | `results/paper/coherent_results.json` | Monotonized curve audit; ES as the converged integral of the same curve |
+| `code/paper/es_integral.py` | --- | The one implementation of the converged ES integral, imported by every job that integrates one: the body on an interpolant over `[alpha/40, alpha]`, the GPD branch evaluated exactly at each node, and the sub-floor region in closed form. Self-tests against two analytic cases (`python es_integral.py`) |
+| `code/paper/job_es_converged.py` | `results/paper/es_converged_results.json` | The ES-convention diagnostic: every affected row at 20, 200 and 2000 quadrature nodes beside the committed 20-node rule, with the two controls (VaR-only statistics and closed-form rows unchanged) reported as pass/fail |
+| `code/paper/job_overlay_engine.py` | `results/paper/overlay_engine_results.json`, `..._holdout.json` | Stage 4: the static shifts and the adaptive (Gibbs-Candes) overlay on the engine's own breaches. The pre-committed accept rule is in the script header |
+| `code/paper/job_scale_gate.py`, `tools/gate_indep.py` | `results/paper/scale_gate_results.json` | The score-gated Stage-1 scale under annual refits, and an independent recomputation of its FZ0 and Newey-West statistics that shares no code with the job |
+| `code/paper/job_tail_vs_bteg.py` | `results/paper/tail_vs_bteg_results_frozen.json`, `..._refit.json` | Where the flexible tail adds on a robust scale, pinball reported at each level rather than averaged, under frozen fits and annual refits |
+| `code/paper/job_tenday_envelope.py` | `results/paper/tenday_envelope_results.json` | The ten-day envelope and the variance-ratio rescaling, both tested and neither recommended |
+| `code/paper/job_coldstart_peers.py` | `results/paper/coldstart_peers_results.json` | Cold start against pooled peer-group benchmarks, with the leave-one-out median taken by sorted rank |
+| `code/paper/job_amort_pit.py` | `results/paper/amort_pit_results.json` | The amortization numbers recomputed with point-in-time characteristics, and both win-rate definitions stated. The own-history benchmark is an expanding-window Gaussian on the name's own prior returns, scored over seven levels from 0.05 to 0.95 |
+| `code/paper/job_synthetic_truth.py`, `code/paper/make_synthetic_truth_results.py` | `results/paper/synthetic_truth_results.json` | Table OA.16: two data-generating processes with a known answer, three shift placebos, and the quadrature size check that motivated the ES convention |
 | `code/paper/job_frontier_robust.py` | `results/paper/frontier_robust_results.json` | Table 2 and the jump-robust GARCH decomposition of the top-decile edge (Section 4): the frontier rebuilt on a bounded-news filter at three- and four-sigma caps |
 | `code/paper/job_scaleshape_canonical.py` | `results/paper/scaleshape_canonical_results.json` | Realized-variance scale decomposition on large caps |
 | `code/paper/job_perasset_v2.py` | `results/paper/perasset_v2_results.json` | Per-asset exception tests at 99% and 97.5% |

@@ -44,6 +44,8 @@
 import os, sys, json, time, math, glob, warnings; warnings.filterwarnings("ignore")
 import numpy as np, pandas as pd
 from sklearn.ensemble import HistGradientBoostingRegressor
+sys.path.insert(0,os.path.dirname(os.path.abspath(__file__)))
+from es_integral import converged_es
 from scipy import stats, optimize
 from arch import arch_model
 P=os.environ.get("GBC_PROJ",os.environ.get("GBC_PROJECT_DIR",r"C:\Users\OWNER\Claude\Projects\GBC Project"))
@@ -53,6 +55,8 @@ PANEL=sys.argv[sys.argv.index("--panel")+1] if "--panel" in sys.argv else "canon
 assert PANEL in ("canon200","taq30","holdout"), "unknown --panel %s"%PANEL
 TAUS=[0.01,0.025,0.05,0.10,0.25,0.50,0.75,0.90,0.95,0.975,0.99]; ALPHAS=[0.01,0.025]
 ZX=['logsig','zl1','absz5','zstd21','fracdn5']; P0_ENGINE=0.025; SUBN=20; KBIP=9.0
+KEXTRA=40        # extra log-spaced body levels in [a/40, a] for the converged ES integral
+ES_LEGACY={}     # (label, alpha) -> the superseded 20-node ES in return space, for the old-vs-new table
 HGB=dict(max_iter=250,max_depth=3,learning_rate=0.06)
 
 # ============================================================ Beta-t-EGARCH (t-GAS) scale, per-name MLE
@@ -238,10 +242,29 @@ def build_engine(f):
     eng={t:(np.minimum(ZQ[t],tail.q(t)) if t<=P0_ENGINE else ZQ[t]) for t in TAUS}
     E=np.sort(np.stack([eng[t] for t in TAUS],axis=1),axis=1); eng={t:E[:,j] for j,t in enumerate(TAUS)}
     RQ_e={t:MU+SIG*eng[t] for t in TAUS}; RQ_b={t:MU+SIG*ZQ[t] for t in TAUS}; VE={}
+    # guard: the closed-form sub-floor integral assumes this parameterisation of the pooled tail
+    for _t in (0.00025,0.001,0.025):
+        _mine=(-tail.u)-(tail.beta/tail.xi)*((_t/P0_ENGINE)**(-tail.xi)-1.0)
+        assert abs(_mine-tail.q(_t))<1e-9,"GPD parameterisation mismatch at tau=%g"%_t
     for a in ALPHAS:
         st=np.sort(np.stack([np.minimum(SUB[a][j],tail.q(a*(j+0.5)/SUBN)) for j in range(SUBN)],axis=1),axis=1)
-        zq=np.maximum(np.minimum(ZQ[a],tail.q(a)),st[:,-1]); es=np.minimum(st.mean(axis=1),zq-1e-6)
+        zq=np.maximum(np.minimum(ZQ[a],tail.q(a)),st[:,-1]); es20=np.minimum(st.mean(axis=1),zq-1e-6)
         stb=np.sort(np.stack(SUB[a],axis=1),axis=1); zqb=np.maximum(ZQ[a],stb[:,-1]); esb=np.minimum(stb.mean(axis=1),zqb-1e-6)
+        # the engine's ES is the converged integral; VaR (zq) is untouched, so no VaR-only statistic moves
+        floor=a/SUBN/2.0
+        lev=np.unique(np.concatenate([a*((np.arange(SUBN)+0.5)/SUBN),
+                                      np.exp(np.linspace(math.log(floor),math.log(a),KEXTRA)),[a]]))
+        known={round(float(a*(j+0.5)/SUBN),12):SUB[a][j] for j in range(SUBN)}
+        QB=np.stack([known[round(float(u),12)] if round(float(u),12) in known
+                     else HistGradientBoostingRegressor(loss='quantile',quantile=float(u),random_state=0,**HGB
+                          ).fit(TRc[f][ZX].values,ztr).predict(X) for u in lev],axis=1)
+        es=converged_es(a,lev,QB,tail.q,(-tail.u,float(tail.beta),float(tail.xi),P0_ENGINE),M=2000,var_z=zq)
+        ES_LEGACY[(LAB[f],a)]={'es_20node_mean_z':round(float(np.nanmean(es20)),5),
+                               'es_converged_mean_z':round(float(np.nanmean(es)),5),
+                               'ratio':round(float(np.nanmean(es/es20)),5),
+                               'FZ0_under_20node':round(float(np.nanmean(fz0(TE['y'].values,MU+SIG*zq,MU+SIG*es20,a))),5)}
+        lg("  [%s a=%g] engine ES 20-node %.5f -> converged %.5f (ratio %.5f)"%(
+            LAB[f],a,float(np.nanmean(es20)),float(np.nanmean(es)),float(np.nanmean(es/es20))))
         VE[a]={'engine':(MU+SIG*zq,MU+SIG*es),'body':(MU+SIG*zqb,MU+SIG*esb)}
     lg("engine[%s]: GPD xi=%.3f beta=%.3f n_exc=%d conf975=%+.4f %.0fs"%(f,tail.xi,tail.beta,tail.n_exc,c975,time.time()-t0))
     return RQ_e,RQ_b,VE,{'xi':round(tail.xi,4),'beta':round(tail.beta,4),'n_exc':tail.n_exc,'conf975':round(c975,4)}
@@ -333,7 +356,13 @@ names_=[m for m in PL if np.isfinite(PL[m]).all()]; dfm=pd.DataFrame({m:PL[m] fo
 MCS['pinball_11tau']=mcs(dfm.groupby('dt')[names_].mean().values,names_)
 
 btd=pd.DataFrame(BTDIAG).T
-OUT={'note':'Beta-t-EGARCH (t-GAS) Stage-1 scale beside GARCH(1,1)-t and bounded-news (BIP) GARCH'
+OUT={'es_convention':{'engine_rows':'converged integral (es_integral.converged_es, M=2000, %d fitted body levels): '
+      'body interpolated on [a/40,a], pooled GPD exact at every node, sub-floor region in closed form. VaR identical '
+      'to the committed construction, so no VaR-only statistic can move.'%(KEXTRA+SUBN),
+   'body_rows':'committed 20-node rule: the body has no tail below its lowest fitted level, so there is no converged counterpart',
+   'parametric_rows':'closed form, unaffected',
+   'superseded_20node_values':{('%s|%g'%k):v for k,v in ES_LEGACY.items()}},
+     'note':'Beta-t-EGARCH (t-GAS) Stage-1 scale beside GARCH(1,1)-t and bounded-news (BIP) GARCH'
      +(' and the HHS Realized GARCH' if PANEL=="taq30" else '')+', each as a standalone parametric benchmark '
      '(rows garch_t / bip_t / bteg'+(' / rgarch' if PANEL=="taq30" else '')+') and as the scale under the flexible '
      'shape (engine* / body*), one common set of test rows. DM_t>0 means the row model is worse than the named '

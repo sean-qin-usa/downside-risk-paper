@@ -1,0 +1,453 @@
+{
+  "es_convention": {
+    "engine_rows": "converged integral (es_integral.converged_es, M=2000, 60 fitted body levels): body interpolated on [a/40,a], pooled GPD exact at every node, sub-floor region in closed form. VaR is the committed construction and is unchanged, so no VaR-only statistic and no pinball number can move.",
+    "closed_form_and_empirical_rows": "unaffected",
+    "superseded_20node_values": {
+      "0.01": {
+        "es_20node": -3.51403,
+        "es_converged": -3.57855,
+        "ratio": 1.01849
+      },
+      "0.025": {
+        "es_20node": -2.70164,
+        "es_converged": -2.74709,
+        "ratio": 1.01691
+      }
+    }
+  },
+  "note": "Stage 4 with the shift estimated on the engine itself, static and adaptive (Gibbs-Candes, the rates of job_fz_aci.py). overlay_static_body is the committed construction, kept so the double count is visible. DM_t>0 means the row is WORSE than the named reference. Panel: holdout.",
+  "predictions_written_before_run": "P1 adaptive within 0.3pt of nominal at 2.5% on both panels; P2 adaptive FZ0 within noise of the accuracy layer (|DM|<2); P3 overlay_static_engine stays mis-signed out of era; P4 overlay_static_body worst on the date-clustered test at 2.5%. DECISION: Stage 4 on only if P1 and P2 both hold on both panels.",
+  "panel": "holdout",
+  "n_names": 200,
+  "n_test": 280608,
+  "n_dates": 1495,
+  "gpd": {
+    "u": -1.9128,
+    "xi": 0.3213,
+    "beta": 0.5212
+  },
+  "shifts": {
+    "0.01": {
+      "body": -0.1244,
+      "engine": -0.0196
+    },
+    "0.025": {
+      "body": -0.0922,
+      "engine": -0.0224
+    }
+  },
+  "per_alpha": {
+    "0.01": {
+      "engine": {
+        "breach": 0.0108,
+        "dev_from_nominal_pt": 0.081,
+        "kupiec_pooled_p": 0.0,
+        "kupiec_pername_passrate": 0.93,
+        "christoffersen_passrate": 0.95,
+        "dateclustered_NW_t": 0.15,
+        "dateclustered_PASS": true,
+        "AS_Z2": -0.0347,
+        "AS_Z2_p": 0.835,
+        "MF_exres": 0.154,
+        "MF_p": 0.0,
+        "meanFZ0": 1.8199,
+        "vs_garch_t": {
+          "overall": {
+            "mean_diff": -0.01383,
+            "DM_t": -1.88,
+            "n": 280608
+          },
+          "top_mk63_decile": {
+            "mean_diff": -0.00992,
+            "DM_t": -2.73,
+            "n": 28061
+          }
+        }
+      },
+      "overlay_static_body": {
+        "breach": 0.0092,
+        "dev_from_nominal_pt": -0.083,
+        "kupiec_pooled_p": 0.0,
+        "kupiec_pername_passrate": 0.915,
+        "christoffersen_passrate": 0.955,
+        "dateclustered_NW_t": -0.92,
+        "dateclustered_PASS": true,
+        "AS_Z2": 0.1144,
+        "AS_Z2_p": 0.4463,
+        "MF_exres": 0.1269,
+        "MF_p": 0.0013,
+        "meanFZ0": 1.82171,
+        "vs_engine": {
+          "overall": {
+            "mean_diff": 0.00181,
+            "DM_t": 0.64,
+            "n": 280608
+          },
+          "top_mk63_decile": {
+            "mean_diff": 0.01245,
+            "DM_t": 2.04,
+            "n": 28061
+          }
+        },
+        "vs_garch_t": {
+          "overall": {
+            "mean_diff": -0.01202,
+            "DM_t": -0.76,
+            "n": 280608
+          },
+          "top_mk63_decile": {
+            "mean_diff": 0.00252,
+            "DM_t": 0.12,
+            "n": 28061
+          }
+        }
+      },
+      "overlay_static_engine": {
+        "breach": 0.0105,
+        "dev_from_nominal_pt": 0.047,
+        "kupiec_pooled_p": 0.013,
+        "kupiec_pername_passrate": 0.94,
+        "christoffersen_passrate": 0.965,
+        "dateclustered_NW_t": -0.06,
+        "dateclustered_PASS": true,
+        "AS_Z2": -0.0053,
+        "AS_Z2_p": 0.9745,
+        "MF_exres": 0.1448,
+        "MF_p": 0.0001,
+        "meanFZ0": 1.81973,
+        "vs_engine": {
+          "overall": {
+            "mean_diff": -0.00017,
+            "DM_t": 0.21,
+            "n": 280608
+          },
+          "top_mk63_decile": {
+            "mean_diff": 0.00171,
+            "DM_t": 1.62,
+            "n": 28061
+          }
+        },
+        "vs_garch_t": {
+          "overall": {
+            "mean_diff": -0.014,
+            "DM_t": -1.66,
+            "n": 280608
+          },
+          "top_mk63_decile": {
+            "mean_diff": -0.00822,
+            "DM_t": -2.41,
+            "n": 28061
+          }
+        }
+      },
+      "overlay_aci_0.02": {
+        "breach": 0.0106,
+        "dev_from_nominal_pt": 0.058,
+        "kupiec_pooled_p": 0.0022,
+        "kupiec_pername_passrate": 0.945,
+        "christoffersen_passrate": 0.965,
+        "dateclustered_NW_t": 0.01,
+        "dateclustered_PASS": true,
+        "AS_Z2": -0.0152,
+        "AS_Z2_p": 0.9267,
+        "MF_exres": 0.1466,
+        "MF_p": 0.0,
+        "meanFZ0": 1.82083,
+        "vs_engine": {
+          "overall": {
+            "mean_diff": 0.00093,
+            "DM_t": 0.93,
+            "n": 280608
+          },
+          "top_mk63_decile": {
+            "mean_diff": 0.00139,
+            "DM_t": 2.02,
+            "n": 28061
+          }
+        },
+        "vs_garch_t": {
+          "overall": {
+            "mean_diff": -0.0129,
+            "DM_t": -1.66,
+            "n": 280608
+          },
+          "top_mk63_decile": {
+            "mean_diff": -0.00854,
+            "DM_t": -2.41,
+            "n": 28061
+          }
+        }
+      },
+      "overlay_aci_0.05": {
+        "breach": 0.0104,
+        "dev_from_nominal_pt": 0.037,
+        "kupiec_pooled_p": 0.0523,
+        "kupiec_pername_passrate": 0.94,
+        "christoffersen_passrate": 0.965,
+        "dateclustered_NW_t": -0.12,
+        "dateclustered_PASS": true,
+        "AS_Z2": 0.0027,
+        "AS_Z2_p": 0.9869,
+        "MF_exres": 0.1377,
+        "MF_p": 0.0001,
+        "meanFZ0": 1.82183,
+        "vs_engine": {
+          "overall": {
+            "mean_diff": 0.00193,
+            "DM_t": 0.91,
+            "n": 280608
+          },
+          "top_mk63_decile": {
+            "mean_diff": 0.00214,
+            "DM_t": 1.7,
+            "n": 28061
+          }
+        },
+        "vs_garch_t": {
+          "overall": {
+            "mean_diff": -0.01189,
+            "DM_t": -1.46,
+            "n": 280608
+          },
+          "top_mk63_decile": {
+            "mean_diff": -0.00778,
+            "DM_t": -2.06,
+            "n": 28061
+          }
+        }
+      },
+      "garch_t": {
+        "breach": 0.0105,
+        "dev_from_nominal_pt": 0.055,
+        "kupiec_pooled_p": 0.0038,
+        "kupiec_pername_passrate": 0.94,
+        "christoffersen_passrate": 0.935,
+        "dateclustered_NW_t": 0.2,
+        "dateclustered_PASS": true,
+        "AS_Z2": -0.1116,
+        "AS_Z2_p": 0.5589,
+        "MF_exres": -0.1745,
+        "MF_p": 0.0,
+        "meanFZ0": 1.83373,
+        "vs_engine": {
+          "overall": {
+            "mean_diff": 0.01383,
+            "DM_t": 1.88,
+            "n": 280608
+          },
+          "top_mk63_decile": {
+            "mean_diff": 0.00992,
+            "DM_t": 2.73,
+            "n": 28061
+          }
+        }
+      }
+    },
+    "0.025": {
+      "engine": {
+        "breach": 0.0257,
+        "dev_from_nominal_pt": 0.071,
+        "kupiec_pooled_p": 0.0162,
+        "kupiec_pername_passrate": 0.925,
+        "christoffersen_passrate": 0.94,
+        "dateclustered_NW_t": 0.25,
+        "dateclustered_PASS": true,
+        "AS_Z2": -0.0172,
+        "AS_Z2_p": 0.8888,
+        "MF_exres": 0.0278,
+        "MF_p": 0.477,
+        "meanFZ0": 1.57082,
+        "vs_garch_t": {
+          "overall": {
+            "mean_diff": -0.00832,
+            "DM_t": -2.05,
+            "n": 280608
+          },
+          "top_mk63_decile": {
+            "mean_diff": -0.00842,
+            "DM_t": -2.89,
+            "n": 28061
+          }
+        }
+      },
+      "overlay_static_body": {
+        "breach": 0.0224,
+        "dev_from_nominal_pt": -0.265,
+        "kupiec_pooled_p": 0.0,
+        "kupiec_pername_passrate": 0.865,
+        "christoffersen_passrate": 0.905,
+        "dateclustered_NW_t": -1.0,
+        "dateclustered_PASS": true,
+        "AS_Z2": 0.1107,
+        "AS_Z2_p": 0.33,
+        "MF_exres": 0.0133,
+        "MF_p": 0.7363,
+        "meanFZ0": 1.57297,
+        "vs_engine": {
+          "overall": {
+            "mean_diff": 0.00215,
+            "DM_t": 0.52,
+            "n": 280608
+          },
+          "top_mk63_decile": {
+            "mean_diff": 0.01444,
+            "DM_t": 2.97,
+            "n": 28061
+          }
+        },
+        "vs_garch_t": {
+          "overall": {
+            "mean_diff": -0.00617,
+            "DM_t": -0.86,
+            "n": 280608
+          },
+          "top_mk63_decile": {
+            "mean_diff": 0.00602,
+            "DM_t": 0.23,
+            "n": 28061
+          }
+        }
+      },
+      "overlay_static_engine": {
+        "breach": 0.0248,
+        "dev_from_nominal_pt": -0.019,
+        "kupiec_pooled_p": 0.5117,
+        "kupiec_pername_passrate": 0.91,
+        "christoffersen_passrate": 0.935,
+        "dateclustered_NW_t": -0.07,
+        "dateclustered_PASS": true,
+        "AS_Z2": 0.0168,
+        "AS_Z2_p": 0.8896,
+        "MF_exres": 0.023,
+        "MF_p": 0.5564,
+        "meanFZ0": 1.57083,
+        "vs_engine": {
+          "overall": {
+            "mean_diff": 1e-05,
+            "DM_t": 0.07,
+            "n": 280608
+          },
+          "top_mk63_decile": {
+            "mean_diff": 0.00318,
+            "DM_t": 2.49,
+            "n": 28061
+          }
+        },
+        "vs_garch_t": {
+          "overall": {
+            "mean_diff": -0.00831,
+            "DM_t": -1.76,
+            "n": 280608
+          },
+          "top_mk63_decile": {
+            "mean_diff": -0.00524,
+            "DM_t": -2.04,
+            "n": 28061
+          }
+        }
+      },
+      "overlay_aci_0.02": {
+        "breach": 0.0243,
+        "dev_from_nominal_pt": -0.075,
+        "kupiec_pooled_p": 0.011,
+        "kupiec_pername_passrate": 0.9,
+        "christoffersen_passrate": 0.945,
+        "dateclustered_NW_t": -0.27,
+        "dateclustered_PASS": true,
+        "AS_Z2": 0.0372,
+        "AS_Z2_p": 0.756,
+        "MF_exres": 0.0192,
+        "MF_p": 0.6192,
+        "meanFZ0": 1.57124,
+        "vs_engine": {
+          "overall": {
+            "mean_diff": 0.00042,
+            "DM_t": 0.27,
+            "n": 280608
+          },
+          "top_mk63_decile": {
+            "mean_diff": 0.00309,
+            "DM_t": 2.16,
+            "n": 28061
+          }
+        },
+        "vs_garch_t": {
+          "overall": {
+            "mean_diff": -0.0079,
+            "DM_t": -1.44,
+            "n": 280608
+          },
+          "top_mk63_decile": {
+            "mean_diff": -0.00533,
+            "DM_t": -1.55,
+            "n": 28061
+          }
+        }
+      },
+      "overlay_aci_0.05": {
+        "breach": 0.0238,
+        "dev_from_nominal_pt": -0.118,
+        "kupiec_pooled_p": 0.0001,
+        "kupiec_pername_passrate": 0.895,
+        "christoffersen_passrate": 0.93,
+        "dateclustered_NW_t": -0.44,
+        "dateclustered_PASS": true,
+        "AS_Z2": 0.054,
+        "AS_Z2_p": 0.6427,
+        "MF_exres": 0.0181,
+        "MF_p": 0.6373,
+        "meanFZ0": 1.57029,
+        "vs_engine": {
+          "overall": {
+            "mean_diff": -0.00053,
+            "DM_t": -0.03,
+            "n": 280608
+          },
+          "top_mk63_decile": {
+            "mean_diff": 0.00048,
+            "DM_t": 1.17,
+            "n": 28061
+          }
+        },
+        "vs_garch_t": {
+          "overall": {
+            "mean_diff": -0.00885,
+            "DM_t": -1.26,
+            "n": 280608
+          },
+          "top_mk63_decile": {
+            "mean_diff": -0.00794,
+            "DM_t": -1.21,
+            "n": 28061
+          }
+        }
+      },
+      "garch_t": {
+        "breach": 0.0248,
+        "dev_from_nominal_pt": -0.018,
+        "kupiec_pooled_p": 0.5434,
+        "kupiec_pername_passrate": 0.92,
+        "christoffersen_passrate": 0.925,
+        "dateclustered_NW_t": -0.06,
+        "dateclustered_PASS": true,
+        "AS_Z2": -0.03,
+        "AS_Z2_p": 0.8221,
+        "MF_exres": -0.0986,
+        "MF_p": 0.0217,
+        "meanFZ0": 1.57914,
+        "vs_engine": {
+          "overall": {
+            "mean_diff": 0.00832,
+            "DM_t": 2.05,
+            "n": 280608
+          },
+          "top_mk63_decile": {
+            "mean_diff": 0.00842,
+            "DM_t": 2.89,
+            "n": 28061
+          }
+        }
+      }
+    }
+  }
+}

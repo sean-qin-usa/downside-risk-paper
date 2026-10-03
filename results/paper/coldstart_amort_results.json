@@ -1,0 +1,559 @@
+{
+  "note": "The paper characteristics-only amortized model (amort_chars, features age/logmcap/sector/beta/annvol as in amort_full.py) and a look-ahead-free variant (amort_chars_pit, age/sector plus a point-in-time sector-peer log-vol), the residual-hybrid (own GARCH-t scale x pooled TRAIN residual shape), and job_coldstart_peers.py own_short_pool and peer_young, on that job rows and split. SIGN: edge_pct>0 and DM>0 both mean the RIVAL beats the reference, since edge=(ref loss - rival loss)/ref.",
+  "prediction_written_before_run": "P1 (as given): the amortized model beats own_short_pool ONLY at ages 1-5. P2 own_short_pool is unavailable at 1-5; graded on own_short2_pool there. P3 the residual-hybrid is unavailable in all four buckets. P4 amort_chars beats amort_chars_pit everywhere, the gap bounding look-ahead.",
+  "lookahead_note": "logmcap is a 2024-12-31 market-cap pull and beta/annvol are full-sample, so three of the five published characteristics are computed from a test name future; age is days since panel start, so for mature training names it is not listing age.",
+  "train_names": 417,
+  "train_rows": 362003,
+  "test_names": 303,
+  "test_rows": 203093,
+  "features": {
+    "amort_chars": [
+      "age",
+      "logmcap",
+      "sector",
+      "beta",
+      "annvol"
+    ],
+    "amort_chars_pit": [
+      "age",
+      "sector",
+      "logsig_peer"
+    ]
+  },
+  "age_buckets": [
+    "1-5",
+    "6-14",
+    "15-60",
+    "61-125"
+  ],
+  "by_age": {
+    "1-5": {
+      "n_rows": 1476,
+      "n_names": 296,
+      "availability": {
+        "amort_chars": 1.0,
+        "amort_chars_pit": 1.0,
+        "resid_hybrid": 0.0,
+        "own_short_pool": 0.0,
+        "own_short2_pool": 0.6003,
+        "peer_young": 1.0,
+        "amort_chars_ageconf": 1.0,
+        "amort_chars_pit_ageconf": 1.0,
+        "peer_young_ageconf": 1.0
+      },
+      "mean_pinball": {
+        "amort_chars": 1.47467,
+        "amort_chars_pit": 1.56898,
+        "resid_hybrid": null,
+        "own_short_pool": null,
+        "own_short2_pool": 1.09664,
+        "peer_young": 1.53093,
+        "amort_chars_ageconf": 1.43018,
+        "amort_chars_pit_ageconf": 1.52017,
+        "peer_young_ageconf": 1.45233
+      },
+      "breach": {
+        "amort_chars": {
+          "alpha_0.01": 0.0684,
+          "alpha_0.025": 0.1138
+        },
+        "amort_chars_pit": {
+          "alpha_0.01": 0.0833,
+          "alpha_0.025": 0.1396
+        },
+        "resid_hybrid": {
+          "alpha_0.01": null,
+          "alpha_0.025": null
+        },
+        "own_short_pool": {
+          "alpha_0.01": null,
+          "alpha_0.025": null
+        },
+        "own_short2_pool": {
+          "alpha_0.01": 0.0384,
+          "alpha_0.025": 0.0598
+        },
+        "peer_young": {
+          "alpha_0.01": 0.0711,
+          "alpha_0.025": 0.105
+        },
+        "amort_chars_ageconf": {
+          "alpha_0.01": 0.0623,
+          "alpha_0.025": 0.0942
+        },
+        "amort_chars_pit_ageconf": {
+          "alpha_0.01": 0.0772,
+          "alpha_0.025": 0.124
+        },
+        "peer_young_ageconf": {
+          "alpha_0.01": 0.0515,
+          "alpha_0.025": 0.0759
+        }
+      },
+      "vs_own_short_pool": {
+        "amort_chars": null,
+        "amort_chars_pit": null,
+        "resid_hybrid": null,
+        "own_short2_pool": null,
+        "peer_young": null,
+        "amort_chars_ageconf": null,
+        "amort_chars_pit_ageconf": null,
+        "peer_young_ageconf": null
+      },
+      "vs_own_short2_pool": {
+        "amort_chars": {
+          "edge_pct": -4.215,
+          "DM": -1.22,
+          "n": 886
+        },
+        "amort_chars_pit": {
+          "edge_pct": -11.33,
+          "DM": -2.12,
+          "n": 886
+        },
+        "resid_hybrid": null,
+        "own_short_pool": null,
+        "peer_young": {
+          "edge_pct": -8.593,
+          "DM": -1.73,
+          "n": 886
+        },
+        "amort_chars_ageconf": {
+          "edge_pct": -2.295,
+          "DM": -0.85,
+          "n": 886
+        },
+        "amort_chars_pit_ageconf": {
+          "edge_pct": -8.617,
+          "DM": -1.75,
+          "n": 886
+        },
+        "peer_young_ageconf": {
+          "edge_pct": -6.063,
+          "DM": -1.38,
+          "n": 886
+        }
+      }
+    },
+    "6-14": {
+      "n_rows": 2664,
+      "n_names": 297,
+      "availability": {
+        "amort_chars": 1.0,
+        "amort_chars_pit": 1.0,
+        "resid_hybrid": 0.0,
+        "own_short_pool": 1.0,
+        "own_short2_pool": 1.0,
+        "peer_young": 1.0,
+        "amort_chars_ageconf": 1.0,
+        "amort_chars_pit_ageconf": 1.0,
+        "peer_young_ageconf": 1.0
+      },
+      "mean_pinball": {
+        "amort_chars": 0.8144,
+        "amort_chars_pit": 0.87114,
+        "resid_hybrid": null,
+        "own_short_pool": 0.76791,
+        "own_short2_pool": 0.76791,
+        "peer_young": 0.86089,
+        "amort_chars_ageconf": 0.82094,
+        "amort_chars_pit_ageconf": 0.87971,
+        "peer_young_ageconf": 0.85637
+      },
+      "breach": {
+        "amort_chars": {
+          "alpha_0.01": 0.021,
+          "alpha_0.025": 0.0526
+        },
+        "amort_chars_pit": {
+          "alpha_0.01": 0.0248,
+          "alpha_0.025": 0.0657
+        },
+        "resid_hybrid": {
+          "alpha_0.01": null,
+          "alpha_0.025": null
+        },
+        "own_short_pool": {
+          "alpha_0.01": 0.0038,
+          "alpha_0.025": 0.0124
+        },
+        "own_short2_pool": {
+          "alpha_0.01": 0.0038,
+          "alpha_0.025": 0.0124
+        },
+        "peer_young": {
+          "alpha_0.01": 0.0214,
+          "alpha_0.025": 0.0462
+        },
+        "amort_chars_ageconf": {
+          "alpha_0.01": 0.0285,
+          "alpha_0.025": 0.0664
+        },
+        "amort_chars_pit_ageconf": {
+          "alpha_0.01": 0.0323,
+          "alpha_0.025": 0.0694
+        },
+        "peer_young_ageconf": {
+          "alpha_0.01": 0.0094,
+          "alpha_0.025": 0.03
+        }
+      },
+      "vs_own_short_pool": {
+        "amort_chars": {
+          "edge_pct": -6.054,
+          "DM": -1.97,
+          "n": 2664
+        },
+        "amort_chars_pit": {
+          "edge_pct": -13.443,
+          "DM": -3.32,
+          "n": 2664
+        },
+        "resid_hybrid": null,
+        "own_short2_pool": {
+          "edge_pct": 0.0,
+          "DM": 0.0,
+          "n": 2664
+        },
+        "peer_young": {
+          "edge_pct": -12.109,
+          "DM": -2.83,
+          "n": 2664
+        },
+        "amort_chars_ageconf": {
+          "edge_pct": -6.906,
+          "DM": -2.09,
+          "n": 2664
+        },
+        "amort_chars_pit_ageconf": {
+          "edge_pct": -14.559,
+          "DM": -3.47,
+          "n": 2664
+        },
+        "peer_young_ageconf": {
+          "edge_pct": -11.52,
+          "DM": -2.8,
+          "n": 2664
+        }
+      },
+      "vs_own_short2_pool": {
+        "amort_chars": {
+          "edge_pct": -6.054,
+          "DM": -1.97,
+          "n": 2664
+        },
+        "amort_chars_pit": {
+          "edge_pct": -13.443,
+          "DM": -3.32,
+          "n": 2664
+        },
+        "resid_hybrid": null,
+        "own_short_pool": {
+          "edge_pct": 0.0,
+          "DM": 0.0,
+          "n": 2664
+        },
+        "peer_young": {
+          "edge_pct": -12.109,
+          "DM": -2.83,
+          "n": 2664
+        },
+        "amort_chars_ageconf": {
+          "edge_pct": -6.906,
+          "DM": -2.09,
+          "n": 2664
+        },
+        "amort_chars_pit_ageconf": {
+          "edge_pct": -14.559,
+          "DM": -3.47,
+          "n": 2664
+        },
+        "peer_young_ageconf": {
+          "edge_pct": -11.52,
+          "DM": -2.8,
+          "n": 2664
+        }
+      }
+    },
+    "15-60": {
+      "n_rows": 13477,
+      "n_names": 299,
+      "availability": {
+        "amort_chars": 1.0,
+        "amort_chars_pit": 1.0,
+        "resid_hybrid": 0.0,
+        "own_short_pool": 1.0,
+        "own_short2_pool": 1.0,
+        "peer_young": 1.0,
+        "amort_chars_ageconf": 1.0,
+        "amort_chars_pit_ageconf": 1.0,
+        "peer_young_ageconf": 1.0
+      },
+      "mean_pinball": {
+        "amort_chars": 0.74352,
+        "amort_chars_pit": 0.79341,
+        "resid_hybrid": null,
+        "own_short_pool": 0.69134,
+        "own_short2_pool": 0.69134,
+        "peer_young": 0.77729,
+        "amort_chars_ageconf": 0.74307,
+        "amort_chars_pit_ageconf": 0.79154,
+        "peer_young_ageconf": 0.77952
+      },
+      "breach": {
+        "amort_chars": {
+          "alpha_0.01": 0.0177,
+          "alpha_0.025": 0.0463
+        },
+        "amort_chars_pit": {
+          "alpha_0.01": 0.0222,
+          "alpha_0.025": 0.0541
+        },
+        "resid_hybrid": {
+          "alpha_0.01": null,
+          "alpha_0.025": null
+        },
+        "own_short_pool": {
+          "alpha_0.01": 0.0047,
+          "alpha_0.025": 0.0159
+        },
+        "own_short2_pool": {
+          "alpha_0.01": 0.0047,
+          "alpha_0.025": 0.0159
+        },
+        "peer_young": {
+          "alpha_0.01": 0.0154,
+          "alpha_0.025": 0.0341
+        },
+        "amort_chars_ageconf": {
+          "alpha_0.01": 0.0168,
+          "alpha_0.025": 0.0444
+        },
+        "amort_chars_pit_ageconf": {
+          "alpha_0.01": 0.0188,
+          "alpha_0.025": 0.0525
+        },
+        "peer_young_ageconf": {
+          "alpha_0.01": 0.0075,
+          "alpha_0.025": 0.0212
+        }
+      },
+      "vs_own_short_pool": {
+        "amort_chars": {
+          "edge_pct": -7.547,
+          "DM": -4.28,
+          "n": 13477
+        },
+        "amort_chars_pit": {
+          "edge_pct": -14.764,
+          "DM": -7.63,
+          "n": 13477
+        },
+        "resid_hybrid": null,
+        "own_short2_pool": {
+          "edge_pct": 0.0,
+          "DM": 0.0,
+          "n": 13477
+        },
+        "peer_young": {
+          "edge_pct": -12.432,
+          "DM": -5.71,
+          "n": 13477
+        },
+        "amort_chars_ageconf": {
+          "edge_pct": -7.482,
+          "DM": -4.26,
+          "n": 13477
+        },
+        "amort_chars_pit_ageconf": {
+          "edge_pct": -14.493,
+          "DM": -7.43,
+          "n": 13477
+        },
+        "peer_young_ageconf": {
+          "edge_pct": -12.755,
+          "DM": -5.24,
+          "n": 13477
+        }
+      },
+      "vs_own_short2_pool": {
+        "amort_chars": {
+          "edge_pct": -7.547,
+          "DM": -4.28,
+          "n": 13477
+        },
+        "amort_chars_pit": {
+          "edge_pct": -14.764,
+          "DM": -7.63,
+          "n": 13477
+        },
+        "resid_hybrid": null,
+        "own_short_pool": {
+          "edge_pct": 0.0,
+          "DM": 0.0,
+          "n": 13477
+        },
+        "peer_young": {
+          "edge_pct": -12.432,
+          "DM": -5.71,
+          "n": 13477
+        },
+        "amort_chars_ageconf": {
+          "edge_pct": -7.482,
+          "DM": -4.26,
+          "n": 13477
+        },
+        "amort_chars_pit_ageconf": {
+          "edge_pct": -14.493,
+          "DM": -7.43,
+          "n": 13477
+        },
+        "peer_young_ageconf": {
+          "edge_pct": -12.755,
+          "DM": -5.24,
+          "n": 13477
+        }
+      }
+    },
+    "61-125": {
+      "n_rows": 18638,
+      "n_names": 292,
+      "availability": {
+        "amort_chars": 1.0,
+        "amort_chars_pit": 1.0,
+        "resid_hybrid": 0.0,
+        "own_short_pool": 1.0,
+        "own_short2_pool": 1.0,
+        "peer_young": 1.0,
+        "amort_chars_ageconf": 1.0,
+        "amort_chars_pit_ageconf": 1.0,
+        "peer_young_ageconf": 1.0
+      },
+      "mean_pinball": {
+        "amort_chars": 0.70682,
+        "amort_chars_pit": 0.73757,
+        "resid_hybrid": null,
+        "own_short_pool": 0.63901,
+        "own_short2_pool": 0.63901,
+        "peer_young": 0.72673,
+        "amort_chars_ageconf": 0.70226,
+        "amort_chars_pit_ageconf": 0.72521,
+        "peer_young_ageconf": 0.73114
+      },
+      "breach": {
+        "amort_chars": {
+          "alpha_0.01": 0.0218,
+          "alpha_0.025": 0.0543
+        },
+        "amort_chars_pit": {
+          "alpha_0.01": 0.0227,
+          "alpha_0.025": 0.0517
+        },
+        "resid_hybrid": {
+          "alpha_0.01": null,
+          "alpha_0.025": null
+        },
+        "own_short_pool": {
+          "alpha_0.01": 0.0048,
+          "alpha_0.025": 0.0159
+        },
+        "own_short2_pool": {
+          "alpha_0.01": 0.0048,
+          "alpha_0.025": 0.0159
+        },
+        "peer_young": {
+          "alpha_0.01": 0.0127,
+          "alpha_0.025": 0.0319
+        },
+        "amort_chars_ageconf": {
+          "alpha_0.01": 0.0158,
+          "alpha_0.025": 0.049
+        },
+        "amort_chars_pit_ageconf": {
+          "alpha_0.01": 0.0122,
+          "alpha_0.025": 0.0311
+        },
+        "peer_young_ageconf": {
+          "alpha_0.01": 0.006,
+          "alpha_0.025": 0.0173
+        }
+      },
+      "vs_own_short_pool": {
+        "amort_chars": {
+          "edge_pct": -10.612,
+          "DM": -5.87,
+          "n": 18638
+        },
+        "amort_chars_pit": {
+          "edge_pct": -15.425,
+          "DM": -6.71,
+          "n": 18638
+        },
+        "resid_hybrid": null,
+        "own_short2_pool": {
+          "edge_pct": 0.0,
+          "DM": 0.0,
+          "n": 18638
+        },
+        "peer_young": {
+          "edge_pct": -13.728,
+          "DM": -5.31,
+          "n": 18638
+        },
+        "amort_chars_ageconf": {
+          "edge_pct": -9.898,
+          "DM": -5.24,
+          "n": 18638
+        },
+        "amort_chars_pit_ageconf": {
+          "edge_pct": -13.49,
+          "DM": -5.39,
+          "n": 18638
+        },
+        "peer_young_ageconf": {
+          "edge_pct": -14.418,
+          "DM": -5.08,
+          "n": 18638
+        }
+      },
+      "vs_own_short2_pool": {
+        "amort_chars": {
+          "edge_pct": -10.612,
+          "DM": -5.87,
+          "n": 18638
+        },
+        "amort_chars_pit": {
+          "edge_pct": -15.425,
+          "DM": -6.71,
+          "n": 18638
+        },
+        "resid_hybrid": null,
+        "own_short_pool": {
+          "edge_pct": 0.0,
+          "DM": 0.0,
+          "n": 18638
+        },
+        "peer_young": {
+          "edge_pct": -13.728,
+          "DM": -5.31,
+          "n": 18638
+        },
+        "amort_chars_ageconf": {
+          "edge_pct": -9.898,
+          "DM": -5.24,
+          "n": 18638
+        },
+        "amort_chars_pit_ageconf": {
+          "edge_pct": -13.49,
+          "DM": -5.39,
+          "n": 18638
+        },
+        "peer_young_ageconf": {
+          "edge_pct": -14.418,
+          "DM": -5.08,
+          "n": 18638
+        }
+      }
+    }
+  }
+}

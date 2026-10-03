@@ -97,15 +97,15 @@ the edge is back-loaded within episodes, so the lag forfeits little.
 $\widehat\sigma_{t+1}$ (recursion only; parameters refit annually);
 (ii)~assemble the state vector $s_t$ and evaluate the shared shape model $q_\phi(\tau\mid s_t)$, one model for the whole book, no
 per-name estimation; (iii)~apply the frozen GPD tail below $p_0$
-and, where the desk elects the coverage overlay, the conformal shift
-$c_\tau$ (static or adaptive); (iv)~report
+and, where the desk elects the coverage overlay, the adaptive conformal shift
+$c_\tau$, updated from the previous day's panel breach frequency; (iv)~report
 $\widehat Q_{t+1}(\tau) = \widehat\mu+\widehat\sigma_{t+1}\,\big(Q^{z}_{t+1}(\tau)+c_\tau\big)$
 at the desk's levels, with VaR and ES$_{97.5}$ both read from the coherent
 min-envelope curve $Q^{z}$ of equation~(5) of the paper (VaR at the $\alpha$
 node, ES its numerical tail integral); (v)~read
 the misspecification score equation~(9) of the paper as the model-risk monitor: top decile means the parametric fallback's conditional average loss
 in that score region runs $\sim$2--3\% higher. \emph{Annually:} refit filters, retrain the shape model,
-re-estimate tail and shifts, all on trailing data. \emph{New listing:}
+re-estimate the tail, all on trailing data. \emph{New listing:}
 run the separate characteristics-only amortized forecaster until an
 own-history sample sufficient to initialize the per-name scale filter
 accrues; then attach this residual-hybrid pipeline. Total marginal
@@ -208,17 +208,17 @@ one-day.}
   legend style={font=\tiny, at={(0.98,0.02)}, anchor=south east,
                 draw=none}]
 \addplot[fill=npmid, draw=npmid] coordinates
-  {(Hyb,-6.63) (Hyb+EVT,-7.21) (GARCH-t,-6.98) (FHS,-7.17)};
+  {(Hyb,-6.64) (Hyb+EVT,-7.33) (GARCH-t,-6.98) (FHS,-7.17)};
 \addlegendentry{predicted}
 \addplot[fill=gold, draw=gold] coordinates
-  {(Hyb,-6.12) (Hyb+EVT,-6.15) (GARCH-t,-5.92) (FHS,-5.89)};
+  {(Hyb,-6.12) (Hyb+EVT,-6.16) (GARCH-t,-5.92) (FHS,-5.89)};
 \addlegendentry{realized}
 \end{axis}
 \end{tikzpicture}
 \caption{The FRTB battery. Left: average pinball loss by model (axis
 truncated to resolve the ordering; differences carry DM 5.6--9.7 vs the
 hybrid, all $p \approx 0$); CAViaR, not shown, statistically ties the
-hybrid. Right: ES$_{97.5}$ predicted (exact tail integral) vs realized
+hybrid. Right: ES$_{97.5}$ predicted (the tail integral of Table~4 of the paper) vs realized
 below each model's own VaR, a model-dependent diagnostic, not a
 ranking (every fat-tailed entrant's integral exceeds its own-tail
 mean); the joint FZ0 score of the paper is the ranking criterion.}
@@ -325,9 +325,9 @@ Frontier equity indices (4 of 8) & $\sim$$+1$--$3\%$ & DM 2.1--3.5 \\
 Point-in-time universe (Q1-2000 top 200, delistings kept) & top bucket $+2.9\%$; overall $+0.6\%$ & DM 6.6 / 9.0, frozen real-time thresholds \\
 Strict calendar splits; annual-refit walk-forward & top-decile edge holds under all three & DM 6.2 (2020 cut); 3.1 (overall, pre-GFC cut); 4.41 (annual-refit residual-hybrid walk-forward, $+2.12\%$) \\
 Familywise error over the $3\times10$ signal-decile grid & 9 cells survive 5\% FWER & Romano--Wolf step-down, incl.\ all three top deciles \\
-Exception battery through the 2008 crisis & Kupiec 94\% / Christof.\ 95\% at 99\% & date-clustered $t$ 0.17 at 99\%; at 97.5\%, 0.35 (EVT tail) and $-1.09$ (static overlay, conservative); HS, EWMA fail \\
-Joint $(\VaR,\ES)$ FZ0 score, full panel & accuracy layer lowest at 1\%, never significantly beaten at 2.5\% & DM 4.8--4.9 vs GARCH-$t$, FHS at 1\%, 5.1 at 2.5\%; 8.6--9.5 vs PZC GAS, 3.6-to-tie vs Taylor ES-CAViaR (multi-start); static shift concedes 2.5\% (DM $-2.0$), adaptive shift erases it (tie; top-decile cost remains) \\
-Cold start / young listings & $+6$--$10\%$ & full-scale panel; no per-asset model applies \\
+Exception battery through the 2008 crisis & Kupiec 94\% / Christof.\ 95\% at 99\% & date-clustered $t$ 0.17 at 99\%; at 97.5\%, 0.35 (EVT tail) and $-0.27$ to $-0.44$ (adaptive overlay); HS, EWMA fail \\
+Joint $(\VaR,\ES)$ FZ0 score, full panel & accuracy layer lowest at 1\%, never significantly beaten at 2.5\% & DM 4.9 vs GARCH-$t$ and FHS at 1\%, 5.5 vs GARCH-$t$ at 2.5\%; 8.8--9.9 vs PZC GAS, 3.8-to-tie vs Taylor ES-CAViaR (multi-start); tie group with GJR-skew-$t$ and Taylor at 2.5\%; adaptive overlay within noise of the accuracy layer (top-decile cost at 2.5\%) \\
+Cold start / young listings & $+9\%$ at 15--30 days; $+6.5$--$7\%$ to one year & vs an expanding-window Gaussian at levels 0.05--0.95; point-in-time characteristics; first-week VaR not calibrated \\
 Calm-quintile edge & $\approx 0$ (point estimates $+0.0$--$+0.2\%$) & bottom-decile 90\% CIs lie above $-0.25\%$; no detectable loss \\
 SAV-CAViaR (shares the frontier) & tie on its common sample (both in 90\% MCS); within a third of a percent on the frontier rows & DM 0.4 (Table~4 of the paper); $-1.8$ top decile, $-1.6$ overall, engine over CAViaR (Table~OA.10) \\
 \midrule
@@ -392,7 +392,7 @@ Point quantile accuracy, tabular state & GBM (trees) & Section~2.3 of the paper 
 Single asset, calm ($\sim$90\% of asset-days) & GARCH-$t$ & Section~4 of the paper \\
 Single asset, top misspecification decile & Nonparametric ($+2.98\%$, DM 10.5) & Section~4 of the paper \\
 Amortized cross-name panel, any regime & Nonparametric always; no gate & Section~4.3 of the paper \\
-Regulatory ES with a $\ge$GARCH floor & Residual-hybrid $+$ EVT $+$ conformal & Section~5 of the paper \\
+Regulatory ES with a $\ge$GARCH floor & Residual-hybrid $+$ EVT $+$ adaptive overlay & Section~5 of the paper \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -463,13 +463,14 @@ daily-data battery: the Gaussian filter is worst on every ES metric, its mean
 exceedance residual reaching $-0.77$ standard deviations at the $1\%$ level
 ($Z_2=-0.99$). Among the fat-tailed entrants no model dominates every diagnostic.
 On the Acerbi--Sz\'ekely $Z_2$ the engine is best calibrated in the tail: it
-carries the statistic closest to zero at $1\%$ ($-0.06$, not rejected) and is
+carries the statistic closest to zero at $1\%$ ($-0.05$, not rejected) and is
 tied with GARCH-$t$ at $2.5\%$ (both $-0.10$). The engine
 and GARCH-$t$ are the two entrants that pass the $1\%$ Kupiec
 unconditional-coverage test; FHS and the Gaussian filter fail it. On the
-McNeil--Frey exceedance residual FHS, which fits the empirical residual tail
-directly, sits closest to zero and is the only entrant the test does not
-reject at $1\%$ ($-0.10$, $p=0.07$); at $2.5\%$ FHS, GARCH-$t$ and the engine all
+McNeil--Frey exceedance residual the engine sits closest to zero at $1\%$ and is
+the clearest non-rejection ($-0.06$, $p=0.38$), ahead of FHS, which fits the empirical
+residual tail directly ($-0.10$, $p=0.07$), while GARCH-$t$ and the Gaussian filter are
+rejected; at $2.5\%$ FHS, GARCH-$t$ and the engine all
 fall inside the non-rejection region. The reading is consistent with the
 exception tests and the joint score: fat tails materially improve tail
 calibration, the engine and GARCH-$t$ are the best-calibrated pair on the direct
@@ -496,8 +497,8 @@ Model & Breach & Kupiec\,$p$ & $Z_2$ & MF ($p$) & Breach & Kupiec\,$p$ & $Z_2$ &
 \midrule
 GARCH-normal & $0.027$ & $0.00$ & $-0.31$ & $-0.55\,(0.00)$ & $0.016$ & $0.00$ & $-0.99$ & $-0.77\,(0.00)$ \\
 GARCH-$t$ & $0.027$ & $0.00$ & $\mathbf{-0.10}$ & $-0.05\,(0.14)$ & $0.010$ & $\mathbf{0.17}$ & $-0.09$ & $-0.23\,(0.00)$ \\
-GARCH-FHS & $0.031$ & $0.00$ & $-0.24$ & $\mathbf{+0.01\,(0.84)}$ & $0.012$ & $0.00$ & $-0.29$ & $\mathbf{-0.10\,(0.07)}$ \\
-Engine (EVT-tailed) & $0.027$ & $0.00$ & $\mathbf{-0.10}$ & $-0.04\,(0.24)$ & $0.010$ & $\mathbf{0.42}$ & $\mathbf{-0.06}$ & $-0.15\,(0.02)$ \\
+GARCH-FHS & $0.031$ & $0.00$ & $-0.24$ & $\mathbf{+0.01\,(0.84)}$ & $0.012$ & $0.00$ & $-0.29$ & $-0.10\,(0.07)$ \\
+Engine (EVT-tailed) & $0.028$ & $0.00$ & $\mathbf{-0.10}$ & $+0.02\,(0.58)$ & $0.010$ & $\mathbf{0.07}$ & $\mathbf{-0.05}$ & $\mathbf{-0.06\,(0.38)}$ \\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}\footnotesize
@@ -506,9 +507,10 @@ bootstrap over the $1{,}108$ trading dates (mean block ten dates) rather than
 treating the $221{,}600$ asset-days as independent, since the $200$ names share
 within-day market shocks. Kupiec is the pooled analytic unconditional-coverage
 test, hypersensitive at this sample size (every model is rejected at $2.5\%$).
-The deployed engine adds a $97.5\%$ conformal shift and is conservative out of
-era (breach $1.66\%$, $Z_2=+0.29$ at $2.5\%$), overstating the tail in the
-regulator-preferred direction. Source: \texttt{engine\_esbt\_results.json}.
+The engine's ES is the converged integral of Section~2.2 of the paper. The static conformal
+shift of earlier versions, estimated on the body and applied to the engine, over-covers
+(breach $1.66\%$, $Z_2=+0.31$, McNeil--Frey $p=0.002$ at $2.5\%$); the adaptive overlay that
+replaces it is reported in Section~5.1 of the paper. Source: \texttt{engine\_esbt\_results.json}.
 \end{tablenotes}
 \end{threeparttable}
 \end{table}
@@ -554,16 +556,19 @@ with an unconditional residual quantile; a positive DM is worse than that benchm
 \toprule
 Model & FZ0 $2.5\%$ & DM & FZ0 $1\%$ & DM \\
 \midrule
-Daily core (GARCH-$t$ $+$ EVT) & $1.500$ & $+6.2$ & $1.774$ & $+4.5$ \\
-Realized scale $+$ residual quantile & $1.445$ & --- & $1.716$ & --- \\
-\quad $+$ EVT tail & $1.444$ & $-0.3$ & $1.716$ & $+0.5$ \\
-\quad $+$ pooled shape learner & $1.445$ & $+0.2$ & $1.710$ & $-1.3$ \\
-\quad $+$ shape $+$ EVT (realized-hybrid) & $1.447$ & $+0.7$ & $1.718$ & $+0.6$ \\
+Daily core (GARCH-$t$ $+$ EVT) & $1.500$ & $+6.2$ & $1.774$ & $+4.6$ \\
+Realized scale $+$ residual quantile & $1.445$ & --- & $1.715$ & --- \\
+\quad $+$ EVT tail & $1.445$ & $-0.1$ & $1.716$ & $+1.3$ \\
+\quad $+$ pooled shape learner & $1.442$ & $-0.8$ & $1.708$ & $-1.4$ \\
+\quad $+$ shape $+$ EVT (realized-hybrid) & $1.447$ & $+0.7$ & $1.717$ & $+0.5$ \\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}\footnotesize
-\item All five rows are computed in one pipeline on the same test rows, with ES the
-$20$-node integral of each row's own quantile curve. The daily core's DM is against the
+\item All five rows are computed in one pipeline on the same test rows. ES is exact wherever a closed
+form exists: the two GPD-tailed rows use the closed-form tail integral and the unconditional row the
+empirical tail mean. The shape row is a body-only forecast with no tail model below its lowest fitted
+level, so its ES keeps a flat extension there and is a lower bound on severity; the realized-hybrid row
+uses the converged integral of its min-envelope curve. The daily core's DM is against the
 realized benchmark (the intraday-scale gain). The pooled shape learner is the paper's
 state-conditioned residual-quantile model, retrained on the realized-scale residuals.
 Returns are CRSP daily; the intersection is common across models. Source:
@@ -617,16 +622,16 @@ Engine over pooled body & $-0.51$ (-9.04) & $-0.04$ (-2.28) & $-0.62$ (-9.64) & 
 \cmidrule(lr){2-4}\cmidrule(lr){5-7}
 Model & FZ0 & Breach & DM vs engine & FZ0 & Breach & DM vs engine \\
 \midrule
-Engine (body/EVT minimum) & 2.1473 & 1.04\% & --- & 1.8494 & 2.78\% & --- \\
-Engine $+$ conformal overlay (97.5\%) & 2.1473 & 1.04\% & 0.00 & 1.8656 & 1.66\% & 2.29 \\
-GARCH $+$ pooled body (no EVT) & 2.1411 & 1.32\% & -1.33 & 1.8433 & 3.25\% & -1.87 \\
-GARCH-EVT, pooled tail & 2.1551 & 1.06\% & 4.83 & 1.8583 & 2.89\% & 6.85 \\
-GARCH-EVT, per name & 2.1693 & 1.13\% & 5.23 & 1.8596 & 2.93\% & 5.39 \\
-GARCH(1,1)-$t$ & 2.1557 & 1.03\% & 5.00 & 1.8542 & 2.71\% & 4.55 \\
+Engine (body/EVT minimum) & 2.1465 & 1.04\% & --- & 1.8486 & 2.78\% & --- \\
+Engine $+$ static shift (97.5\%) & 2.1465 & 1.04\% & 0.00 & 1.8664 & 1.66\% & 2.57 \\
+GARCH $+$ pooled body (no EVT) & 2.1411 & 1.32\% & -1.09 & 1.8432 & 3.25\% & -1.54 \\
+GARCH-EVT, pooled tail & 2.1551 & 1.06\% & 4.51 & 1.8583 & 2.89\% & 6.33 \\
+GARCH-EVT, per name & 2.1693 & 1.13\% & 5.14 & 1.8596 & 2.93\% & 5.36 \\
+GARCH(1,1)-$t$ & 2.1557 & 1.03\% & 4.94 & 1.8542 & 2.71\% & 5.50 \\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}\footnotesize
-\item FZ0 is the zero-homogeneous Fissler--Ziegel joint (VaR, ES) loss, lower is better; DM $>0$ means the row model scores worse than the engine (per-date Newey--West(10)). The engine row is the accuracy layer (no conformal shift) at both levels and is the reference of every DM; the overlay row adds the split-conformal shift at 97.5\% and coincides with the engine at 1\%. GARCH-EVT ES is the McNeil--Frey closed form; the engine and body ES are the 20-node integral of the monotonized quantile curve. Top-$\mathrm{mk}_{63}$-decile DM of pooled GARCH-EVT versus the engine: 2.63 at 1\% and 4.26 at 2.5\%.
+\item FZ0 is the zero-homogeneous Fissler--Ziegel joint (VaR, ES) loss, lower is better; DM $>0$ means the row model scores worse than the engine (per-date Newey--West(10)). The engine row is the accuracy layer (no conformal shift) at both levels and is the reference of every DM; the static-shift row adds the split-conformal shift of earlier versions at 97.5\%, estimated on the body's calibration errors, and coincides with the engine at 1\%; Stage~4 now uses the adaptive overlay of Section~5.1 of the paper. GARCH-EVT ES is the McNeil--Frey closed form; the engine ES is the converged integral of the monotonized quantile curve (Section~2.2 of the paper), and the body ES a 20-node integral, since the body has no quantile below its lowest fitted level. Top-$\mathrm{mk}_{63}$-decile DM of pooled GARCH-EVT versus the engine: 2.26 at 1\% and 3.42 at 2.5\%.
 \end{tablenotes}
 \end{threeparttable}
 \end{table}
@@ -657,7 +662,7 @@ GARCH-$t$ minus pooled body & composite pct. & 91.4 & 0.0105 & 9.8 \\
 Model & \multicolumn{2}{c}{$\alpha=1\%$} & \multicolumn{2}{c}{$\alpha=2.5\%$} \\
 \midrule
 Engine (accuracy layer) & \multicolumn{2}{c}{86\%} & \multicolumn{2}{c}{70\%} \\
-Engine $+$ conformal overlay & \multicolumn{2}{c}{86\%} & \multicolumn{2}{c}{84\%} \\
+Engine $+$ static shift (97.5\%) & \multicolumn{2}{c}{86\%} & \multicolumn{2}{c}{84\%} \\
 GARCH(1,1)-$t$ & \multicolumn{2}{c}{84\%} & \multicolumn{2}{c}{68\%} \\
 GARCH-EVT, pooled tail & \multicolumn{2}{c}{83\%} & \multicolumn{2}{c}{62\%} \\
 GARCH-EVT, per name & \multicolumn{2}{c}{82\%} & \multicolumn{2}{c}{60\%} \\
@@ -747,24 +752,24 @@ Historical simulation (500d) & $+0.97$ (1.88) & $-1.98$ (-8.39) & $-1.65$ (-7.04
 \cmidrule(lr){2-5}\cmidrule(lr){6-9}
 Model & FZ0 & Breach & DM & MCS & FZ0 & Breach & DM & MCS \\
 \midrule
-Engine (accuracy layer) & 2.1473 & 1.04\% & --- & $\checkmark$ & 1.8494 & 2.78\% & --- & $\checkmark$ \\
-Engine $+$ conformal overlay & 2.1473 & 1.04\% & 0.00 & $\checkmark$ & 1.8656 & 1.66\% & 2.29 &  \\
-GARCH $+$ pooled body (no EVT) & 2.1411 & 1.32\% & -1.33 & $\checkmark$ & 1.8433 & 3.25\% & -1.87 & $\checkmark$ \\
-GARCH(1,1)-$t$ & 2.1557 & 1.03\% & 5.00 &  & 1.8542 & 2.71\% & 4.55 &  \\
-GJR-GARCH-skew-$t$ & 2.1506 & 1.02\% & 1.05 & $\checkmark$ & 1.8487 & 2.64\% & -0.28 & $\checkmark$ \\
-GARCH-FHS (pooled) & 2.1557 & 1.14\% & 4.15 &  & 1.8598 & 3.00\% & 6.37 &  \\
-GARCH-FHS (per name) & 2.1724 & 1.24\% & 5.02 &  & 1.8624 & 3.08\% & 5.56 &  \\
-GARCH-FHS (rolling 500d) & 2.1847 & 1.10\% & 6.62 &  & 1.8611 & 2.50\% & 3.71 &  \\
-GARCH-EVT (pooled tail) & 2.1551 & 1.06\% & 4.83 &  & 1.8583 & 2.89\% & 6.85 &  \\
-GARCH-EVT (per name) & 2.1693 & 1.13\% & 5.23 &  & 1.8596 & 2.93\% & 5.39 &  \\
-GAS-FZ (PZC) & 2.2324 & 0.92\% & 9.50 &  & 1.8990 & 2.53\% & 8.26 &  \\
-ES-CAViaR (Taylor) & 2.1647 & 0.98\% & 3.53 &  & 1.8490 & 2.62\% & -0.12 & $\checkmark$ \\
-EWMA (RiskMetrics) & 2.3211 & 1.61\% & 6.96 &  & 1.9035 & 2.73\% & 6.30 &  \\
-Historical simulation (500d) & 2.2512 & 0.87\% & 6.24 &  & 1.9182 & 2.06\% & 5.16 &  \\
+Engine (accuracy layer) & 2.1465 & 1.04\% & --- & $\checkmark$ & 1.8486 & 2.78\% & --- & $\checkmark$ \\
+Engine $+$ static shift (97.5\%) & 2.1465 & 1.04\% & 0.00 & $\checkmark$ & 1.8664 & 1.66\% & 2.57 &  \\
+GARCH $+$ pooled body (no EVT) & 2.1411 & 1.32\% & -1.09 & $\checkmark$ & 1.8432 & 3.25\% & -1.54 & $\checkmark$ \\
+GARCH(1,1)-$t$ & 2.1557 & 1.03\% & 4.94 &  & 1.8542 & 2.71\% & 5.50 &  \\
+GJR-GARCH-skew-$t$ & 2.1505 & 1.02\% & 1.24 & $\checkmark$ & 1.8486 & 2.64\% & -0.02 & $\checkmark$ \\
+GARCH-FHS (pooled) & 2.1557 & 1.14\% & 3.93 &  & 1.8598 & 3.00\% & 5.89 &  \\
+GARCH-FHS (per name) & 2.1724 & 1.24\% & 4.91 &  & 1.8624 & 3.08\% & 5.35 &  \\
+GARCH-FHS (rolling 500d) & 2.1847 & 1.10\% & 6.61 &  & 1.8611 & 2.50\% & 4.10 &  \\
+GARCH-EVT (pooled tail) & 2.1551 & 1.06\% & 4.51 &  & 1.8583 & 2.89\% & 6.33 &  \\
+GARCH-EVT (per name) & 2.1693 & 1.13\% & 5.14 &  & 1.8596 & 2.93\% & 5.36 &  \\
+GAS-FZ (PZC) & 2.2324 & 0.92\% & 9.91 &  & 1.8990 & 2.53\% & 8.78 &  \\
+ES-CAViaR (Taylor) & 2.1647 & 0.98\% & 3.76 &  & 1.8490 & 2.62\% & 0.13 & $\checkmark$ \\
+EWMA (RiskMetrics) & 2.3211 & 1.61\% & 6.89 &  & 1.9035 & 2.73\% & 6.25 &  \\
+Historical simulation (500d) & 2.2512 & 0.87\% & 6.34 &  & 1.9182 & 2.06\% & 5.28 &  \\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}\footnotesize
-\item FZ0 is the zero-homogeneous Fissler--Ziegel joint (VaR, ES) loss, lower is better; DM $>0$ means the row model scores worse than the accuracy layer (per-date Newey--West(10)). ES: closed forms for the $t$, skew-$t$ and Gaussian entrants; empirical tail means for HS and FHS; McNeil--Frey closed form for GARCH-EVT; the FZ0-estimated dynamic pair for GAS and Taylor; the 20-node integral of the monotonized curve for the engine and body. SAV-CAViaR produces no ES and is absent here. MCS: 90\% Model Confidence Set on the per-date FZ0 series.
+\item FZ0 is the zero-homogeneous Fissler--Ziegel joint (VaR, ES) loss, lower is better; DM $>0$ means the row model scores worse than the accuracy layer (per-date Newey--West(10)). ES: closed forms for the $t$ and Gaussian entrants; an exact substitution integral for the skew-$t$; empirical tail means for HS and FHS; McNeil--Frey closed form for GARCH-EVT; the FZ0-estimated dynamic pair for GAS and Taylor (the GAS fit of record is this run's); the converged integral of the monotonized curve for the engine (Section~2.2 of the paper), and a 20-node integral for the body, which has no quantile below its lowest fitted level. The static-shift row is the split-conformal shift of earlier versions, estimated on the body's calibration errors; Stage~4 now uses the adaptive overlay of Section~5.1 of the paper. At 2.5\% the engine, the body, GJR-GARCH-skew-$t$ and the Taylor model form a tie group (FZ0 1.8432--1.8490, $|$DM$|\le1.54$), reported as a group rather than an order. SAV-CAViaR produces no ES and is absent here. MCS: 90\% Model Confidence Set on the per-date FZ0 series.
 \end{tablenotes}
 \end{threeparttable}
 \end{table}
@@ -781,7 +786,7 @@ Historical simulation (500d) & 2.2512 & 0.87\% & 6.24 &  & 1.9182 & 2.06\% & 5.1
 \cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}\cmidrule(lr){8-9}
 Model & Wald $\chi^2_2$ & slope $t$ & 1\% & 2.5\% & 1\% & 2.5\% & top decile & overall \\
 \midrule
-Engine $+$ conformal overlay & --- & --- & 86\% & 84\% & 0\% & 45\% & --- & --- \\
+Engine $+$ static shift (97.5\%) & --- & --- & 86\% & 84\% & 0\% & 45\% & --- & --- \\
 GARCH $+$ pooled body (no EVT) & 97.2 & -10.1 & 69\% & 54\% & 82\% & 72\% & 12\% & 26\% \\
 GARCH(1,1)-$t$ & 73.6 & 8.6 & 84\% & 68\% & 70\% & 65\% & 74\% & 62\% \\
 GJR-GARCH-skew-$t$ & 87.7 & 9.5 & 90\% & 77\% & 48\% & 40\% & 72\% & 62\% \\
@@ -822,11 +827,13 @@ $\sqrt{h}$-scaled GARCH-$t$ (paper) & $+1.41$ (6.8; 4.3) & 1.24 / 3.30 & $+0.52$
 Iterated-variance GARCH-$t$ & $+0.79$ (4.0; 2.7) & 1.03 / 2.85 & $+0.54$ (0.14; 0.15) & 1.23 / 2.74 \\
 Simulated GARCH-$t$ paths & $+0.70$ (3.5; 2.5) & 1.20 / 2.93 & $+0.76$ (0.25; 0.20) & 1.44 / 2.79 \\
 Bootstrapped filtered paths & $+0.51$ (2.5; 1.1) & 1.01 / 2.58 & $+0.81$ (0.25; 0.31) & 1.29 / 2.62 \\
+Envelope, $\min$(direct, $\sqrt{h}$) & $+1.14$ (3.9; 2.4) & 0.94 / 2.45 & $+0.15$ ($-0.32$; 0.04) & 1.01 / 2.38 \\
+Variance-ratio rescaling & $-0.12$ ($-1.7$; $-0.3$) & 0.97 / 2.44 & $+0.07$ (2.3; 2.0) & 1.23 / 2.79 \\
 Direct model & --- & 1.13 / 2.80 & --- & 1.24 / 2.82 \\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}\footnotesize
-\item Design era: 150 names, 164,850 test rows, 1,099 dates; holdout: 200 names, 278,808 rows, 1,486 dates. Edge $=$ (benchmark pinball $-$ direct pinball)/benchmark pinball over the eleven levels of the paper. Labels overlap (each row's target is the next ten days), so the DM statistic is computed on per-date mean loss differences with a Newey--West lag of 10; NO repeats it on every tenth test date (110 and 149 dates). Coverage is the share of rows whose realized ten-day return falls below the forecast quantile. Iterated-variance GARCH-$t$ uses the closed-form sum of the fitted GARCH variance forecasts over the ten days with the one-day $t$ shape; the path benchmarks simulate 4,000 ten-day paths per row from the fitted GARCH-$t$ with $t$ innovations or with residuals bootstrapped from the training window. The ratio of the iterated ten-day variance to $h$ times the one-day variance averages 1.07 in 2020, 1.11 in 2021, 1.06 in 2022, 1.12 in 2023, 1.11 in 2024 in the design era and 0.99 in 2008, 1.00 in 2009, 1.02 in 2010, 1.02 in 2011, 1.04 in 2012, 1.04 in 2013, which is why the $\sqrt{h}$ rule under-scales in the later era only. Holdout standard errors are roughly 3--6\% of loss, so the out-of-era accuracy comparison is uninformative; see \texttt{tenday\_diag\_results.json}.
+\item Design era: 150 names, 164,850 test rows, 1,099 dates; holdout: 200 names, 278,808 rows, 1,486 dates. Edge $=$ (benchmark pinball $-$ direct pinball)/benchmark pinball over the eleven levels of the paper. Labels overlap (each row's target is the next ten days), so the DM statistic is computed on per-date mean loss differences with a Newey--West lag of 10; NO repeats it on every tenth test date (110 and 149 dates). Coverage is the share of rows whose realized ten-day return falls below the forecast quantile. Iterated-variance GARCH-$t$ uses the closed-form sum of the fitted GARCH variance forecasts over the ten days with the one-day $t$ shape; the path benchmarks simulate 4,000 ten-day paths per row from the fitted GARCH-$t$ with $t$ innovations or with residuals bootstrapped from the training window. The ratio of the iterated ten-day variance to $h$ times the one-day variance averages 1.07 in 2020, 1.11 in 2021, 1.06 in 2022, 1.12 in 2023, 1.11 in 2024 in the design era and 0.99 in 2008, 1.00 in 2009, 1.02 in 2010, 1.02 in 2011, 1.04 in 2012, 1.04 in 2013, which is why the $\sqrt{h}$ rule under-scales in the later era only. Holdout standard errors are roughly 3--6\% of loss, so the out-of-era accuracy comparison is uninformative; see \texttt{tenday\_diag\_results.json}. The envelope (the level-wise minimum of the direct and $\sqrt{h}$ curves, rearranged) and the variance-ratio rescaling (the direct curve rescaled by the square root of the iterated-to-$\sqrt{h}$ variance ratio) come from a rerun on the same rows, \texttt{tenday\_envelope\_results.json}, in which the $\sqrt{h}$ row reads $+1.39$ (DM 6.7) in era and $+0.51$ (DM 0.05) out of era. In 2008--2009 the envelope breaches at 1.61\% and 3.52\%, against 1.93\% and 3.99\% for $\sqrt{h}$ scaling and 2.15\% and 4.33\% for the direct model. Both constructions were run with predictions written beforehand; the envelope did not meet its two, and the rescaling is exploratory.
 \end{tablenotes}
 \end{threeparttable}
 \end{table}
@@ -874,8 +881,32 @@ Learner over adaptive-$\nu$ GARCH-$t$ & $+2.72$ (9.7) & $+2.76$ (8.1) & $-0.05$ 
 \end{threeparttable}
 \end{table}
 
+\begin{table}[htbp]
+\centering
+\begin{threeparttable}
+\caption{Synthetic truth (Section~4 of the paper): the estimator against the parametric model on its own scale, on panels simulated from a known model.}
+\label{tab:synth}
+\scriptsize\setlength{\tabcolsep}{4pt}
+\begin{tabular}{llcccc}
+\toprule
+& & \multicolumn{2}{c}{Pinball DM} & \multicolumn{2}{c}{FZ0 difference ($\times10^{3}$)} \\
+\cmidrule(lr){3-4}\cmidrule(lr){5-6}
+Data generated by & Scale of both models & Overall & Top mk$_{63}$ decile & $1\%$ & $2.5\%$ \\
+\midrule
+GARCH-$t$ & GARCH-$t$ (true) & $-5.20$ & $-1.85$ & $+0.27$ & $+0.01$ \\
+ & Beta-$t$-EGARCH & $10.17$ & $7.71$ & $-6.41$ & $-5.37$ \\
+Beta-$t$-EGARCH & Beta-$t$-EGARCH (true) & $-4.29$ & $-1.41$ & $+0.29$ & $-0.18$ \\
+ & GARCH-$t$ & $10.32$ & $8.14$ & $-1.62$ & $-1.61$ \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\footnotesize
+\item Each panel is simulated per name from the named model, 200 names and 221,600 test rows. In each row the estimator (pooled shape learner and EVT tail on the stated scale) is compared with the parametric Student-$t$ model on the same scale. Pinball DM is the per-date Diebold--Mariano statistic of the estimator over that model on the eleven-level grid (positive favors the estimator); the FZ0 columns give mean FZ0 of the estimator minus that of the parametric model (negative favors the estimator), with the estimator's ES the converged integral and the parametric ES in closed form. Against the true model the estimator is slightly worse on pinball (by $0.02\%$ in both designs) and within $3\times10^{-4}$ on FZ0; against the misspecified scale's parametric tail it wins by $1.6$--$6.4\times10^{-3}$. The ES convention matters here: these gaps are smaller than the error of a 20-node midpoint ES, and under a correctly specified model the McNeil--Frey test with a 20-node ES rejects in $22.5\%$ of simulated samples at a nominal $5\%$ ($6\%$ with the exact ES). Result file \texttt{synthetic\_truth\_results.json}.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
 \subsection*{Expected-shortfall integral and an external transfer check}
-Two items recorded for completeness. (i)~Computing ES$_\alpha$ as the numerical integral of the min-envelope curve rather than by the GPD closed form of \citet{mcneilfrey2000} leaves each comparison in place: at 2.5\% the accuracy layer's FZ0 is 1.849 under the integral against 1.851 under the closed form (the integral marginally better, DM 5.3), and the estimator-over-GARCH-$t$ DM is 4.8 and 5.1 at the 1\% and 2.5\% levels under either convention. (ii)~As a transfer check outside finance, the same amortized pipeline scores a leakage-safe weighted scaled pinball of 0.269 (benchmark tier) on the M5 competition data.
+Two items recorded for completeness. (i)~ES$_\alpha$ is the converged integral of the min-envelope curve (Section~2.2 of the paper). Replacing it by the GPD closed form of \citet{mcneilfrey2000} gives the accuracy layer a 2.5\% FZ0 of 1.851, against 1.8486 under the integral, and under the integral the estimator-over-GARCH-$t$ DM is 4.9 and 5.5 at the 1\% and 2.5\% levels. The 20-node midpoint rule of earlier versions understated the engine's $|\ES|$ by $1.65\%$ at 1\% and $1.66\%$ at 2.5\% on average, for every one of the 200 names, and the rolling-window empirical rows of Table~4 of the paper by 4--5\%; those rows now use the exact tail mean. (ii)~As a transfer check outside finance, the same amortized pipeline scores a leakage-safe weighted scaled pinball of 0.269 (benchmark tier) on the M5 competition data.
 
 \section{Frontier robustness: calendar overlap, family-wise error, and the universe rule}
 This section collects the constructions summarized in Section~3 of the paper.
@@ -902,7 +933,7 @@ This section collects the constructions summarized in Section~3 of the paper.
 \node[box, fill=orange!22] (conf)  at (12.4,-2.6){\textbf{Stage 4}\\conformal shift $c_\tau$};
 \node[box, fill=gray!8]    (out)   at (4.6,-2.6) {forecast $\widehat{Q}_t(\tau)$};
 \node[box, dashed, fill=white] (pool) at (7.6,-4.4) {pooled residual panel\\$\{(s_{j,t},\widehat z_{j,t})\}$, all names $j$};
-\node[box, dashed, fill=white] (cal)  at (12.4,-4.4) {held-out\\calibration split};
+\node[box, dashed, fill=white] (cal)  at (12.4,-4.4) {breaches observed\\through day $t-1$};
 \draw[arr] (ret) -- (garch);
 \draw[arr] (garch) -- node[lab, above] {$\widehat z_t$, $s_t$} (shape);
 \draw[arr] (shape) -- node[lab, below=4.5mm] {minimum at $\tau\le p_0$, rearrange} (evt);
@@ -915,7 +946,7 @@ This section collects the constructions summarized in Section~3 of the paper.
 \draw[arr, dashed] ([xshift=5mm]garch.south) |-
   node[lab, left, pos=0.22] {$\widehat\sigma_t$} (out.west);
 \end{tikzpicture}
-\caption{The residual-hybrid estimator as a pipeline (Section~2 of the paper). Solid arrows carry data; the dashed top arrow carries the conditional scale $\widehat\sigma_t$ that rescales the finished residual quantile curve. Dashed boxes are inputs shared across assets (the pooled panel that trains the amortized shape model) or held out from training (the calibration split behind the conformal overlay).}
+\caption{The residual-hybrid estimator as a pipeline (Section~2 of the paper). Solid arrows carry data; the dashed top arrow carries the conditional scale $\widehat\sigma_t$ that rescales the finished residual quantile curve. Dashed boxes are inputs shared across assets (the pooled panel that trains the amortized shape model) or observed as the forecasts are scored (the breaches behind the adaptive overlay).}
 \label{fig:pipeline}
 \end{figure}
 
@@ -993,11 +1024,11 @@ as much as its location: a correct physical-measure tail forecast
 does not by itself make bought crash insurance profitable, because the
 crash risk premium can survive conditioning on a correct forecast.
 A possible application is the opposite side, selling tail protection
-with the model supplying tail control rather than alpha on the mean; the
-paper evaluates no prices, premia, costs or trading outcomes, so this is a
-direction and not a result. The gating experiment provides no evidence that the score times
-individual crash days, so its role there is continuous tail-risk
-measurement, not a market-timing signal.
+with the model supplying tail control rather than alpha on the mean. The
+paper evaluates no prices, premia, costs or trading outcomes, so the
+application is untested here. The gating experiment provides no evidence that the score times
+individual crash days, so its role there would be continuous tail-risk
+measurement.
 
 
 

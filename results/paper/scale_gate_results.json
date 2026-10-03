@@ -1,0 +1,250 @@
+{
+  "es_convention": {
+    "engine_rows": "converged integral (es_integral.converged_es, M=2000, 60 fitted body levels): body interpolated on [a/40,a], pooled GPD exact at every node, sub-floor region in closed form. VaR is the committed construction and is unchanged, so no VaR-only statistic can move.",
+    "parametric_rows": "closed form, unaffected",
+    "superseded_20node_values": {
+      "0.01": {
+        "garch_t": {
+          "es_20node": -3.85271,
+          "es_converged": -3.91962,
+          "ratio": 1.01745
+        },
+        "bteg": {
+          "es_20node": -3.9067,
+          "es_converged": -3.96969,
+          "ratio": 1.0163
+        }
+      },
+      "0.025": {
+        "garch_t": {
+          "es_20node": -2.8853,
+          "es_converged": -2.92555,
+          "ratio": 1.01409
+        },
+        "bteg": {
+          "es_20node": -2.91897,
+          "es_converged": -2.96528,
+          "ratio": 1.01604
+        }
+      }
+    }
+  },
+  "note": "Score-gated Stage-1 scale under annual refits: the GARCH-t engine below a frozen mk63 threshold, the Beta-t-EGARCH engine at or above it. Threshold = the 90th percentile of mk63 over pre-2020 rows, fixed before the test era. DM_t>0 means the row is WORSE than the named reference.",
+  "predictions_written_before_run": "P1 the gate is not beaten overall by any fixed choice (no DM>1.96 against it) and beats always-GARCH-t in the top decile with DM>2; P2 the gate is within noise of always-engine_bteg overall; P3 its breach sits between the two engines and the date-clustered test passes.",
+  "mk63_threshold_frozen": 13.0953,
+  "gate_fire_rate": 0.0997,
+  "n_test": 251600,
+  "n_dates": 1258,
+  "per_alpha": {
+    "0.01": {
+      "engine_garch_t": {
+        "meanFZ0": 2.23007,
+        "breach": 0.0117,
+        "dateclustered_NW_t": 1.21,
+        "dateclustered_PASS": true,
+        "uc_clustered_p": 0.2263,
+        "vs_gate": {
+          "overall": {
+            "mean_diff": 0.00802,
+            "DM_t": 6.34,
+            "n": 251600
+          },
+          "top_mk63_decile": {
+            "mean_diff": 0.0802,
+            "DM_t": 5.45,
+            "n": 25160
+          },
+          "deciles_1to9": {
+            "mean_diff": 0.0,
+            "DM_t": 0.0,
+            "n": 226440
+          }
+        }
+      },
+      "param_garch_t": {
+        "meanFZ0": 2.24204,
+        "breach": 0.0122,
+        "dateclustered_NW_t": 1.62,
+        "dateclustered_PASS": true,
+        "uc_clustered_p": 0.1052,
+        "vs_gate": {
+          "overall": {
+            "mean_diff": 0.01999,
+            "DM_t": 5.41,
+            "n": 251600
+          },
+          "top_mk63_decile": {
+            "mean_diff": 0.08238,
+            "DM_t": 5.21,
+            "n": 25160
+          },
+          "deciles_1to9": {
+            "mean_diff": 0.01305,
+            "DM_t": 3.4,
+            "n": 226440
+          }
+        }
+      },
+      "engine_bteg": {
+        "meanFZ0": 2.23506,
+        "breach": 0.0114,
+        "dateclustered_NW_t": 0.85,
+        "dateclustered_PASS": true,
+        "uc_clustered_p": 0.3953,
+        "vs_gate": {
+          "overall": {
+            "mean_diff": 0.013,
+            "DM_t": 0.82,
+            "n": 251600
+          },
+          "top_mk63_decile": {
+            "mean_diff": -0.00018,
+            "DM_t": -1.63,
+            "n": 25160
+          },
+          "deciles_1to9": {
+            "mean_diff": 0.01447,
+            "DM_t": 0.78,
+            "n": 226440
+          }
+        }
+      },
+      "param_bteg": {
+        "meanFZ0": 2.25573,
+        "breach": 0.0127,
+        "dateclustered_NW_t": 1.54,
+        "dateclustered_PASS": true,
+        "uc_clustered_p": 0.1236,
+        "vs_gate": {
+          "overall": {
+            "mean_diff": 0.03367,
+            "DM_t": 1.64,
+            "n": 251600
+          },
+          "top_mk63_decile": {
+            "mean_diff": 0.022,
+            "DM_t": 2.33,
+            "n": 25160
+          },
+          "deciles_1to9": {
+            "mean_diff": 0.03497,
+            "DM_t": 1.53,
+            "n": 226440
+          }
+        }
+      },
+      "gate": {
+        "meanFZ0": 2.22206,
+        "breach": 0.0117,
+        "dateclustered_NW_t": 1.26,
+        "dateclustered_PASS": true,
+        "uc_clustered_p": 0.2077
+      }
+    },
+    "0.025": {
+      "engine_garch_t": {
+        "meanFZ0": 1.93197,
+        "breach": 0.0288,
+        "dateclustered_NW_t": 1.53,
+        "dateclustered_PASS": true,
+        "uc_clustered_p": 0.126,
+        "vs_gate": {
+          "overall": {
+            "mean_diff": 0.00749,
+            "DM_t": 8.12,
+            "n": 251600
+          },
+          "top_mk63_decile": {
+            "mean_diff": 0.07495,
+            "DM_t": 7.36,
+            "n": 25160
+          },
+          "deciles_1to9": {
+            "mean_diff": 0.0,
+            "DM_t": 0.0,
+            "n": 226440
+          }
+        }
+      },
+      "param_garch_t": {
+        "meanFZ0": 1.94013,
+        "breach": 0.0303,
+        "dateclustered_NW_t": 2.14,
+        "dateclustered_PASS": false,
+        "uc_clustered_p": 0.0324,
+        "vs_gate": {
+          "overall": {
+            "mean_diff": 0.01566,
+            "DM_t": 5.65,
+            "n": 251600
+          },
+          "top_mk63_decile": {
+            "mean_diff": 0.07832,
+            "DM_t": 7.21,
+            "n": 25160
+          },
+          "deciles_1to9": {
+            "mean_diff": 0.00869,
+            "DM_t": 3.03,
+            "n": 226440
+          }
+        }
+      },
+      "engine_bteg": {
+        "meanFZ0": 1.9322,
+        "breach": 0.0278,
+        "dateclustered_NW_t": 1.03,
+        "dateclustered_PASS": true,
+        "uc_clustered_p": 0.303,
+        "vs_gate": {
+          "overall": {
+            "mean_diff": 0.00772,
+            "DM_t": 0.76,
+            "n": 251600
+          },
+          "top_mk63_decile": {
+            "mean_diff": -0.00014,
+            "DM_t": -1.68,
+            "n": 25160
+          },
+          "deciles_1to9": {
+            "mean_diff": 0.0086,
+            "DM_t": 0.72,
+            "n": 226440
+          }
+        }
+      },
+      "param_bteg": {
+        "meanFZ0": 1.94402,
+        "breach": 0.0298,
+        "dateclustered_NW_t": 1.7,
+        "dateclustered_PASS": true,
+        "uc_clustered_p": 0.0891,
+        "vs_gate": {
+          "overall": {
+            "mean_diff": 0.01954,
+            "DM_t": 1.48,
+            "n": 251600
+          },
+          "top_mk63_decile": {
+            "mean_diff": 0.01535,
+            "DM_t": 2.5,
+            "n": 25160
+          },
+          "deciles_1to9": {
+            "mean_diff": 0.02001,
+            "DM_t": 1.36,
+            "n": 226440
+          }
+        }
+      },
+      "gate": {
+        "meanFZ0": 1.92448,
+        "breach": 0.029,
+        "dateclustered_NW_t": 1.63,
+        "dateclustered_PASS": true,
+        "uc_clustered_p": 0.1031
+      }
+    }
+  }
+}

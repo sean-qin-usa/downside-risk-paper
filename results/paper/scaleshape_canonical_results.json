@@ -1,131 +1,624 @@
 {
+  "es_convention": {
+    "daily_core": "exact closed-form GPD tail integral",
+    "rg_evt": "exact closed-form GPD tail integral",
+    "rg_uncond": "exact empirical tail mean of the training residuals",
+    "rg_hybrid": "converged integral (es_integral.converged_es, M=2000)",
+    "rg_shape": "body-only: quadrature fixed above a/40, sub-floor cell keeps the committed FLAT EXTENSION, so its ES is a lower bound on severity",
+    "superseded_20node_values": {
+      "0.025": {
+        "AAPL": {
+          "daily_core_20node": -2.79089,
+          "daily_core_converged": -2.80876,
+          "rg_evt_20node": -2.76102,
+          "rg_evt_converged": -2.77274,
+          "rg_uncond_20node": -2.77302,
+          "rg_uncond_converged": -2.79461
+        },
+        "BA": {
+          "daily_core_20node": -2.87872,
+          "daily_core_converged": -2.89164,
+          "rg_evt_20node": -2.79735,
+          "rg_evt_converged": -2.8057,
+          "rg_uncond_20node": -2.77864,
+          "rg_uncond_converged": -2.80447
+        },
+        "BAC": {
+          "daily_core_20node": -2.83822,
+          "daily_core_converged": -2.85598,
+          "rg_evt_20node": -2.72983,
+          "rg_evt_converged": -2.7488,
+          "rg_uncond_20node": -2.69592,
+          "rg_uncond_converged": -2.72367
+        },
+        "C": {
+          "daily_core_20node": -2.76015,
+          "daily_core_converged": -2.77312,
+          "rg_evt_20node": -2.69026,
+          "rg_evt_converged": -2.70519,
+          "rg_uncond_20node": -2.64729,
+          "rg_uncond_converged": -2.70492
+        },
+        "CAT": {
+          "daily_core_20node": -2.91637,
+          "daily_core_converged": -2.93032,
+          "rg_evt_20node": -2.76561,
+          "rg_evt_converged": -2.7862,
+          "rg_uncond_20node": -2.77099,
+          "rg_uncond_converged": -2.79661
+        },
+        "CSCO": {
+          "daily_core_20node": -3.05166,
+          "daily_core_converged": -3.14667,
+          "rg_evt_20node": -2.86584,
+          "rg_evt_converged": -2.89524,
+          "rg_uncond_20node": -2.83789,
+          "rg_uncond_converged": -2.88074
+        },
+        "CVX": {
+          "daily_core_20node": -2.9782,
+          "daily_core_converged": -2.99999,
+          "rg_evt_20node": -2.8943,
+          "rg_evt_converged": -2.90212,
+          "rg_uncond_20node": -2.87172,
+          "rg_uncond_converged": -2.88861
+        },
+        "DIS": {
+          "daily_core_20node": -2.90083,
+          "daily_core_converged": -2.94016,
+          "rg_evt_20node": -2.67729,
+          "rg_evt_converged": -2.73741,
+          "rg_uncond_20node": -2.62016,
+          "rg_uncond_converged": -2.70583
+        },
+        "GS": {
+          "daily_core_20node": -2.81456,
+          "daily_core_converged": -2.82848,
+          "rg_evt_20node": -2.69511,
+          "rg_evt_converged": -2.71856,
+          "rg_uncond_20node": -2.66716,
+          "rg_uncond_converged": -2.70238
+        },
+        "HD": {
+          "daily_core_20node": -2.92065,
+          "daily_core_converged": -2.93933,
+          "rg_evt_20node": -2.72723,
+          "rg_evt_converged": -2.74971,
+          "rg_uncond_20node": -2.71488,
+          "rg_uncond_converged": -2.73656
+        },
+        "IBM": {
+          "daily_core_20node": -3.27579,
+          "daily_core_converged": -3.42544,
+          "rg_evt_20node": -2.97493,
+          "rg_evt_converged": -3.06767,
+          "rg_uncond_20node": -2.94997,
+          "rg_uncond_converged": -2.97863
+        },
+        "INTC": {
+          "daily_core_20node": -2.96257,
+          "daily_core_converged": -3.02495,
+          "rg_evt_20node": -2.77455,
+          "rg_evt_converged": -2.81148,
+          "rg_uncond_20node": -2.73222,
+          "rg_uncond_converged": -2.80217
+        },
+        "JNJ": {
+          "daily_core_20node": -3.14085,
+          "daily_core_converged": -3.18317,
+          "rg_evt_20node": -2.99526,
+          "rg_evt_converged": -3.02686,
+          "rg_uncond_20node": -2.94655,
+          "rg_uncond_converged": -3.02078
+        },
+        "JPM": {
+          "daily_core_20node": -2.76569,
+          "daily_core_converged": -2.77976,
+          "rg_evt_20node": -2.67817,
+          "rg_evt_converged": -2.69749,
+          "rg_uncond_20node": -2.65376,
+          "rg_uncond_converged": -2.69622
+        },
+        "KO": {
+          "daily_core_20node": -3.22108,
+          "daily_core_converged": -3.33202,
+          "rg_evt_20node": -3.03019,
+          "rg_evt_converged": -3.15353,
+          "rg_uncond_20node": -2.92243,
+          "rg_uncond_converged": -3.04553
+        },
+        "MCD": {
+          "daily_core_20node": -2.80189,
+          "daily_core_converged": -2.82796,
+          "rg_evt_20node": -2.68939,
+          "rg_evt_converged": -2.71042,
+          "rg_uncond_20node": -2.70187,
+          "rg_uncond_converged": -2.71678
+        },
+        "MMM": {
+          "daily_core_20node": -3.2043,
+          "daily_core_converged": -3.28795,
+          "rg_evt_20node": -2.98044,
+          "rg_evt_converged": -3.09863,
+          "rg_uncond_20node": -2.82053,
+          "rg_uncond_converged": -3.05547
+        },
+        "MRK": {
+          "daily_core_20node": -2.74152,
+          "daily_core_converged": -2.76354,
+          "rg_evt_20node": -2.60711,
+          "rg_evt_converged": -2.64388,
+          "rg_uncond_20node": -2.5835,
+          "rg_uncond_converged": -2.6244
+        },
+        "MSFT": {
+          "daily_core_20node": -2.74721,
+          "daily_core_converged": -2.7749,
+          "rg_evt_20node": -2.53428,
+          "rg_evt_converged": -2.57083,
+          "rg_uncond_20node": -2.50261,
+          "rg_uncond_converged": -2.54879
+        },
+        "NKE": {
+          "daily_core_20node": -2.77103,
+          "daily_core_converged": -2.8002,
+          "rg_evt_20node": -2.58199,
+          "rg_evt_converged": -2.6108,
+          "rg_uncond_20node": -2.56758,
+          "rg_uncond_converged": -2.60552
+        },
+        "ORCL": {
+          "daily_core_20node": -3.20039,
+          "daily_core_converged": -3.24422,
+          "rg_evt_20node": -3.08516,
+          "rg_evt_converged": -3.12008,
+          "rg_uncond_20node": -3.07636,
+          "rg_uncond_converged": -3.11731
+        },
+        "PFE": {
+          "daily_core_20node": -2.78081,
+          "daily_core_converged": -2.79589,
+          "rg_evt_20node": -2.72773,
+          "rg_evt_converged": -2.74584,
+          "rg_uncond_20node": -2.71154,
+          "rg_uncond_converged": -2.74188
+        },
+        "PG": {
+          "daily_core_20node": -2.956,
+          "daily_core_converged": -2.96815,
+          "rg_evt_20node": -2.85027,
+          "rg_evt_converged": -2.86805,
+          "rg_uncond_20node": -2.86137,
+          "rg_uncond_converged": -2.87629
+        },
+        "QCOM": {
+          "daily_core_20node": -3.14395,
+          "daily_core_converged": -3.2398,
+          "rg_evt_20node": -2.8894,
+          "rg_evt_converged": -2.93199,
+          "rg_uncond_20node": -2.83135,
+          "rg_uncond_converged": -2.93664
+        },
+        "T": {
+          "daily_core_20node": -3.27984,
+          "daily_core_converged": -3.31899,
+          "rg_evt_20node": -3.04287,
+          "rg_evt_converged": -3.06395,
+          "rg_uncond_20node": -3.01014,
+          "rg_uncond_converged": -3.03958
+        },
+        "TXN": {
+          "daily_core_20node": -2.96344,
+          "daily_core_converged": -2.9903,
+          "rg_evt_20node": -2.81328,
+          "rg_evt_converged": -2.85318,
+          "rg_uncond_20node": -2.79943,
+          "rg_uncond_converged": -2.84133
+        },
+        "VZ": {
+          "daily_core_20node": -2.81577,
+          "daily_core_converged": -2.82384,
+          "rg_evt_20node": -2.73658,
+          "rg_evt_converged": -2.74442,
+          "rg_uncond_20node": -2.70249,
+          "rg_uncond_converged": -2.72764
+        },
+        "WFC": {
+          "daily_core_20node": -2.7931,
+          "daily_core_converged": -2.81824,
+          "rg_evt_20node": -2.68963,
+          "rg_evt_converged": -2.71826,
+          "rg_uncond_20node": -2.6802,
+          "rg_uncond_converged": -2.70206
+        },
+        "WMT": {
+          "daily_core_20node": -2.93302,
+          "daily_core_converged": -2.98554,
+          "rg_evt_20node": -2.70367,
+          "rg_evt_converged": -2.78259,
+          "rg_uncond_20node": -2.63102,
+          "rg_uncond_converged": -2.75871
+        },
+        "XOM": {
+          "daily_core_20node": -2.73923,
+          "daily_core_converged": -2.76164,
+          "rg_evt_20node": -2.7183,
+          "rg_evt_converged": -2.72701,
+          "rg_uncond_20node": -2.69418,
+          "rg_uncond_converged": -2.71434
+        }
+      },
+      "0.01": {
+        "AAPL": {
+          "daily_core_20node": -3.49234,
+          "daily_core_converged": -3.51158,
+          "rg_evt_20node": -3.41385,
+          "rg_evt_converged": -3.42544,
+          "rg_uncond_20node": -3.37106,
+          "rg_uncond_converged": -3.4216
+        },
+        "BA": {
+          "daily_core_20node": -3.60255,
+          "daily_core_converged": -3.61531,
+          "rg_evt_20node": -3.44645,
+          "rg_evt_converged": -3.45407,
+          "rg_uncond_20node": -3.34421,
+          "rg_uncond_converged": -3.404
+        },
+        "BAC": {
+          "daily_core_20node": -3.57237,
+          "daily_core_converged": -3.59126,
+          "rg_evt_20node": -3.41931,
+          "rg_evt_converged": -3.44011,
+          "rg_uncond_20node": -3.38621,
+          "rg_uncond_converged": -3.44384
+        },
+        "C": {
+          "daily_core_20node": -3.38793,
+          "daily_core_converged": -3.40121,
+          "rg_evt_20node": -3.307,
+          "rg_evt_converged": -3.32287,
+          "rg_uncond_20node": -3.24912,
+          "rg_uncond_converged": -3.32593
+        },
+        "CAT": {
+          "daily_core_20node": -3.6612,
+          "daily_core_converged": -3.67514,
+          "rg_evt_20node": -3.51729,
+          "rg_evt_converged": -3.53987,
+          "rg_uncond_20node": -3.50559,
+          "rg_uncond_converged": -3.5477
+        },
+        "CSCO": {
+          "daily_core_20node": -4.23955,
+          "daily_core_converged": -4.37485,
+          "rg_evt_20node": -3.69137,
+          "rg_evt_converged": -3.72575,
+          "rg_uncond_20node": -3.65114,
+          "rg_uncond_converged": -3.72983
+        },
+        "CVX": {
+          "daily_core_20node": -3.7939,
+          "daily_core_converged": -3.81763,
+          "rg_evt_20node": -3.50984,
+          "rg_evt_converged": -3.51695,
+          "rg_uncond_20node": -3.44362,
+          "rg_uncond_converged": -3.48409
+        },
+        "DIS": {
+          "daily_core_20node": -3.8588,
+          "daily_core_converged": -3.90641,
+          "rg_evt_20node": -3.59103,
+          "rg_evt_converged": -3.6727,
+          "rg_uncond_20node": -3.38867,
+          "rg_uncond_converged": -3.52303
+        },
+        "GS": {
+          "daily_core_20node": -3.45722,
+          "daily_core_converged": -3.47162,
+          "rg_evt_20node": -3.38582,
+          "rg_evt_converged": -3.41291,
+          "rg_uncond_20node": -3.3364,
+          "rg_uncond_converged": -3.40127
+        },
+        "HD": {
+          "daily_core_20node": -3.66717,
+          "daily_core_converged": -3.6872,
+          "rg_evt_20node": -3.42778,
+          "rg_evt_converged": -3.4534,
+          "rg_uncond_20node": -3.36046,
+          "rg_uncond_converged": -3.42876
+        },
+        "IBM": {
+          "daily_core_20node": -4.81527,
+          "daily_core_converged": -5.03852,
+          "rg_evt_20node": -4.27707,
+          "rg_evt_converged": -4.40551,
+          "rg_uncond_20node": -4.13337,
+          "rg_uncond_converged": -4.17217
+        },
+        "INTC": {
+          "daily_core_20node": -4.07388,
+          "daily_core_converged": -4.15542,
+          "rg_evt_20node": -3.61415,
+          "rg_evt_converged": -3.65961,
+          "rg_uncond_20node": -3.51339,
+          "rg_uncond_converged": -3.62206
+        },
+        "JNJ": {
+          "daily_core_20node": -4.22728,
+          "daily_core_converged": -4.27787,
+          "rg_evt_20node": -3.92434,
+          "rg_evt_converged": -3.96087,
+          "rg_uncond_20node": -3.78813,
+          "rg_uncond_converged": -3.9096
+        },
+        "JPM": {
+          "daily_core_20node": -3.44,
+          "daily_core_converged": -3.45443,
+          "rg_evt_20node": -3.33371,
+          "rg_evt_converged": -3.35528,
+          "rg_uncond_20node": -3.26141,
+          "rg_uncond_converged": -3.343
+        },
+        "KO": {
+          "daily_core_20node": -4.60663,
+          "daily_core_converged": -4.76468,
+          "rg_evt_20node": -4.34196,
+          "rg_evt_converged": -4.52453,
+          "rg_uncond_20node": -4.00791,
+          "rg_uncond_converged": -4.17043
+        },
+        "MCD": {
+          "daily_core_20node": -3.6297,
+          "daily_core_converged": -3.65929,
+          "rg_evt_20node": -3.41937,
+          "rg_evt_converged": -3.44271,
+          "rg_uncond_20node": -3.35268,
+          "rg_uncond_converged": -3.40674
+        },
+        "MMM": {
+          "daily_core_20node": -4.47598,
+          "daily_core_converged": -4.58963,
+          "rg_evt_20node": -4.22816,
+          "rg_evt_converged": -4.40339,
+          "rg_uncond_20node": -3.99939,
+          "rg_uncond_converged": -4.30161
+        },
+        "MRK": {
+          "daily_core_20node": -3.48462,
+          "daily_core_converged": -3.50923,
+          "rg_evt_20node": -3.38241,
+          "rg_evt_converged": -3.42854,
+          "rg_uncond_20node": -3.32291,
+          "rg_uncond_converged": -3.39018
+        },
+        "MSFT": {
+          "daily_core_20node": -3.53324,
+          "daily_core_converged": -3.56552,
+          "rg_evt_20node": -3.2252,
+          "rg_evt_converged": -3.2723,
+          "rg_uncond_20node": -3.15802,
+          "rg_uncond_converged": -3.24307
+        },
+        "NKE": {
+          "daily_core_20node": -3.6024,
+          "daily_core_converged": -3.63639,
+          "rg_evt_20node": -3.31712,
+          "rg_evt_converged": -3.35161,
+          "rg_uncond_20node": -3.26394,
+          "rg_uncond_converged": -3.33221
+        },
+        "ORCL": {
+          "daily_core_20node": -4.29347,
+          "daily_core_converged": -4.34624,
+          "rg_evt_20node": -4.0685,
+          "rg_evt_converged": -4.10931,
+          "rg_uncond_20node": -3.97174,
+          "rg_uncond_converged": -4.06897
+        },
+        "PFE": {
+          "daily_core_20node": -3.47376,
+          "daily_core_converged": -3.48938,
+          "rg_evt_20node": -3.40333,
+          "rg_evt_converged": -3.42308,
+          "rg_uncond_20node": -3.31487,
+          "rg_uncond_converged": -3.38448
+        },
+        "PG": {
+          "daily_core_20node": -3.69568,
+          "daily_core_converged": -3.70743,
+          "rg_evt_20node": -3.58234,
+          "rg_evt_converged": -3.60127,
+          "rg_uncond_20node": -3.56993,
+          "rg_uncond_converged": -3.61775
+        },
+        "QCOM": {
+          "daily_core_20node": -4.5335,
+          "daily_core_converged": -4.66523,
+          "rg_evt_20node": -4.06913,
+          "rg_evt_converged": -4.1191,
+          "rg_uncond_20node": -3.8993,
+          "rg_uncond_converged": -4.05186
+        },
+        "T": {
+          "daily_core_20node": -4.41421,
+          "daily_core_converged": -4.45963,
+          "rg_evt_20node": -3.92701,
+          "rg_evt_converged": -3.94935,
+          "rg_uncond_20node": -3.9616,
+          "rg_uncond_converged": -4.03063
+        },
+        "TXN": {
+          "daily_core_20node": -3.82816,
+          "daily_core_converged": -3.85852,
+          "rg_evt_20node": -3.73906,
+          "rg_evt_converged": -3.78794,
+          "rg_uncond_20node": -3.65596,
+          "rg_uncond_converged": -3.73104
+        },
+        "VZ": {
+          "daily_core_20node": -3.42487,
+          "daily_core_converged": -3.43229,
+          "rg_evt_20node": -3.32329,
+          "rg_evt_converged": -3.3305,
+          "rg_uncond_20node": -3.29621,
+          "rg_uncond_converged": -3.34017
+        },
+        "WFC": {
+          "daily_core_20node": -3.51098,
+          "daily_core_converged": -3.54025,
+          "rg_evt_20node": -3.39723,
+          "rg_evt_converged": -3.43177,
+          "rg_uncond_20node": -3.31631,
+          "rg_uncond_converged": -3.39933
+        },
+        "WMT": {
+          "daily_core_20node": -4.00002,
+          "daily_core_converged": -4.06649,
+          "rg_evt_20node": -3.73417,
+          "rg_evt_converged": -3.84539,
+          "rg_uncond_20node": -3.48711,
+          "rg_uncond_converged": -3.68346
+        },
+        "XOM": {
+          "daily_core_20node": -3.40511,
+          "daily_core_converged": -3.43095,
+          "rg_evt_20node": -3.26166,
+          "rg_evt_converged": -3.27004,
+          "rg_uncond_20node": -3.25992,
+          "rg_uncond_converged": -3.29122
+        }
+      }
+    }
+  },
   "note": "FATAL-2 fix: ONE canonical scale-shape pipeline. 30 TAQ names, same test rows, dense 20-node ES for every row, all DMs date-clustered NW(5) vs rg_uncond (proper HHS realized scale + unconditional residual quantile). daily_core = daily GARCH-t scale + EVT tail (computed here, same names). DM>0 worse than rg_uncond.",
   "n_names": 30,
   "per_alpha": {
     "alpha_0.025": {
       "FZ0": {
-        "daily_core": 1.5003,
-        "rg_uncond": 1.4446,
-        "rg_evt": 1.4444,
-        "rg_shape": 1.4453,
-        "rg_hybrid": 1.4468
+        "daily_core": 1.5,
+        "rg_uncond": 1.4447,
+        "rg_evt": 1.4446,
+        "rg_shape": 1.4419,
+        "rg_hybrid": 1.4466
       },
       "n_scored": 33240,
       "DM_vs_rg_uncond": {
         "daily_core": {
-          "dFZ0": 0.05571,
-          "DM": 6.18,
+          "dFZ0": 0.05528,
+          "DM": 6.2,
           "n": 1108
         },
         "rg_evt": {
-          "dFZ0": -0.00018,
-          "DM": -0.26,
+          "dFZ0": -8e-05,
+          "DM": -0.13,
           "n": 1108
         },
         "rg_shape": {
-          "dFZ0": 0.0007,
-          "DM": 0.18,
+          "dFZ0": -0.00283,
+          "DM": -0.79,
           "n": 1108
         },
         "rg_hybrid": {
-          "dFZ0": 0.00222,
-          "DM": 0.73,
+          "dFZ0": 0.00192,
+          "DM": 0.69,
           "n": 1108
         }
       },
       "topdecile_DM_vs_rg_uncond": {
         "rg_shape_d9": {
-          "dFZ0": 0.00602,
-          "DM": 0.31,
+          "dFZ0": -0.00074,
+          "DM": -0.05,
           "n": 1000
         },
         "rg_hybrid_d9": {
-          "dFZ0": -0.00914,
-          "DM": -0.59,
+          "dFZ0": -0.00441,
+          "DM": -0.33,
           "n": 1000
         },
         "daily_core_d9": {
-          "dFZ0": 0.11269,
-          "DM": 2.81,
+          "dFZ0": 0.11404,
+          "DM": 2.92,
           "n": 1000
         },
         "rg_shape_d789": {
-          "dFZ0": 0.00733,
-          "DM": 0.85,
+          "dFZ0": 0.00246,
+          "DM": 0.32,
           "n": 1106
         },
         "rg_hybrid_d789": {
-          "dFZ0": 0.00321,
-          "DM": 0.58,
+          "dFZ0": 0.00417,
+          "DM": 0.78,
           "n": 1106
         },
         "daily_core_d789": {
-          "dFZ0": 0.0642,
-          "DM": 4.56,
+          "dFZ0": 0.06504,
+          "DM": 4.7,
           "n": 1106
         }
       }
     },
     "alpha_0.01": {
       "FZ0": {
-        "daily_core": 1.7744,
-        "rg_uncond": 1.7155,
-        "rg_evt": 1.7162,
-        "rg_shape": 1.71,
-        "rg_hybrid": 1.7177
+        "daily_core": 1.7741,
+        "rg_uncond": 1.7149,
+        "rg_evt": 1.7163,
+        "rg_shape": 1.7083,
+        "rg_hybrid": 1.7166
       },
       "n_scored": 33240,
       "DM_vs_rg_uncond": {
         "daily_core": {
-          "dFZ0": 0.05885,
-          "DM": 4.54,
+          "dFZ0": 0.05919,
+          "DM": 4.61,
           "n": 1108
         },
         "rg_evt": {
-          "dFZ0": 0.00066,
-          "DM": 0.5,
+          "dFZ0": 0.00138,
+          "DM": 1.27,
           "n": 1108
         },
         "rg_shape": {
-          "dFZ0": -0.0055,
-          "DM": -1.32,
+          "dFZ0": -0.00659,
+          "DM": -1.36,
           "n": 1108
         },
         "rg_hybrid": {
-          "dFZ0": 0.0022,
-          "DM": 0.61,
+          "dFZ0": 0.00166,
+          "DM": 0.48,
           "n": 1108
         }
       },
       "topdecile_DM_vs_rg_uncond": {
         "rg_shape_d9": {
-          "dFZ0": -0.00022,
-          "DM": -0.01,
+          "dFZ0": -0.01557,
+          "DM": -0.66,
           "n": 1000
         },
         "rg_hybrid_d9": {
-          "dFZ0": -0.00687,
-          "DM": -0.52,
+          "dFZ0": -0.01908,
+          "DM": -0.97,
           "n": 1000
         },
         "daily_core_d9": {
-          "dFZ0": 0.12947,
-          "DM": 1.98,
+          "dFZ0": 0.1315,
+          "DM": 2.06,
           "n": 1000
         },
         "rg_shape_d789": {
-          "dFZ0": -0.00469,
-          "DM": -0.34,
+          "dFZ0": -0.01242,
+          "DM": -0.96,
           "n": 1106
         },
         "rg_hybrid_d789": {
-          "dFZ0": -0.00118,
-          "DM": -0.17,
+          "dFZ0": -0.00433,
+          "DM": -0.61,
           "n": 1106
         },
         "daily_core_d789": {
-          "dFZ0": 0.06426,
-          "DM": 3.2,
+          "dFZ0": 0.06574,
+          "DM": 3.35,
           "n": 1106
         }
       }

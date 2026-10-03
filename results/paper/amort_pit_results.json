@@ -1,0 +1,294 @@
+{
+  "note": "The cited amortization numbers rerun with point-in-time characteristics beside the published look-ahead ones, same split and seed. logmcap is dropped from the point-in-time arm because market cap cannot be rebuilt from the returns panel; that makes the comparison conservative against the point-in-time model. The transfer win rate is DEFINED here (fraction of held-out names whose amortized mean pinball beats the own-history benchmark) because no script in the repository computes one.",
+  "predictions_written_before_run": "P1 win rate stays above 55% point-in-time; P2 own-dynamics ablation still dominates under both sets; P3 chars_only degrades by more than 3%; P4 the d15_30 edge keeps more than half its published size (above +5% against +9.7%).",
+  "n_rows": 1318905,
+  "n_names": 720,
+  "n_holdout": 288,
+  "arms": {
+    "published_lookahead": {
+      "features": [
+        "lag1",
+        "abs1",
+        "rv5",
+        "rv21",
+        "mean21",
+        "dn",
+        "age",
+        "logmcap",
+        "sector",
+        "beta",
+        "annvol"
+      ],
+      "age_curve": {
+        "d15_30": {
+          "n": 4302,
+          "amortized": 0.6852,
+          "own_param": 0.7587,
+          "amort_vs_own": 0.9032,
+          "edge_pct": 9.68
+        },
+        "d30_60": {
+          "n": 8542,
+          "amortized": 0.6471,
+          "own_param": 0.7016,
+          "amort_vs_own": 0.9224,
+          "edge_pct": 7.76
+        },
+        "d60_120": {
+          "n": 16814,
+          "amortized": 0.6036,
+          "own_param": 0.6484,
+          "amort_vs_own": 0.931,
+          "edge_pct": 6.9
+        },
+        "d120_250": {
+          "n": 35478,
+          "amortized": 0.6172,
+          "own_param": 0.6604,
+          "amort_vs_own": 0.9345,
+          "edge_pct": 6.55
+        },
+        "d250_500": {
+          "n": 64336,
+          "amortized": 0.6697,
+          "own_param": 0.7056,
+          "amort_vs_own": 0.9491,
+          "edge_pct": 5.09
+        },
+        "d500_1000": {
+          "n": 105254,
+          "amortized": 0.6674,
+          "own_param": 0.7079,
+          "amort_vs_own": 0.9428,
+          "edge_pct": 5.72
+        },
+        "d1000_2700": {
+          "n": 237603,
+          "amortized": 0.5787,
+          "own_param": 0.6138,
+          "amort_vs_own": 0.9428,
+          "edge_pct": 5.72
+        }
+      },
+      "transfer_win_rate_all_names": 0.9931,
+      "transfer_win_rate_young_names": 0.9549,
+      "n_heldout_names_scored": 288,
+      "win_rate_definitions": {
+        "per_name": "fraction of held-out names whose amortized mean pinball over all test rows of that name is below the own-history benchmark",
+        "per_date": "fraction of test dates on which the cross-name mean pinball of the amortized model is below that of own history, held-out names only"
+      },
+      "date_win_rate_overall": 0.9198,
+      "date_win_rate_young_names": 0.7948,
+      "date_win_rate_by_age": {
+        "d15_30": {
+          "n_dates": 1089,
+          "median_names_per_date": 2,
+          "date_win_rate": 0.6924
+        },
+        "d30_60": {
+          "n_dates": 1473,
+          "median_names_per_date": 2,
+          "date_win_rate": 0.7033
+        },
+        "d60_120": {
+          "n_dates": 1851,
+          "median_names_per_date": 3,
+          "date_win_rate": 0.7315
+        },
+        "d120_250": {
+          "n_dates": 2134,
+          "median_names_per_date": 5,
+          "date_win_rate": 0.7718
+        },
+        "d250_500": {
+          "n_dates": 2189,
+          "median_names_per_date": 10,
+          "date_win_rate": 0.7999
+        },
+        "d500_1000": {
+          "n_dates": 2189,
+          "median_names_per_date": 14,
+          "date_win_rate": 0.8314
+        },
+        "d1000_2700": {
+          "n_dates": 1768,
+          "median_names_per_date": 135,
+          "date_win_rate": 0.8767
+        }
+      },
+      "n_test_dates": 2767,
+      "ablation": {
+        "ALL": {
+          "pinball": 0.5506,
+          "pct_vs_ALL": 0.0
+        },
+        "no_age": {
+          "pinball": 0.5522,
+          "pct_vs_ALL": 0.29
+        },
+        "no_lags": {
+          "pinball": 0.5525,
+          "pct_vs_ALL": 0.35
+        },
+        "no_chars": {
+          "pinball": 0.5535,
+          "pct_vs_ALL": 0.53
+        },
+        "own_recent_only": {
+          "pinball": 0.5552,
+          "pct_vs_ALL": 0.84
+        },
+        "no_realized_vol": {
+          "pinball": 0.5562,
+          "pct_vs_ALL": 1.02
+        },
+        "chars_only": {
+          "pinball": 0.5673,
+          "pct_vs_ALL": 3.03
+        }
+      }
+    },
+    "point_in_time": {
+      "features": [
+        "lag1",
+        "abs1",
+        "rv5",
+        "rv21",
+        "mean21",
+        "dn",
+        "age",
+        "sector",
+        "beta_pit",
+        "annvol_pit"
+      ],
+      "age_curve": {
+        "d15_30": {
+          "n": 4302,
+          "amortized": 0.6891,
+          "own_param": 0.7587,
+          "amort_vs_own": 0.9083,
+          "edge_pct": 9.17
+        },
+        "d30_60": {
+          "n": 8542,
+          "amortized": 0.6535,
+          "own_param": 0.7016,
+          "amort_vs_own": 0.9315,
+          "edge_pct": 6.85
+        },
+        "d60_120": {
+          "n": 16814,
+          "amortized": 0.6031,
+          "own_param": 0.6484,
+          "amort_vs_own": 0.9302,
+          "edge_pct": 6.98
+        },
+        "d120_250": {
+          "n": 35478,
+          "amortized": 0.6172,
+          "own_param": 0.6604,
+          "amort_vs_own": 0.9346,
+          "edge_pct": 6.54
+        },
+        "d250_500": {
+          "n": 64336,
+          "amortized": 0.6695,
+          "own_param": 0.7056,
+          "amort_vs_own": 0.9488,
+          "edge_pct": 5.12
+        },
+        "d500_1000": {
+          "n": 105254,
+          "amortized": 0.6672,
+          "own_param": 0.7079,
+          "amort_vs_own": 0.9424,
+          "edge_pct": 5.76
+        },
+        "d1000_2700": {
+          "n": 237603,
+          "amortized": 0.5789,
+          "own_param": 0.6138,
+          "amort_vs_own": 0.943,
+          "edge_pct": 5.7
+        }
+      },
+      "transfer_win_rate_all_names": 0.9896,
+      "transfer_win_rate_young_names": 0.9375,
+      "n_heldout_names_scored": 288,
+      "win_rate_definitions": {
+        "per_name": "fraction of held-out names whose amortized mean pinball over all test rows of that name is below the own-history benchmark",
+        "per_date": "fraction of test dates on which the cross-name mean pinball of the amortized model is below that of own history, held-out names only"
+      },
+      "date_win_rate_overall": 0.9165,
+      "date_win_rate_young_names": 0.792,
+      "date_win_rate_by_age": {
+        "d15_30": {
+          "n_dates": 1089,
+          "median_names_per_date": 2,
+          "date_win_rate": 0.6869
+        },
+        "d30_60": {
+          "n_dates": 1473,
+          "median_names_per_date": 2,
+          "date_win_rate": 0.685
+        },
+        "d60_120": {
+          "n_dates": 1851,
+          "median_names_per_date": 3,
+          "date_win_rate": 0.738
+        },
+        "d120_250": {
+          "n_dates": 2134,
+          "median_names_per_date": 5,
+          "date_win_rate": 0.7807
+        },
+        "d250_500": {
+          "n_dates": 2189,
+          "median_names_per_date": 10,
+          "date_win_rate": 0.8095
+        },
+        "d500_1000": {
+          "n_dates": 2189,
+          "median_names_per_date": 14,
+          "date_win_rate": 0.8511
+        },
+        "d1000_2700": {
+          "n_dates": 1768,
+          "median_names_per_date": 135,
+          "date_win_rate": 0.8665
+        }
+      },
+      "n_test_dates": 2767,
+      "ablation": {
+        "ALL": {
+          "pinball": 0.551,
+          "pct_vs_ALL": 0.0
+        },
+        "no_lags": {
+          "pinball": 0.5525,
+          "pct_vs_ALL": 0.27
+        },
+        "no_age": {
+          "pinball": 0.5525,
+          "pct_vs_ALL": 0.27
+        },
+        "no_chars": {
+          "pinball": 0.5535,
+          "pct_vs_ALL": 0.45
+        },
+        "no_realized_vol": {
+          "pinball": 0.554,
+          "pct_vs_ALL": 0.54
+        },
+        "own_recent_only": {
+          "pinball": 0.5552,
+          "pct_vs_ALL": 0.76
+        },
+        "chars_only": {
+          "pinball": 0.563,
+          "pct_vs_ALL": 2.18
+        }
+      }
+    }
+  }
+}
