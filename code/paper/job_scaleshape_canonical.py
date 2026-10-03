@@ -9,12 +9,14 @@
 # daily core (daily GARCH-t scale + EVT tail) is computed IN THIS SCRIPT on the same names, and ES for
 # every row is the 20-node midpoint integral of that row's own quantile curve (matches the tab:frtb
 # correction; retires the sparse average). DM is date-clustered Newey-West(5) vs rg_uncond; DM>0 worse.
-import os, json, time, math, glob, warnings; warnings.filterwarnings("ignore")
+import os, sys, json, time, math, glob, warnings; warnings.filterwarnings("ignore")
 import numpy as np, pandas as pd
 from scipy import stats, optimize
 from arch import arch_model
 from sklearn.ensemble import HistGradientBoostingRegressor
-P=r"C:\Users\OWNER\Claude\Projects\GBC Project"; t0=time.time(); lg=lambda s:print(s,flush=True); os.chdir(P)
+sys.path.insert(0,os.path.dirname(os.path.abspath(__file__)))
+from es_integral import converged_es, body_es_flat_extension, gpd_tail_integral
+P=os.environ.get("GBC_PROJ",os.environ.get("GBC_PROJECT_DIR",r"C:\Users\OWNER\Claude\Projects\GBC Project")); t0=time.time(); lg=lambda s:print(s,flush=True); os.chdir(P)
 ALPHAS=[0.025,0.01]; NWLAG=5; SUBN=20; ZX=['logsig','zl1','absz5','zstd21','fracdn5']
 def fz0(r,v,e,a):
     e=min(e,-1e-6); return (1.0/(a*e))*(1.0 if r<=v else 0.0)*(r-v) + v/e + math.log(-e) - 1.0
@@ -26,6 +28,27 @@ def gpd_left_q(ztr,tau,pu=0.05):
     if beta<=0: return float(np.quantile(ztr,tau))
     q_ex=-beta*math.log(tau/pu) if abs(xi)<1e-6 else (beta/xi)*(((tau/pu)**(-xi))-1)
     return float(u-q_ex)
+def gpd_left_params(ztr,pu=0.05):
+    """The parameters behind gpd_left_q, so its tail integral can be taken in closed form instead of
+    averaged over 20 nodes. Returns None exactly where gpd_left_q falls back to the empirical quantile."""
+    u=np.quantile(ztr,pu); ex=u-ztr[ztr<u]; ex=ex[ex>0]
+    if len(ex)<30: return None
+    try: xi,loc,beta=stats.genpareto.fit(ex,floc=0)
+    except Exception: return None
+    if beta<=0: return None
+    return (float(u),float(beta),float(xi),float(pu))
+def gpd_es_exact(prm,a,ztr):
+    """(1/a) int_0^a q(t) dt for the left GPD tail, in closed form. A pure GPD quantile diverges at the
+    origin, so the 20-node mean it replaces was the worst-biased ES in this job."""
+    if prm is None: return emp_tail_mean(ztr,a)
+    return gpd_tail_integral(a,*prm)/a
+def emp_tail_mean(ztr,a):
+    """Exact empirical tail mean: the mean of the training residuals at or below their a-quantile."""
+    q=float(np.quantile(ztr,a)); sel=ztr[ztr<=q]
+    return float(sel.mean()) if len(sel) else q
+def evt_q_from(prm):
+    u,beta,xi,pu=prm
+    return (lambda t: u-(beta/xi)*((t/pu)**(-xi)-1.0)) if abs(xi)>1e-6 else (lambda t: u-beta*math.log(pu/t))
 def fit_realgarch(r,x,sp):
     # proper HHS log-linear Realized GARCH with measurement equation, Gaussian QML (as in realized_hybrid_experiment.py)
     r=np.asarray(r,float); lx=np.log(np.maximum(np.asarray(x,float),1e-10)); n=len(r); v0=max(np.var(r[:sp]),1e-6)
@@ -90,10 +113,14 @@ lg("pass1 %d names %.0fs"%(len(per),time.time()-t0))
 TRc=pd.concat(TR,ignore_index=True); lg("pooled train rows=%d"%len(TRc))
 
 SUB={a:[a*(j+0.5)/SUBN for j in range(SUBN)] for a in ALPHAS}
-levels=sorted(set(list(ALPHAS)+[u for a in ALPHAS for u in SUB[a]]))
+KEXTRA=40
+EXT={a:np.unique(np.concatenate([np.array(SUB[a]),
+        np.exp(np.linspace(math.log(a/SUBN/2.0),math.log(a),KEXTRA)),[a]])) for a in ALPHAS}
+levels=sorted(set(list(ALPHAS)+[u for a in ALPHAS for u in SUB[a]]+[float(x) for a in ALPHAS for x in EXT[a]]))
+ES_LEGACY={}   # superseded 20-node ES per row, for the old-vs-new record
 gbm={}
 for t in levels:
-    gbm[t]=HistGradientBoostingRegressor(loss='quantile',quantile=t,max_iter=250,max_depth=3,learning_rate=0.06).fit(TRc[ZX].values,TRc['z'].values)
+    gbm[t]=HistGradientBoostingRegressor(loss='quantile',quantile=t,random_state=0,max_iter=250,max_depth=3,learning_rate=0.06).fit(TRc[ZX].values,TRc['z'].values)
 lg("GBM %d levels %.0fs"%(len(levels),time.time()-t0))
 
 allsc=[per[tk]['tst'][['mk63','ask63','jump5']].assign(tk=tk,idx=per[tk]['tst']['idx']) for tk in per]
@@ -110,17 +137,39 @@ for tk in per:
     unc={u:float(np.quantile(ztr_r,u)) for u in levels}
     evtr={u:gpd_left_q(ztr_r,u) for u in levels}; evtd={u:gpd_left_q(ztr_d,u) for u in levels}
     shp={u:gbm[u].predict(X) for u in levels}
+    # ---- CONVERGED ES per row, computed once per name. VaR is untouched in every row below, so no
+    # VaR-only statistic can move. daily_core and rg_evt are pure GPD tails and now use the closed-form
+    # integral; rg_uncond uses the exact empirical tail mean; rg_shape is body-only so its sub-floor cell
+    # keeps the committed flat extension; rg_hybrid gets the full treatment.
+    prm_r=gpd_left_params(ztr_r); prm_d=gpd_left_params(ztr_d)
+    ESC={}
+    for a in ALPHAS:
+        lev=EXT[a]; QB=np.stack([shp[float(u)] for u in lev],axis=1)
+        es_shape=body_es_flat_extension(a,lev,QB,M=2000)
+        if prm_r is None:
+            es_hyb=np.array([float(np.mean([min(float(shp[u][k]),evtr[u]) for u in SUB[a]])) for k in range(len(X))])
+        else:
+            es_hyb=converged_es(a,lev,QB,evt_q_from(prm_r),prm_r,M=2000)
+        ESC[a]={'daily_core':gpd_es_exact(prm_d,a,ztr_d),'rg_uncond':emp_tail_mean(ztr_r,a),
+                'rg_evt':gpd_es_exact(prm_r,a,ztr_r),'rg_shape':es_shape,'rg_hybrid':es_hyb}
+        ES_LEGACY.setdefault(str(a),{}).setdefault(tk,{}).update({
+            'daily_core_20node':round(float(np.mean([evtd[u] for u in SUB[a]])),5),
+            'daily_core_converged':round(float(ESC[a]['daily_core']),5),
+            'rg_evt_20node':round(float(np.mean([evtr[u] for u in SUB[a]])),5),
+            'rg_evt_converged':round(float(ESC[a]['rg_evt']),5),
+            'rg_uncond_20node':round(float(np.mean([unc[u] for u in SUB[a]])),5),
+            'rg_uncond_converged':round(float(ESC[a]['rg_uncond']),5)})
     for j,row in enumerate(tst.itertuples()):
         r=row.y; idx=int(row.idx); dd=str(row.date)[:10]; sd=scmap.get((tk,idx),-1)
         sig_r=row.sig_r; mu_r=row.mu_r; sig_d=row.sig_d; mu_d=row.mu_d
         for a in ALPHAS:
             sub=SUB[a]
             defs={
-              'daily_core':(sig_d,mu_d, evtd[a], float(np.mean([evtd[u] for u in sub]))),
-              'rg_uncond' :(sig_r,mu_r, unc[a],  float(np.mean([unc[u] for u in sub]))),
-              'rg_evt'    :(sig_r,mu_r, evtr[a], float(np.mean([evtr[u] for u in sub]))),
-              'rg_shape'  :(sig_r,mu_r, float(shp[a][j]), float(np.mean([float(shp[u][j]) for u in sub]))),
-              'rg_hybrid' :(sig_r,mu_r, min(float(shp[a][j]),evtr[a]), float(np.mean([min(float(shp[u][j]),evtr[u]) for u in sub]))),
+              'daily_core':(sig_d,mu_d, evtd[a], float(ESC[a]['daily_core'])),
+              'rg_uncond' :(sig_r,mu_r, unc[a],  float(ESC[a]['rg_uncond'])),
+              'rg_evt'    :(sig_r,mu_r, evtr[a], float(ESC[a]['rg_evt'])),
+              'rg_shape'  :(sig_r,mu_r, float(shp[a][j]), float(ESC[a]['rg_shape'][j])),
+              'rg_hybrid' :(sig_r,mu_r, min(float(shp[a][j]),evtr[a]), float(ESC[a]['rg_hybrid'][j])),
             }
             for m,(sg,mu,zq,zes) in defs.items():
                 VaR=mu+sg*zq; ES=mu+sg*min(zes,zq-1e-6)
@@ -140,7 +189,7 @@ def dm_sub(ref_by,alt_by,decs):
         for d,v in ref_by[sd].items(): ref.setdefault(d,[]).extend(v)
         for d,v in alt_by[sd].items(): alt.setdefault(d,[]).extend(v)
     return dm(ref,alt)
-OUT={'note':'FATAL-2 fix: ONE canonical scale-shape pipeline. 30 TAQ names, same test rows, dense 20-node '
+OUT={'es_convention':{'daily_core':'exact closed-form GPD tail integral','rg_evt':'exact closed-form GPD tail integral','rg_uncond':'exact empirical tail mean of the training residuals','rg_hybrid':'converged integral (es_integral.converged_es, M=2000)','rg_shape':'body-only: quadrature fixed above a/40, sub-floor cell keeps the committed FLAT EXTENSION, so its ES is a lower bound on severity','superseded_20node_values':ES_LEGACY},'note':'FATAL-2 fix: ONE canonical scale-shape pipeline. 30 TAQ names, same test rows, dense 20-node '
      'ES for every row, all DMs date-clustered NW(5) vs rg_uncond (proper HHS realized scale + unconditional '
      'residual quantile). daily_core = daily GARCH-t scale + EVT tail (computed here, same names). DM>0 worse than rg_uncond.',
      'n_names':len(per),'per_alpha':{}}

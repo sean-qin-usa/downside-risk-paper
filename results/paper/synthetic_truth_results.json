@@ -1,0 +1,234 @@
+{
+  "note": "Synthetic-truth and placebo tests for the frontier claim. Two data-generating processes with a known answer plus three shift placebos on the real panel. Engine ES uses the CONVERGED integral (es_integral: body interpolated on [alpha/40, alpha], pooled GPD exact at every node, sub-floor region in closed form); parametric ES is closed form. The 20-node values are kept beside it because the engine-versus-truth FZ0 gaps are smaller than the 20-node error, so their sign was not identified under the committed convention.",
+  "generated_by": "code/paper/job_synthetic_truth.py, consolidated by code/paper/make_synthetic_truth_results.py",
+  "what_each_test_answers": {
+    "dgp_garch": "data generated from a per-name GARCH(1,1)-t. The TRUE model is param_garch_t. A frontier that is an artifact of the flexible shape would show the engine beating the truth; it must not.",
+    "dgp_bteg": "the mirror image, generated from Beta-t-EGARCH. The true model is param_bteg.",
+    "placebo_k": "real panel, every forecast scored against the return k days later. Diagnostic value is LIMITED and stated as such: both models share the same GARCH scale, so a shape advantage survives any such shift. These rows bound how much of the frontier a pure timing artifact could explain, they do not test for one."
+  },
+  "dgps": {
+    "garch": {
+      "dgp": "garch",
+      "true_model": "param_garch_t",
+      "n_names": 200,
+      "n_test": 221600,
+      "test_length_per_name": 2768,
+      "mean_pinball_11tau": {
+        "engine_garch_t": 0.198766,
+        "param_garch_t": 0.198724,
+        "engine_bteg": 0.199037,
+        "param_bteg": 0.199304
+      },
+      "frontier_DM_engine_over_own_parametric": {
+        "garch_t": {
+          "overall": -5.2,
+          "top_mk63_decile": -1.85
+        },
+        "bteg": {
+          "overall": 10.17,
+          "top_mk63_decile": 7.71
+        }
+      },
+      "cross_DM_engine_garch_t_over_param_bteg": 11.03,
+      "fz0": {
+        "0.01": {
+          "garch_t": {
+            "param": 1.38795,
+            "engine_ES_20node": 1.38834,
+            "engine_ES_converged": 1.38822,
+            "engine_minus_param_converged": 0.00027,
+            "is_true_scale": true,
+            "ES_ratio_conv_over_20node": 1.00622,
+            "relK_halfK_vs_K": 0.00037,
+            "breach_control_identical_both_conventions": 0.01004
+          },
+          "bteg": {
+            "param": 1.39813,
+            "engine_ES_20node": 1.39174,
+            "engine_ES_converged": 1.39172,
+            "engine_minus_param_converged": -0.00641,
+            "is_true_scale": false,
+            "ES_ratio_conv_over_20node": 1.00568,
+            "relK_halfK_vs_K": 0.00031,
+            "breach_control_identical_both_conventions": 0.00988
+          }
+        },
+        "0.025": {
+          "garch_t": {
+            "param": 1.16755,
+            "engine_ES_20node": 1.16766,
+            "engine_ES_converged": 1.16756,
+            "engine_minus_param_converged": 1e-05,
+            "is_true_scale": true,
+            "ES_ratio_conv_over_20node": 1.00699,
+            "relK_halfK_vs_K": 0.0003,
+            "breach_control_identical_both_conventions": 0.02551
+          },
+          "bteg": {
+            "param": 1.17554,
+            "engine_ES_20node": 1.17021,
+            "engine_ES_converged": 1.17017,
+            "engine_minus_param_converged": -0.00537,
+            "is_true_scale": false,
+            "ES_ratio_conv_over_20node": 1.0069,
+            "relK_halfK_vs_K": 0.0003,
+            "breach_control_identical_both_conventions": 0.025
+          }
+        }
+      }
+    },
+    "bteg": {
+      "dgp": "bteg",
+      "true_model": "param_bteg",
+      "n_names": 200,
+      "n_test": 221600,
+      "test_length_per_name": 2768,
+      "mean_pinball_11tau": {
+        "engine_garch_t": 0.281308,
+        "param_garch_t": 0.281875,
+        "engine_bteg": 0.28078,
+        "param_bteg": 0.280727
+      },
+      "frontier_DM_engine_over_own_parametric": {
+        "garch_t": {
+          "overall": 10.32,
+          "top_mk63_decile": 8.14
+        },
+        "bteg": {
+          "overall": -4.29,
+          "top_mk63_decile": -1.41
+        }
+      },
+      "cross_DM_engine_garch_t_over_param_bteg": -13.15,
+      "fz0": {
+        "0.01": {
+          "garch_t": {
+            "param": 1.75308,
+            "engine_ES_20node": 1.75151,
+            "engine_ES_converged": 1.75146,
+            "engine_minus_param_converged": -0.00162,
+            "is_true_scale": false,
+            "ES_ratio_conv_over_20node": 1.00691,
+            "relK_halfK_vs_K": 0.00045,
+            "breach_control_identical_both_conventions": 0.00984
+          },
+          "bteg": {
+            "param": 1.74334,
+            "engine_ES_20node": 1.74374,
+            "engine_ES_converged": 1.74363,
+            "engine_minus_param_converged": 0.00029,
+            "is_true_scale": true,
+            "ES_ratio_conv_over_20node": 1.00698,
+            "relK_halfK_vs_K": 0.0004,
+            "breach_control_identical_both_conventions": 0.01027
+          }
+        },
+        "0.025": {
+          "garch_t": {
+            "param": 1.51721,
+            "engine_ES_20node": 1.51561,
+            "engine_ES_converged": 1.5156,
+            "engine_minus_param_converged": -0.00161,
+            "is_true_scale": false,
+            "ES_ratio_conv_over_20node": 1.00738,
+            "relK_halfK_vs_K": 0.00035,
+            "breach_control_identical_both_conventions": 0.02401
+          },
+          "bteg": {
+            "param": 1.50774,
+            "engine_ES_20node": 1.50768,
+            "engine_ES_converged": 1.50756,
+            "engine_minus_param_converged": -0.00018,
+            "is_true_scale": true,
+            "ES_ratio_conv_over_20node": 1.00751,
+            "relK_halfK_vs_K": 0.00035,
+            "breach_control_identical_both_conventions": 0.02533
+          }
+        }
+      }
+    }
+  },
+  "placebos": {
+    "placebo_1d": {
+      "n_names": 200,
+      "n_test": 221400,
+      "mean_pinball_11tau": {
+        "param_bteg": 0.396006,
+        "engine_bteg": 0.396553,
+        "engine_garch_t": 0.398549,
+        "param_garch_t": 0.399877
+      },
+      "frontier_DM_engine_over_own_parametric": {
+        "garch_t": {
+          "overall": 5.68,
+          "top_mk63_decile": 9.96
+        },
+        "bteg": {
+          "overall": -2.42,
+          "top_mk63_decile": -1.92
+        }
+      },
+      "cross_DM_engine_garch_t_over_param_bteg": -6.82,
+      "fz0": null,
+      "fz0_note": "not computed: these runs were scored on pinball only. The placebo is not diagnostic for the reason stated above, so an FZ0 column would add no evidence."
+    },
+    "placebo_5d": {
+      "n_names": 200,
+      "n_test": 220600,
+      "mean_pinball_11tau": {
+        "param_bteg": 0.398659,
+        "engine_bteg": 0.399508,
+        "engine_garch_t": 0.401627,
+        "param_garch_t": 0.403212
+      },
+      "frontier_DM_engine_over_own_parametric": {
+        "garch_t": {
+          "overall": 5.54,
+          "top_mk63_decile": 9.47
+        },
+        "bteg": {
+          "overall": -3.6,
+          "top_mk63_decile": -3.43
+        }
+      },
+      "cross_DM_engine_garch_t_over_param_bteg": -7.7,
+      "fz0": null,
+      "fz0_note": "not computed: these runs were scored on pinball only. The placebo is not diagnostic for the reason stated above, so an FZ0 column would add no evidence."
+    },
+    "placebo_20d": {
+      "n_names": 200,
+      "n_test": 217600,
+      "mean_pinball_11tau": {
+        "param_bteg": 0.401262,
+        "engine_bteg": 0.402204,
+        "engine_garch_t": 0.40421,
+        "param_garch_t": 0.405798
+      },
+      "frontier_DM_engine_over_own_parametric": {
+        "garch_t": {
+          "overall": 4.43,
+          "top_mk63_decile": 9.51
+        },
+        "bteg": {
+          "overall": -2.98,
+          "top_mk63_decile": -3.14
+        }
+      },
+      "cross_DM_engine_garch_t_over_param_bteg": -5.59,
+      "fz0": null,
+      "fz0_note": "not computed: these runs were scored on pinball only. The placebo is not diagnostic for the reason stated above, so an FZ0 column would add no evidence."
+    }
+  },
+  "quadrature_size_check": {
+    "note": "why the ES convention had to be fixed before any of this was read. McNeil-Frey test size in simulation under a correctly specified model, 5% nominal.",
+    "MF_size_exact_ES": 0.06,
+    "MF_size_20node_ES": 0.225,
+    "engine_MF_p_canon200_1pct": {
+      "20_nodes": 0.0673,
+      "200_nodes": 0.3822,
+      "2000_nodes": 0.3832
+    },
+    "conclusion": "the \"McNeil-Frey rejects everywhere\" pattern is substantially a quadrature artifact; the size of the test with the 20-node ES is 22.5% against a nominal 5%."
+  },
+  "reading": "In both DGPs the flexible engine is indistinguishable from the TRUE parametric model on FZ0 -- it loses by 2.7e-4 and 1.0e-5 when GARCH-t is true, and by 2.9e-4 at 1% while edging ahead by 1.8e-4 at 2.5% when Beta-t-EGARCH is true -- while against a MISSPECIFIED scale it wins by 1.6e-3 to 6.4e-3, six to five hundred times larger. The frontier therefore appears only against misspecification, which is what the claim requires, and the estimator costs essentially nothing when the parametric form is correct. The placebos keep an edge on the GARCH-t scale (DM 4.4-5.7 overall, 9.5-10.0 in the top decile) but this is expected and not evidence of a timing artifact: both models share the same conditional scale, so any shift that preserves the scale preserves the shape advantage."
+}

@@ -13,12 +13,14 @@
 # Engine ES from the GPD tail: ES_tau = q_tau - (beta + xi*(u - q_tau))/(1 - xi), z-space,
 # scaled by sigma; conformal location shift at 97.5 applied to BOTH v and e (location shift).
 # Sign convention verified against the FZ family with G1=0, G2=-1/e (see console self-test).
-import os, json, time, math, warnings; warnings.filterwarnings("ignore")
+import os, sys, json, time, math, warnings; warnings.filterwarnings("ignore")
 import numpy as np, pandas as pd
 from sklearn.ensemble import HistGradientBoostingRegressor
+sys.path.insert(0,os.path.dirname(os.path.abspath(__file__)))
+from es_integral import converged_es, levels_and_body
 from scipy import stats, optimize
 from arch import arch_model
-P=r"C:\Users\OWNER\Claude\Projects\GBC Project"; t0=time.time(); lg=lambda s:print(s,flush=True)
+P=os.environ.get("GBC_PROJ",os.environ.get("GBC_PROJECT_DIR",r"C:\Users\OWNER\Claude\Projects\GBC Project")); t0=time.time(); lg=lambda s:print(s,flush=True)
 rr=pd.read_csv(os.path.join(P,"crsp_panel_returns.csv"),dtype={'permno':'int32'})
 rr['date']=pd.to_datetime(rr['date']); rr['ret']=pd.to_numeric(rr['ret'],errors='coerce')*100.0
 cnt=rr.groupby('permno')['ret'].count().sort_values(ascending=False); names=cnt[cnt>=1500].index.tolist()[:200]
@@ -75,7 +77,7 @@ lg("panels %d %.0fs"%(len(rows),time.time()-t0))
 TE=pd.concat(rows).reset_index(drop=True); TRzc=pd.concat(TRz); CALzc=pd.concat(CALz)
 ZQ={}; ZQcal={}
 for t in ALPHAS:
-    m=HistGradientBoostingRegressor(loss='quantile',quantile=t,max_iter=250,max_depth=3,learning_rate=0.06).fit(TRzc[ZX].values,TRzc['z'].values)
+    m=HistGradientBoostingRegressor(loss='quantile',quantile=t,random_state=0,max_iter=250,max_depth=3,learning_rate=0.06).fit(TRzc[ZX].values,TRzc['z'].values)
     ZQ[t]=m.predict(TE[ZX].values); ZQcal[t]=m.predict(CALzc[ZX].values)
     lg("  ztau %.3f %.0fs"%(t,time.time()-t0))
 # sub-alpha grids for the coherent Q* ES integral (20-node midpoint on (0,alpha])
@@ -83,7 +85,7 @@ SUBN=20; ZQSUB={a:{} for a in ALPHAS}
 for a in ALPHAS:
     for j in range(SUBN):
         u=a*(j+0.5)/SUBN
-        mz=HistGradientBoostingRegressor(loss='quantile',quantile=u,max_iter=250,max_depth=3,learning_rate=0.06).fit(TRzc[ZX].values,TRzc['z'].values)
+        mz=HistGradientBoostingRegressor(loss='quantile',quantile=u,random_state=0,max_iter=250,max_depth=3,learning_rate=0.06).fit(TRzc[ZX].values,TRzc['z'].values)
         ZQSUB[a][j]=mz.predict(TE[ZX].values)
     lg("  sub-alpha grid a=%.3f %.0fs"%(a,time.time()-t0))
 def coherent_star(a):
@@ -104,7 +106,27 @@ ENG={}; ENGNC={}
 star01=coherent_star(0.01); star025=coherent_star(0.025)
 zq01=np.minimum(ZQ[0.01],evt_q(0.01)); zq025=np.minimum(ZQ[0.025],evt_q(0.025))
 zq01=np.maximum(zq01,star01[:,-1]); zq025=np.maximum(zq025,star025[:,-1])   # VaR node = curve endpoint
-es01=star01.mean(axis=1); es025=star025.mean(axis=1)                         # ES = numerical integral of Q*
+# CONVERGED ES. Both VaR nodes (zq01, zq025) are the committed construction and are untouched, so every
+# VaR-only statistic is unchanged; only the ES integral changes. The body is interpolated on [a/40,a] through
+# SUBN committed fits plus 40 extra log-spaced ones, the pooled GPD is evaluated exactly at each node, and the
+# sub-floor region is integrated in closed form (es_integral.converged_es).
+for _t in (0.01/40.0,0.001,0.025):      # guard: the closed form assumes this GPD parameterisation
+    assert abs((u-(beta/xi)*((_t/0.025)**(-xi)-1.0))-evt_q(_t))<1e-12,"GPD parameterisation mismatch"
+def _fitlev(a):
+    return levels_and_body(a,[ZQSUB[a][j] for j in range(SUBN)],
+        lambda t:HistGradientBoostingRegressor(loss='quantile',quantile=t,random_state=0,max_iter=250,max_depth=3,
+                 learning_rate=0.06).fit(TRzc[ZX].values,TRzc['z'].values).predict(TE[ZX].values),subn=SUBN)
+_es20_01=np.minimum(star01.mean(axis=1),zq01-1e-6); _es20_025=np.minimum(star025.mean(axis=1),zq025-1e-6)
+_lv01,_qb01=_fitlev(0.01); _lv025,_qb025=_fitlev(0.025)
+es01=converged_es(0.01,_lv01,_qb01,evt_q,(u,float(beta),float(xi),0.025),M=2000,var_z=zq01)
+es025=converged_es(0.025,_lv025,_qb025,evt_q,(u,float(beta),float(xi),0.025),M=2000,var_z=zq025)
+ES_LEGACY={'0.01':{'es_20node':round(float(np.nanmean(_es20_01)),5),'es_converged':round(float(np.nanmean(es01)),5),
+                   'ratio':round(float(np.nanmean(es01/_es20_01)),5)},
+           '0.025':{'es_20node':round(float(np.nanmean(_es20_025)),5),'es_converged':round(float(np.nanmean(es025)),5),
+                    'ratio':round(float(np.nanmean(es025/_es20_025)),5)}}
+lg("  engine ES 20-node %.5f/%.5f -> converged %.5f/%.5f (ratio %.5f/%.5f)"%(
+   np.nanmean(_es20_01),np.nanmean(_es20_025),np.nanmean(es01),np.nanmean(es025),
+   ES_LEGACY['0.01']['ratio'],ES_LEGACY['0.025']['ratio']))
 ENG[0.01]=(MU+SIG*zq01, MU+SIG*np.minimum(es01,zq01-1e-6))
 ENG[0.025]=(MU+SIG*(zq025+CONF975), MU+SIG*(np.minimum(es025,zq025-1e-6)+CONF975))
 ENGNC[0.01]=ENG[0.01]
@@ -154,7 +176,7 @@ def dm_vs_engine(Lm,Le):
     t=nw_t(dd.values);
     return {'mean_diff':round(float(np.nanmean(Lm-Le)),5),'DM_t':None if t is None else round(t,2),
             'p_one_sided':None if t is None else round(float(1-stats.norm.cdf(t)),4)}
-OUT={'note':'Full-panel FZ0 (VaR,ES) re-scoring, pre-committed. DM_t>0 means the row model has HIGHER (worse) FZ0 loss than the engine, date-clustered NW(10), one-sided p. GAS = one-factor score-driven (PZC-2019-style) FZ0-estimated per name.',
+OUT={'es_convention':{'engine_rows':'converged integral (es_integral.converged_es, M=2000, 60 fitted body levels): body interpolated on [a/40,a], pooled GPD exact at every node, sub-floor region in closed form. VaR is the committed construction and is unchanged, so no VaR-only statistic and no pinball number can move.','closed_form_and_empirical_rows':'unaffected','superseded_20node_values':ES_LEGACY},'note':'Full-panel FZ0 (VaR,ES) re-scoring, pre-committed. DM_t>0 means the row model has HIGHER (worse) FZ0 loss than the engine, date-clustered NW(10), one-sided p. GAS = one-factor score-driven (PZC-2019-style) FZ0-estimated per name.',
      'n_names':int(TE.permno.nunique()),'n_test':int(len(Y)),
      'gpd':{'u':round(float(u),4),'xi':round(float(xi),4),'beta':round(float(beta),4)},'conf975':round(CONF975,4),
      'per_alpha':{}}

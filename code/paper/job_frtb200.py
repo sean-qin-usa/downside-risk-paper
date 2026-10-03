@@ -17,12 +17,14 @@
 #       levels, and MCS (B=1000).
 # 'Realized ES' below each model's own VaR is kept as a labeled DIAGNOSTIC (it
 # conditions on a model-dependent breach set); FZ0 remains the ranking criterion.
-import os, json, time, math, warnings; warnings.filterwarnings("ignore")
+import os, sys, json, time, math, warnings; warnings.filterwarnings("ignore")
 import numpy as np, pandas as pd
 from sklearn.ensemble import HistGradientBoostingRegressor
+sys.path.insert(0,os.path.dirname(os.path.abspath(__file__)))
+from es_integral import converged_es, es_by_substitution, body_es_flat_extension, roll_tail_mean
 from scipy import stats
 from arch import arch_model
-P=r"C:\Users\OWNER\Claude\Projects\GBC Project"; t0=time.time(); lg=lambda s:print(s,flush=True)
+P=os.environ.get("GBC_PROJ",os.environ.get("GBC_PROJECT_DIR",r"C:\Users\OWNER\Claude\Projects\GBC Project")); t0=time.time(); lg=lambda s:print(s,flush=True)
 rng=np.random.default_rng(0)
 TAUS=[0.005,0.01,0.025,0.05,0.10,0.25,0.50,0.75,0.90,0.95,0.975,0.99]
 A=0.025
@@ -37,7 +39,21 @@ def hansen_ppf(u,eta,lam):
     s=math.sqrt((eta-2)/eta)
     if u<(1-lam)/2.0: return ((1-lam)*s*float(stats.t.ppf(u/(1-lam),eta))-a)/b
     return ((1+lam)*s*float(stats.t.ppf((u+lam)/(1+lam),eta))-a)/b
-def hansen_es(a,eta,lam,n=200):
+def hansen_ppf_vec(u,eta,lam):
+    """Vectorised hansen_ppf: one scipy call instead of one per node. Identical by construction."""
+    u=np.asarray(u,float)
+    c=math.gamma((eta+1)/2)/(math.sqrt(math.pi*(eta-2))*math.gamma(eta/2))
+    a=4*lam*c*(eta-2)/(eta-1); b=math.sqrt(max(1+3*lam*lam-a*a,1e-12)); sc=math.sqrt((eta-2)/eta)
+    lo=u<(1-lam)/2.0; out=np.empty(u.shape,float)
+    if lo.any():  out[lo]=((1-lam)*sc*stats.t.ppf(u[lo]/(1-lam),eta)-a)/b
+    if (~lo).any(): out[~lo]=((1+lam)*sc*stats.t.ppf((u[~lo]+lam)/(1+lam),eta)-a)/b
+    return out
+def hansen_es(a,eta,lam,M=4000):
+    # The skew-t quantile diverges at the origin, so a plain midpoint rule converges at order 1-1/eta and a
+    # 200-node grid understates |ES| by 0.10-0.18% at the fitted eta. es_by_substitution removes that; it
+    # matches the exact Student-t ES to 8e-8. The old rule is kept below for the old-vs-new table.
+    return float(es_by_substitution(a,lambda u:hansen_ppf_vec(u,eta,lam),M=M))
+def hansen_es_200node(a,eta,lam,n=200):
     us=[a*(i+0.5)/n for i in range(n)]
     return float(np.mean([hansen_ppf(u,eta,lam) for u in us]))
 # self-tests: ES approximations against closed forms
@@ -45,12 +61,20 @@ _es_n=-stats.norm.pdf(stats.norm.ppf(A))/A
 _mid=float(np.mean([stats.norm.ppf(u) for u in [A*(i+0.5)/200 for i in range(200)]]))
 assert abs(_mid-_es_n)<2e-3,( _mid,_es_n)
 _mid5=float(np.mean([stats.t.ppf(u,5) for u in [A*(i+0.5)/200 for i in range(200)]]))
-# 200-node midpoint carries ~0.15% discretization bias toward zero at nu=5 (the
-# integrand steepens near u=0); closed forms are used wherever they exist, and the
-# midpoint rule is applied with the SAME node set to every empirical model, so
-# cross-model comparisons share the (small, common-direction) discretization.
+# The 200-node midpoint rule carries a ~0.15% bias toward zero at nu=5, because the integrand steepens
+# without bound near u=0. The superseded note justified living with it on the grounds that the same node set
+# was applied to every empirical model, so the bias was common; that was wrong -- the GBM rows used 20 nodes
+# and the parametric rows 200, an order of magnitude apart. Every row that can be integrated exactly now is.
 assert abs(_mid5-t_es(A,5.0))<1e-2,(_mid5,t_es(A,5.0))
-assert abs(hansen_es(A,8.0,0.0)-float(np.mean([stats.t.ppf(u,8)*math.sqrt(6/8) for u in [A*(i+0.5)/200 for i in range(200)]])))<1e-9
+# hansen_es must now agree with the EXACT value, not with the old 200-node rule. At lambda=0 the Hansen
+# skew-t reduces to a standardised Student-t, whose ES is closed form, so this is a real check.
+for _eta in (5.0,8.0,14.0):
+    _exact=math.sqrt((_eta-2)/_eta)*t_es(A,_eta)
+    assert abs(hansen_es(A,_eta,0.0)-_exact)<1e-6,(_eta,hansen_es(A,_eta,0.0),_exact)
+# and the legacy path stays pinned to what it used to produce, so the old-vs-new record is trustworthy
+assert abs(hansen_es_200node(A,8.0,0.0)-float(np.mean([stats.t.ppf(u,8)*math.sqrt(6/8) for u in [A*(i+0.5)/200 for i in range(200)]])))<1e-9
+_u200=np.array([A*(i+0.5)/200 for i in range(200)])
+assert np.abs(hansen_ppf_vec(_u200,6.0,-0.05)-np.array([hansen_ppf(float(x),6.0,-0.05) for x in _u200])).max()==0.0
 lg("ES integrators self-tested: normal midpoint %.4f vs analytic %.4f"%(_mid,_es_n))
 rr=pd.read_csv(os.path.join(P,"crsp_panel_returns.csv"),dtype={'permno':'int32'})
 rr['date']=pd.to_datetime(rr['date']); rr['ret']=pd.to_numeric(rr['ret'],errors='coerce')*100.0
@@ -85,7 +109,8 @@ for pn in names:
     df['logsig']=np.log(np.maximum(df['sig'],1e-6)); df['zl1']=df['z'].shift(1); df['absz5']=df['z'].abs().rolling(5,min_periods=3).mean().shift(1)
     df['zstd21']=df['z'].rolling(21,min_periods=8).std().shift(1); df['fracdn5']=(df['y']<0).rolling(5,min_periods=3).mean().shift(1)
     for t in TAUS: df['hs_%g'%t]=rollq(df['y'],500,t)
-    for u in SUB: df['hsE_%g'%u]=rollq(df['y'],500,u)          # HS ES integrand nodes
+    for u in SUB: df['hsE_%g'%u]=rollq(df['y'],500,u)          # HS ES integrand nodes (superseded, kept for the record)
+    df['hsES']=roll_tail_mean(df['y'].values,500,A,250)        # EXACT empirical tail mean of each 500-day window
     ev=np.zeros(n); ev[0]=np.var(y[:sp])
     for k in range(1,n): ev[k]=0.94*ev[k-1]+0.06*y[k-1]**2
     df['ewsig']=np.sqrt(ev)
@@ -95,7 +120,8 @@ for pn in names:
         df['rlq_%g'%t]=zs.rolling(500,min_periods=250).quantile(t).shift(1)
     # per-name z tail means for FHS ES (exact empirical tail expectations)
     qa=np.quantile(ztr,A); df['pnES']=float(np.mean(ztr[ztr<=qa]))
-    for u in SUB: df['rlE_%g'%u]=zs.rolling(500,min_periods=250).quantile(u).shift(1)
+    for u in SUB: df['rlE_%g'%u]=zs.rolling(500,min_periods=250).quantile(u).shift(1)   # superseded
+    df['rlES']=roll_tail_mean(zs.values,500,A,250)             # EXACT, same construction as pooled FHS
     df['idx']=np.arange(n); df['mu']=mu; df['nu']=nu; df['tsc']=tsc
     df['gjr_sig']=sig2 if has_gjr else np.nan; df['gjr_nu']=nu2 if has_gjr else np.nan
     df['gjr_la']=la2 if has_gjr else np.nan; df['gjr_mu']=mu2 if has_gjr else np.nan
@@ -105,22 +131,34 @@ for pn in names:
     TR_z.append(trn[ZX+['z']])
     keep=['y','sig','date','mu','nu','tsc','ewsig','gjr_sig','gjr_nu','gjr_la','gjr_mu','pnES']+ZX+ \
          ['hs_%g'%t for t in TAUS]+['hsE_%g'%u for u in SUB]+['pnq_%g'%t for t in TAUS]+ \
-         ['rlq_%g'%t for t in TAUS]+['rlE_%g'%u for u in SUB]
+         ['rlq_%g'%t for t in TAUS]+['rlE_%g'%u for u in SUB]+['hsES','rlES']
     t2=tst[keep].copy(); t2['permno']=pn; rows.append(t2)
 lg("panels %d names %.0fs"%(len(rows),time.time()-t0))
 TE=pd.concat(rows).reset_index(drop=True); TRzc=pd.concat(TR_z)
 ZQ={}
 for t in TAUS:
-    mz=HistGradientBoostingRegressor(loss='quantile',quantile=t,max_iter=250,max_depth=3,learning_rate=0.06).fit(TRzc[ZX].values,TRzc['z'].values)
+    mz=HistGradientBoostingRegressor(loss='quantile',quantile=t,random_state=0,max_iter=250,max_depth=3,learning_rate=0.06).fit(TRzc[ZX].values,TRzc['z'].values)
     ZQ[t]=mz.predict(TE[ZX].values)
 ZQE={}
 for u in SUB:
-    mz=HistGradientBoostingRegressor(loss='quantile',quantile=u,max_iter=250,max_depth=3,learning_rate=0.06).fit(TRzc[ZX].values,TRzc['z'].values)
+    mz=HistGradientBoostingRegressor(loss='quantile',quantile=u,random_state=0,max_iter=250,max_depth=3,learning_rate=0.06).fit(TRzc[ZX].values,TRzc['z'].values)
     ZQE[u]=mz.predict(TE[ZX].values)
 lg("GBM grids done %.0fs"%(time.time()-t0))
+# extra log-spaced body levels in [A/40, A] so the hybrid ES can be integrated on an interpolant rather
+# than read off 20 nodes. The 20 committed SUB levels are reused.
+_KEXTRA=40; _floor=A/40.0
+_LEV=np.unique(np.concatenate([np.array(SUB),np.exp(np.linspace(math.log(_floor),math.log(A),_KEXTRA)),[A]]))
+_known={round(float(u),12):ZQE[u] for u in SUB}
+_QB=np.stack([_known[round(float(u),12)] if round(float(u),12) in _known
+              else HistGradientBoostingRegressor(loss='quantile',quantile=float(u),random_state=0,max_iter=250,max_depth=3,
+                   learning_rate=0.06).fit(TRzc[ZX].values,TRzc['z'].values).predict(TE[ZX].values)
+              for u in _LEV],axis=1)
+print("  converged-ES body levels: %d (floor %.5f)"%(len(_LEV),_floor),flush=True)
 ztr_all=TRzc['z'].values; u0=np.quantile(ztr_all,A); exc=u0-ztr_all[ztr_all<u0]
 xi,loc,beta=stats.genpareto.fit(exc,floc=0.0)
 def evt_q(tau,p0=A): return u0-(beta/xi)*((tau/p0)**(-xi)-1.0) if abs(xi)>1e-6 else u0-beta*math.log(p0/tau)
+for _t in (A/40.0,0.001,A):          # guard: the closed-form sub-floor integral assumes this parameterisation
+    assert abs((u0-(beta/xi)*((_t/A)**(-xi)-1.0))-evt_q(_t))<1e-12,"GPD parameterisation mismatch at tau=%g"%_t
 def evt_es(tau):
     q=evt_q(tau); return q-(beta+xi*(u0-q))/(1.0-xi)
 Y=TE['y'].values; SIG=TE['sig'].values; MU=TE['mu'].values; NU=TE['nu'].values; TSC=TE['tsc'].values
@@ -145,12 +183,16 @@ ES['garch_t']=MU+SIG*np.array([t_es(A,nu_)/ts_ for nu_,ts_ in zip(NU,TSC)])
 ES['ewma_rm']=EW*(-stats.norm.pdf(stats.norm.ppf(A))/A)
 emap={(round(e_,10),round(l_,10)):hansen_es(A,e_,l_) for e_,l_ in pairs}
 ES['gjr_skewt']=GMU+GS*np.array([emap[(round(e_,10),round(l_,10))] for e_,l_ in zip(GNU,GLA)])
-ES['hist_sim']=np.mean([TE['hsE_%g'%u].values for u in SUB],axis=0)
+ES['hist_sim']=TE['hsES'].values                   # exact empirical tail mean of each 500-day window
 zpool_es=float(np.mean(ztr_all[ztr_all<=np.quantile(ztr_all,A)]))
 ES['fhs']=MU+SIG*zpool_es
 ES['fhs_pername']=MU+SIG*TE['pnES'].values
-ES['fhs_roll500']=MU+SIG*np.mean([TE['rlE_%g'%u].values for u in SUB],axis=0)
-ES['resid_hybrid_ML']=MU+SIG*np.mean([ZQE[u] for u in SUB],axis=0)
+ES['fhs_roll500']=MU+SIG*TE['rlES'].values         # exact, same construction as pooled FHS
+# body-only row: no quantile is defined below its lowest fitted level, so there is no converged ES for it.
+# The quadrature above the floor is fixed; the sub-floor cell keeps the committed flat extension, made
+# explicit in the output note. Its ES is therefore a LOWER BOUND on severity, not comparable with a row
+# that models its tail.
+ES['resid_hybrid_ML']=MU+SIG*body_es_flat_extension(A,_LEV,_QB,M=2000)
 # Coherent Q*: on the sub-alpha grid, z*(u)=min(body_GBM(u), EVT(u)) for u<=A, then
 # monotone rearrangement across u (sort ascending). VaR_A = Q*(A) (the a-node value),
 # ES_A = numerical integral of the SAME rearranged Q* over (0,A] (20-node midpoint).
@@ -159,7 +201,18 @@ _starz=np.sort(np.stack([np.minimum(ZQE[u],evt_q(u)) for u in SUB],axis=1),axis=
 _va=np.minimum(ZQ[A],evt_q(A))
 _va=np.maximum(_va,_starz[:,-1])
 Q['hybrid_EVT'][A]=MU+SIG*_va
-ES['hybrid_EVT']=MU+SIG*_starz.mean(axis=1)   # integral of the coherent Q*, replaces GPD closed form
+ES['hybrid_EVT']=MU+SIG*converged_es(A,_LEV,_QB,evt_q,(u0,float(beta),float(xi),A),M=2000,var_z=_va)
+# ---- the superseded ES conventions, on the same rows, so the paper can print old beside new
+ES_LEGACY={
+ 'hist_sim__ES_20node_of_rolling_quantile':float(np.nanmean(np.mean([TE['hsE_%g'%u].values for u in SUB],axis=0))),
+ 'fhs_roll500__ES_20node_of_rolling_quantile':float(np.nanmean(MU+SIG*np.mean([TE['rlE_%g'%u].values for u in SUB],axis=0))),
+ 'resid_hybrid_ML__ES_20node':float(np.nanmean(MU+SIG*np.mean([ZQE[u] for u in SUB],axis=0))),
+ 'hybrid_EVT__ES_20node':float(np.nanmean(MU+SIG*_starz.mean(axis=1))),
+ 'gjr_skewt__ES_200node':(lambda _m=({(round(e_,10),round(l_,10)):hansen_es_200node(A,e_,l_) for e_,l_ in pairs}):
+    float(np.nanmean(GMU+GS*np.array([_m[(round(e_,10),round(l_,10))] for e_,l_ in zip(GNU,GLA)]))))(),
+}
+ES_LEGACY={k:round(v,5) for k,v in ES_LEGACY.items()}
+print("  superseded ES conventions: "+json.dumps(ES_LEGACY),flush=True)
 def pinball_avg(m):
     pl=np.zeros(len(Y))
     for t in TAUS: pl+=pin(Y,Q[m][t],t)
@@ -248,7 +301,30 @@ def mcs(L,alpha=0.10,B=1000,blk=10):
         surv.remove(worst)
     return {'in_MCS_90':[MODELS[i] for i in surv],'elimination_pvals':pvals}
 MCS=mcs(L)
-out={'note':'CANONICAL battery: one run, every row of Table 6, TRUE predicted ES97.5 per model (closed forms; 200-node Hansen integration; 20-node midpoint integration for empirical/rolling quantile functions; coherent min-envelope curve Q* integrated numerically for the EVT engine; 20-node sub-alpha GBM grid for the raw hybrid). ES975_realized_ownVaR conditions on each model OWN breach set and is a labeled diagnostic, not the ranking criterion (FZ0 is). overstatement_pct=(|pred|-|real|)/|real|.',
+out={'note':'CANONICAL battery: one run, every row of Table 6, predicted ES97.5 per model. '
+  'ES975_realized_ownVaR conditions on each model OWN breach set and is a labeled diagnostic, not the ranking '
+  'criterion (FZ0 is). overstatement_pct=(|pred|-|real|)/|real|.',
+ 'es_convention':{
+  'closed_form':'garch_t, ewma_rm -- exact, no quadrature error',
+  'exact_empirical_tail_mean':'fhs (pooled), fhs_pername, hist_sim, fhs_roll500. hist_sim and fhs_roll500 are '
+    'the mean of the observations at or below each 500-day window own 2.5% quantile -- the same construction as '
+    'pooled FHS, computed window by window. They previously integrated the rolling empirical quantile function '
+    'on a 20-node grid, which approximated a quantity that is available exactly.',
+  'converged_integral':'hybrid_EVT -- body interpolated on [A/40, A] through %d fitted levels, pooled GPD '
+    'evaluated exactly at every node, sub-floor region integrated in closed form (es_integral.converged_es, '
+    'M=2000). VaR is the committed construction and is unchanged.'%len(_LEV),
+  'converged_above_the_floor_only':'resid_hybrid_ML -- a BODY-ONLY row. No quantile is defined below its '
+    'lowest fitted level A/40, so no converged ES exists for it: the quadrature above the floor is fixed and '
+    'the sub-floor cell keeps the committed FLAT EXTENSION at the body value at A/40. Its ES is therefore a '
+    'LOWER BOUND on severity and is not comparable with a row that models its tail.',
+  'substitution_integral':'gjr_skewt -- the skew-t quantile has no elementary ES integral and diverges at the '
+    'origin; es_by_substitution maps the singularity away and matches the exact Student-t ES to 8e-8. The '
+    'previous 200-node midpoint rule understated |ES| by 0.10-0.18% at the fitted eta.',
+  'correction_to_the_previous_note':'the superseded note called this column the exact tail integral of each '
+    'model own quantile function, and justified the 200-node Hansen rule on the grounds that the same node set '
+    'was applied to every empirical model so the bias was common. Neither was true: the GBM rows used 20 nodes '
+    'and the parametric rows 200, an order of magnitude apart in error, and in the same direction.',
+  'superseded_values':ES_LEGACY},
      'sub_alpha_grid_nodes':len(SUB),
      'gpd':{'u':round(float(u0),4),'xi':round(float(xi),4),'beta':round(float(beta),4)},
      'n_names':int(TE['permno'].nunique()),'n_test_rows':int(len(Y)),'n_dates':int(Td),

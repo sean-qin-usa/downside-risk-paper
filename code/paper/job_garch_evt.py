@@ -33,6 +33,8 @@
 import os, sys, json, time, math, warnings; warnings.filterwarnings("ignore")
 import numpy as np, pandas as pd
 from sklearn.ensemble import HistGradientBoostingRegressor
+sys.path.insert(0,os.path.dirname(os.path.abspath(__file__)))
+from es_integral import converged_es, levels_and_body
 from scipy import stats, optimize
 try:
     from arch import arch_model; GARCH_BACKEND="arch"
@@ -194,6 +196,7 @@ for t in TAUS:
     m=HistGradientBoostingRegressor(loss='quantile',quantile=t,random_state=0,**HGB).fit(TRzc[ZX].values,TRzc['z'].values)
     ZQ[t]=m.predict(TE[ZX].values); ZQcal[t]=m.predict(CALzc[ZX].values)
     lg("  body tau %.3f %.0fs"%(t,time.time()-t0))
+ES_LEGACY={}   # superseded 20-node ES, for the old-vs-new record
 ZQSUB={a:{} for a in ALPHAS}
 for a in ALPHAS:
     for j in range(SUBN):
@@ -258,7 +261,20 @@ def star(a,use_evt):
     return np.sort(np.stack(cols,axis=1),axis=1)
 VE={}
 for a in ALPHAS:
-    st=star(a,True); zq=np.maximum(np.minimum(ZQ[a],ENG_TAIL.q(a)),st[:,-1]); es=np.minimum(st.mean(axis=1),zq-1e-6)
+    st=star(a,True); zq=np.maximum(np.minimum(ZQ[a],ENG_TAIL.q(a)),st[:,-1])
+    # CONVERGED ES for the engine row. VaR (zq) is the committed construction and is untouched, so every
+    # VaR-only statistic and every pinball number is unchanged. GARCH-EVT's own ES is the McNeil-Frey closed
+    # form and carries no quadrature error, so the DMs in this table move only through the engine side.
+    for _t in (a/40.0,0.001,a):        # guard on the GPD parameterisation the closed form assumes
+        assert abs(((-ENG_TAIL.u)-(ENG_TAIL.beta/ENG_TAIL.xi)*((_t/P0_ENGINE)**(-ENG_TAIL.xi)-1.0))-ENG_TAIL.q(_t))<1e-9,'GPD mismatch'
+    _lev,_QB=levels_and_body(a,[ZQSUB[a][j] for j in range(SUBN)],
+        lambda t:HistGradientBoostingRegressor(loss='quantile',quantile=t,random_state=0,**HGB
+                 ).fit(TRzc[ZX].values,TRzc['z'].values).predict(TE[ZX].values),subn=SUBN)
+    _es20=np.minimum(st.mean(axis=1),zq-1e-6)
+    es=converged_es(a,_lev,_QB,ENG_TAIL.q,(-ENG_TAIL.u,float(ENG_TAIL.beta),float(ENG_TAIL.xi),P0_ENGINE),M=2000,var_z=zq)
+    ES_LEGACY[str(a)]={'es_20node':round(float(np.nanmean(_es20)),5),'es_converged':round(float(np.nanmean(es)),5),
+                       'ratio':round(float(np.nanmean(es/_es20)),5)}
+    lg('  a=%g engine ES 20-node %.5f -> converged %.5f (ratio %.5f)'%(a,np.nanmean(_es20),np.nanmean(es),ES_LEGACY[str(a)]['ratio']))
     stb=star(a,False); zqb=np.maximum(ZQ[a],stb[:,-1]); esb=np.minimum(stb.mean(axis=1),zqb-1e-6)
     sh=CONF975 if a==0.025 else 0.0
     # accuracy layer (no shift) is the reference at BOTH levels, as in the paper; the overlay is its own row
@@ -304,7 +320,7 @@ for p0 in P0_GRID:
         'xi_q25_50_75':[round(float(v),4) for v in np.percentile(xs,[25,50,75])] if len(xs) else None,
         'beta_q25_50_75':[round(float(v),4) for v in np.percentile(bs,[25,50,75])] if len(bs) else None}
 
-OUT={'note':('Standalone GARCH-EVT (McNeil-Frey) benchmark on the SAME rows as job_composite.py and job_fz_fullpanel.py. '
+OUT={'es_convention':{'engine_rows':'converged integral (es_integral.converged_es, M=2000, 60 fitted body levels): body interpolated on [a/40,a], pooled GPD exact at every node, sub-floor region in closed form. VaR is the committed construction and is unchanged, so no VaR-only statistic and no pinball number can move.','closed_form_and_empirical_rows':'unaffected','superseded_20node_values':ES_LEGACY},'note':('Standalone GARCH-EVT (McNeil-Frey) benchmark on the SAME rows as job_composite.py and job_fz_fullpanel.py. '
   'evt_name = per-name two-sided GPD at p0=0.10 on training residuals; evt_pool = one pooled threshold and (xi,beta) per tail. '
   'body = GARCH + pooled boosted residual quantile, no EVT (the job_composite.py engine); engine = body/EVT minimum + rearrangement '
   '(pooled p0=0.025 tail, as job_fz_fullpanel.py). Pinball block: 11-tau mean pinball, edge=(ref-method)/ref, per-date NW(10) DM, no conformal shift. '

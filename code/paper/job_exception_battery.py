@@ -48,6 +48,8 @@
 import os, sys, json, time, math, warnings; warnings.filterwarnings("ignore")
 import numpy as np, pandas as pd
 from sklearn.ensemble import HistGradientBoostingRegressor
+sys.path.insert(0,os.path.dirname(os.path.abspath(__file__)))
+from es_integral import converged_es, committed_es_20node
 from scipy import stats
 from arch import arch_model
 P=os.environ.get("GBC_PROJ",os.environ.get("GBC_PROJECT_DIR",r"C:\Users\OWNER\Claude\Projects\GBC Project"))
@@ -55,6 +57,7 @@ t0=time.time(); lg=lambda s:print(s,flush=True); rng=np.random.default_rng(20260
 SYN="--synthetic" in sys.argv
 PANEL=sys.argv[sys.argv.index("--panel")+1] if "--panel" in sys.argv else "canon200"
 assert PANEL in ("canon200","holdout"), "unknown --panel %s"%PANEL
+KEXTRA=40        # extra log-spaced body levels in [a/40, a] for the converged ES; 20 committed + 40 = 60, matching job_es_converged.py
 ALPHAS=[0.01,0.025]; ZX=['logsig','zl1','absz5','zstd21','fracdn5']; SUBN=20; KBIP=9.0; P0=0.025
 HGB=dict(max_iter=250,max_depth=3,learning_rate=0.06); BBOOT=4000; MBLOCK=10.0
 SCALES=['garch_t','bip_t','bteg']
@@ -158,7 +161,9 @@ def feats(y,sig,mu,dts):
     df['logsig']=np.log(np.maximum(df['sig'],1e-6)); df['zl1']=df['z'].shift(1)
     df['absz5']=df['z'].abs().rolling(5,min_periods=3).mean().shift(1); df['zstd21']=df['z'].rolling(21,min_periods=8).std().shift(1)
     df['fracdn5']=(df['y']<0).rolling(5,min_periods=3).mean().shift(1)
-    return df
+    df['mk63']=df['z'].rolling(63,min_periods=30).kurt().shift(1)   # not used as a metric here, but it must
+    return df                                                        # enter the dropna so the row set matches
+                                                                     # every other job in the pipeline
 TR={f:[] for f in SCALES}; CAL={f:[] for f in SCALES}; rows=[]; BTD={}; nfail=0
 for pn in names:
     g=rr[rr.permno==pn].sort_values('date'); y=g['ret'].values.astype(float); dts=g['date'].values; n=len(y)
@@ -183,8 +188,12 @@ for pn in names:
         nfail+=1; lg("  fail %s %s"%(pn,str(ex)[:50])); continue
     base=D['garch_t'].copy(); base['idx']=np.arange(n)
     for f in SCALES[1:]:
-        for c in ['sig','z','mu','nu','tsc']+ZX: base[c+'__'+f]=D[f][c].values
-    need=ZX+[c+'__'+f for f in SCALES[1:] for c in ZX]
+        for c in ['sig','z','mu','nu','tsc']+ZX+['mk63']: base[c+'__'+f]=D[f][c].values
+    # mk63 must be in the dropna set: every other job in the pipeline (job_composite, job_bench_all,
+    # job_robust_engine) drops on it, and omitting it here trained the body and fitted the GPD on ~1.8%
+    # more rows -- the early rows where mk63 is still NaN -- which shifted the GPD threshold and flipped the
+    # engine's date-clustered verdict at 2.5%. Fixed 2026-10-02.
+    need=ZX+['mk63']+[c+'__'+f for f in SCALES[1:] for c in ZX+['mk63']]
     ok=base.dropna(subset=need)
     trn=ok[ok['idx']<cp]; cal=ok[(ok['idx']>=cp)&(ok['idx']<sp)]; tst=ok[ok['idx']>=sp]
     if len(tst)<60 or len(cal)<60 or len(trn)<200: continue
@@ -200,7 +209,7 @@ lg("panel %d names %d rows (%d fails) %.0fs"%(TE.permno.nunique(),len(TE),nfail,
 G=lambda c,f: TE[c if f=='garch_t' else c+'__'+f].values
 
 # ---------------------------------------------------------------- (VaR,ES) per scale, engine_esbt construction
-VE={a:{} for a in ALPHAS}; DIAG={}
+VE={a:{} for a in ALPHAS}; DIAG={}; ESDIAG={}
 for f in SCALES:
     sfx='' if f=='garch_t' else '__'+f
     X=TE[[c+sfx for c in ZX]].values; Xc=CALc[f][ZX].values; ztr=TRc[f]['z'].values
@@ -234,12 +243,40 @@ for f in SCALES:
         star=np.sort(np.stack([np.minimum(SUB[a][j],evt_q(a*(j+0.5)/SUBN)) for j in range(SUBN)],axis=1),axis=1)
         zq=np.maximum(np.minimum(ZQ[a],evt_q(a)),star[:,-1]); es=np.minimum(star.mean(axis=1),zq-1e-6)
         stb=np.sort(np.stack(SUB[a],axis=1),axis=1); zqb=np.maximum(ZQ[a],stb[:,-1]); esb=np.minimum(stb.mean(axis=1),zqb-1e-6)
+        # ---- CONVERGED ES, via the shared es_integral module. VaR (zq, zqb) is untouched, so no VaR-only
+        # statistic can move; the body is interpolated only on [a/40, a] and the sub-floor GPD region is
+        # integrated in closed form. The 20 committed sub-levels are reused, KEXTRA log-spaced ones added.
+        floor=a/SUBN/2.0
+        lev=np.unique(np.concatenate([a*((np.arange(SUBN)+0.5)/SUBN),
+                                      np.exp(np.linspace(math.log(floor),math.log(a),KEXTRA)),[a]]))
+        known={round(float(a*(j+0.5)/SUBN),12):SUB[a][j] for j in range(SUBN)}
+        QB=np.stack([known[round(float(u),12)] if round(float(u),12) in known
+                     else HistGradientBoostingRegressor(loss='quantile',quantile=float(u),random_state=0,**HGB
+                          ).fit(TRc[f][ZX].values,ztr).predict(X) for u in lev],axis=1)
+        esC=converged_es(a,lev,QB,evt_q,(uu,float(beta),float(xi),P0),M=2000,var_z=zq)
+        # the body row has no tail below its lowest fitted level; the committed rule extends it flat, so the
+        # converged body ES does the same, with a very large evt_fn standing in for 'the body is the minimum'.
+        # NOTE on the body row: it has no tail below its lowest fitted level, so its ES there is not defined
+        # by the estimator -- the committed 20-node rule extends it flat. There is no converged counterpart
+        # without inventing a tail, so body_<f> keeps the committed convention and is flagged as such.
         sh=c975 if a==0.025 else 0.0
         VE[a]['engine_'+f]  =(MU+SIG*zq,       MU+SIG*es)
         VE[a]['body_'+f]    =(MU+SIG*zqb,      MU+SIG*esb)
         VE[a]['overlay_'+f] =(MU+SIG*(zq+sh),  MU+SIG*(es+sh))
         VE[a]['conf2_'+f]   =(MU+SIG*(zq+CE[a]),MU+SIG*(es+CE[a]))
+        # converged counterparts, carried as separate rows so every committed number stays auditable
+        VE[a]['engineC_'+f] =(MU+SIG*zq,        MU+SIG*esC)
+        VE[a]['overlayC_'+f]=(MU+SIG*(zq+sh),   MU+SIG*(esC+sh))
+        VE[a]['conf2C_'+f]  =(MU+SIG*(zq+CE[a]),MU+SIG*(esC+CE[a]))
+        ESDIAG.setdefault(f,{})[str(a)]={'es_20node_mean':round(float(np.nanmean(es)),5),
+            'es_converged_mean':round(float(np.nanmean(esC)),5),
+            'ratio_conv_over_20node':round(float(np.nanmean(esC/es)),5),
+            'n_body_levels':int(len(lev)),'floor':round(floor,6)}
         VE[a]['param_'+f]   =(MU+SIG*stats.t.ppf(a,NU)/TSC, MU+SIG*t_es(a,NU)/TSC)
+        # pooled filtered historical simulation on this scale: the training residual quantile and the mean
+        # below it. On the GARCH-t scale this row IS the paper's pooled FHS benchmark.
+        qa=float(np.quantile(ztr,a)); ea=float(np.mean(ztr[ztr<=qa]))
+        VE[a]['fhs_'+f]     =(MU+SIG*qa, MU+SIG*ea)
     DIAG['engine_'+f]={'gpd_u':round(uu,4),'gpd_xi':round(float(xi),4),'gpd_beta':round(float(beta),4),
                        'conf975_body_targeted':round(c975,4),
                        'conf_engine_targeted':{str(a):round(CE[a],4) for a in ALPHAS}}
@@ -287,7 +324,8 @@ def dclust_dm(C,Lm,Le,dp):                             # job_engine_esbt.py
     se=math.sqrt(max(v,1e-16)/nD); return float(mbar),float(mbar/se if se>0 else 0.0),nD
 
 # ---------------------------------------------------------------- the battery
-MODELS=[p+'_'+f for f in SCALES for p in ('engine','body','overlay','conf2','param')]
+MODELS=[p+'_'+f for f in SCALES for p in ('engine','body','overlay','conf2','param','fhs',
+                                          'engineC','overlayC','conf2C')]
 OUT={'note':'Full calibration and exception battery on three Stage-1 scales, same canonical rows. Tests are '
      'verbatim from job_perasset_v2.py (per-name Kupiec and Christoffersen pass rates, date-clustered '
      'exception NW(10) t) and job_engine_esbt.py (pooled Kupiec, Acerbi-Szekely Z2, McNeil-Frey, FZ0, '
@@ -302,6 +340,12 @@ OUT={'note':'Full calibration and exception battery on three Stage-1 scales, sam
      'test at both levels despite the lowest FZ0.',
      'synthetic':SYN,'panel':PANEL,'n_names':int(TE.permno.nunique()),'n_test':int(len(Y)),'n_dates':int(CTX['all'].Dn),'n_fail':nfail,
      'bootstrap':{'B':BBOOT,'mean_block':MBLOCK,'shared_index':True},'diagnostics':DIAG,
+     'es_convention':{'committed':'20-node midpoint mean of the model quantile curve, as shipped',
+       'converged':'rows suffixed C: body interpolated on [a/40,a] with the sub-floor GPD region in closed form '
+                   '(es_integral.converged_es, M=2000, 60 fitted body levels). VaR identical to the committed row, '
+                   'so every VaR-only statistic must match between <row> and <row>C -- that is the built-in control.',
+       'body_rows':'no converged counterpart: the body has no tail below its lowest fitted level',
+       'per_scale':ESDIAG},
      'bteg_param_medians':{k:round(float(pd.DataFrame(BTD).T[k].median()),4) for k in ['phi','kap','nu']} if BTD else {},
      'per_alpha':{}}
 def battery(a,C):

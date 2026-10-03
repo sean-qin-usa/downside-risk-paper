@@ -34,7 +34,12 @@ for pn in names:
     df['zstd21']=df['z'].rolling(21,min_periods=8).std().shift(1)
     df['fracdn5']=(df['y']<0).rolling(5,min_periods=3).mean().shift(1)
     df['idx']=np.arange(n); df['mu']=mu
-    dd=df.dropna(subset=ZX)
+    # 2026-10-02: mk63 added to the dropna set so Stage 2 and Stage 3 are estimated on the SAME rows as
+    # the frontier scripts (job_composite, job_bench_all). Without it this script trained the body and
+    # fitted the GPD on ~1.8% more rows than Table 1 uses, so 'same rows' held for the test set but not
+    # for the estimation set.
+    df['mk63']=df['z'].rolling(63,min_periods=30).kurt().shift(1)
+    dd=df.dropna(subset=ZX+['mk63'])
     trn=dd[dd['idx']<cp]; cal=dd[(dd['idx']>=cp)&(dd['idx']<sp)]; tst=dd[dd['idx']>=sp]
     if len(tst)<60 or len(cal)<60: continue
     TRz.append(trn[ZX+['z']]); CALz.append(cal[ZX+['z']])

@@ -1,0 +1,28 @@
+# Data files are not committed: the panels are licensed (CRSP, TAQ) and the per-row
+# forecast panels are large. Result files are JSON aggregates and ARE committed.
+*.csv
+*.csv.gz
+*.parquet
+*.pkl
+*.h5
+*.npy
+*.npz
+
+# bytecode from code/paper/es_integral.py, which became an importable module in R59
+__pycache__/
+*.pyc
+
+# LaTeX build artifacts
+*.aux
+*.log
+*.out
+*.bbl
+*.blg
+*.toc
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+*.ent
+*.fff
+*.ttt
+*.bundle

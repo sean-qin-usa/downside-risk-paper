@@ -16,9 +16,11 @@
 # 2026-10-01: random_state=0 added to every HistGradientBoostingRegressor. Without it the early-stopping
 # validation split is drawn afresh each run, so the conformal shift and anything downstream of it were not
 # reproducible from this script; P now honours GBC_PROJ as the other job scripts do.
-import os, json, time, math, warnings; warnings.filterwarnings("ignore")
+import os, sys, json, time, math, warnings; warnings.filterwarnings("ignore")
 import numpy as np, pandas as pd
 from sklearn.ensemble import HistGradientBoostingRegressor
+sys.path.insert(0,os.path.dirname(os.path.abspath(__file__)))
+from es_integral import converged_es, levels_and_body
 from scipy import stats
 from arch import arch_model
 P=os.environ.get("GBC_PROJ",os.environ.get("GBC_PROJECT_DIR",r"C:\Users\OWNER\Claude\Projects\GBC Project")); t0=time.time(); lg=lambda s:print(s,flush=True)
@@ -62,7 +64,12 @@ for pn in names:
         znz=float(stats.norm.ppf(a)); enz=float(-stats.norm.pdf(stats.norm.ppf(a))/a)
         df[f'n_v{a}']=mu+df['sig']*znz; df[f'n_e{a}']=mu+df['sig']*enz
     df['idx']=np.arange(n); df['mu']=mu
-    dd=df.dropna(subset=ZX)
+    # 2026-10-02: mk63 added to the dropna set so Stage 2 and Stage 3 are estimated on the SAME rows as
+    # the frontier scripts (job_composite, job_bench_all). Without it this script trained the body and
+    # fitted the GPD on ~1.8% more rows than Table 1 uses, so 'same rows' held for the test set but not
+    # for the estimation set.
+    df['mk63']=df['z'].rolling(63,min_periods=30).kurt().shift(1)
+    dd=df.dropna(subset=ZX+['mk63'])
     trn=dd[dd['idx']<cp]; cal=dd[(dd['idx']>=cp)&(dd['idx']<sp)]; tst=dd[dd['idx']>=sp]
     if len(tst)<60 or len(cal)<60: continue
     TRz.append(trn[ZX+['z']]); CALz.append(cal[ZX+['z']])
@@ -95,7 +102,25 @@ MU=TE['mu'].values; SIG=TE['sig'].values; Y=TE['y'].values
 star01=coherent_star(0.01); star025=coherent_star(0.025)
 zq01=np.minimum(ZQ[0.01],evt_q(0.01)); zq025=np.minimum(ZQ[0.025],evt_q(0.025))
 zq01=np.maximum(zq01,star01[:,-1]); zq025=np.maximum(zq025,star025[:,-1])
-es01=star01.mean(axis=1); es025=star025.mean(axis=1)
+# CONVERGED ES. Both VaR nodes are the committed construction and are untouched, so every breach, Kupiec and
+# VaR-only statistic in tab:esbt is unchanged; only the ES column and the two ES calibration tests move.
+for _t in (0.01/40.0,0.001,0.025):      # guard on the GPD parameterisation the closed form assumes
+    assert abs((uu-(beta/xi)*((_t/0.025)**(-xi)-1.0))-evt_q(_t))<1e-12,"GPD parameterisation mismatch"
+def _fitlev(a):
+    return levels_and_body(a,[ZQSUB[a][j] for j in range(SUBN)],
+        lambda t:HistGradientBoostingRegressor(loss='quantile',quantile=t,random_state=0,max_iter=250,
+                 max_depth=3,learning_rate=0.06).fit(TRzc[ZX].values,TRzc['z'].values).predict(TE[ZX].values),subn=SUBN)
+_es20_01=np.minimum(star01.mean(axis=1),zq01-1e-6); _es20_025=np.minimum(star025.mean(axis=1),zq025-1e-6)
+_lv01,_qb01=_fitlev(0.01); _lv025,_qb025=_fitlev(0.025)
+es01=converged_es(0.01,_lv01,_qb01,evt_q,(uu,float(beta),float(xi),0.025),M=2000,var_z=zq01)
+es025=converged_es(0.025,_lv025,_qb025,evt_q,(uu,float(beta),float(xi),0.025),M=2000,var_z=zq025)
+ES_LEGACY={'0.01':{'es_20node':round(float(np.nanmean(_es20_01)),5),'es_converged':round(float(np.nanmean(es01)),5),
+                   'ratio':round(float(np.nanmean(es01/_es20_01)),5)},
+           '0.025':{'es_20node':round(float(np.nanmean(_es20_025)),5),'es_converged':round(float(np.nanmean(es025)),5),
+                    'ratio':round(float(np.nanmean(es025/_es20_025)),5)}}
+lg("  engine ES 20-node %.5f/%.5f -> converged %.5f/%.5f (ratio %.5f/%.5f)"%(
+   np.nanmean(_es20_01),np.nanmean(_es20_025),np.nanmean(es01),np.nanmean(es025),
+   ES_LEGACY['0.01']['ratio'],ES_LEGACY['0.025']['ratio']))
 ENGNC={0.01:(MU+SIG*zq01, MU+SIG*np.minimum(es01,zq01-1e-6)),
        0.025:(MU+SIG*zq025, MU+SIG*np.minimum(es025,zq025-1e-6))}
 ENG={0.01:ENGNC[0.01],
@@ -152,7 +177,7 @@ def dclust_dm(Lm,Le,dpos):
     for k in range(1,L+1): v+=2*(1-k/(L+1))*np.mean((dd[k:]-mbar)*(dd[:-k]-mbar))
     se=math.sqrt(max(v,1e-16)/nD); return float(mbar),float(mbar/se if se>0 else 0.0),nD
 
-OUT={'note':'FATAL-1 fix: direct ES calibration backtests (Kupiec UC, Acerbi-Szekely 2014 Z2, '
+OUT={'es_convention':{'engine_rows':'converged integral (es_integral.converged_es, M=2000, 60 fitted body levels). VaR unchanged, so Breach and Kupiec cannot move; Z2 and McNeil-Frey do.','closed_form_and_empirical_rows':'garch_t, garch_norm, fhs -- unaffected','superseded_20node_values':ES_LEGACY},'note':'FATAL-1 fix: direct ES calibration backtests (Kupiec UC, Acerbi-Szekely 2014 Z2, '
      'McNeil-Frey 2000) computed on the REAL engine (coherent min-envelope Q*) per-day (VaR,ES), '
      'same 200-name panel/rows as the full-panel FZ0. Engine reported as ACCURACY LAYER (no conformal, '
      '== FZ0 engine) and DEPLOYED (conformal at 97.5%). Inference = STATIONARY BLOCK BOOTSTRAP over '

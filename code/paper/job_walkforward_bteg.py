@@ -48,12 +48,15 @@
 import os, sys, json, time, math, warnings; warnings.filterwarnings("ignore")
 import numpy as np, pandas as pd
 from sklearn.ensemble import HistGradientBoostingRegressor
+sys.path.insert(0,os.path.dirname(os.path.abspath(__file__)))
+from es_integral import converged_es, levels_and_body
 from scipy import stats, optimize
 from arch import arch_model
 P=os.environ.get("GBC_PROJ",os.environ.get("GBC_PROJECT_DIR",r"C:\Users\OWNER\Claude\Projects\GBC Project"))
 SYN="--synthetic" in sys.argv; t0=time.time(); lg=lambda s:print(s,flush=True)
 TAUS=[0.01,0.025,0.05,0.10,0.25,0.50,0.75,0.90,0.95,0.975,0.99]; ALPHAS=[0.01,0.025]
 ZX=['logsig','zl1','absz5','zstd21','fracdn5']; SUBN=20; P0=0.025
+ES_LEGACY={}   # superseded 20-node ES per refit year, for the old-vs-new record
 HGB=dict(max_iter=250,max_depth=3,learning_rate=0.06,random_state=0)   # random_state set: the committed
                                                                        # walk-forward scripts leave it unset
 SCALES=['garch_t','bip_t','bteg']
@@ -189,7 +192,12 @@ for ty in TESTYEARS:
             SUB=[HistGradientBoostingRegressor(loss='quantile',quantile=a*(j+0.5)/SUBN,**HGB)
                  .fit(TRc[f][ZX].values,ztr).predict(X) for j in range(SUBN)]
             st=np.sort(np.stack([np.minimum(SUB[j],evt(a*(j+0.5)/SUBN)) for j in range(SUBN)],axis=1),axis=1)
-            zq=np.maximum(np.minimum(ZQ[a],evt(a)),st[:,-1]); es=np.minimum(st.mean(axis=1),zq-1e-6)
+            zq=np.maximum(np.minimum(ZQ[a],evt(a)),st[:,-1])
+            # CONVERGED ES; VaR (zq) untouched so every breach/exception statistic is unchanged
+            _lev,_QB=levels_and_body(a,SUB,lambda u:HistGradientBoostingRegressor(loss='quantile',quantile=u,**HGB).fit(TRc[f][ZX].values,ztr).predict(X),subn=SUBN)
+            _es20=np.minimum(st.mean(axis=1),zq-1e-6)
+            es=converged_es(a,_lev,_QB,evt,(uu,float(bt),float(xi),P0),M=2000,var_z=zq)
+            ES_LEGACY.setdefault('%s_%g'%(f,a),[]).append({'es_20node':round(float(np.nanmean(_es20)),5),'es_converged':round(float(np.nanmean(es)),5),'ratio':round(float(np.nanmean(es/_es20)),5)})
             rec['fz_engine_%s_%g'%(f,a)]=fz0(Y,MU+SIG*zq,MU+SIG*es,a)
             rec['fz_param_%s_%g'%(f,a)]=fz0(Y,MU+SIG*stats.t.ppf(a,NU)/TSC,MU+SIG*t_es(a,NU)/TSC,a)
             qa=float(np.quantile(ztr,a)); ea=float(np.mean(ztr[ztr<=qa]))
@@ -214,7 +222,7 @@ def dm(a1,a2,mask):
 ALLM=np.ones(len(ALL),bool)
 def dec10(x):
     r=np.full(len(x),-1); m=np.isfinite(x); r[m]=pd.qcut(pd.Series(x[m]),10,labels=False,duplicates='drop').values+1; return r
-OUT={'note':'Annual-refit walk-forward with both Stage-1 scales on the same rows. At each Jan-1 cutoff '
+OUT={'es_convention':{'engine_rows':'converged integral (es_integral.converged_es, M=2000, 60 fitted body levels): body interpolated on [a/40,a], pooled GPD exact at every node, sub-floor region in closed form. VaR is the committed construction and is unchanged, so no VaR-only statistic and no pinball number can move.','closed_form_and_empirical_rows':'unaffected','superseded_20node_values':ES_LEGACY},'note':'Annual-refit walk-forward with both Stage-1 scales on the same rows. At each Jan-1 cutoff '
      '2020-2024 the per-name GARCH-t and Beta-t-EGARCH are both re-estimated on expanding pre-cutoff data, '
      'residuals, features, mk63, the pooled GBM body, the 20-node sub-alpha grid and the pooled GPD tail are '
      'all rebuilt, and the next calendar year is predicted. Comparable to walkforward_hybrid_results.json, '

@@ -1,45 +1,45 @@
 {
   "note": "Finished-engine per-asset + date-clustered exception restatement (v2). GPD u/xi/beta and conformal shifts frozen pre-test.",
   "gpd": {
-    "u": -1.8977,
-    "xi": 0.2808,
-    "beta": 0.6354
+    "u": -1.8902,
+    "xi": 0.287,
+    "beta": 0.6328
   },
   "conf_shifts": {
-    "0.01": -0.551,
-    "0.025": -0.3553
+    "0.01": -0.5305,
+    "0.025": -0.3407
   },
   "n_names": 140,
   "per_variant": {
     "raw_hybrid": {
       "breach99": 0.0135,
-      "kupiec99_passrate": 0.714,
-      "christoffersen99_passrate": 0.729,
-      "dateclustered99_NW_t": 4.63,
-      "breach975": 0.0332,
-      "kupiec975_passrate": 0.571,
+      "kupiec99_passrate": 0.7,
+      "christoffersen99_passrate": 0.721,
+      "dateclustered99_NW_t": 4.6,
+      "breach975": 0.033,
+      "kupiec975_passrate": 0.55,
       "christoffersen975_passrate": 0.607,
-      "dateclustered975_NW_t": 5.0
+      "dateclustered975_NW_t": 4.97
     },
     "hybrid_EVT": {
-      "breach99": 0.0105,
-      "kupiec99_passrate": 0.814,
+      "breach99": 0.0107,
+      "kupiec99_passrate": 0.829,
       "christoffersen99_passrate": 0.879,
-      "dateclustered99_NW_t": 0.89,
-      "breach975": 0.0273,
-      "kupiec975_passrate": 0.721,
-      "christoffersen975_passrate": 0.8,
-      "dateclustered975_NW_t": 1.71
+      "dateclustered99_NW_t": 1.17,
+      "breach975": 0.0279,
+      "kupiec975_passrate": 0.707,
+      "christoffersen975_passrate": 0.779,
+      "dateclustered975_NW_t": 2.1
     },
     "hybrid_EVT_conf": {
-      "breach99": 0.0057,
-      "kupiec99_passrate": 0.607,
-      "christoffersen99_passrate": 0.705,
-      "dateclustered99_NW_t": -11.86,
-      "breach975": 0.0161,
-      "kupiec975_passrate": 0.493,
-      "christoffersen975_passrate": 0.536,
-      "dateclustered975_NW_t": -10.08
+      "breach99": 0.0059,
+      "kupiec99_passrate": 0.643,
+      "christoffersen99_passrate": 0.712,
+      "dateclustered99_NW_t": -11.08,
+      "breach975": 0.0167,
+      "kupiec975_passrate": 0.5,
+      "christoffersen975_passrate": 0.557,
+      "dateclustered975_NW_t": -9.0
     }
   }
 }

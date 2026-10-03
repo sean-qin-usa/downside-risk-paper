@@ -16,6 +16,8 @@
 import os, sys, json, time, math, warnings; warnings.filterwarnings("ignore")
 import numpy as np, pandas as pd
 from sklearn.ensemble import HistGradientBoostingRegressor
+sys.path.insert(0,os.path.dirname(os.path.abspath(__file__)))
+from es_integral import converged_es, es_by_substitution
 from scipy import stats, optimize
 try:
     from arch import arch_model; GARCH_BACKEND="arch"
@@ -152,7 +154,12 @@ for pn in names:
         for k in range(1,n): s22[k]=max(om2+al2*e2[k-1]**2+ga2*e2[k-1]**2*(e2[k-1]<0)+be2*s22[k-1],1e-8)
         sig2=np.sqrt(s22); skd=r2.model.distribution
         skq={t:float(skd.ppf(np.array([t]),[eta2,lam2])[0]) for t in TAUS}
-        sub=np.linspace(0.0005,0.0995,200); ske={a:float(np.mean(skd.ppf(np.array([a*(j+0.5)/200 for j in range(200)]),[eta2,lam2]))) for a in ALPHAS}
+        # The skew-t ES has no elementary integral and its quantile diverges at the origin, so a plain
+        # 200-node midpoint rule understates |ES| by 0.10-0.18% at the fitted nu. es_by_substitution maps
+        # the singularity away and matches the exact Student-t ES to 8e-8. The old value is kept for the
+        # old-vs-new table.
+        ske={a:es_by_substitution(a,lambda u:skd.ppf(np.asarray(u,float),[eta2,lam2]),M=4000) for a in ALPHAS}
+        ske_200node={a:float(np.mean(skd.ppf(np.array([a*(j+0.5)/200 for j in range(200)]),[eta2,lam2]))) for a in ALPHAS}
     except Exception:
         sig2=None
     df=pd.DataFrame({'y':y,'sig':sig,'z':z,'date':dts})
@@ -172,10 +179,12 @@ for pn in names:
         df['sig_gjr']=sig2; df['mu_gjr']=mu2
         for t in TAUS: df['gjrq_%g'%t]=skq[t]
         for a in ALPHAS: df['gjre_%g'%a]=ske[a]
+        for a in ALPHAS: df['gjre200_%g'%a]=ske_200node[a]
     else:
         df['sig_gjr']=np.nan; df['mu_gjr']=np.nan
         for t in TAUS: df['gjrq_%g'%t]=np.nan
         for a in ALPHAS: df['gjre_%g'%a]=np.nan
+        for a in ALPHAS: df['gjre200_%g'%a]=np.nan
     # rolling 500-day empirical quantiles of returns (HS) and of residuals (rolling FHS), lagged one day
     ys=pd.Series(y); zs=pd.Series(z)
     for t in TAUS:
@@ -236,6 +245,26 @@ for a in ALPHAS:
         uu=a*(j+0.5)/SUBN
         ZQSUB[a][j]=HistGradientBoostingRegressor(loss='quantile',quantile=uu,random_state=0,**HGB).fit(TRzc[ZX].values,TRzc['z'].values).predict(TE[ZX].values)
     lg("  sub-alpha grid a=%.3f %.0fs"%(a,time.time()-t0))
+# extra log-spaced body levels in [a/40, a] so the engine ES can be integrated on an interpolant rather
+# than read off 20 nodes. The 20 committed levels are reused; KEXTRA more are fitted.
+KEXTRA=40
+ZQLEV={}; ZQEXT={}
+for a in ALPHAS:
+    _floor=a/SUBN/2.0
+    _lev=np.unique(np.concatenate([a*((np.arange(SUBN)+0.5)/SUBN),
+                                   np.exp(np.linspace(math.log(_floor),math.log(a),KEXTRA)),[a]]))
+    _known={round(float(a*(j+0.5)/SUBN),12):ZQSUB[a][j] for j in range(SUBN)}
+    ZQEXT[a]=np.stack([_known[round(float(u),12)] if round(float(u),12) in _known
+                       else HistGradientBoostingRegressor(loss='quantile',quantile=float(u),random_state=0,**HGB
+                            ).fit(TRzc[ZX].values,TRzc['z'].values).predict(TE[ZX].values) for u in _lev],axis=1)
+    ZQLEV[a]=_lev
+    lg("  converged-ES body levels a=%.3f: %d (floor %.5f) %.0fs"%(a,len(_lev),_floor,time.time()-t0))
+# guard: the closed-form sub-floor integral assumes this parameterisation of the pooled tail. If the sign or
+# the threshold convention of GPDTail ever changes, this fails loudly rather than producing a quiet bias.
+for _t in (0.00025,0.001,0.01,0.025):
+    _mine=(-ENG_TAIL.u)-(ENG_TAIL.beta/ENG_TAIL.xi)*((_t/P0_ENGINE)**(-ENG_TAIL.xi)-1.0)
+    assert abs(_mine-ENG_TAIL.q(_t))<1e-9,"GPD parameterisation mismatch at tau=%g: %.9f vs %.9f"%(_t,_mine,ENG_TAIL.q(_t))
+lg("  GPD parameterisation guard passed")
 CONF975=conf_ostat(CALzc['z'].values-ZQcal[0.025],0.025)
 lg("conf975 %+.4f"%CONF975)
 
@@ -344,11 +373,19 @@ lg("GAS/Taylor fitted (%d/%d fails) %.0fs"%(gfail,tfail,time.time()-t0))
 def star(a,use_evt):
     cols=[np.minimum(ZQSUB[a][j],ENG_TAIL.q(a*(j+0.5)/SUBN)) if use_evt else ZQSUB[a][j] for j in range(SUBN)]
     return np.sort(np.stack(cols,axis=1),axis=1)
-VE={}
+VE={}; ES_LEGACY={}
 for a in ALPHAS:
-    st=star(a,True); zq=np.maximum(np.minimum(ZQ[a],ENG_TAIL.q(a)),st[:,-1]); es=np.minimum(st.mean(axis=1),zq-1e-6)
+    st=star(a,True); zq=np.maximum(np.minimum(ZQ[a],ENG_TAIL.q(a)),st[:,-1]); es20=np.minimum(st.mean(axis=1),zq-1e-6)
     stb=star(a,False); zqb=np.maximum(ZQ[a],stb[:,-1]); esb=np.minimum(stb.mean(axis=1),zqb-1e-6)
+    # the engine's ES is now the converged integral: body interpolated on [a/40,a], pooled GPD exact at every
+    # node, sub-floor region in closed form. VaR (zq) is untouched, so no VaR-only statistic can move, and
+    # every DM and the MCS below are computed on this convention.
+    es=converged_es(a,ZQLEV[a],ZQEXT[a],ENG_TAIL.q,
+                    (-ENG_TAIL.u,float(ENG_TAIL.beta),float(ENG_TAIL.xi),P0_ENGINE),M=2000,var_z=zq)
     sh=CONF975 if a==0.025 else 0.0
+    ES_LEGACY[a]={'engine':MU+SIG*es20,'engine_overlay':MU+SIG*(es20+sh)}
+    lg("  a=%.3f engine ES 20-node %.5f -> converged %.5f (ratio %.5f)"%(
+        a,float(np.nanmean(es20)),float(np.nanmean(es)),float(np.nanmean(es/es20))))
     qe=stats.norm.ppf(a)
     VE[a]={'engine':(MU+SIG*zq,MU+SIG*es),
            'engine_overlay':(MU+SIG*(zq+sh),MU+SIG*(es+sh)),
@@ -381,6 +418,18 @@ for a in ALPHAS:
             rec['vs_engine']=dm_rows(Lm,Le,ALL); rec['vs_engine_top_mk63']=dm_rows(Lm,Le,rk_mk==10); rec['vs_engine_bulk_mk63']=dm_rows(Lm,Le,(rk_mk>=1)&(rk_mk<=9))
         out[m]=rec
     FZ[str(a)]=out; lg("FZ0 alpha=%s: "%a+json.dumps({m:(out[m]['meanFZ0'],out[m].get('vs_engine',{}).get('DM_t') if out[m].get('vs_engine') else None) for m in out}))
+# ---- the superseded ES conventions, scored on the same rows so the paper can print old beside new.
+# These rows are deliberately NOT in VE: a near-duplicate of the engine would distort the Model Confidence Set.
+FZ_LEGACY={}
+for a in ALPHAS:
+    d={}
+    for m,em in ES_LEGACY[a].items():
+        d[m+'__ES_20node']=round(float(np.nanmean(fz0(Y,VE[a][m][0],em,a))),5)
+    g200=G('gjre200_%g'%a)
+    if np.isfinite(g200).sum()>1000:
+        d['gjr_skewt__ES_200node']=round(float(np.nanmean(fz0(Y,VE[a]['gjr_skewt'][0],G('mu_gjr')+G('sig_gjr')*g200,a))),5)
+    FZ_LEGACY[str(a)]=d
+lg("FZ0 under the superseded conventions: "+json.dumps(FZ_LEGACY))
 
 # ---------------------------------------------------------------- CPA, Murphy, DQ, dispersion for every model
 def nw_var(x,l=10):
@@ -482,6 +531,11 @@ OUT={'note':('Every standard benchmark on the same rows as job_composite.py / jo
   'Confidence Set, T_max, stationary bootstrap over dates (mean block 10, B=1000); models with any non-finite row are excluded.'),
  'synthetic':SYN,'garch_backend':GARCH_BACKEND,'n_names':int(TE.permno.nunique()),'n_test':int(len(Y)),'conf975':round(CONF975,4),
  'gas_taylor_fails':[gfail,tfail],'pinball':pinball,'fz0':FZ,'cpa':CPA,'murphy':MUR,'dq':DQ,'loss_diff_dispersion':DISP,'mcs':MCS,
+ 'es_convention':{'engine':'converged: body interpolated on [a/40,a] through %d fitted levels, pooled GPD exact at every node, sub-floor region in closed form (es_integral.converged_es, M=2000)'%len(ZQLEV[ALPHAS[0]]),
+   'gjr_skewt':'converged: es_by_substitution, M=4000, exact on the Student-t to 8e-8',
+   'body':'committed 20-node rule: the body has no tail below its lowest fitted level, so there is no converged counterpart',
+   'unaffected':'garch_t, ewma, hs500, all fhs variants, evt_pool, evt_name, gas_pzc, taylor -- closed form or empirical tail',
+   'superseded_values':FZ_LEGACY},
  'evt_branch_binds_frac':binds}
 fn="bench_all_results_synthetic.json" if SYN else "bench_all_results.json"
 json.dump(OUT,open(os.path.join(P,fn),"w"),indent=2)

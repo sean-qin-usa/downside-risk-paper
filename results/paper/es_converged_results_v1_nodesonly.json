@@ -1,0 +1,382 @@
+{
+  "controls": {
+    "var_only_statistics_unchanged_across_M": {
+      "engine_garch_t_a0.01": {
+        "breach_by_M": {
+          "20": 0.010384,
+          "200": 0.010384,
+          "2000": 0.010384,
+          "converged": 0.010384,
+          "committed_20node": 0.010384
+        },
+        "PASS": true
+      },
+      "engine_bteg_a0.01": {
+        "breach_by_M": {
+          "20": 0.009129,
+          "200": 0.009129,
+          "2000": 0.009129,
+          "converged": 0.009129,
+          "committed_20node": 0.009129
+        },
+        "PASS": true
+      },
+      "engine_garch_t_a0.025": {
+        "breach_by_M": {
+          "20": 0.027766,
+          "200": 0.027766,
+          "2000": 0.027766,
+          "converged": 0.027766,
+          "committed_20node": 0.027766
+        },
+        "PASS": true
+      },
+      "engine_bteg_a0.025": {
+        "breach_by_M": {
+          "20": 0.024585,
+          "200": 0.024585,
+          "2000": 0.024585,
+          "converged": 0.024585,
+          "committed_20node": 0.024585
+        },
+        "PASS": true
+      }
+    },
+    "closed_form_rows_unchanged": {
+      "param_garch_t_a0.01": {
+        "this_run": 2.15572,
+        "battery": 2.15572,
+        "abs_diff": 0.0,
+        "PASS": true
+      },
+      "param_bteg_a0.01": {
+        "this_run": 2.14295,
+        "battery": 2.14295,
+        "abs_diff": 0.0,
+        "PASS": true
+      },
+      "param_garch_t_a0.025": {
+        "this_run": 1.8542,
+        "battery": 1.8542,
+        "abs_diff": 0.0,
+        "PASS": true
+      },
+      "param_bteg_a0.025": {
+        "this_run": 1.83919,
+        "battery": 1.83919,
+        "abs_diff": 0.0,
+        "PASS": true
+      }
+    },
+    "ALL_CONTROLS_PASS": true
+  },
+  "note": "Converged ES for every numerically integrated row. K = fitted GBM levels (log-spaced on (0,a]), M = quadrature nodes on a monotone PCHIP interpolant through them. Closed-form and empirical-tail rows carry no quadrature error and are reported unchanged for reference.",
+  "predictions_written_before_run": "P1 rankings and MCS membership unchanged; P2 Acerbi-Szekely moves more between 20 nodes and convergence than across the earlier specification changes; P3 the engine McNeil-Frey p at 1% converges above 0.05; P4 |ES| rises and FZ0 falls for every affected row.",
+  "panel": "canon200",
+  "n_names": 200,
+  "n_test": 221600,
+  "K_levels": 40,
+  "M_nodes": [
+    20,
+    200,
+    2000
+  ],
+  "per_alpha": {
+    "0.01": {
+      "engine_garch_t__M20": {
+        "meanFZ0": 2.14731,
+        "mean_ES_z": -3.78359,
+        "breach": 0.010384,
+        "AS_Z2": -0.0711,
+        "AS_Z2_p": 0.2536,
+        "MF_exres": -0.121,
+        "MF_p": 0.0673
+      },
+      "engine_garch_t__M200": {
+        "meanFZ0": 2.14663,
+        "mean_ES_z": -3.83084,
+        "breach": 0.010384,
+        "AS_Z2": -0.0572,
+        "AS_Z2_p": 0.3521,
+        "MF_exres": -0.072,
+        "MF_p": 0.2775
+      },
+      "engine_garch_t__M2000": {
+        "meanFZ0": 2.14655,
+        "mean_ES_z": -3.84223,
+        "breach": 0.010384,
+        "AS_Z2": -0.0541,
+        "AS_Z2_p": 0.3777,
+        "MF_exres": -0.0606,
+        "MF_p": 0.3605
+      },
+      "engine_garch_t__Mconverged": {
+        "meanFZ0": 2.14655,
+        "mean_ES_z": -3.84223,
+        "breach": 0.010384,
+        "AS_Z2": -0.0541,
+        "AS_Z2_p": 0.3777,
+        "MF_exres": -0.0606,
+        "MF_p": 0.3605
+      },
+      "engine_garch_t__Mcommitted_20node": {
+        "meanFZ0": 2.14731,
+        "mean_ES_z": -3.78359,
+        "breach": 0.010384,
+        "AS_Z2": -0.0711,
+        "AS_Z2_p": 0.2536,
+        "MF_exres": -0.121,
+        "MF_p": 0.0673
+      },
+      "engine_garch_t__es_ratio_converged_over_20node": {
+        "mean": 1.0157,
+        "understatement_pct_of_20node": 1.57,
+        "per_name_mean": 1.0157,
+        "per_name_sd": 0.00251,
+        "per_name_min": 1.00617,
+        "per_name_max": 1.01818,
+        "frac_names_ratio_gt_1": 1.0
+      },
+      "engine_garch_t__convergence": {
+        "rel_change_M20_vs_converged": 0.015851,
+        "rel_change_halfK_vs_K": 0.000577,
+        "converged_at_1e-4": false,
+        "n_body_levels": 60,
+        "body_floor": 0.00025
+      },
+      "engine_garch_t__var_only_control": {
+        "breach": 0.010384,
+        "dateclustered_NW_t": 0.62,
+        "note": "computed from the committed VaR; identical for every M by construction"
+      },
+      "param_garch_t__closed_form": {
+        "meanFZ0": 2.15572,
+        "AS_Z2": -0.0949,
+        "AS_Z2_p": 0.1337,
+        "MF_exres": -0.2341,
+        "MF_p": 0.0003
+      },
+      "engine_bteg__M20": {
+        "meanFZ0": 2.13059,
+        "mean_ES_z": -3.86291,
+        "breach": 0.009129,
+        "AS_Z2": 0.0641,
+        "AS_Z2_p": 0.2489,
+        "MF_exres": -0.0965,
+        "MF_p": 0.1643
+      },
+      "engine_bteg__M200": {
+        "meanFZ0": 2.1307,
+        "mean_ES_z": -3.91138,
+        "breach": 0.009129,
+        "AS_Z2": 0.0759,
+        "AS_Z2_p": 0.1667,
+        "MF_exres": -0.0477,
+        "MF_p": 0.4923
+      },
+      "engine_bteg__M2000": {
+        "meanFZ0": 2.13075,
+        "mean_ES_z": -3.92287,
+        "breach": 0.009129,
+        "AS_Z2": 0.0787,
+        "AS_Z2_p": 0.1509,
+        "MF_exres": -0.0363,
+        "MF_p": 0.6021
+      },
+      "engine_bteg__Mconverged": {
+        "meanFZ0": 2.13075,
+        "mean_ES_z": -3.92287,
+        "breach": 0.009129,
+        "AS_Z2": 0.0787,
+        "AS_Z2_p": 0.1509,
+        "MF_exres": -0.0363,
+        "MF_p": 0.6021
+      },
+      "engine_bteg__Mcommitted_20node": {
+        "meanFZ0": 2.13059,
+        "mean_ES_z": -3.86291,
+        "breach": 0.009129,
+        "AS_Z2": 0.0641,
+        "AS_Z2_p": 0.2489,
+        "MF_exres": -0.0965,
+        "MF_p": 0.1643
+      },
+      "engine_bteg__es_ratio_converged_over_20node": {
+        "mean": 1.01575,
+        "understatement_pct_of_20node": 1.575,
+        "per_name_mean": 1.01575,
+        "per_name_sd": 0.00248,
+        "per_name_min": 1.00418,
+        "per_name_max": 1.01821,
+        "frac_names_ratio_gt_1": 1.0
+      },
+      "engine_bteg__convergence": {
+        "rel_change_M20_vs_converged": 0.016104,
+        "rel_change_halfK_vs_K": 0.00058,
+        "converged_at_1e-4": false,
+        "n_body_levels": 60,
+        "body_floor": 0.00025
+      },
+      "engine_bteg__var_only_control": {
+        "breach": 0.009129,
+        "dateclustered_NW_t": -1.65,
+        "note": "computed from the committed VaR; identical for every M by construction"
+      },
+      "param_bteg__closed_form": {
+        "meanFZ0": 2.14295,
+        "AS_Z2": -0.037,
+        "AS_Z2_p": 0.5433,
+        "MF_exres": -0.2835,
+        "MF_p": 0.0
+      }
+    },
+    "0.025": {
+      "engine_garch_t__M20": {
+        "meanFZ0": 1.84936,
+        "mean_ES_z": -2.80693,
+        "breach": 0.027766,
+        "AS_Z2": -0.1216,
+        "AS_Z2_p": 0.0256,
+        "MF_exres": -0.029,
+        "MF_p": 0.3914
+      },
+      "engine_garch_t__M200": {
+        "meanFZ0": 1.84874,
+        "mean_ES_z": -2.84241,
+        "breach": 0.027766,
+        "AS_Z2": -0.107,
+        "AS_Z2_p": 0.0462,
+        "MF_exres": 0.0078,
+        "MF_p": 0.8187
+      },
+      "engine_garch_t__M2000": {
+        "meanFZ0": 1.84865,
+        "mean_ES_z": -2.85108,
+        "breach": 0.027766,
+        "AS_Z2": -0.1037,
+        "AS_Z2_p": 0.0528,
+        "MF_exres": 0.0164,
+        "MF_p": 0.6279
+      },
+      "engine_garch_t__Mconverged": {
+        "meanFZ0": 1.84865,
+        "mean_ES_z": -2.85108,
+        "breach": 0.027766,
+        "AS_Z2": -0.1037,
+        "AS_Z2_p": 0.0528,
+        "MF_exres": 0.0164,
+        "MF_p": 0.6279
+      },
+      "engine_garch_t__Mcommitted_20node": {
+        "meanFZ0": 1.84936,
+        "mean_ES_z": -2.80693,
+        "breach": 0.027766,
+        "AS_Z2": -0.1216,
+        "AS_Z2_p": 0.0256,
+        "MF_exres": -0.029,
+        "MF_p": 0.3914
+      },
+      "engine_garch_t__es_ratio_converged_over_20node": {
+        "mean": 1.01584,
+        "understatement_pct_of_20node": 1.584,
+        "per_name_mean": 1.01584,
+        "per_name_sd": 0.00304,
+        "per_name_min": 1.00467,
+        "per_name_max": 1.0187,
+        "frac_names_ratio_gt_1": 1.0
+      },
+      "engine_garch_t__convergence": {
+        "rel_change_M20_vs_converged": 0.01596,
+        "rel_change_halfK_vs_K": 0.000462,
+        "converged_at_1e-4": false,
+        "n_body_levels": 60,
+        "body_floor": 0.000625
+      },
+      "engine_garch_t__var_only_control": {
+        "breach": 0.027766,
+        "dateclustered_NW_t": 2.0,
+        "note": "computed from the committed VaR; identical for every M by construction"
+      },
+      "param_garch_t__closed_form": {
+        "meanFZ0": 1.8542,
+        "AS_Z2": -0.1045,
+        "AS_Z2_p": 0.051,
+        "MF_exres": -0.0503,
+        "MF_p": 0.138
+      },
+      "engine_bteg__M20": {
+        "meanFZ0": 1.83176,
+        "mean_ES_z": -2.85901,
+        "breach": 0.024585,
+        "AS_Z2": 0.0125,
+        "AS_Z2_p": 0.798,
+        "MF_exres": -0.0127,
+        "MF_p": 0.7274
+      },
+      "engine_bteg__M200": {
+        "meanFZ0": 1.83192,
+        "mean_ES_z": -2.8958,
+        "breach": 0.024585,
+        "AS_Z2": 0.025,
+        "AS_Z2_p": 0.6041,
+        "MF_exres": 0.0236,
+        "MF_p": 0.5185
+      },
+      "engine_bteg__M2000": {
+        "meanFZ0": 1.83197,
+        "mean_ES_z": -2.90455,
+        "breach": 0.024585,
+        "AS_Z2": 0.0279,
+        "AS_Z2_p": 0.5611,
+        "MF_exres": 0.0324,
+        "MF_p": 0.3758
+      },
+      "engine_bteg__Mconverged": {
+        "meanFZ0": 1.83197,
+        "mean_ES_z": -2.90455,
+        "breach": 0.024585,
+        "AS_Z2": 0.0279,
+        "AS_Z2_p": 0.5611,
+        "MF_exres": 0.0324,
+        "MF_p": 0.3758
+      },
+      "engine_bteg__Mcommitted_20node": {
+        "meanFZ0": 1.83176,
+        "mean_ES_z": -2.85901,
+        "breach": 0.024585,
+        "AS_Z2": 0.0125,
+        "AS_Z2_p": 0.798,
+        "MF_exres": -0.0127,
+        "MF_p": 0.7274
+      },
+      "engine_bteg__es_ratio_converged_over_20node": {
+        "mean": 1.01611,
+        "understatement_pct_of_20node": 1.611,
+        "per_name_mean": 1.01611,
+        "per_name_sd": 0.0019,
+        "per_name_min": 1.00664,
+        "per_name_max": 1.01824,
+        "frac_names_ratio_gt_1": 1.0
+      },
+      "engine_bteg__convergence": {
+        "rel_change_M20_vs_converged": 0.016323,
+        "rel_change_halfK_vs_K": 0.000431,
+        "converged_at_1e-4": false,
+        "n_body_levels": 60,
+        "body_floor": 0.000625
+      },
+      "engine_bteg__var_only_control": {
+        "breach": 0.024585,
+        "dateclustered_NW_t": -0.33,
+        "note": "computed from the committed VaR; identical for every M by construction"
+      },
+      "param_bteg__closed_form": {
+        "meanFZ0": 1.83919,
+        "AS_Z2": -0.0212,
+        "AS_Z2_p": 0.6733,
+        "MF_exres": -0.0826,
+        "MF_p": 0.0233
+      }
+    }
+  }
+}

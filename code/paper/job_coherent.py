@@ -9,16 +9,19 @@
 # GARCH-t on identical rows and against the shipped convention, and (5) reports how often
 # the body branch binds (body < EVT) inside the tail. Also: p0 threshold sensitivity for
 # the EVT splice at p0 in {1.5%, 2.5%, 5%}. Panel and engine as job_fz_fullpanel.
-import os, json, time, math, warnings; warnings.filterwarnings("ignore")
+import os, sys, json, time, math, warnings; warnings.filterwarnings("ignore")
 import numpy as np, pandas as pd
 from sklearn.ensemble import HistGradientBoostingRegressor
+sys.path.insert(0,os.path.dirname(os.path.abspath(__file__)))
+from es_integral import converged_es, levels_and_body
 from scipy import stats
 from arch import arch_model
-P=r"C:\Users\OWNER\Claude\Projects\GBC Project"; t0=time.time(); lg=lambda s:print(s,flush=True)
+P=os.environ.get("GBC_PROJ",os.environ.get("GBC_PROJECT_DIR",r"C:\Users\OWNER\Claude\Projects\GBC Project")); t0=time.time(); lg=lambda s:print(s,flush=True)
 rr=pd.read_csv(os.path.join(P,"crsp_panel_returns.csv"),dtype={'permno':'int32'})
 rr['date']=pd.to_datetime(rr['date']); rr['ret']=pd.to_numeric(rr['ret'],errors='coerce')*100.0
 cnt=rr.groupby('permno')['ret'].count().sort_values(ascending=False); names=cnt[cnt>=1500].index.tolist()[:200]
 ALPHAS=[0.01,0.025]; P0S=[0.015,0.025,0.05]; NN=20
+ES_LEGACY={}   # superseded NN-node ES, for the old-vs-new record
 ZX=['logsig','zl1','absz5','zstd21','fracdn5']
 def fz0(r,v,e,a):
     v=np.minimum(v,-1e-8); e=np.minimum(e,v)
@@ -62,15 +65,21 @@ dates=TE['date'].values
 ztr=TRzc['z'].values
 # body quantile fits at every needed node (union over alphas), plus the alpha levels
 def fit_node(u):
-    return HistGradientBoostingRegressor(loss='quantile',quantile=u,max_iter=250,max_depth=3,learning_rate=0.06).fit(TRzc[ZX].values,TRzc['z'].values).predict(TE[ZX].values)
+    return HistGradientBoostingRegressor(loss='quantile',quantile=u,random_state=0,max_iter=250,max_depth=3,learning_rate=0.06).fit(TRzc[ZX].values,TRzc['z'].values).predict(TE[ZX].values)
 NODE={}
 for a in ALPHAS:
     for j in range(NN):
         u=a*(j+0.5)/NN
         NODE[round(u,6)]=None
     NODE[round(a,6)]=None
+KEXTRA=40
+EXT={a:np.unique(np.concatenate([a*((np.arange(NN)+0.5)/NN),
+        np.exp(np.linspace(math.log(a/NN/2.0),math.log(a),KEXTRA)),[a]])) for a in ALPHAS}
+for a in ALPHAS:
+    for u in EXT[a]: NODE.setdefault(round(float(u),6),None)
 for u in sorted(NODE):
-    NODE[u]=fit_node(u); lg("  node %.5f %.0fs"%(u,time.time()-t0))
+    if NODE[u] is None: NODE[u]=fit_node(u)
+lg("  %d body nodes fitted (incl. %d extra per alpha for the converged integral) %.0fs"%(len(NODE),KEXTRA,time.time()-t0))
 def evt_maker(p0):
     uthr=np.quantile(ztr,p0); exc=uthr-ztr[ztr<uthr]
     xi,loc,beta=stats.genpareto.fit(exc,floc=0.0)
@@ -87,7 +96,7 @@ for a in ALPHAS:
     qmap={nu_:stats.t.ppf(a,nu_) for nu_ in unu}; emap={nu_:t_es(a,nu_) for nu_ in unu}
     qv=np.array([qmap[nu_] for nu_ in NU]); ev=np.array([emap[nu_] for nu_ in NU])
     LGCACHE[a]=fz0(Y,MU+SIG*qv/TSC,MU+SIG*ev/TSC,a)
-OUT={'note':('Coherent-curve audit: final implemented quantile curve Q*(u)=min(body,EVT) for u<=p0 '
+OUT={'es_convention':{'coherent_and_shipped_rows':'converged integral (es_integral.converged_es, M=2000, 60 body nodes): body interpolated on [a/40,a], GPD exact at every node, sub-floor region in closed form. VaR unchanged.','garch_rows':'closed form, unaffected','superseded_NN_node_values':ES_LEGACY},'note':('Coherent-curve audit: final implemented quantile curve Q*(u)=min(body,EVT) for u<=p0 '
  '(body alone above p0), monotonized by rearrangement per observation; VaR_a=Q*(a); ES_a = 20-node '
  'midpoint integral of the SAME rearranged curve. Compared on identical rows with the shipped '
  'convention (VaR=min at a, ES=GPD closed form capped below VaR) and with GARCH-t closed forms. '
@@ -111,7 +120,14 @@ for p0 in P0S:
         ev_a=evt_q(a) if a<=p0 else np.inf
         v_z=np.minimum(bq_a,ev_a)
         v_z=np.maximum(v_z,Qstar[:,-1])                          # curve consistency at the endpoint
-        es_z=Qstar.mean(axis=1)
+        es_z20=Qstar.mean(axis=1)                                 # the superseded NN-node rule
+        # CONVERGED ES: body interpolated on [a/40,a], GPD exact at every node, sub-floor region in closed
+        # form. VaR (v_z) is the committed construction above and is untouched.
+        _lev=EXT[a]; _QB=np.stack([NODE[round(float(u),6)] for u in _lev],axis=1)
+        _evt=(lambda t,_u=uthr,_b=beta,_x=xi,_p=p0: _u-(_b/_x)*((t/_p)**(-_x)-1.0))
+        es_z=converged_es(a,_lev,_QB,_evt,(uthr,float(beta),float(xi),p0),M=2000,var_z=v_z)
+        ES_LEGACY.setdefault('p0_%g'%p0,{})['alpha_%g'%a]={'es_20node':round(float(np.nanmean(es_z20)),5),
+            'es_converged':round(float(np.nanmean(es_z)),5),'ratio':round(float(np.nanmean(es_z/es_z20)),5)}
         Vc=MU+SIG*v_z; Ec=MU+SIG*es_z
         # shipped convention
         if a<=p0:
