@@ -354,7 +354,7 @@ Q^{z}_t(\tau) \;=\;
 where $\mathrm{R}[\cdot]$ is the monotone rearrangement across
 levels \citep{cherno2010rearr} and $c_\tau\equiv0$ in the accuracy layer. $Q^{z}_t$ is the standardized-residual quantile curve, the single object from which both risk measures are read; the conditional scale $\widehat{\sigma}_t$ carries the day's volatility from the GARCH stage. The return-space forecasts are $\widehat{q}_{\tau,t}=\widehat{Q}_t(\tau)$
 and $\widehat{e}_{\tau,t}=\widehat{\mu}+\widehat{\sigma}_t\,\big(\tau^{-1}\!\int_0^\tau Q^{z}_t(v)\,dv + c_\tau\big)$, the latter a numerical integral of the same curve. The overlay applies one scalar per level to the VaR node and to the ES integral at that level, so the shift sits outside the integral by construction; the accuracy layer sets $c_\tau\equiv0$ and the two coincide.
-The body branch is the minimum on 38\% of tail nodes. ES$_\alpha$ is the integral of \eqref{eq:hybrid} over $(0,\alpha]$, computed to convergence: the body is interpolated across sixty fitted levels on $[\alpha/40,\alpha]$, the GPD branch is evaluated exactly at each of 2{,}000 nodes, and below $\alpha/40$, where the GPD quantile diverges, its integral is taken in closed form. A 20-node midpoint rule, used in earlier versions, understates the engine's $|\ES|$ by about 1.6\% for every one of the 200 names and distorts the ES backtests (Online Appendix). The Online Appendix also reports the FZ0 obtained with the GPD closed form of \citet{mcneilfrey2000} in place of the integral. The splice level is immaterial ($p_0\in\{1.5\%,2.5\%,5\%\}$: DM 4.5--4.7 at the $1\%$ level).
+The body branch is the minimum on about 40\% of tail nodes. ES$_\alpha$ is the integral of \eqref{eq:hybrid} over $(0,\alpha]$, computed to convergence: the body is interpolated across sixty fitted levels on $[\alpha/40,\alpha]$, the GPD branch is evaluated exactly at each of 2{,}000 nodes, and below $\alpha/40$, where the GPD quantile diverges, its integral is taken in closed form. A 20-node midpoint rule, used in earlier versions, understates the engine's $|\ES|$ by about 1.6\% for every one of the 200 names and distorts the ES backtests (Online Appendix). The Online Appendix also reports the FZ0 obtained with the GPD closed form of \citet{mcneilfrey2000} in place of the integral. The splice level is immaterial ($p_0\in\{1.5\%,2.5\%,5\%\}$: DM 4.5--4.7 at the $1\%$ level and 4.2--5.5 at $2.5\%$).
 
 \noindent\emph{Industry models as special cases.} Equation \eqref{eq:hybrid} nests the standard toolkit, in the taxonomy of \citet{kuester2006}. Historical simulation sets $\widehat{\mu}\equiv 0$, $\widehat{\sigma}_t \equiv 1$, and $q$ the unconditional empirical quantile of past returns. Filtered historical simulation (FHS) \citep{baroneadesi1999fhs, hullwhite1998} takes $q$ as the unconditional empirical quantile of past \emph{residuals}, i.e.\ Stage 2 with the state dependence deleted. GARCH-$t$ \citep{bollerslev1987} takes $q = t_\nu^{-1}$, a fixed parametric shape. Whatever FHS captures, \eqref{eq:shapeERM} can represent, and it adds conditional shape. CAViaR \citep{engle2004caviar} sits outside the nesting. It autoregresses on the quantile directly, with no scale/shape split, and is the benchmark with which the estimator ties (Section~\ref{sec:frtb}).
 
@@ -953,8 +953,8 @@ Model & Avg.\ pinball & ES$_{97.5}$ pred.\ vs realized & Breach$_{99}$ & Kupiec$
 \midrule
 \emph{Ideal value} & \emph{(smaller better)} & \emph{(pred.\ $=$ realized)} & \emph{1.00\%} & \emph{$>0.05$ (pass)} \\
 \midrule
-Residual-hybrid (GBM) & \textbf{0.3676} & $-6.64$ / $-6.12$ & 1.06\% & 0.00 \\
-\quad $+$ EVT tail & 0.3680 & $-7.33$ / $-6.16$ & 0.88\% & 0.00 \\
+Residual-hybrid (GBM) & \textbf{0.3676} & $-6.64$ / $-6.12$ & 1.06\% & 0.01 \\
+\quad $+$ EVT tail & 0.3680 & $-7.33$ / $-6.16$ & 0.87\% & 0.00 \\
 GARCH(1,1)-$t$ & 0.3688 & $-6.98$ / $-5.92$ & 1.03\% & 0.167 \\
 GJR-GARCH-skew-$t$ & 0.3688 & $-6.87$ / $-6.09$ & 1.02\% & 0.431 \\
 GARCH-FHS (per-name) & 0.3689 & $-6.90$ / $-6.06$ & 1.08\% & 0.00 \\
@@ -976,10 +976,10 @@ CDF, the exact empirical tail mean for historical simulation and the FHS variant
 Section~\ref{sec:hybrid} for the EVT-tailed residual-hybrid, whose VaR and ES are both read from
 one monotonized min-envelope curve $Q^{z}_t$ of \eqref{eq:hybrid}. The raw residual-hybrid has no quantile below its lowest
 fitted level, so its ES extends the body flat below $\alpha/40$ and is a lower bound on its severity.
-Diebold--Mariano vs the residual-hybrid: GARCH-$t$ 6.3, GJR-skew-$t$ 5.6,
-FHS pooled 7.0, per-name 6.4, rolling 6.0, HS 8.5, EWMA 9.7 (all
+Diebold--Mariano vs the residual-hybrid: GARCH-$t$ 6.2, GJR-skew-$t$ 5.6,
+FHS pooled 6.9, per-name 6.3, rolling 6.0, HS 8.5, EWMA 9.6 (all
 $p\approx0$, rounded, and stable across reruns). The EVT variant
-concedes 0.0004 pinball (DM 6.9) to the first row, the raw
+concedes 0.0004 pinball (DM 7.0) to the first row, the raw
 residual-hybrid without the tail, as the price of that tail. The 90\% MCS contains the
 raw residual-hybrid alone, and CAViaR (separate common-sample run)
 statistically ties it.
@@ -995,7 +995,7 @@ degrees of freedom and skewness (median $4.2$ and $-0.015$), validated against t
 symmetric-$t$ limit and against an independent reference implementation.
 \item Exception columns are pooled panel diagnostics: at 221.6k
 observations a breach-rate deviation of $\pm0.1$ points rejects in
-either direction (the EVT variant's 0.88\% sits on the conservative
+either direction (the EVT variant's 0.87\% sits on the conservative
 side; GARCH-$t$, GJR-skew-$t$ and pooled FHS land within 0.03 points of 1\%), so pooled $p$-values are
 reported, not leaned on. The regulatory reading is the per-asset and
 date-clustered restatement: per asset the EVT-tailed residual-hybrid of this
