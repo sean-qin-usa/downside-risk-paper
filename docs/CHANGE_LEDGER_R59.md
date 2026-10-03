@@ -1457,3 +1457,46 @@ Seeding also closed part of the four-engine spread of harvest §7.2: `fz_fullpan
 with each other exactly (20-node ES $-3.77489$ / $-2.81378$ both), though both still differ from `bench_all`'s
 $-3.78359$ because their training pools and conformal splits are derived independently. §7.1's decision to
 score every FZ0 comparison against `bench_all`'s canonical engine is unaffected and is what M22/M23 use.
+
+---
+
+## R59 follow-ups (second pass, after 0018718)
+
+Twelve edits in four files, every value read from the seeded result files committed in 0018718 and verified
+against them before the edit was written. All are in the same two categories as the commit itself: numbers that
+moved when a job was reseeded, and numbers that moved with the ES convention.
+
+| # | where | before → after | source |
+|---|---|---|---|
+| F1 | Table 4 note, DM against the best model | GARCH-$t$ 6.3→**6.2**, GJR-skew-$t$ 5.6→5.6, FHS pooled 7.0→**6.9**, per-name 6.4→**6.3**, rolling 6.0→6.0, HS 8.5→8.5, EWMA 9.7→**9.6** | `frtb_table_200_results.json` `DM_vs_best`: 6.18, 5.62, 6.91, 6.30, 5.97, 8.52, 9.61 |
+| F2 | §5.2, the EVT variant's pinball concession | DM 6.9 → **7.0** | `DM_vs_best/hybrid_EVT/DM_stat` = 6.99 |
+| F3a | Table 4, EVT-tail row, Breach$_{99}$ | 0.88\% → **0.87\%** | `per_model/hybrid_EVT/breach99` = 0.0087 |
+| F3b | Table 4, raw residual-hybrid row, Kupiec$_{99}$ $p$ | 0.00 → **0.01** | `per_model/resid_hybrid_ML/kupiec99_p` = 0.0053 |
+| F4 | Table 4 note, the EVT variant's breach | 0.88\% → **0.87\%** | same as F3a |
+| F5 | §4.1 splice-level range (M31) | adds "and 4.2--5.5 at $2.5\%$" | `coherent_results.json` 2.5\% `garch_minus_coherent_DM`: 4.24, 5.45, 5.42 |
+| F6 | §4.1, the body branch as the minimum | 38\% → **about 40\%** | `coherent_results.json` `bind_frac_body_min` at $p_0=0.025$: 0.3952 (1\%), 0.4168 (2.5\%) |
+| F7 | Figure OA.2, raw-hybrid bar | 0.86 → **0.84** | `passrate99_perasset/resid_hybrid_ML` = 0.84 |
+| F8 | Figure OA.4 caption, DM range | 5.6--9.7 → **5.6--9.6** | as F1 (EWMA 9.61 is the maximum) |
+| F9a | `tab:rgarch` prose | "is below $1.4$" → "**is at most** $1.4$" | `scaleshape_canonical_results.json`: the largest $\lvert DM\rvert$ is 1.36, so "below 1.4" was false by rounding |
+| F9b | `tab:rgarch` prose, shape-row DM at 1\% | $-1.3$ → $\mathbf{-1.4}$ | `DM_vs_rg_uncond/rg_shape` at $\alpha=0.01$ = −1.36 |
+| F10 | ES-integral paragraph (O21) | the integral-vs-closed-form sentence restated with both levels and both DMs | `coherent_results.json` `p0_0.025`: 2.5\% FZ0 1.84806 vs 1.85084, `shipped_minus_coherent_DM` 4.23, `garch_minus_coherent` 5.45 vs `garch_minus_shipped` 3.98; 1\% 2.1464 vs 2.14865, DM 2.53, 4.67 vs 4.31 |
+
+**Where 38\% came from (F6).** Not another file — the same one, from its pre-R59 run. At `a1f997f`
+`coherent_results.json` gave `bind_frac_body_min` 0.3849 at 1\% and 0.3876 at 2.5\% for $p_0=0.025$, which is
+the printed 38\%. The seeded rerun gives 0.3952 and 0.4168. The cause is the **seeding, not the ES convention**:
+the binding fraction counts the nodes at which the gradient-boosted body sits below the GPD branch, so it is a
+VaR-side quantity that shifts when the body is refit, and `job_coherent.py` was one of the five jobs whose
+`HistGradientBoostingRegressor` calls were unseeded. A threshold-crossing count amplifies small quantile
+shifts, which is why it moves by one to three percentage points where the FZ0 levels move in the fourth
+decimal. "About 40\%" is the honest form, since the figure is not stable to the third digit across refits.
+
+**On the ES convention and F10.** The restated sentence is also more careful than the one it replaces: the two
+conventions are not equivalent. On the same rows the closed form scores worse than the integral at both levels
+(DM 4.2 at 2.5\%, 2.5 at 1\%), and it costs the estimator part of its margin over GARCH-$t$ (5.5 → 4.0 and
+4.7 → 4.3). The old sentence's "leaves each comparison in place" was true of the orderings and not of the
+margins; the new one gives both directions and both levels.
+
+**Sequencing note.** These twelve edits are **not** folded into 0018718. That commit had already been pushed to
+`origin/main` (`0018718` confirmed on the remote) when the instruction to amend arrived, so amending it would
+rewrite published history. They are committed separately instead, leaving the choice of a follow-up commit or a
+squash-and-force-push open.

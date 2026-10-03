@@ -142,7 +142,7 @@ contaminated same-day alignment yields less, the opposite of what a look-ahead a
   x tick label style={font=\scriptsize, rotate=25}, tick label style={font=\scriptsize},
   legend style={font=\scriptsize, at={(0.02,0.98)}, anchor=north west, draw=none}]
 \addplot[fill=npblue, draw=npblue] coordinates
-  {(HS,0.93) (EWMA,0.55) (GARCH-t,0.82) (GJR,0.88) (FHS,0.84) (raw hybrid,0.86) (hybrid+EVT,0.86)};
+  {(HS,0.93) (EWMA,0.55) (GARCH-t,0.82) (GJR,0.88) (FHS,0.84) (raw hybrid,0.84) (hybrid+EVT,0.86)};
 \addplot[dashed, sharp plot, gray, mark=none] coordinates {(HS,0.95) (hybrid+EVT,0.95)};
 \addlegendentry{expected under exact calibration ($\approx$0.95)}
 \end{axis}
@@ -216,7 +216,7 @@ one-day.}
 \end{axis}
 \end{tikzpicture}
 \caption{The FRTB battery. Left: average pinball loss by model (axis
-truncated to resolve the ordering; differences carry DM 5.6--9.7 vs the
+truncated to resolve the ordering; differences carry DM 5.6--9.6 vs the
 hybrid, all $p \approx 0$); CAViaR, not shown, statistically ties the
 hybrid. Right: ES$_{97.5}$ predicted (the tail integral of Table~4 of the paper) vs realized
 below each model's own VaR, a model-dependent diagnostic, not a
@@ -534,9 +534,9 @@ the top misspecification decile, where the daily scale is coarsest. But the gain
 scale, not shape. Holding the realized scale fixed and re-fitting the pooled
 state-conditioned residual-quantile learner, the EVT tail, and the misspecification
 score on the realized residuals moves FZ0 within noise: every stage's
-Diebold--Mariano statistic against the realized benchmark is below $1.4$ in
+Diebold--Mariano statistic against the realized benchmark is at most $1.4$ in
 magnitude, overall and in the top score decile, the largest being the shape learner's
-$-1.3$ at $1\%$ (directional, not significant). On these large-capitalization names a
+$-1.4$ at $1\%$ (directional, not significant). On these large-capitalization names a
 realized scale absorbs most of what the score detects on daily-GARCH residuals, so on
 the intraday-covered segment the two are substitutes; the score's distinctive value is
 in the daily-data regime and the cross-asset and day-one settings where a realized
@@ -906,7 +906,7 @@ Beta-$t$-EGARCH & Beta-$t$-EGARCH (true) & $-4.29$ & $-1.41$ & $+0.29$ & $-0.18$
 \end{table}
 
 \subsection*{Expected-shortfall integral and an external transfer check}
-Two items recorded for completeness. (i)~ES$_\alpha$ is the converged integral of the min-envelope curve (Section~2.2 of the paper). Replacing it by the GPD closed form of \citet{mcneilfrey2000} gives the accuracy layer a 2.5\% FZ0 of 1.851, against 1.8486 under the integral, and under the integral the estimator-over-GARCH-$t$ DM is 4.9 and 5.5 at the 1\% and 2.5\% levels. The 20-node midpoint rule of earlier versions understated the engine's $|\ES|$ by $1.65\%$ at 1\% and $1.66\%$ at 2.5\% on average, for every one of the 200 names, and the rolling-window empirical rows of Table~4 of the paper by 4--5\%; those rows now use the exact tail mean. (ii)~As a transfer check outside finance, the same amortized pipeline scores a leakage-safe weighted scaled pinball of 0.269 (benchmark tier) on the M5 competition data.
+Two items recorded for completeness. (i)~ES$_\alpha$ is the converged integral of the min-envelope curve (Section~2.2 of the paper). In one run on the same rows, replacing it by the GPD closed form of \citet{mcneilfrey2000} raises the accuracy layer's 2.5\% FZ0 from 1.8481 to 1.8508 (DM 4.2 in favour of the integral) and lowers its DM over GARCH-$t$ from 5.5 to 4.0; at 1\% the FZ0 rises from 2.1464 to 2.1487 (DM 2.5) and the DM over GARCH-$t$ falls from 4.7 to 4.3. The 20-node midpoint rule of earlier versions understated the engine's $|\ES|$ by $1.65\%$ at 1\% and $1.66\%$ at 2.5\% on average, for every one of the 200 names, and the rolling-window empirical rows of Table~4 of the paper by 4--5\%; those rows now use the exact tail mean. (ii)~As a transfer check outside finance, the same amortized pipeline scores a leakage-safe weighted scaled pinball of 0.269 (benchmark tier) on the M5 competition data.
 
 \section{Frontier robustness: calendar overlap, family-wise error, and the universe rule}
 This section collects the constructions summarized in Section~3 of the paper.
