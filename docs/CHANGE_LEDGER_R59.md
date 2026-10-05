@@ -1500,3 +1500,34 @@ margins; the new one gives both directions and both levels.
 `origin/main` (`0018718` confirmed on the remote) when the instruction to amend arrived, so amending it would
 rewrite published history. They are committed separately instead, leaving the choice of a follow-up commit or a
 squash-and-force-push open.
+
+---
+
+## R59 third pass: the ES convention as a result in the main text
+
+One sentence in §2.2 of both builds. Before, the convention was stated and the comparison against the
+McNeil--Frey closed form was left to the Online Appendix:
+
+> The Online Appendix also reports the FZ0 obtained with the GPD closed form of \citet{mcneilfrey2000} in
+> place of the integral.
+
+After:
+
+> With the GPD closed form of \citet{mcneilfrey2000} in place of the integral, the accuracy layer's FZ0 is
+> significantly worse at both levels (DM 2.5 at $1\%$ and 4.2 at $2.5\%$) and its margin over GARCH-$t$ at
+> $2.5\%$ narrows from DM 5.5 to 4.0 (Online Appendix).
+
+Source `coherent_results.json` at $p_0=0.025$: `shipped_minus_coherent_DM` 2.53 and 4.23,
+`garch_minus_coherent_DM` 5.45 against `garch_minus_shipped_DM` 3.98.
+
+This is the point at which the converged-ES work stops being a cleanup. The integral is not merely a tidier
+convention than the closed form: it scores significantly better at both regulatory levels on the same rows,
+and choosing the closed form would cost the estimator a fifth of its margin over GARCH-$t$ at 2.5%. The main
+text can now stand on that rather than deferring it.
+
+**Why the sentence gives only the 2.5% margin.** `coherent_results.json` puts the 1% margin over GARCH-$t$ at
+DM 4.7, while Section 5.1 prints 4.9 for the same comparison from `bench_all_results.json`, the canonical
+accuracy-layer forecast of §7.1. The two come from different scripts with independently derived training pools
+and conformal splits (harvest §7.2), so quoting 4.7 here would put two values for one comparison in the main
+text. The Online Appendix paragraph carries both levels in their same-run form, where they are internally
+consistent.
