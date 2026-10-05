@@ -94,8 +94,8 @@ innovation density. Semiparametric filters keep that scale and estimate
 the innovation law from the standardized residuals, empirically
 \citep{baroneadesi1999fhs}, through an extreme-value tail
 \citep{mcneilfrey2000}, or by modeling the quantile directly
-\citep{engle2004caviar}, and \citet{francqzakoian2015} supply the
-two-step estimator's asymptotic theory. Distribution-free conditional
+\citep{engle2004caviar}, and \citet{francqzakoian2015} supply
+asymptotic theory for the filtered empirical quantile. Distribution-free conditional
 quantile estimation by pinball-loss minimization is itself an
 econometric idea \citep{koenker1978}, and machine learning has scaled
 it up. Its members here are gradient-boosted quantile trees, neural
@@ -280,7 +280,7 @@ r_t = \mu + \sigma_t z_t,\qquad
 \end{equation}
 by Student-$t$ quasi-maximum likelihood on the estimation window of Section~\ref{sec:protocol} (annually refit in ongoing use), and keep
 $\widehat{\mu}$, $\widehat{\sigma}_t$, and the residuals
-$\widehat{z}_t = (r_t-\widehat{\mu})/\widehat{\sigma}_t$. The $t_\nu$ likelihood is used to estimate conditional scale; Stages 2 and 3 re-estimate the residual shape. This two-step design, a parametric filter followed by a residual quantile, is the one whose asymptotics \citet{francqzakoian2015} derive, and \citet{mcneilfrey2000} fit the same filter by Gaussian pseudo-likelihood while explicitly declining to believe the innovation law it assumes.
+$\widehat{z}_t = (r_t-\widehat{\mu})/\widehat{\sigma}_t$. The $t_\nu$ likelihood is used to estimate conditional scale; Stages 2 and 3 re-estimate the residual shape. This two-step design, a parametric filter followed by a residual quantile, is the one whose asymptotics \citet{francqzakoian2015} derive for an empirical residual quantile, and \citet{mcneilfrey2000} fit the same filter by Gaussian pseudo-likelihood while explicitly declining to believe the innovation law it assumes. No comparable result covers a pooled tree learner in the second stage, so the paper's inference is on the forecasts (Section~\ref{sec:conventions}).
 
 \emph{Stage 2 (nonparametric shape).} Replace the fixed $t_\nu$
 innovation quantile with a state-conditioned quantile model of the
@@ -613,7 +613,7 @@ loss ratios, so below 1 favors the model and $1-\text{ratio}$ is
 the edge (0.973 $=$ a 2.7\% win, 1.043 $=$ a 4.3\% loss).
 
 DM is the Diebold--Mariano $t$-statistic on the loss
-difference. The forecasts are frozen objects, so the comparison is of forecasts rather than of estimated models, the use \citet{diebold2015} endorses. For the per-date DM, losses are first averaged across names within each date, $d_t = N_t^{-1}\sum_i (\ell^{A}_{it} - \ell^{B}_{it})$. The orientation is stated at each use (benchmark minus the residual-hybrid in its main comparisons, so that positive favors the residual-hybrid). The test is then run on the resulting $\sim$1{,}100-date series with a Newey--West (lag-10) variance \citep{neweywest1987}, so the effective sample is the number of dates, not the number of asset-days. The lag replaces the $h-1=0$ truncation of \citet{dieboldmariano1995} because misspecified one-step forecasts leave serially correlated loss differentials.
+difference. The forecasts are frozen objects, so the comparison is of forecasts rather than of estimated models, the use \citet{diebold2015} endorses. Estimation is part of each forecasting method, and the conditional predictive-ability framework of \citet{giacominiwhite2006} holds for any estimator, parametric or not, under the fixed estimation scheme of every headline comparison; the annual-refit runs use expanding windows, which that framework does not cover, and are reported as robustness checks. For the per-date DM, losses are first averaged across names within each date, $d_t = N_t^{-1}\sum_i (\ell^{A}_{it} - \ell^{B}_{it})$. The orientation is stated at each use (benchmark minus the residual-hybrid in its main comparisons, so that positive favors the residual-hybrid). The test is then run on the resulting $\sim$1{,}100-date series with a Newey--West (lag-10) variance \citep{neweywest1987}, so the effective sample is the number of dates, not the number of asset-days. The lag replaces the $h-1=0$ truncation of \citet{dieboldmariano1995} because misspecified one-step forecasts leave serially correlated loss differentials.
 
 Reported $p$-values are one-sided in
 the direction of the named model ($t>1.645$ at 5\%, $t>2.33$ at 1\%), a direction fixed before the run for the residual-hybrid's main comparisons, and where a winner is instead chosen by the data the one-sided level reads as a two-sided level of twice its size.
