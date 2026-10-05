@@ -1,0 +1,978 @@
+{
+  "panel": "holdout",
+  "n_names": 200,
+  "n_test": 280608,
+  "n_dates": 1495,
+  "note": "Read-only R61 diagnostics. engine/body/garch_t built by the job that reproduces the canonical accuracy layer. mk63 deciles are formed on the test rows, decile 10 = highest kurtosis score.",
+  "gpd": {
+    "u_z": -1.9128,
+    "xi": 0.3213,
+    "beta": 0.5212
+  },
+  "per_alpha": {
+    "0.01": {
+      "deciles": [
+        {
+          "decile": 1,
+          "n": 28061,
+          "breach_engine": 0.0111,
+          "breach_body": 0.0129,
+          "breach_garch_t": 0.011,
+          "FZ0_engine": 1.86935,
+          "FZ0_body": 1.87891,
+          "FZ0_garch_t": 1.88585,
+          "body_minus_engine": 0.00956,
+          "DM_body_minus_engine": 1.65,
+          "garch_minus_engine": 0.0165,
+          "DM_garch_minus_engine": 1.46,
+          "evt_binds_at_alpha": 0.6627,
+          "evt_binds_share_of_20_nodes": 0.6817,
+          "body_shrank_vs_parametric": 0.7701,
+          "shrank_AND_evt_binds": 0.6533,
+          "z_body_at_alpha": -2.4542,
+          "z_evt_at_alpha": -2.4681,
+          "z_parametric_at_alpha": -2.5577,
+          "z_evt_minus_body": -0.0138,
+          "z_override_depth_when_binding": 0.1253
+        },
+        {
+          "decile": 2,
+          "n": 28061,
+          "breach_engine": 0.0117,
+          "breach_body": 0.0137,
+          "breach_garch_t": 0.0117,
+          "FZ0_engine": 1.85224,
+          "FZ0_body": 1.86471,
+          "FZ0_garch_t": 1.86204,
+          "body_minus_engine": 0.01247,
+          "DM_body_minus_engine": 1.37,
+          "garch_minus_engine": 0.0098,
+          "DM_garch_minus_engine": 1.49,
+          "evt_binds_at_alpha": 0.6762,
+          "evt_binds_share_of_20_nodes": 0.6902,
+          "body_shrank_vs_parametric": 0.782,
+          "shrank_AND_evt_binds": 0.6678,
+          "z_body_at_alpha": -2.4495,
+          "z_evt_at_alpha": -2.4681,
+          "z_parametric_at_alpha": -2.5569,
+          "z_evt_minus_body": -0.0186,
+          "z_override_depth_when_binding": 0.1276
+        },
+        {
+          "decile": 3,
+          "n": 28061,
+          "breach_engine": 0.0109,
+          "breach_body": 0.0128,
+          "breach_garch_t": 0.0109,
+          "FZ0_engine": 1.8217,
+          "FZ0_body": 1.82775,
+          "FZ0_garch_t": 1.83678,
+          "body_minus_engine": 0.00605,
+          "DM_body_minus_engine": 1.15,
+          "garch_minus_engine": 0.01508,
+          "DM_garch_minus_engine": 1.04,
+          "evt_binds_at_alpha": 0.6835,
+          "evt_binds_share_of_20_nodes": 0.6911,
+          "body_shrank_vs_parametric": 0.7882,
+          "shrank_AND_evt_binds": 0.676,
+          "z_body_at_alpha": -2.445,
+          "z_evt_at_alpha": -2.4681,
+          "z_parametric_at_alpha": -2.5594,
+          "z_evt_minus_body": -0.0231,
+          "z_override_depth_when_binding": 0.1309
+        },
+        {
+          "decile": 4,
+          "n": 28060,
+          "breach_engine": 0.0105,
+          "breach_body": 0.0126,
+          "breach_garch_t": 0.0101,
+          "FZ0_engine": 1.77737,
+          "FZ0_body": 1.78589,
+          "FZ0_garch_t": 1.78705,
+          "body_minus_engine": 0.00851,
+          "DM_body_minus_engine": 1.53,
+          "garch_minus_engine": 0.00968,
+          "DM_garch_minus_engine": 1.42,
+          "evt_binds_at_alpha": 0.6894,
+          "evt_binds_share_of_20_nodes": 0.694,
+          "body_shrank_vs_parametric": 0.7981,
+          "shrank_AND_evt_binds": 0.6828,
+          "z_body_at_alpha": -2.4404,
+          "z_evt_at_alpha": -2.4681,
+          "z_parametric_at_alpha": -2.5625,
+          "z_evt_minus_body": -0.0277,
+          "z_override_depth_when_binding": 0.1344
+        },
+        {
+          "decile": 5,
+          "n": 28061,
+          "breach_engine": 0.0111,
+          "breach_body": 0.0133,
+          "breach_garch_t": 0.0108,
+          "FZ0_engine": 1.78506,
+          "FZ0_body": 1.79648,
+          "FZ0_garch_t": 1.79475,
+          "body_minus_engine": 0.01143,
+          "DM_body_minus_engine": 1.22,
+          "garch_minus_engine": 0.0097,
+          "DM_garch_minus_engine": 0.95,
+          "evt_binds_at_alpha": 0.6886,
+          "evt_binds_share_of_20_nodes": 0.6933,
+          "body_shrank_vs_parametric": 0.8015,
+          "shrank_AND_evt_binds": 0.683,
+          "z_body_at_alpha": -2.4375,
+          "z_evt_at_alpha": -2.4681,
+          "z_parametric_at_alpha": -2.5651,
+          "z_evt_minus_body": -0.0306,
+          "z_override_depth_when_binding": 0.1418
+        },
+        {
+          "decile": 6,
+          "n": 28061,
+          "breach_engine": 0.0117,
+          "breach_body": 0.0138,
+          "breach_garch_t": 0.0114,
+          "FZ0_engine": 1.79053,
+          "FZ0_body": 1.80186,
+          "FZ0_garch_t": 1.8078,
+          "body_minus_engine": 0.01133,
+          "DM_body_minus_engine": 0.88,
+          "garch_minus_engine": 0.01727,
+          "DM_garch_minus_engine": 1.98,
+          "evt_binds_at_alpha": 0.6884,
+          "evt_binds_share_of_20_nodes": 0.6885,
+          "body_shrank_vs_parametric": 0.8033,
+          "shrank_AND_evt_binds": 0.6831,
+          "z_body_at_alpha": -2.4386,
+          "z_evt_at_alpha": -2.4681,
+          "z_parametric_at_alpha": -2.569,
+          "z_evt_minus_body": -0.0295,
+          "z_override_depth_when_binding": 0.1428
+        },
+        {
+          "decile": 7,
+          "n": 28060,
+          "breach_engine": 0.0119,
+          "breach_body": 0.0145,
+          "breach_garch_t": 0.0114,
+          "FZ0_engine": 1.77863,
+          "FZ0_body": 1.79002,
+          "FZ0_garch_t": 1.79717,
+          "body_minus_engine": 0.01139,
+          "DM_body_minus_engine": 0.97,
+          "garch_minus_engine": 0.01853,
+          "DM_garch_minus_engine": 2.09,
+          "evt_binds_at_alpha": 0.7006,
+          "evt_binds_share_of_20_nodes": 0.6943,
+          "body_shrank_vs_parametric": 0.8134,
+          "shrank_AND_evt_binds": 0.6955,
+          "z_body_at_alpha": -2.4282,
+          "z_evt_at_alpha": -2.4681,
+          "z_parametric_at_alpha": -2.5706,
+          "z_evt_minus_body": -0.0399,
+          "z_override_depth_when_binding": 0.1525
+        },
+        {
+          "decile": 8,
+          "n": 28061,
+          "breach_engine": 0.0112,
+          "breach_body": 0.0137,
+          "breach_garch_t": 0.0107,
+          "FZ0_engine": 1.85587,
+          "FZ0_body": 1.87044,
+          "FZ0_garch_t": 1.8651,
+          "body_minus_engine": 0.01457,
+          "DM_body_minus_engine": 0.71,
+          "garch_minus_engine": 0.00923,
+          "DM_garch_minus_engine": 1.6,
+          "evt_binds_at_alpha": 0.7117,
+          "evt_binds_share_of_20_nodes": 0.7027,
+          "body_shrank_vs_parametric": 0.826,
+          "shrank_AND_evt_binds": 0.7079,
+          "z_body_at_alpha": -2.4188,
+          "z_evt_at_alpha": -2.4681,
+          "z_parametric_at_alpha": -2.5732,
+          "z_evt_minus_body": -0.0493,
+          "z_override_depth_when_binding": 0.1594
+        },
+        {
+          "decile": 9,
+          "n": 28061,
+          "breach_engine": 0.0104,
+          "breach_body": 0.0134,
+          "breach_garch_t": 0.0101,
+          "FZ0_engine": 1.84029,
+          "FZ0_body": 1.84744,
+          "FZ0_garch_t": 1.86284,
+          "body_minus_engine": 0.00716,
+          "DM_body_minus_engine": 0.17,
+          "garch_minus_engine": 0.02255,
+          "DM_garch_minus_engine": 2.21,
+          "evt_binds_at_alpha": 0.7137,
+          "evt_binds_share_of_20_nodes": 0.6996,
+          "body_shrank_vs_parametric": 0.8327,
+          "shrank_AND_evt_binds": 0.7116,
+          "z_body_at_alpha": -2.405,
+          "z_evt_at_alpha": -2.4681,
+          "z_parametric_at_alpha": -2.577,
+          "z_evt_minus_body": -0.0631,
+          "z_override_depth_when_binding": 0.1744
+        },
+        {
+          "decile": 10,
+          "n": 28061,
+          "breach_engine": 0.0077,
+          "breach_body": 0.0093,
+          "breach_garch_t": 0.0073,
+          "FZ0_engine": 1.82797,
+          "FZ0_body": 1.81316,
+          "FZ0_garch_t": 1.83789,
+          "body_minus_engine": -0.0148,
+          "DM_body_minus_engine": -1.46,
+          "garch_minus_engine": 0.00992,
+          "DM_garch_minus_engine": 2.73,
+          "evt_binds_at_alpha": 0.7296,
+          "evt_binds_share_of_20_nodes": 0.6955,
+          "body_shrank_vs_parametric": 0.8512,
+          "shrank_AND_evt_binds": 0.7278,
+          "z_body_at_alpha": -2.3697,
+          "z_evt_at_alpha": -2.4681,
+          "z_parametric_at_alpha": -2.5868,
+          "z_evt_minus_body": -0.0984,
+          "z_override_depth_when_binding": 0.2089
+        }
+      ],
+      "top_vs_bulk": {
+        "top_decile": {
+          "FZ0_engine": 1.82797,
+          "FZ0_body": 1.81316,
+          "body_minus_engine": -0.0148,
+          "DM": -1.46,
+          "evt_binds_at_alpha": 0.7296,
+          "shrank_AND_evt_binds": 0.7278
+        },
+        "deciles_1to9": {
+          "FZ0_engine": 1.819,
+          "FZ0_body": 1.82928,
+          "body_minus_engine": 0.01027,
+          "DM": 0.81,
+          "evt_binds_at_alpha": 0.6905,
+          "shrank_AND_evt_binds": 0.6846
+        }
+      },
+      "correlation_across_deciles": {
+        "bind_share_vs_body_minus_engine": -0.5658,
+        "shrank_and_binds_vs_body_minus_engine": -0.5578
+      },
+      "per_date_breach_structure": {
+        "engine": {
+          "mean_breach": 0.01023,
+          "n_dates": 1495,
+          "mean_names_per_date": 187.7,
+          "clustered_SE_pp": 0.106,
+          "iid_SE_pp": 0.019,
+          "design_effect": 31.3,
+          "implied_exchangeable_rho": 0.162,
+          "rho_is_a_valid_correlation": true,
+          "min_detectable_breach_two_sided_5pct": [
+            0.00792,
+            0.01208
+          ],
+          "date_breach_p99": 0.1609,
+          "date_breach_max": 0.87,
+          "share_of_clustered_variance_from_top5_dates": 0.6489,
+          "n_dates_with_breach_above_10pct": 28
+        },
+        "body": {
+          "mean_breach": 0.01331,
+          "n_dates": 1495,
+          "mean_names_per_date": 187.7,
+          "clustered_SE_pp": 0.141,
+          "iid_SE_pp": 0.022,
+          "design_effect": 42.7,
+          "implied_exchangeable_rho": 0.224,
+          "rho_is_a_valid_correlation": true,
+          "min_detectable_breach_two_sided_5pct": [
+            0.00723,
+            0.01277
+          ],
+          "date_breach_p99": 0.2621,
+          "date_breach_max": 1.0,
+          "share_of_clustered_variance_from_top5_dates": 0.6357,
+          "n_dates_with_breach_above_10pct": 36
+        },
+        "garch_t": {
+          "mean_breach": 0.01032,
+          "n_dates": 1495,
+          "mean_names_per_date": 187.7,
+          "clustered_SE_pp": 0.112,
+          "iid_SE_pp": 0.019,
+          "design_effect": 34.4,
+          "implied_exchangeable_rho": 0.179,
+          "rho_is_a_valid_correlation": true,
+          "min_detectable_breach_two_sided_5pct": [
+            0.00781,
+            0.01219
+          ],
+          "date_breach_p99": 0.1547,
+          "date_breach_max": 0.885,
+          "share_of_clustered_variance_from_top5_dates": 0.6677,
+          "n_dates_with_breach_above_10pct": 29
+        }
+      },
+      "mcneil_frey_by_decile": {
+        "engine": {
+          "overall_mean_exceedance_residual": 0.154,
+          "n_breach": 3033,
+          "by_decile": [
+            {
+              "decile": 1,
+              "n_breach": 312,
+              "mean_exceedance_residual": 0.0629
+            },
+            {
+              "decile": 2,
+              "n_breach": 328,
+              "mean_exceedance_residual": 0.092
+            },
+            {
+              "decile": 3,
+              "n_breach": 307,
+              "mean_exceedance_residual": 0.1198
+            },
+            {
+              "decile": 4,
+              "n_breach": 294,
+              "mean_exceedance_residual": 0.1733
+            },
+            {
+              "decile": 5,
+              "n_breach": 311,
+              "mean_exceedance_residual": 0.2026
+            },
+            {
+              "decile": 6,
+              "n_breach": 327,
+              "mean_exceedance_residual": 0.2795
+            },
+            {
+              "decile": 7,
+              "n_breach": 333,
+              "mean_exceedance_residual": 0.3025
+            },
+            {
+              "decile": 8,
+              "n_breach": 313,
+              "mean_exceedance_residual": 0.1413
+            },
+            {
+              "decile": 9,
+              "n_breach": 292,
+              "mean_exceedance_residual": 0.1238
+            },
+            {
+              "decile": 10,
+              "n_breach": 216,
+              "mean_exceedance_residual": -0.027
+            }
+          ]
+        },
+        "garch_t": {
+          "overall_mean_exceedance_residual": -0.1745,
+          "n_breach": 2960,
+          "by_decile": [
+            {
+              "decile": 1,
+              "n_breach": 310,
+              "mean_exceedance_residual": -0.2886
+            },
+            {
+              "decile": 2,
+              "n_breach": 327,
+              "mean_exceedance_residual": -0.2296
+            },
+            {
+              "decile": 3,
+              "n_breach": 307,
+              "mean_exceedance_residual": -0.2108
+            },
+            {
+              "decile": 4,
+              "n_breach": 283,
+              "mean_exceedance_residual": -0.1694
+            },
+            {
+              "decile": 5,
+              "n_breach": 303,
+              "mean_exceedance_residual": -0.12
+            },
+            {
+              "decile": 6,
+              "n_breach": 319,
+              "mean_exceedance_residual": -0.0533
+            },
+            {
+              "decile": 7,
+              "n_breach": 321,
+              "mean_exceedance_residual": -0.0606
+            },
+            {
+              "decile": 8,
+              "n_breach": 301,
+              "mean_exceedance_residual": -0.1586
+            },
+            {
+              "decile": 9,
+              "n_breach": 283,
+              "mean_exceedance_residual": -0.1993
+            },
+            {
+              "decile": 10,
+              "n_breach": 206,
+              "mean_exceedance_residual": -0.3028
+            }
+          ]
+        },
+        "fhs_pool": {
+          "overall_mean_exceedance_residual": 0.1241,
+          "n_breach": 3375,
+          "by_decile": [
+            {
+              "decile": 1,
+              "n_breach": 355,
+              "mean_exceedance_residual": 0.0695
+            },
+            {
+              "decile": 2,
+              "n_breach": 365,
+              "mean_exceedance_residual": 0.082
+            },
+            {
+              "decile": 3,
+              "n_breach": 345,
+              "mean_exceedance_residual": 0.1057
+            },
+            {
+              "decile": 4,
+              "n_breach": 320,
+              "mean_exceedance_residual": 0.1292
+            },
+            {
+              "decile": 5,
+              "n_breach": 352,
+              "mean_exceedance_residual": 0.1928
+            },
+            {
+              "decile": 6,
+              "n_breach": 369,
+              "mean_exceedance_residual": 0.2383
+            },
+            {
+              "decile": 7,
+              "n_breach": 370,
+              "mean_exceedance_residual": 0.2379
+            },
+            {
+              "decile": 8,
+              "n_breach": 342,
+              "mean_exceedance_residual": 0.0945
+            },
+            {
+              "decile": 9,
+              "n_breach": 320,
+              "mean_exceedance_residual": 0.0541
+            },
+            {
+              "decile": 10,
+              "n_breach": 237,
+              "mean_exceedance_residual": -0.0298
+            }
+          ]
+        }
+      }
+    },
+    "0.025": {
+      "deciles": [
+        {
+          "decile": 1,
+          "n": 28061,
+          "breach_engine": 0.0274,
+          "breach_body": 0.031,
+          "breach_garch_t": 0.0267,
+          "FZ0_engine": 1.61322,
+          "FZ0_body": 1.62096,
+          "FZ0_garch_t": 1.61995,
+          "body_minus_engine": 0.00774,
+          "DM_body_minus_engine": 1.83,
+          "garch_minus_engine": 0.00673,
+          "DM_garch_minus_engine": 1.13,
+          "evt_binds_at_alpha": 0.6111,
+          "evt_binds_share_of_20_nodes": 0.6362,
+          "body_shrank_vs_parametric": 0.7727,
+          "shrank_AND_evt_binds": 0.6107,
+          "z_body_at_alpha": -1.921,
+          "z_evt_at_alpha": -1.9128,
+          "z_parametric_at_alpha": -1.9902,
+          "z_evt_minus_body": 0.0082,
+          "z_override_depth_when_binding": 0.0832
+        },
+        {
+          "decile": 2,
+          "n": 28061,
+          "breach_engine": 0.0273,
+          "breach_body": 0.0301,
+          "breach_garch_t": 0.0263,
+          "FZ0_engine": 1.59269,
+          "FZ0_body": 1.60043,
+          "FZ0_garch_t": 1.59868,
+          "body_minus_engine": 0.00774,
+          "DM_body_minus_engine": 1.39,
+          "garch_minus_engine": 0.00599,
+          "DM_garch_minus_engine": 1.56,
+          "evt_binds_at_alpha": 0.6314,
+          "evt_binds_share_of_20_nodes": 0.6491,
+          "body_shrank_vs_parametric": 0.792,
+          "shrank_AND_evt_binds": 0.6307,
+          "z_body_at_alpha": -1.9158,
+          "z_evt_at_alpha": -1.9128,
+          "z_parametric_at_alpha": -1.9907,
+          "z_evt_minus_body": 0.0031,
+          "z_override_depth_when_binding": 0.0859
+        },
+        {
+          "decile": 3,
+          "n": 28061,
+          "breach_engine": 0.028,
+          "breach_body": 0.0315,
+          "breach_garch_t": 0.0271,
+          "FZ0_engine": 1.57766,
+          "FZ0_body": 1.5849,
+          "FZ0_garch_t": 1.58464,
+          "body_minus_engine": 0.00724,
+          "DM_body_minus_engine": 1.86,
+          "garch_minus_engine": 0.00698,
+          "DM_garch_minus_engine": 1.06,
+          "evt_binds_at_alpha": 0.6407,
+          "evt_binds_share_of_20_nodes": 0.6552,
+          "body_shrank_vs_parametric": 0.7992,
+          "shrank_AND_evt_binds": 0.6401,
+          "z_body_at_alpha": -1.9118,
+          "z_evt_at_alpha": -1.9128,
+          "z_parametric_at_alpha": -1.9906,
+          "z_evt_minus_body": -0.001,
+          "z_override_depth_when_binding": 0.089
+        },
+        {
+          "decile": 4,
+          "n": 28060,
+          "breach_engine": 0.0256,
+          "breach_body": 0.0288,
+          "breach_garch_t": 0.0244,
+          "FZ0_engine": 1.53386,
+          "FZ0_body": 1.53869,
+          "FZ0_garch_t": 1.53996,
+          "body_minus_engine": 0.00483,
+          "DM_body_minus_engine": 1.32,
+          "garch_minus_engine": 0.00611,
+          "DM_garch_minus_engine": 1.45,
+          "evt_binds_at_alpha": 0.6413,
+          "evt_binds_share_of_20_nodes": 0.657,
+          "body_shrank_vs_parametric": 0.8021,
+          "shrank_AND_evt_binds": 0.6407,
+          "z_body_at_alpha": -1.9093,
+          "z_evt_at_alpha": -1.9128,
+          "z_parametric_at_alpha": -1.9902,
+          "z_evt_minus_body": -0.0034,
+          "z_override_depth_when_binding": 0.0916
+        },
+        {
+          "decile": 5,
+          "n": 28061,
+          "breach_engine": 0.0271,
+          "breach_body": 0.0305,
+          "breach_garch_t": 0.0263,
+          "FZ0_engine": 1.55039,
+          "FZ0_body": 1.55947,
+          "FZ0_garch_t": 1.55709,
+          "body_minus_engine": 0.00908,
+          "DM_body_minus_engine": 1.47,
+          "garch_minus_engine": 0.0067,
+          "DM_garch_minus_engine": 1.14,
+          "evt_binds_at_alpha": 0.6482,
+          "evt_binds_share_of_20_nodes": 0.6605,
+          "body_shrank_vs_parametric": 0.8021,
+          "shrank_AND_evt_binds": 0.647,
+          "z_body_at_alpha": -1.9074,
+          "z_evt_at_alpha": -1.9128,
+          "z_parametric_at_alpha": -1.9894,
+          "z_evt_minus_body": -0.0054,
+          "z_override_depth_when_binding": 0.0965
+        },
+        {
+          "decile": 6,
+          "n": 28061,
+          "breach_engine": 0.0273,
+          "breach_body": 0.0311,
+          "breach_garch_t": 0.0262,
+          "FZ0_engine": 1.55809,
+          "FZ0_body": 1.56844,
+          "FZ0_garch_t": 1.56889,
+          "body_minus_engine": 0.01035,
+          "DM_body_minus_engine": 1.16,
+          "garch_minus_engine": 0.0108,
+          "DM_garch_minus_engine": 2.15,
+          "evt_binds_at_alpha": 0.6521,
+          "evt_binds_share_of_20_nodes": 0.6598,
+          "body_shrank_vs_parametric": 0.8022,
+          "shrank_AND_evt_binds": 0.6512,
+          "z_body_at_alpha": -1.9067,
+          "z_evt_at_alpha": -1.9128,
+          "z_parametric_at_alpha": -1.989,
+          "z_evt_minus_body": -0.006,
+          "z_override_depth_when_binding": 0.0975
+        },
+        {
+          "decile": 7,
+          "n": 28060,
+          "breach_engine": 0.0261,
+          "breach_body": 0.0309,
+          "breach_garch_t": 0.0255,
+          "FZ0_engine": 1.54684,
+          "FZ0_body": 1.55546,
+          "FZ0_garch_t": 1.56017,
+          "body_minus_engine": 0.00862,
+          "DM_body_minus_engine": 0.84,
+          "garch_minus_engine": 0.01334,
+          "DM_garch_minus_engine": 2.26,
+          "evt_binds_at_alpha": 0.663,
+          "evt_binds_share_of_20_nodes": 0.6703,
+          "body_shrank_vs_parametric": 0.8113,
+          "shrank_AND_evt_binds": 0.6627,
+          "z_body_at_alpha": -1.8999,
+          "z_evt_at_alpha": -1.9128,
+          "z_parametric_at_alpha": -1.9893,
+          "z_evt_minus_body": -0.0129,
+          "z_override_depth_when_binding": 0.1042
+        },
+        {
+          "decile": 8,
+          "n": 28061,
+          "breach_engine": 0.0261,
+          "breach_body": 0.0305,
+          "breach_garch_t": 0.0252,
+          "FZ0_engine": 1.60092,
+          "FZ0_body": 1.61167,
+          "FZ0_garch_t": 1.60699,
+          "body_minus_engine": 0.01074,
+          "DM_body_minus_engine": 0.79,
+          "garch_minus_engine": 0.00607,
+          "DM_garch_minus_engine": 1.93,
+          "evt_binds_at_alpha": 0.6773,
+          "evt_binds_share_of_20_nodes": 0.683,
+          "body_shrank_vs_parametric": 0.822,
+          "shrank_AND_evt_binds": 0.6763,
+          "z_body_at_alpha": -1.8919,
+          "z_evt_at_alpha": -1.9128,
+          "z_parametric_at_alpha": -1.9886,
+          "z_evt_minus_body": -0.0209,
+          "z_override_depth_when_binding": 0.1101
+        },
+        {
+          "decile": 9,
+          "n": 28061,
+          "breach_engine": 0.0246,
+          "breach_body": 0.0288,
+          "breach_garch_t": 0.0235,
+          "FZ0_engine": 1.58475,
+          "FZ0_body": 1.59064,
+          "FZ0_garch_t": 1.59681,
+          "body_minus_engine": 0.00588,
+          "DM_body_minus_engine": 0.11,
+          "garch_minus_engine": 0.01206,
+          "DM_garch_minus_engine": 2.5,
+          "evt_binds_at_alpha": 0.687,
+          "evt_binds_share_of_20_nodes": 0.6857,
+          "body_shrank_vs_parametric": 0.8256,
+          "shrank_AND_evt_binds": 0.6854,
+          "z_body_at_alpha": -1.8815,
+          "z_evt_at_alpha": -1.9128,
+          "z_parametric_at_alpha": -1.9882,
+          "z_evt_minus_body": -0.0313,
+          "z_override_depth_when_binding": 0.1196
+        },
+        {
+          "decile": 10,
+          "n": 28061,
+          "breach_engine": 0.0175,
+          "breach_body": 0.0227,
+          "breach_garch_t": 0.017,
+          "FZ0_engine": 1.54977,
+          "FZ0_body": 1.53063,
+          "FZ0_garch_t": 1.55819,
+          "body_minus_engine": -0.01914,
+          "DM_body_minus_engine": -1.99,
+          "garch_minus_engine": 0.00842,
+          "DM_garch_minus_engine": 2.89,
+          "evt_binds_at_alpha": 0.728,
+          "evt_binds_share_of_20_nodes": 0.7063,
+          "body_shrank_vs_parametric": 0.8542,
+          "shrank_AND_evt_binds": 0.7256,
+          "z_body_at_alpha": -1.8372,
+          "z_evt_at_alpha": -1.9128,
+          "z_parametric_at_alpha": -1.9873,
+          "z_evt_minus_body": -0.0756,
+          "z_override_depth_when_binding": 0.1607
+        }
+      ],
+      "top_vs_bulk": {
+        "top_decile": {
+          "FZ0_engine": 1.54977,
+          "FZ0_body": 1.53063,
+          "body_minus_engine": -0.01914,
+          "DM": -1.99,
+          "evt_binds_at_alpha": 0.728,
+          "shrank_AND_evt_binds": 0.7256
+        },
+        "deciles_1to9": {
+          "FZ0_engine": 1.57316,
+          "FZ0_body": 1.58118,
+          "body_minus_engine": 0.00802,
+          "DM": 0.91,
+          "evt_binds_at_alpha": 0.6502,
+          "shrank_AND_evt_binds": 0.6494
+        }
+      },
+      "correlation_across_deciles": {
+        "bind_share_vs_body_minus_engine": -0.7089,
+        "shrank_and_binds_vs_body_minus_engine": -0.7055
+      },
+      "per_date_breach_structure": {
+        "engine": {
+          "mean_breach": 0.02566,
+          "n_dates": 1495,
+          "mean_names_per_date": 187.7,
+          "clustered_SE_pp": 0.2,
+          "iid_SE_pp": 0.03,
+          "design_effect": 45.1,
+          "implied_exchangeable_rho": 0.236,
+          "rho_is_a_valid_correlation": true,
+          "min_detectable_breach_two_sided_5pct": [
+            0.02107,
+            0.02893
+          ],
+          "date_breach_p99": 0.4365,
+          "date_breach_max": 1.0,
+          "share_of_clustered_variance_from_top5_dates": 0.3845,
+          "n_dates_with_breach_above_10pct": 76
+        },
+        "body": {
+          "mean_breach": 0.02965,
+          "n_dates": 1495,
+          "mean_names_per_date": 187.7,
+          "clustered_SE_pp": 0.22,
+          "iid_SE_pp": 0.032,
+          "design_effect": 47.2,
+          "implied_exchangeable_rho": 0.247,
+          "rho_is_a_valid_correlation": true,
+          "min_detectable_breach_two_sided_5pct": [
+            0.02069,
+            0.02931
+          ],
+          "date_breach_p99": 0.5,
+          "date_breach_max": 1.0,
+          "share_of_clustered_variance_from_top5_dates": 0.3269,
+          "n_dates_with_breach_above_10pct": 85
+        },
+        "garch_t": {
+          "mean_breach": 0.02483,
+          "n_dates": 1495,
+          "mean_names_per_date": 187.7,
+          "clustered_SE_pp": 0.197,
+          "iid_SE_pp": 0.029,
+          "design_effect": 45.1,
+          "implied_exchangeable_rho": 0.236,
+          "rho_is_a_valid_correlation": true,
+          "min_detectable_breach_two_sided_5pct": [
+            0.02113,
+            0.02887
+          ],
+          "date_breach_p99": 0.4203,
+          "date_breach_max": 1.0,
+          "share_of_clustered_variance_from_top5_dates": 0.3937,
+          "n_dates_with_breach_above_10pct": 73
+        }
+      },
+      "mcneil_frey_by_decile": {
+        "engine": {
+          "overall_mean_exceedance_residual": 0.0278,
+          "n_breach": 7215,
+          "by_decile": [
+            {
+              "decile": 1,
+              "n_breach": 770,
+              "mean_exceedance_residual": 0.0078
+            },
+            {
+              "decile": 2,
+              "n_breach": 766,
+              "mean_exceedance_residual": -0.0036
+            },
+            {
+              "decile": 3,
+              "n_breach": 786,
+              "mean_exceedance_residual": 0.05
+            },
+            {
+              "decile": 4,
+              "n_breach": 717,
+              "mean_exceedance_residual": 0.0472
+            },
+            {
+              "decile": 5,
+              "n_breach": 761,
+              "mean_exceedance_residual": 0.0547
+            },
+            {
+              "decile": 6,
+              "n_breach": 767,
+              "mean_exceedance_residual": 0.0782
+            },
+            {
+              "decile": 7,
+              "n_breach": 732,
+              "mean_exceedance_residual": 0.0492
+            },
+            {
+              "decile": 8,
+              "n_breach": 733,
+              "mean_exceedance_residual": 0.0163
+            },
+            {
+              "decile": 9,
+              "n_breach": 691,
+              "mean_exceedance_residual": 0.0095
+            },
+            {
+              "decile": 10,
+              "n_breach": 492,
+              "mean_exceedance_residual": -0.0647
+            }
+          ]
+        },
+        "garch_t": {
+          "overall_mean_exceedance_residual": -0.0986,
+          "n_breach": 6965,
+          "by_decile": [
+            {
+              "decile": 1,
+              "n_breach": 750,
+              "mean_exceedance_residual": -0.1325
+            },
+            {
+              "decile": 2,
+              "n_breach": 738,
+              "mean_exceedance_residual": -0.1443
+            },
+            {
+              "decile": 3,
+              "n_breach": 761,
+              "mean_exceedance_residual": -0.0819
+            },
+            {
+              "decile": 4,
+              "n_breach": 684,
+              "mean_exceedance_residual": -0.0877
+            },
+            {
+              "decile": 5,
+              "n_breach": 738,
+              "mean_exceedance_residual": -0.0628
+            },
+            {
+              "decile": 6,
+              "n_breach": 735,
+              "mean_exceedance_residual": -0.0591
+            },
+            {
+              "decile": 7,
+              "n_breach": 716,
+              "mean_exceedance_residual": -0.0859
+            },
+            {
+              "decile": 8,
+              "n_breach": 706,
+              "mean_exceedance_residual": -0.0961
+            },
+            {
+              "decile": 9,
+              "n_breach": 659,
+              "mean_exceedance_residual": -0.107
+            },
+            {
+              "decile": 10,
+              "n_breach": 478,
+              "mean_exceedance_residual": -0.1446
+            }
+          ]
+        },
+        "fhs_pool": {
+          "overall_mean_exceedance_residual": 0.0109,
+          "n_breach": 7877,
+          "by_decile": [
+            {
+              "decile": 1,
+              "n_breach": 840,
+              "mean_exceedance_residual": -0.0062
+            },
+            {
+              "decile": 2,
+              "n_breach": 850,
+              "mean_exceedance_residual": -0.0044
+            },
+            {
+              "decile": 3,
+              "n_breach": 869,
+              "mean_exceedance_residual": 0.0432
+            },
+            {
+              "decile": 4,
+              "n_breach": 763,
+              "mean_exceedance_residual": 0.015
+            },
+            {
+              "decile": 5,
+              "n_breach": 833,
+              "mean_exceedance_residual": 0.0409
+            },
+            {
+              "decile": 6,
+              "n_breach": 848,
+              "mean_exceedance_residual": 0.0598
+            },
+            {
+              "decile": 7,
+              "n_breach": 799,
+              "mean_exceedance_residual": 0.0149
+            },
+            {
+              "decile": 8,
+              "n_breach": 806,
+              "mean_exceedance_residual": 0.0061
+            },
+            {
+              "decile": 9,
+              "n_breach": 733,
+              "mean_exceedance_residual": -0.0312
+            },
+            {
+              "decile": 10,
+              "n_breach": 536,
+              "mean_exceedance_residual": -0.0608
+            }
+          ]
+        }
+      }
+    }
+  }
+}

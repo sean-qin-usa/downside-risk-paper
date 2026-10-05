@@ -25,7 +25,7 @@ import numpy as np, pandas as pd
 from sklearn.ensemble import HistGradientBoostingRegressor
 from scipy import stats
 from arch import arch_model
-P=r"C:\Users\OWNER\Claude\Projects\GBC Project"; t0=time.time(); lg=lambda s:print(s,flush=True)
+P=os.environ.get("GBC_PROJ",os.environ.get("GBC_PROJECT_DIR",r"C:\Users\OWNER\Claude\Projects\GBC Project")); t0=time.time(); lg=lambda s:print(s,flush=True)
 rr=pd.read_csv(os.path.join(P,"crsp_panel_returns.csv"),dtype={'permno':'int32'})
 rr['date']=pd.to_datetime(rr['date']); rr['ret']=pd.to_numeric(rr['ret'],errors='coerce')*100.0
 cnt=rr.groupby('permno')['ret'].count().sort_values(ascending=False); names=cnt[cnt>=1500].index.tolist()[:200]
@@ -109,7 +109,7 @@ def build_engine(TRc,CALc,suf,SIG,MU):
     cols=[c+suf for c in ZX]; zcol='z'+suf
     ZQ={}; ZQcal={}
     for a in ALPHAS:
-        m=HistGradientBoostingRegressor(loss='quantile',quantile=a,max_iter=250,max_depth=3,learning_rate=0.06).fit(TRc[cols].values,TRc[zcol].values)
+        m=HistGradientBoostingRegressor(random_state=0,loss='quantile',quantile=a,max_iter=250,max_depth=3,learning_rate=0.06).fit(TRc[cols].values,TRc[zcol].values)
         ZQ[a]=m.predict(TE[cols].values); ZQcal[a]=m.predict(CALc[cols].values)
     ztr=TRc[zcol].values; u=np.quantile(ztr,0.025); exc=u-ztr[ztr<u]
     xi,loc,beta=stats.genpareto.fit(exc,floc=0.0)

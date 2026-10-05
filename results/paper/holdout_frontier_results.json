@@ -3,30 +3,30 @@
   "n_names": 200,
   "n_test": 280608,
   "overall": {
-    "mean_edge": 8e-05,
-    "edge_pct": 0.02,
-    "DM_stat": 0.23,
-    "p_one_sided": 0.4085,
+    "mean_edge": 0.00014,
+    "edge_pct": 0.04,
+    "DM_stat": 0.43,
+    "p_one_sided": 0.3327,
     "n_dates": 1495
   },
   "top_decile_mk63": {
-    "mean_edge": 0.00276,
-    "edge_pct": 0.89,
-    "DM_stat": 2.16,
-    "p_one_sided": 0.0155,
+    "mean_edge": 0.00286,
+    "edge_pct": 0.92,
+    "DM_stat": 2.19,
+    "p_one_sided": 0.0142,
     "n_dates": 1465
   },
   "bottom_decile_mk63": {
-    "mean_edge": -0.00046,
-    "edge_pct": -0.14,
-    "DM_stat": -0.92,
-    "p_one_sided": 0.8208,
+    "mean_edge": -0.00036,
+    "edge_pct": -0.11,
+    "DM_stat": -0.74,
+    "p_one_sided": 0.7688,
     "n_dates": 1444
   },
   "deciles_mk63": [
     {
       "decile": 1,
-      "edge_pct": -0.11,
+      "edge_pct": -0.09,
       "n": 28061
     },
     {
@@ -36,64 +36,64 @@
     },
     {
       "decile": 3,
-      "edge_pct": -0.12,
+      "edge_pct": -0.09,
       "n": 28061
     },
     {
       "decile": 4,
-      "edge_pct": 0.08,
+      "edge_pct": 0.1,
       "n": 28060
     },
     {
       "decile": 5,
-      "edge_pct": -0.18,
+      "edge_pct": -0.16,
       "n": 28061
     },
     {
       "decile": 6,
-      "edge_pct": -0.02,
+      "edge_pct": -0.01,
       "n": 28061
     },
     {
       "decile": 7,
-      "edge_pct": -0.13,
+      "edge_pct": -0.1,
       "n": 28060
     },
     {
       "decile": 8,
-      "edge_pct": -0.14,
+      "edge_pct": -0.15,
       "n": 28061
     },
     {
       "decile": 9,
-      "edge_pct": 0.28,
+      "edge_pct": 0.29,
       "n": 28061
     },
     {
       "decile": 10,
-      "edge_pct": 1.01,
+      "edge_pct": 1.02,
       "n": 28061
     }
   ],
   "deciles_skew63": [
     {
       "decile": 1,
-      "edge_pct": -0.26,
+      "edge_pct": -0.25,
       "n": 28061
     },
     {
       "decile": 2,
-      "edge_pct": -0.23,
+      "edge_pct": -0.22,
       "n": 28061
     },
     {
       "decile": 3,
-      "edge_pct": -0.2,
+      "edge_pct": -0.18,
       "n": 28061
     },
     {
       "decile": 4,
-      "edge_pct": -0.01,
+      "edge_pct": 0.01,
       "n": 28060
     },
     {
@@ -103,40 +103,40 @@
     },
     {
       "decile": 6,
-      "edge_pct": 0.06,
+      "edge_pct": 0.09,
       "n": 28061
     },
     {
       "decile": 7,
-      "edge_pct": 0.1,
+      "edge_pct": 0.13,
       "n": 28060
     },
     {
       "decile": 8,
-      "edge_pct": 0.19,
+      "edge_pct": 0.2,
       "n": 28061
     },
     {
       "decile": 9,
-      "edge_pct": 0.22,
+      "edge_pct": 0.23,
       "n": 28061
     },
     {
       "decile": 10,
-      "edge_pct": 0.87,
+      "edge_pct": 0.88,
       "n": 28061
     }
   ],
   "deciles_jump5": [
     {
       "decile": 1,
-      "edge_pct": 0.89,
-      "n": 28063
+      "edge_pct": 0.94,
+      "n": 28062
     },
     {
       "decile": 2,
       "edge_pct": 0.39,
-      "n": 28060
+      "n": 28061
     },
     {
       "decile": 3,
@@ -146,16 +146,16 @@
     {
       "decile": 4,
       "edge_pct": -0.15,
-      "n": 28060
+      "n": 28061
     },
     {
       "decile": 5,
       "edge_pct": -0.27,
-      "n": 28061
+      "n": 28060
     },
     {
       "decile": 6,
-      "edge_pct": -0.21,
+      "edge_pct": -0.2,
       "n": 28063
     },
     {
@@ -165,17 +165,17 @@
     },
     {
       "decile": 8,
-      "edge_pct": -0.41,
+      "edge_pct": -0.35,
       "n": 28064
     },
     {
       "decile": 9,
-      "edge_pct": -0.25,
+      "edge_pct": -0.21,
       "n": 28057
     },
     {
       "decile": 10,
-      "edge_pct": 0.61,
+      "edge_pct": 0.62,
       "n": 28061
     }
   ]

@@ -21,7 +21,7 @@ import numpy as np, pandas as pd
 from sklearn.ensemble import HistGradientBoostingRegressor
 from scipy import stats
 from arch import arch_model
-P=r"C:\Users\OWNER\Claude\Projects\GBC Project"; t0=time.time(); lg=lambda s:print(s,flush=True)
+P=os.environ.get("GBC_PROJ",os.environ.get("GBC_PROJECT_DIR",r"C:\Users\OWNER\Claude\Projects\GBC Project")); t0=time.time(); lg=lambda s:print(s,flush=True)
 rng=np.random.default_rng(0)
 TAUS=[0.005,0.01,0.025,0.05,0.10,0.25,0.50,0.75,0.90,0.95,0.975,0.99]
 A=0.025
@@ -110,11 +110,11 @@ lg("panels %d names %.0fs"%(len(rows),time.time()-t0))
 TE=pd.concat(rows).reset_index(drop=True); TRzc=pd.concat(TR_z)
 ZQ={}
 for t in TAUS:
-    mz=HistGradientBoostingRegressor(loss='quantile',quantile=t,max_iter=250,max_depth=3,learning_rate=0.06).fit(TRzc[ZX].values,TRzc['z'].values)
+    mz=HistGradientBoostingRegressor(random_state=0,loss='quantile',quantile=t,max_iter=250,max_depth=3,learning_rate=0.06).fit(TRzc[ZX].values,TRzc['z'].values)
     ZQ[t]=mz.predict(TE[ZX].values)
 ZQE={}
 for u in SUB:
-    mz=HistGradientBoostingRegressor(loss='quantile',quantile=u,max_iter=250,max_depth=3,learning_rate=0.06).fit(TRzc[ZX].values,TRzc['z'].values)
+    mz=HistGradientBoostingRegressor(random_state=0,loss='quantile',quantile=u,max_iter=250,max_depth=3,learning_rate=0.06).fit(TRzc[ZX].values,TRzc['z'].values)
     ZQE[u]=mz.predict(TE[ZX].values)
 lg("GBM grids done %.0fs"%(time.time()-t0))
 ztr_all=TRzc['z'].values; u0=np.quantile(ztr_all,A); exc=u0-ztr_all[ztr_all<u0]

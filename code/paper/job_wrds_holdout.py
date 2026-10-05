@@ -81,7 +81,7 @@ lg("panels %d names %.0fs"%(len(META),time.time()-t0))
 TRc=pd.concat(TR); TEc=pd.concat(TE).reset_index(drop=True)
 GQ={}
 for t in TAUS:
-    m=HistGradientBoostingRegressor(loss='quantile',quantile=t,max_iter=250,max_depth=3,learning_rate=0.06).fit(TRc[RAWX].values,TRc['y'].values)
+    m=HistGradientBoostingRegressor(random_state=0,loss='quantile',quantile=t,max_iter=250,max_depth=3,learning_rate=0.06).fit(TRc[RAWX].values,TRc['y'].values)
     GQ[t]=m.predict(TEc[RAWX].values)
 Y=TEc['y'].values; SIG=TEc['sig'].values; MU=TEc['mu'].values; NU=TEc['nu'].values; TSC=TEc['tsc'].values
 pl_g=np.zeros(len(Y)); pl_b=np.zeros(len(Y))

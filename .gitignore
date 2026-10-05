@@ -26,3 +26,6 @@ __pycache__/
 *.fff
 *.ttt
 *.bundle
+
+# diagnostic script outputs live beside the scripts; the committed copies are in results/paper/diagnostics/
+tools/*.json

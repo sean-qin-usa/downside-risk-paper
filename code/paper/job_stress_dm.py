@@ -11,7 +11,7 @@ import numpy as np, pandas as pd
 from sklearn.ensemble import HistGradientBoostingRegressor
 from scipy import stats
 from arch import arch_model
-P=r"C:\Users\OWNER\Claude\Projects\GBC Project"; t0=time.time(); lg=lambda s:print(s,flush=True)
+P=os.environ.get("GBC_PROJ",os.environ.get("GBC_PROJECT_DIR",r"C:\Users\OWNER\Claude\Projects\GBC Project")); t0=time.time(); lg=lambda s:print(s,flush=True)
 A=0.025; h=10
 TAUS=[0.005,0.01,0.025,0.05,0.10,0.25,0.50,0.75,0.90,0.95,0.975,0.99]
 SUB=[A*(i+0.5)/20.0 for i in range(20)]
@@ -60,10 +60,10 @@ TR=pd.concat(TRr); TE=pd.concat(TEr).reset_index(drop=True)
 lg("panel h=%d: %d names, %d test rows %.0fs"%(h,TE['permno'].nunique(),len(TE),time.time()-t0))
 GQ={}
 for t in TAUS:
-    GQ[t]=HistGradientBoostingRegressor(loss='quantile',quantile=t,max_iter=250,max_depth=3,learning_rate=0.06).fit(TR[FEAT].values,TR['yc'].values).predict(TE[FEAT].values)
+    GQ[t]=HistGradientBoostingRegressor(random_state=0,loss='quantile',quantile=t,max_iter=250,max_depth=3,learning_rate=0.06).fit(TR[FEAT].values,TR['yc'].values).predict(TE[FEAT].values)
 GES=[]
 for u in SUB:
-    GES.append(HistGradientBoostingRegressor(loss='quantile',quantile=u,max_iter=250,max_depth=3,learning_rate=0.06).fit(TR[FEAT].values,TR['yc'].values).predict(TE[FEAT].values))
+    GES.append(HistGradientBoostingRegressor(random_state=0,loss='quantile',quantile=u,max_iter=250,max_depth=3,learning_rate=0.06).fit(TR[FEAT].values,TR['yc'].values).predict(TE[FEAT].values))
 ES_gbm=np.mean(GES,axis=0)
 Y=TE['yc'].values; SIGh=TE['sig'].values*math.sqrt(h); MUh=TE['mu'].values*h; NU=TE['nu'].values; TSC=TE['tsc'].values
 Q={'garch_scale':{t:MUh+SIGh*stats.t.ppf(t,NU)/TSC for t in TAUS},

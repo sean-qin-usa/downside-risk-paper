@@ -502,6 +502,7 @@ Engine (EVT-tailed) & $0.028$ & $0.00$ & $\mathbf{-0.10}$ & $+0.02\,(0.58)$ & $0
 \bottomrule
 \end{tabular}
 \begin{tablenotes}\footnotesize
+\item On the 2000--2013 holdout the clustered exception test has little power: the accuracy layer's clustered standard error is 0.53 points at $1\%$, so breach rates below $2.05\%$ are not rejected, against 0.25 points for GARCH-$t$ on the same rows. The gap is serial dependence in the breach series rather than cross-name clustering, whose implied intra-date correlation is 0.16 for the accuracy layer and 0.18 for GARCH-$t$.
 \item Inference for the McNeil--Frey and $Z_2$ $p$-values is a stationary block
 bootstrap over the $1{,}108$ trading dates (mean block ten dates) rather than
 treating the $221{,}600$ asset-days as independent, since the $200$ names share

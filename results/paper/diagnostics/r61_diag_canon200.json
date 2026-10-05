@@ -1,0 +1,978 @@
+{
+  "panel": "canon200",
+  "n_names": 200,
+  "n_test": 221600,
+  "n_dates": 1108,
+  "note": "Read-only R61 diagnostics. engine/body/garch_t built by the job that reproduces the canonical accuracy layer. mk63 deciles are formed on the test rows, decile 10 = highest kurtosis score.",
+  "gpd": {
+    "u_z": -1.8804,
+    "xi": 0.2985,
+    "beta": 0.639
+  },
+  "per_alpha": {
+    "0.01": {
+      "deciles": [
+        {
+          "decile": 1,
+          "n": 22160,
+          "breach_engine": 0.0117,
+          "breach_body": 0.0138,
+          "breach_garch_t": 0.0116,
+          "FZ0_engine": 2.1322,
+          "FZ0_body": 2.14336,
+          "FZ0_garch_t": 2.14412,
+          "body_minus_engine": 0.01116,
+          "DM_body_minus_engine": 1.25,
+          "garch_minus_engine": 0.01192,
+          "DM_garch_minus_engine": 2.73,
+          "evt_binds_at_alpha": 0.5053,
+          "evt_binds_share_of_20_nodes": 0.5309,
+          "body_shrank_vs_parametric": 0.6692,
+          "shrank_AND_evt_binds": 0.5045,
+          "z_body_at_alpha": -2.5275,
+          "z_evt_at_alpha": -2.5539,
+          "z_parametric_at_alpha": -2.6307,
+          "z_evt_minus_body": -0.0263,
+          "z_override_depth_when_binding": 0.1879
+        },
+        {
+          "decile": 2,
+          "n": 22160,
+          "breach_engine": 0.0124,
+          "breach_body": 0.0144,
+          "breach_garch_t": 0.0123,
+          "FZ0_engine": 2.14794,
+          "FZ0_body": 2.15431,
+          "FZ0_garch_t": 2.15859,
+          "body_minus_engine": 0.00637,
+          "DM_body_minus_engine": 1.29,
+          "garch_minus_engine": 0.01065,
+          "DM_garch_minus_engine": 1.71,
+          "evt_binds_at_alpha": 0.5367,
+          "evt_binds_share_of_20_nodes": 0.5632,
+          "body_shrank_vs_parametric": 0.6942,
+          "shrank_AND_evt_binds": 0.5363,
+          "z_body_at_alpha": -2.513,
+          "z_evt_at_alpha": -2.5539,
+          "z_parametric_at_alpha": -2.6301,
+          "z_evt_minus_body": -0.0408,
+          "z_override_depth_when_binding": 0.1947
+        },
+        {
+          "decile": 3,
+          "n": 22160,
+          "breach_engine": 0.011,
+          "breach_body": 0.0135,
+          "breach_garch_t": 0.0108,
+          "FZ0_engine": 2.09132,
+          "FZ0_body": 2.09865,
+          "FZ0_garch_t": 2.09387,
+          "body_minus_engine": 0.00733,
+          "DM_body_minus_engine": 0.96,
+          "garch_minus_engine": 0.00255,
+          "DM_garch_minus_engine": 0.67,
+          "evt_binds_at_alpha": 0.5566,
+          "evt_binds_share_of_20_nodes": 0.5747,
+          "body_shrank_vs_parametric": 0.7127,
+          "shrank_AND_evt_binds": 0.5561,
+          "z_body_at_alpha": -2.4993,
+          "z_evt_at_alpha": -2.5539,
+          "z_parametric_at_alpha": -2.6308,
+          "z_evt_minus_body": -0.0546,
+          "z_override_depth_when_binding": 0.2091
+        },
+        {
+          "decile": 4,
+          "n": 22160,
+          "breach_engine": 0.0109,
+          "breach_body": 0.0132,
+          "breach_garch_t": 0.0112,
+          "FZ0_engine": 2.076,
+          "FZ0_body": 2.07537,
+          "FZ0_garch_t": 2.08332,
+          "body_minus_engine": -0.00063,
+          "DM_body_minus_engine": 0.15,
+          "garch_minus_engine": 0.00732,
+          "DM_garch_minus_engine": 1.48,
+          "evt_binds_at_alpha": 0.5639,
+          "evt_binds_share_of_20_nodes": 0.5931,
+          "body_shrank_vs_parametric": 0.7134,
+          "shrank_AND_evt_binds": 0.5632,
+          "z_body_at_alpha": -2.492,
+          "z_evt_at_alpha": -2.5539,
+          "z_parametric_at_alpha": -2.6305,
+          "z_evt_minus_body": -0.0618,
+          "z_override_depth_when_binding": 0.2182
+        },
+        {
+          "decile": 5,
+          "n": 22160,
+          "breach_engine": 0.0105,
+          "breach_body": 0.0126,
+          "breach_garch_t": 0.0106,
+          "FZ0_engine": 2.1115,
+          "FZ0_body": 2.11316,
+          "FZ0_garch_t": 2.11609,
+          "body_minus_engine": 0.00166,
+          "DM_body_minus_engine": 0.19,
+          "garch_minus_engine": 0.00459,
+          "DM_garch_minus_engine": 0.84,
+          "evt_binds_at_alpha": 0.5843,
+          "evt_binds_share_of_20_nodes": 0.6054,
+          "body_shrank_vs_parametric": 0.7314,
+          "shrank_AND_evt_binds": 0.5838,
+          "z_body_at_alpha": -2.4768,
+          "z_evt_at_alpha": -2.5539,
+          "z_parametric_at_alpha": -2.6313,
+          "z_evt_minus_body": -0.0771,
+          "z_override_depth_when_binding": 0.2319
+        },
+        {
+          "decile": 6,
+          "n": 22160,
+          "breach_engine": 0.0097,
+          "breach_body": 0.0123,
+          "breach_garch_t": 0.0099,
+          "FZ0_engine": 2.11924,
+          "FZ0_body": 2.11336,
+          "FZ0_garch_t": 2.12963,
+          "body_minus_engine": -0.00588,
+          "DM_body_minus_engine": -0.5,
+          "garch_minus_engine": 0.01039,
+          "DM_garch_minus_engine": 2.39,
+          "evt_binds_at_alpha": 0.6257,
+          "evt_binds_share_of_20_nodes": 0.6342,
+          "body_shrank_vs_parametric": 0.7566,
+          "shrank_AND_evt_binds": 0.6247,
+          "z_body_at_alpha": -2.4441,
+          "z_evt_at_alpha": -2.5539,
+          "z_parametric_at_alpha": -2.6315,
+          "z_evt_minus_body": -0.1097,
+          "z_override_depth_when_binding": 0.26
+        },
+        {
+          "decile": 7,
+          "n": 22160,
+          "breach_engine": 0.0111,
+          "breach_body": 0.0144,
+          "breach_garch_t": 0.0107,
+          "FZ0_engine": 2.17153,
+          "FZ0_body": 2.19074,
+          "FZ0_garch_t": 2.18378,
+          "body_minus_engine": 0.01922,
+          "DM_body_minus_engine": 1.38,
+          "garch_minus_engine": 0.01225,
+          "DM_garch_minus_engine": 2.86,
+          "evt_binds_at_alpha": 0.6628,
+          "evt_binds_share_of_20_nodes": 0.6694,
+          "body_shrank_vs_parametric": 0.7846,
+          "shrank_AND_evt_binds": 0.6625,
+          "z_body_at_alpha": -2.3993,
+          "z_evt_at_alpha": -2.5539,
+          "z_parametric_at_alpha": -2.6332,
+          "z_evt_minus_body": -0.1546,
+          "z_override_depth_when_binding": 0.3036
+        },
+        {
+          "decile": 8,
+          "n": 22160,
+          "breach_engine": 0.0107,
+          "breach_body": 0.0144,
+          "breach_garch_t": 0.0104,
+          "FZ0_engine": 2.15581,
+          "FZ0_body": 2.15894,
+          "FZ0_garch_t": 2.16339,
+          "body_minus_engine": 0.00312,
+          "DM_body_minus_engine": 0.81,
+          "garch_minus_engine": 0.00758,
+          "DM_garch_minus_engine": 2.07,
+          "evt_binds_at_alpha": 0.659,
+          "evt_binds_share_of_20_nodes": 0.6674,
+          "body_shrank_vs_parametric": 0.781,
+          "shrank_AND_evt_binds": 0.6583,
+          "z_body_at_alpha": -2.3689,
+          "z_evt_at_alpha": -2.5539,
+          "z_parametric_at_alpha": -2.6331,
+          "z_evt_minus_body": -0.185,
+          "z_override_depth_when_binding": 0.3555
+        },
+        {
+          "decile": 9,
+          "n": 22160,
+          "breach_engine": 0.0079,
+          "breach_body": 0.0118,
+          "breach_garch_t": 0.0077,
+          "FZ0_engine": 2.15703,
+          "FZ0_body": 2.12857,
+          "FZ0_garch_t": 2.1709,
+          "body_minus_engine": -0.02845,
+          "DM_body_minus_engine": -3.21,
+          "garch_minus_engine": 0.01387,
+          "DM_garch_minus_engine": 2.94,
+          "evt_binds_at_alpha": 0.6473,
+          "evt_binds_share_of_20_nodes": 0.6394,
+          "body_shrank_vs_parametric": 0.7816,
+          "shrank_AND_evt_binds": 0.647,
+          "z_body_at_alpha": -2.3422,
+          "z_evt_at_alpha": -2.5539,
+          "z_parametric_at_alpha": -2.636,
+          "z_evt_minus_body": -0.2116,
+          "z_override_depth_when_binding": 0.4043
+        },
+        {
+          "decile": 10,
+          "n": 22160,
+          "breach_engine": 0.0079,
+          "breach_body": 0.0114,
+          "breach_garch_t": 0.0076,
+          "FZ0_engine": 2.30273,
+          "FZ0_body": 2.23474,
+          "FZ0_garch_t": 2.31349,
+          "body_minus_engine": -0.06799,
+          "DM_body_minus_engine": -6.42,
+          "garch_minus_engine": 0.01076,
+          "DM_garch_minus_engine": 3.38,
+          "evt_binds_at_alpha": 0.6643,
+          "evt_binds_share_of_20_nodes": 0.6204,
+          "body_shrank_vs_parametric": 0.8016,
+          "shrank_AND_evt_binds": 0.6634,
+          "z_body_at_alpha": -2.2523,
+          "z_evt_at_alpha": -2.5539,
+          "z_parametric_at_alpha": -2.6368,
+          "z_evt_minus_body": -0.3015,
+          "z_override_depth_when_binding": 0.5226
+        }
+      ],
+      "top_vs_bulk": {
+        "top_decile": {
+          "FZ0_engine": 2.30273,
+          "FZ0_body": 2.23474,
+          "body_minus_engine": -0.06799,
+          "DM": -6.42,
+          "evt_binds_at_alpha": 0.6643,
+          "shrank_AND_evt_binds": 0.6634
+        },
+        "deciles_1to9": {
+          "FZ0_engine": 2.12917,
+          "FZ0_body": 2.13072,
+          "body_minus_engine": 0.00154,
+          "DM": 0.35,
+          "evt_binds_at_alpha": 0.5935,
+          "shrank_AND_evt_binds": 0.5929
+        }
+      },
+      "correlation_across_deciles": {
+        "bind_share_vs_body_minus_engine": -0.4664,
+        "shrank_and_binds_vs_body_minus_engine": -0.465
+      },
+      "per_date_breach_structure": {
+        "engine": {
+          "mean_breach": 0.01038,
+          "n_dates": 1108,
+          "mean_names_per_date": 200.0,
+          "clustered_SE_pp": 0.054,
+          "iid_SE_pp": 0.022,
+          "design_effect": 6.4,
+          "implied_exchangeable_rho": 0.027,
+          "rho_is_a_valid_correlation": true,
+          "min_detectable_breach_two_sided_5pct": [
+            0.00893,
+            0.01107
+          ],
+          "date_breach_p99": 0.0897,
+          "date_breach_max": 0.225,
+          "share_of_clustered_variance_from_top5_dates": 0.3543,
+          "n_dates_with_breach_above_10pct": 7
+        },
+        "body": {
+          "mean_breach": 0.01316,
+          "n_dates": 1108,
+          "mean_names_per_date": 200.0,
+          "clustered_SE_pp": 0.065,
+          "iid_SE_pp": 0.024,
+          "design_effect": 7.3,
+          "implied_exchangeable_rho": 0.031,
+          "rho_is_a_valid_correlation": true,
+          "min_detectable_breach_two_sided_5pct": [
+            0.00872,
+            0.01128
+          ],
+          "date_breach_p99": 0.1236,
+          "date_breach_max": 0.245,
+          "share_of_clustered_variance_from_top5_dates": 0.3113,
+          "n_dates_with_breach_above_10pct": 13
+        },
+        "garch_t": {
+          "mean_breach": 0.01029,
+          "n_dates": 1108,
+          "mean_names_per_date": 200.0,
+          "clustered_SE_pp": 0.054,
+          "iid_SE_pp": 0.021,
+          "design_effect": 6.3,
+          "implied_exchangeable_rho": 0.027,
+          "rho_is_a_valid_correlation": true,
+          "min_detectable_breach_two_sided_5pct": [
+            0.00894,
+            0.01106
+          ],
+          "date_breach_p99": 0.085,
+          "date_breach_max": 0.22,
+          "share_of_clustered_variance_from_top5_dates": 0.3481,
+          "n_dates_with_breach_above_10pct": 7
+        }
+      },
+      "mcneil_frey_by_decile": {
+        "engine": {
+          "overall_mean_exceedance_residual": -0.0578,
+          "n_breach": 2301,
+          "by_decile": [
+            {
+              "decile": 1,
+              "n_breach": 260,
+              "mean_exceedance_residual": -0.0244
+            },
+            {
+              "decile": 2,
+              "n_breach": 274,
+              "mean_exceedance_residual": -0.0206
+            },
+            {
+              "decile": 3,
+              "n_breach": 244,
+              "mean_exceedance_residual": -0.0025
+            },
+            {
+              "decile": 4,
+              "n_breach": 242,
+              "mean_exceedance_residual": 0.0169
+            },
+            {
+              "decile": 5,
+              "n_breach": 233,
+              "mean_exceedance_residual": -0.1067
+            },
+            {
+              "decile": 6,
+              "n_breach": 215,
+              "mean_exceedance_residual": -0.1209
+            },
+            {
+              "decile": 7,
+              "n_breach": 246,
+              "mean_exceedance_residual": -0.0287
+            },
+            {
+              "decile": 8,
+              "n_breach": 237,
+              "mean_exceedance_residual": 0.0485
+            },
+            {
+              "decile": 9,
+              "n_breach": 176,
+              "mean_exceedance_residual": -0.2206
+            },
+            {
+              "decile": 10,
+              "n_breach": 174,
+              "mean_exceedance_residual": -0.2256
+            }
+          ]
+        },
+        "garch_t": {
+          "overall_mean_exceedance_residual": -0.2341,
+          "n_breach": 2281,
+          "by_decile": [
+            {
+              "decile": 1,
+              "n_breach": 258,
+              "mean_exceedance_residual": -0.2349
+            },
+            {
+              "decile": 2,
+              "n_breach": 273,
+              "mean_exceedance_residual": -0.2076
+            },
+            {
+              "decile": 3,
+              "n_breach": 239,
+              "mean_exceedance_residual": -0.1983
+            },
+            {
+              "decile": 4,
+              "n_breach": 249,
+              "mean_exceedance_residual": -0.1335
+            },
+            {
+              "decile": 5,
+              "n_breach": 235,
+              "mean_exceedance_residual": -0.2422
+            },
+            {
+              "decile": 6,
+              "n_breach": 219,
+              "mean_exceedance_residual": -0.278
+            },
+            {
+              "decile": 7,
+              "n_breach": 238,
+              "mean_exceedance_residual": -0.2111
+            },
+            {
+              "decile": 8,
+              "n_breach": 231,
+              "mean_exceedance_residual": -0.1263
+            },
+            {
+              "decile": 9,
+              "n_breach": 171,
+              "mean_exceedance_residual": -0.4212
+            },
+            {
+              "decile": 10,
+              "n_breach": 168,
+              "mean_exceedance_residual": -0.3972
+            }
+          ]
+        },
+        "fhs_pool": {
+          "overall_mean_exceedance_residual": -0.0502,
+          "n_breach": 2530,
+          "by_decile": [
+            {
+              "decile": 1,
+              "n_breach": 284,
+              "mean_exceedance_residual": -0.0293
+            },
+            {
+              "decile": 2,
+              "n_breach": 306,
+              "mean_exceedance_residual": -0.0052
+            },
+            {
+              "decile": 3,
+              "n_breach": 265,
+              "mean_exceedance_residual": -0.0063
+            },
+            {
+              "decile": 4,
+              "n_breach": 271,
+              "mean_exceedance_residual": 0.0396
+            },
+            {
+              "decile": 5,
+              "n_breach": 258,
+              "mean_exceedance_residual": -0.0693
+            },
+            {
+              "decile": 6,
+              "n_breach": 244,
+              "mean_exceedance_residual": -0.0658
+            },
+            {
+              "decile": 7,
+              "n_breach": 264,
+              "mean_exceedance_residual": -0.0379
+            },
+            {
+              "decile": 8,
+              "n_breach": 255,
+              "mean_exceedance_residual": 0.0254
+            },
+            {
+              "decile": 9,
+              "n_breach": 196,
+              "mean_exceedance_residual": -0.1979
+            },
+            {
+              "decile": 10,
+              "n_breach": 187,
+              "mean_exceedance_residual": -0.2672
+            }
+          ]
+        }
+      }
+    },
+    "0.025": {
+      "deciles": [
+        {
+          "decile": 1,
+          "n": 22160,
+          "breach_engine": 0.0318,
+          "breach_body": 0.0349,
+          "breach_garch_t": 0.0309,
+          "FZ0_engine": 1.84117,
+          "FZ0_body": 1.85149,
+          "FZ0_garch_t": 1.84536,
+          "body_minus_engine": 0.01031,
+          "DM_body_minus_engine": 1.75,
+          "garch_minus_engine": 0.00419,
+          "DM_garch_minus_engine": 2.21,
+          "evt_binds_at_alpha": 0.5035,
+          "evt_binds_share_of_20_nodes": 0.4952,
+          "body_shrank_vs_parametric": 0.7335,
+          "shrank_AND_evt_binds": 0.4855,
+          "z_body_at_alpha": -1.8791,
+          "z_evt_at_alpha": -1.8804,
+          "z_parametric_at_alpha": -1.9471,
+          "z_evt_minus_body": -0.0014,
+          "z_override_depth_when_binding": 0.1051
+        },
+        {
+          "decile": 2,
+          "n": 22160,
+          "breach_engine": 0.0325,
+          "breach_body": 0.0349,
+          "breach_garch_t": 0.0314,
+          "FZ0_engine": 1.85654,
+          "FZ0_body": 1.86058,
+          "FZ0_garch_t": 1.86136,
+          "body_minus_engine": 0.00404,
+          "DM_body_minus_engine": 1.28,
+          "garch_minus_engine": 0.00482,
+          "DM_garch_minus_engine": 2.02,
+          "evt_binds_at_alpha": 0.5074,
+          "evt_binds_share_of_20_nodes": 0.5178,
+          "body_shrank_vs_parametric": 0.7424,
+          "shrank_AND_evt_binds": 0.4855,
+          "z_body_at_alpha": -1.8736,
+          "z_evt_at_alpha": -1.8804,
+          "z_parametric_at_alpha": -1.9445,
+          "z_evt_minus_body": -0.0068,
+          "z_override_depth_when_binding": 0.1137
+        },
+        {
+          "decile": 3,
+          "n": 22160,
+          "breach_engine": 0.0298,
+          "breach_body": 0.0327,
+          "breach_garch_t": 0.0296,
+          "FZ0_engine": 1.80671,
+          "FZ0_body": 1.81166,
+          "FZ0_garch_t": 1.81002,
+          "body_minus_engine": 0.00495,
+          "DM_body_minus_engine": 1.2,
+          "garch_minus_engine": 0.00331,
+          "DM_garch_minus_engine": 1.3,
+          "evt_binds_at_alpha": 0.5301,
+          "evt_binds_share_of_20_nodes": 0.535,
+          "body_shrank_vs_parametric": 0.753,
+          "shrank_AND_evt_binds": 0.5118,
+          "z_body_at_alpha": -1.8662,
+          "z_evt_at_alpha": -1.8804,
+          "z_parametric_at_alpha": -1.9448,
+          "z_evt_minus_body": -0.0142,
+          "z_override_depth_when_binding": 0.119
+        },
+        {
+          "decile": 4,
+          "n": 22160,
+          "breach_engine": 0.028,
+          "breach_body": 0.0313,
+          "breach_garch_t": 0.0278,
+          "FZ0_engine": 1.78786,
+          "FZ0_body": 1.78847,
+          "FZ0_garch_t": 1.79443,
+          "body_minus_engine": 0.00061,
+          "DM_body_minus_engine": 0.54,
+          "garch_minus_engine": 0.00657,
+          "DM_garch_minus_engine": 2.51,
+          "evt_binds_at_alpha": 0.532,
+          "evt_binds_share_of_20_nodes": 0.5465,
+          "body_shrank_vs_parametric": 0.7488,
+          "shrank_AND_evt_binds": 0.5119,
+          "z_body_at_alpha": -1.8638,
+          "z_evt_at_alpha": -1.8804,
+          "z_parametric_at_alpha": -1.9449,
+          "z_evt_minus_body": -0.0166,
+          "z_override_depth_when_binding": 0.1246
+        },
+        {
+          "decile": 5,
+          "n": 22160,
+          "breach_engine": 0.0281,
+          "breach_body": 0.0309,
+          "breach_garch_t": 0.0271,
+          "FZ0_engine": 1.80524,
+          "FZ0_body": 1.80643,
+          "FZ0_garch_t": 1.80662,
+          "body_minus_engine": 0.00119,
+          "DM_body_minus_engine": 0.35,
+          "garch_minus_engine": 0.00138,
+          "DM_garch_minus_engine": 0.46,
+          "evt_binds_at_alpha": 0.556,
+          "evt_binds_share_of_20_nodes": 0.5666,
+          "body_shrank_vs_parametric": 0.7519,
+          "shrank_AND_evt_binds": 0.5358,
+          "z_body_at_alpha": -1.8526,
+          "z_evt_at_alpha": -1.8804,
+          "z_parametric_at_alpha": -1.9439,
+          "z_evt_minus_body": -0.0278,
+          "z_override_depth_when_binding": 0.1367
+        },
+        {
+          "decile": 6,
+          "n": 22160,
+          "breach_engine": 0.0277,
+          "breach_body": 0.0326,
+          "breach_garch_t": 0.0269,
+          "FZ0_engine": 1.81795,
+          "FZ0_body": 1.81506,
+          "FZ0_garch_t": 1.82382,
+          "body_minus_engine": -0.00288,
+          "DM_body_minus_engine": -0.32,
+          "garch_minus_engine": 0.00588,
+          "DM_garch_minus_engine": 2.63,
+          "evt_binds_at_alpha": 0.5986,
+          "evt_binds_share_of_20_nodes": 0.6053,
+          "body_shrank_vs_parametric": 0.7745,
+          "shrank_AND_evt_binds": 0.5797,
+          "z_body_at_alpha": -1.8309,
+          "z_evt_at_alpha": -1.8804,
+          "z_parametric_at_alpha": -1.9436,
+          "z_evt_minus_body": -0.0495,
+          "z_override_depth_when_binding": 0.1566
+        },
+        {
+          "decile": 7,
+          "n": 22160,
+          "breach_engine": 0.0284,
+          "breach_body": 0.0333,
+          "breach_garch_t": 0.0277,
+          "FZ0_engine": 1.87805,
+          "FZ0_body": 1.88867,
+          "FZ0_garch_t": 1.88447,
+          "body_minus_engine": 0.01062,
+          "DM_body_minus_engine": 1.51,
+          "garch_minus_engine": 0.00642,
+          "DM_garch_minus_engine": 2.62,
+          "evt_binds_at_alpha": 0.6454,
+          "evt_binds_share_of_20_nodes": 0.6467,
+          "body_shrank_vs_parametric": 0.8043,
+          "shrank_AND_evt_binds": 0.6315,
+          "z_body_at_alpha": -1.7995,
+          "z_evt_at_alpha": -1.8804,
+          "z_parametric_at_alpha": -1.9415,
+          "z_evt_minus_body": -0.0809,
+          "z_override_depth_when_binding": 0.1851
+        },
+        {
+          "decile": 8,
+          "n": 22160,
+          "breach_engine": 0.0281,
+          "breach_body": 0.0353,
+          "breach_garch_t": 0.0269,
+          "FZ0_engine": 1.86523,
+          "FZ0_body": 1.86469,
+          "FZ0_garch_t": 1.87188,
+          "body_minus_engine": -0.00054,
+          "DM_body_minus_engine": 0.5,
+          "garch_minus_engine": 0.00664,
+          "DM_garch_minus_engine": 3.07,
+          "evt_binds_at_alpha": 0.6571,
+          "evt_binds_share_of_20_nodes": 0.65,
+          "body_shrank_vs_parametric": 0.8093,
+          "shrank_AND_evt_binds": 0.6458,
+          "z_body_at_alpha": -1.7746,
+          "z_evt_at_alpha": -1.8804,
+          "z_parametric_at_alpha": -1.9408,
+          "z_evt_minus_body": -0.1058,
+          "z_override_depth_when_binding": 0.2195
+        },
+        {
+          "decile": 9,
+          "n": 22160,
+          "breach_engine": 0.0228,
+          "breach_body": 0.0301,
+          "breach_garch_t": 0.023,
+          "FZ0_engine": 1.85041,
+          "FZ0_body": 1.82836,
+          "FZ0_garch_t": 1.85919,
+          "body_minus_engine": -0.02205,
+          "DM_body_minus_engine": -3.6,
+          "garch_minus_engine": 0.00879,
+          "DM_garch_minus_engine": 4.11,
+          "evt_binds_at_alpha": 0.6844,
+          "evt_binds_share_of_20_nodes": 0.6442,
+          "body_shrank_vs_parametric": 0.8053,
+          "shrank_AND_evt_binds": 0.6653,
+          "z_body_at_alpha": -1.7445,
+          "z_evt_at_alpha": -1.8804,
+          "z_parametric_at_alpha": -1.9357,
+          "z_evt_minus_body": -0.136,
+          "z_override_depth_when_binding": 0.2512
+        },
+        {
+          "decile": 10,
+          "n": 22160,
+          "breach_engine": 0.0204,
+          "breach_body": 0.0287,
+          "breach_garch_t": 0.0199,
+          "FZ0_engine": 1.97712,
+          "FZ0_body": 1.9169,
+          "FZ0_garch_t": 1.98483,
+          "body_minus_engine": -0.06022,
+          "DM_body_minus_engine": -6.77,
+          "garch_minus_engine": 0.00771,
+          "DM_garch_minus_engine": 4.23,
+          "evt_binds_at_alpha": 0.7373,
+          "evt_binds_share_of_20_nodes": 0.6606,
+          "body_shrank_vs_parametric": 0.8299,
+          "shrank_AND_evt_binds": 0.7185,
+          "z_body_at_alpha": -1.6607,
+          "z_evt_at_alpha": -1.8804,
+          "z_parametric_at_alpha": -1.9228,
+          "z_evt_minus_body": -0.2197,
+          "z_override_depth_when_binding": 0.3355
+        }
+      ],
+      "top_vs_bulk": {
+        "top_decile": {
+          "FZ0_engine": 1.97712,
+          "FZ0_body": 1.9169,
+          "body_minus_engine": -0.06022,
+          "DM": -6.77,
+          "evt_binds_at_alpha": 0.7373,
+          "shrank_AND_evt_binds": 0.7185
+        },
+        "deciles_1to9": {
+          "FZ0_engine": 1.83435,
+          "FZ0_body": 1.83505,
+          "body_minus_engine": 0.00069,
+          "DM": 0.21,
+          "evt_binds_at_alpha": 0.5794,
+          "shrank_AND_evt_binds": 0.5614
+        }
+      },
+      "correlation_across_deciles": {
+        "bind_share_vs_body_minus_engine": -0.747,
+        "shrank_and_binds_vs_body_minus_engine": -0.7289
+      },
+      "per_date_breach_structure": {
+        "engine": {
+          "mean_breach": 0.02777,
+          "n_dates": 1108,
+          "mean_names_per_date": 200.0,
+          "clustered_SE_pp": 0.126,
+          "iid_SE_pp": 0.035,
+          "design_effect": 13.1,
+          "implied_exchangeable_rho": 0.061,
+          "rho_is_a_valid_correlation": true,
+          "min_detectable_breach_two_sided_5pct": [
+            0.02253,
+            0.02747
+          ],
+          "date_breach_p99": 0.2,
+          "date_breach_max": 0.43,
+          "share_of_clustered_variance_from_top5_dates": 0.2705,
+          "n_dates_with_breach_above_10pct": 54
+        },
+        "body": {
+          "mean_breach": 0.03248,
+          "n_dates": 1108,
+          "mean_names_per_date": 200.0,
+          "clustered_SE_pp": 0.142,
+          "iid_SE_pp": 0.038,
+          "design_effect": 14.1,
+          "implied_exchangeable_rho": 0.066,
+          "rho_is_a_valid_correlation": true,
+          "min_detectable_breach_two_sided_5pct": [
+            0.02223,
+            0.02777
+          ],
+          "date_breach_p99": 0.2297,
+          "date_breach_max": 0.455,
+          "share_of_clustered_variance_from_top5_dates": 0.2489,
+          "n_dates_with_breach_above_10pct": 67
+        },
+        "garch_t": {
+          "mean_breach": 0.02712,
+          "n_dates": 1108,
+          "mean_names_per_date": 200.0,
+          "clustered_SE_pp": 0.124,
+          "iid_SE_pp": 0.035,
+          "design_effect": 12.9,
+          "implied_exchangeable_rho": 0.06,
+          "rho_is_a_valid_correlation": true,
+          "min_detectable_breach_two_sided_5pct": [
+            0.02257,
+            0.02743
+          ],
+          "date_breach_p99": 0.199,
+          "date_breach_max": 0.415,
+          "share_of_clustered_variance_from_top5_dates": 0.2666,
+          "n_dates_with_breach_above_10pct": 56
+        }
+      },
+      "mcneil_frey_by_decile": {
+        "engine": {
+          "overall_mean_exceedance_residual": 0.0186,
+          "n_breach": 6153,
+          "by_decile": [
+            {
+              "decile": 1,
+              "n_breach": 705,
+              "mean_exceedance_residual": 0.0458
+            },
+            {
+              "decile": 2,
+              "n_breach": 720,
+              "mean_exceedance_residual": 0.0175
+            },
+            {
+              "decile": 3,
+              "n_breach": 660,
+              "mean_exceedance_residual": 0.0437
+            },
+            {
+              "decile": 4,
+              "n_breach": 620,
+              "mean_exceedance_residual": 0.0102
+            },
+            {
+              "decile": 5,
+              "n_breach": 623,
+              "mean_exceedance_residual": 0.0102
+            },
+            {
+              "decile": 6,
+              "n_breach": 614,
+              "mean_exceedance_residual": 0.0438
+            },
+            {
+              "decile": 7,
+              "n_breach": 630,
+              "mean_exceedance_residual": -0.0032
+            },
+            {
+              "decile": 8,
+              "n_breach": 623,
+              "mean_exceedance_residual": 0.0528
+            },
+            {
+              "decile": 9,
+              "n_breach": 505,
+              "mean_exceedance_residual": -0.0111
+            },
+            {
+              "decile": 10,
+              "n_breach": 453,
+              "mean_exceedance_residual": -0.0531
+            }
+          ]
+        },
+        "garch_t": {
+          "overall_mean_exceedance_residual": -0.0503,
+          "n_breach": 6009,
+          "by_decile": [
+            {
+              "decile": 1,
+              "n_breach": 685,
+              "mean_exceedance_residual": -0.0374
+            },
+            {
+              "decile": 2,
+              "n_breach": 695,
+              "mean_exceedance_residual": -0.0681
+            },
+            {
+              "decile": 3,
+              "n_breach": 657,
+              "mean_exceedance_residual": -0.0126
+            },
+            {
+              "decile": 4,
+              "n_breach": 615,
+              "mean_exceedance_residual": -0.0555
+            },
+            {
+              "decile": 5,
+              "n_breach": 600,
+              "mean_exceedance_residual": -0.0666
+            },
+            {
+              "decile": 6,
+              "n_breach": 596,
+              "mean_exceedance_residual": -0.0356
+            },
+            {
+              "decile": 7,
+              "n_breach": 614,
+              "mean_exceedance_residual": -0.0637
+            },
+            {
+              "decile": 8,
+              "n_breach": 597,
+              "mean_exceedance_residual": -0.0235
+            },
+            {
+              "decile": 9,
+              "n_breach": 510,
+              "mean_exceedance_residual": -0.0468
+            },
+            {
+              "decile": 10,
+              "n_breach": 440,
+              "mean_exceedance_residual": -0.1105
+            }
+          ]
+        },
+        "fhs_pool": {
+          "overall_mean_exceedance_residual": 0.0105,
+          "n_breach": 6646,
+          "by_decile": [
+            {
+              "decile": 1,
+              "n_breach": 764,
+              "mean_exceedance_residual": 0.0355
+            },
+            {
+              "decile": 2,
+              "n_breach": 778,
+              "mean_exceedance_residual": 0.0061
+            },
+            {
+              "decile": 3,
+              "n_breach": 717,
+              "mean_exceedance_residual": 0.0368
+            },
+            {
+              "decile": 4,
+              "n_breach": 684,
+              "mean_exceedance_residual": 0.0176
+            },
+            {
+              "decile": 5,
+              "n_breach": 680,
+              "mean_exceedance_residual": 0.0197
+            },
+            {
+              "decile": 6,
+              "n_breach": 657,
+              "mean_exceedance_residual": 0.0271
+            },
+            {
+              "decile": 7,
+              "n_breach": 671,
+              "mean_exceedance_residual": -0.0145
+            },
+            {
+              "decile": 8,
+              "n_breach": 662,
+              "mean_exceedance_residual": 0.0347
+            },
+            {
+              "decile": 9,
+              "n_breach": 551,
+              "mean_exceedance_residual": -0.0142
+            },
+            {
+              "decile": 10,
+              "n_breach": 482,
+              "mean_exceedance_residual": -0.0765
+            }
+          ]
+        }
+      }
+    }
+  }
+}
