@@ -17,7 +17,7 @@ import numpy as np, pandas as pd
 from sklearn.ensemble import HistGradientBoostingRegressor
 from scipy import stats
 from arch import arch_model
-P=os.environ.get('GBC_PROJECT_DIR', os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))  # project root (this file lives in code/paper/); t0=time.time(); lg=lambda s:print(s,flush=True)
+P=os.environ.get('GBC_PROJECT_DIR', os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))); t0=time.time(); lg=lambda s:print(s,flush=True)   # project root (this file lives in code/paper/)
 CACHE=os.path.join(P,"pit_panel_2000_2013.csv")
 TAUS=[0.01,0.025,0.05,0.10,0.25,0.50,0.75,0.90,0.95,0.975,0.99]
 def pin(y,q,t): d=y-q; return np.where(d>=0,t*d,(t-1)*d)
@@ -108,7 +108,7 @@ lg("panels %d kept, %d dropped by fitting floors %.0fs"%(len(TE),n_short,time.ti
 TRc=pd.concat(TR); TEc=pd.concat(TE).reset_index(drop=True)
 GQ={}
 for t in TAUS:
-    m=HistGradientBoostingRegressor(loss='quantile',quantile=t,max_iter=250,max_depth=3,learning_rate=0.06).fit(TRc[RAWX].values,TRc['y'].values)
+    m=HistGradientBoostingRegressor(random_state=0,loss='quantile',quantile=t,max_iter=250,max_depth=3,learning_rate=0.06).fit(TRc[RAWX].values,TRc['y'].values)
     GQ[t]=m.predict(TEc[RAWX].values)
 Y=TEc['y'].values; SIG=TEc['sig'].values; MU=TEc['mu'].values; NU=TEc['nu'].values; TSC=TEc['tsc'].values
 pl_g=np.mean([pin(Y,MU+SIG*stats.t.ppf(t,NU)/TSC,t) for t in TAUS],axis=0)

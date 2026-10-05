@@ -98,7 +98,7 @@ TRc=pd.concat(TR); TEc=pd.concat(TE).reset_index(drop=True)
 lg("holdout panel %d names %d test rows %.0fs"%(TEc.permno.nunique(),len(TEc),time.time()-t0))
 GQ={}
 for t in TAUS:
-    GQ[t]=HistGradientBoostingRegressor(loss='quantile',quantile=t,max_iter=250,max_depth=3,learning_rate=0.06).fit(TRc[RAWX].values,TRc['y'].values).predict(TEc[RAWX].values)
+    GQ[t]=HistGradientBoostingRegressor(random_state=0,loss='quantile',quantile=t,max_iter=250,max_depth=3,learning_rate=0.06).fit(TRc[RAWX].values,TRc['y'].values).predict(TEc[RAWX].values)
 Y=TEc['y'].values; SIG=TEc['sig'].values; MU=TEc['mu'].values; NU=TEc['nu'].values; TSC=TEc['tsc'].values; PN=TEc['permno'].values
 zall=np.concatenate(ZTR); PLO=GPDTail(zall,P0_MF,-1); PHI=GPDTail(zall,P0_MF,+1)
 def per_name_map(fn):

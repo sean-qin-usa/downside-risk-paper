@@ -95,10 +95,10 @@
       "christoffersen975_p": 0.9232
     },
     "resid_hybrid_ML": {
-      "avg_pinball": 0.3551,
-      "ES975_pred_true": -6.345,
-      "ES975_realized_ownVaR": -5.822,
-      "overstatement_pct": 9.0,
+      "avg_pinball": 0.355,
+      "ES975_pred_true": -6.343,
+      "ES975_realized_ownVaR": -5.858,
+      "overstatement_pct": 8.3,
       "breach99": 0.0112,
       "breach975": 0.0282,
       "kupiec99_p": 0.0,
@@ -107,50 +107,50 @@
       "christoffersen975_p": 0.0
     },
     "hybrid_EVT": {
-      "avg_pinball": 0.3555,
-      "ES975_pred_true": -6.92,
-      "ES975_realized_ownVaR": -5.898,
-      "overstatement_pct": 17.3,
+      "avg_pinball": 0.3554,
+      "ES975_pred_true": -6.917,
+      "ES975_realized_ownVaR": -5.923,
+      "overstatement_pct": 16.8,
       "breach99": 0.0091,
-      "breach975": 0.0243,
-      "kupiec99_p": 0.0001,
+      "breach975": 0.0241,
+      "kupiec99_p": 0.0004,
       "christoffersen99_p": 0.0001,
-      "kupiec975_p": 0.099,
-      "christoffersen975_p": 0.0026
+      "kupiec975_p": 0.0272,
+      "christoffersen975_p": 0.0003
     }
   },
   "best_model": "resid_hybrid_ML",
   "DM_vs_best": {
     "hist_sim": {
-      "DM_stat": 7.49,
+      "DM_stat": 7.61,
       "p_one_sided": 0.0
     },
     "ewma_rm": {
-      "DM_stat": 8.67,
+      "DM_stat": 8.93,
       "p_one_sided": 0.0
     },
     "garch_t": {
-      "DM_stat": 5.0,
+      "DM_stat": 5.62,
       "p_one_sided": 0.0
     },
     "gjr_skewt": {
-      "DM_stat": 4.99,
+      "DM_stat": 5.58,
       "p_one_sided": 0.0
     },
     "fhs": {
-      "DM_stat": 6.18,
+      "DM_stat": 6.85,
       "p_one_sided": 0.0
     },
     "fhs_pername": {
-      "DM_stat": 5.21,
+      "DM_stat": 5.81,
       "p_one_sided": 0.0
     },
     "fhs_roll500": {
-      "DM_stat": 5.74,
+      "DM_stat": 6.12,
       "p_one_sided": 0.0
     },
     "hybrid_EVT": {
-      "DM_stat": 6.0,
+      "DM_stat": 6.35,
       "p_one_sided": 0.0
     }
   },
@@ -161,8 +161,8 @@
     "elimination_pvals": {
       "ewma_rm": 0.0,
       "hist_sim": 0.0,
-      "hybrid_EVT": 0.0,
       "fhs": 0.0,
+      "hybrid_EVT": 0.0,
       "fhs_roll500": 0.0,
       "fhs_pername": 0.0,
       "garch_t": 0.0,
@@ -177,7 +177,7 @@
     "fhs": 0.836,
     "fhs_pername": 0.8,
     "fhs_roll500": 0.986,
-    "resid_hybrid_ML": 0.8,
-    "hybrid_EVT": 0.843
+    "resid_hybrid_ML": 0.814,
+    "hybrid_EVT": 0.836
   }
 }

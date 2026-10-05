@@ -17,7 +17,7 @@ import numpy as np, pandas as pd
 from sklearn.ensemble import HistGradientBoostingRegressor
 from scipy import stats
 from arch import arch_model
-P=r"C:\Users\OWNER\Claude\Projects\GBC Project"; t0=time.time(); lg=lambda s:print(s,flush=True)
+P=os.environ.get("GBC_PROJ",os.environ.get("GBC_PROJECT_DIR",r"C:\Users\OWNER\Claude\Projects\GBC Project")); t0=time.time(); lg=lambda s:print(s,flush=True)
 rr=pd.read_csv(os.path.join(P,"crsp_panel_returns.csv"),dtype={'permno':'int32'})
 rr['date']=pd.to_datetime(rr['date']); rr['ret']=pd.to_numeric(rr['ret'],errors='coerce')*100.0
 cnt=rr.groupby('permno')['ret'].count().sort_values(ascending=False); names=cnt[cnt>=1500].index.tolist()[:200]
@@ -80,7 +80,7 @@ TE=pd.concat(rows).reset_index(drop=True); TRzc=pd.concat(TRz)
 lg("panel %d names %d test rows %.0fs"%(TE.permno.nunique(),len(TE),time.time()-t0))
 ZQ={}
 for t in TAUS:
-    ZQ[t]=HistGradientBoostingRegressor(loss='quantile',quantile=t,max_iter=250,max_depth=3,learning_rate=0.06).fit(TRzc[ZX].values,TRzc['z'].values).predict(TE[ZX].values)
+    ZQ[t]=HistGradientBoostingRegressor(random_state=0,loss='quantile',quantile=t,max_iter=250,max_depth=3,learning_rate=0.06).fit(TRzc[ZX].values,TRzc['z'].values).predict(TE[ZX].values)
     lg("  tau %.3f %.0fs"%(t,time.time()-t0))
 Y=TE['y'].values; SIG=TE['sig'].values; MU=TE['mu'].values; NU=TE['nu'].values; TSC=TE['tsc'].values
 plE=np.zeros(len(Y)); plG=np.zeros(len(Y))

@@ -9,7 +9,7 @@ import numpy as np, pandas as pd
 from sklearn.ensemble import HistGradientBoostingRegressor
 from scipy import stats
 from arch import arch_model
-P=r"C:\Users\OWNER\Claude\Projects\GBC Project"; t0=time.time(); lg=lambda s:print(s,flush=True)
+P=os.environ.get("GBC_PROJ",os.environ.get("GBC_PROJECT_DIR",r"C:\Users\OWNER\Claude\Projects\GBC Project")); t0=time.time(); lg=lambda s:print(s,flush=True)
 CUT=pd.Timestamp("2020-01-01")
 TAUS=[0.01,0.025,0.05,0.10,0.25,0.50,0.75,0.90,0.95,0.975,0.99]
 def pin(y,q,t): d=y-q; return np.where(d>=0,t*d,(t-1)*d)
@@ -49,7 +49,7 @@ lg("panels %d %.0fs (calendar cut %s)"%(len(TE),time.time()-t0,CUT.date()))
 TRc=pd.concat(TR); TEc=pd.concat(TE).reset_index(drop=True)
 GQ={}
 for t in TAUS:
-    m=HistGradientBoostingRegressor(loss='quantile',quantile=t,max_iter=250,max_depth=3,learning_rate=0.06).fit(TRc[RAWX].values,TRc['y'].values)
+    m=HistGradientBoostingRegressor(random_state=0,loss='quantile',quantile=t,max_iter=250,max_depth=3,learning_rate=0.06).fit(TRc[RAWX].values,TRc['y'].values)
     GQ[t]=m.predict(TEc[RAWX].values)
     if t in (0.01,0.5,0.99): lg("  tau %.3f %.0fs"%(t,time.time()-t0))
 Y=TEc['y'].values; SIG=TEc['sig'].values; MU=TEc['mu'].values; NU=TEc['nu'].values; TSC=TEc['tsc'].values

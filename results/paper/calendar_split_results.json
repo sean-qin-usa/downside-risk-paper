@@ -4,20 +4,20 @@
   "n_names": 200,
   "n_test": 251600,
   "n_dates": 1258,
-  "overall_edge_pct": 0.71,
-  "overall_DM": 1.87,
+  "overall_edge_pct": 0.68,
+  "overall_DM": 1.75,
   "decile_profile_edge_pct": [
     1.3,
-    0.7,
-    0.22,
-    0.26,
-    0.37,
-    0.34,
-    0.36,
-    0.63,
-    0.39,
-    2.47
+    0.67,
+    0.21,
+    0.24,
+    0.33,
+    0.3,
+    0.35,
+    0.57,
+    0.33,
+    2.45
   ],
-  "top_decile_DM": 6.22,
+  "top_decile_DM": 6.03,
   "top_decile_n_dates": 1258
 }

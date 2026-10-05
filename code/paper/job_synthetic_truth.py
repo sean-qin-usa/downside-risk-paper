@@ -113,7 +113,7 @@ for f,TRz,sfx in (('garch_t',TRgc,''),('bteg',TRbc,'__b')):
     evt=lambda t:(uu-(bt/xi)*((t/P0)**(-xi)-1.0) if abs(xi)>1e-6 else uu-bt*math.log(P0/t))
     X=TE[[c+sfx for c in ZX]].values; MU=TE['mu'+sfx].values; SIG=TE['sig'+sfx].values
     NU=TE['nu'+sfx].values; TSC=TE['tsc'+sfx].values
-    ZQ={t:HistGradientBoostingRegressor(loss='quantile',quantile=t,random_state=0,**HGB).fit(TRz[ZX].values,ztr).predict(X) for t in TAUS}
+    ZQ={t:HistGradientBoostingRegressor(loss='quantile',quantile=t,**HGB).fit(TRz[ZX].values,ztr).predict(X) for t in TAUS}
     eng={t:(np.minimum(ZQ[t],evt(t)) if t<=P0 else ZQ[t]) for t in TAUS}
     E=np.sort(np.stack([eng[t] for t in TAUS],axis=1),axis=1)
     Q['engine_'+f]={t:MU+SIG*E[:,j] for j,t in enumerate(TAUS)}
@@ -163,7 +163,7 @@ for a in (0.01,0.025):
         ib={round(float(u),12):k for k,u in enumerate(lev)}
         known={round(float(a*(j+0.5)/20),12):sb[j] for j in range(20)}
         QB=np.stack([known[round(float(u),12)] if round(float(u),12) in known
-                     else HistGradientBoostingRegressor(loss='quantile',quantile=float(u),random_state=0,**HGB).fit(TRz[ZX].values,ztr2).predict(Xf)
+                     else HistGradientBoostingRegressor(loss='quantile',quantile=float(u),**HGB).fit(TRz[ZX].values,ztr2).predict(Xf)
                      for u in lev],axis=1)
         TAIL=evt_int(floor)
         def es_conv(M,levels=lev,Q=QB):

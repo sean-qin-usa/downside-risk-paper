@@ -135,7 +135,7 @@ def run_era(name,csv,minobs,ncap):
         Q['sqrt_h'][t]=MU*H+math.sqrt(H)*SIG*tq
         Q['iter_var'][t]=MU*H+np.sqrt(VH)*tq
         Q['mc_t'][t]=TE['mc_%g'%t].values; Q['fhs_path'][t]=TE['fhs_%g'%t].values
-        Q['direct'][t]=HistGradientBoostingRegressor(loss='quantile',quantile=t,max_iter=250,max_depth=3,learning_rate=0.06).fit(TR[FEAT].values,TR['yc'].values).predict(TE[FEAT].values)
+        Q['direct'][t]=HistGradientBoostingRegressor(random_state=0,loss='quantile',quantile=t,max_iter=250,max_depth=3,learning_rate=0.06).fit(TR[FEAT].values,TR['yc'].values).predict(TE[FEAT].values)
     lg("%s: GBM done %.0fs"%(name,time.time()-t0))
     # ---- the two repairs, built from rows already computed above
     ratio_v=VH/(H*SIG**2); sc=np.sqrt(np.maximum(ratio_v,1e-12))

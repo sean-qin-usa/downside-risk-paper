@@ -24,32 +24,32 @@
   "vs_garch_t": {
     "engine": {
       "overall": {
-        "edge_pct": 0.073,
-        "DM": 0.39,
+        "edge_pct": 0.067,
+        "DM": 0.43,
         "n": 280608,
         "n_dates": 1495
       },
       "top_decile_qcut": {
-        "edge_pct": 1.017,
-        "DM": 2.11,
+        "edge_pct": 1.024,
+        "DM": 2.19,
         "n": 28061,
         "n_dates": 1465
       },
       "bulk_qcut_1to9": {
-        "edge_pct": -0.025,
-        "DM": -0.42,
+        "edge_pct": -0.032,
+        "DM": -0.45,
         "n": 252547,
         "n_dates": 1495
       },
       "top_bucket_frozen": {
-        "edge_pct": 1.033,
-        "DM": 1.12,
+        "edge_pct": 1.016,
+        "DM": 1.11,
         "n": 9397,
         "n_dates": 1389
       },
       "bulk_frozen_1to9": {
-        "edge_pct": 0.042,
-        "DM": 0.18,
+        "edge_pct": 0.037,
+        "DM": 0.13,
         "n": 271211,
         "n_dates": 1495
       }
@@ -121,64 +121,64 @@
   },
   "engine_vs_evt_pool": {
     "overall": {
-      "edge_pct": 0.1,
-      "DM": 0.64,
+      "edge_pct": 0.094,
+      "DM": 0.68,
       "n": 280608,
       "n_dates": 1495
     },
     "top_decile_qcut": {
-      "edge_pct": 1.161,
-      "DM": 2.52,
+      "edge_pct": 1.168,
+      "DM": 2.61,
       "n": 28061,
       "n_dates": 1465
     },
     "bulk_qcut_1to9": {
-      "edge_pct": -0.01,
-      "DM": -0.31,
+      "edge_pct": -0.017,
+      "DM": -0.35,
       "n": 252547,
       "n_dates": 1495
     },
     "top_bucket_frozen": {
-      "edge_pct": 1.303,
-      "DM": 1.38,
+      "edge_pct": 1.286,
+      "DM": 1.37,
       "n": 9397,
       "n_dates": 1389
     },
     "bulk_frozen_1to9": {
-      "edge_pct": 0.061,
-      "DM": 0.28,
+      "edge_pct": 0.056,
+      "DM": 0.24,
       "n": 271211,
       "n_dates": 1495
     }
   },
   "engine_vs_evt_name": {
     "overall": {
-      "edge_pct": 0.061,
-      "DM": 0.29,
+      "edge_pct": 0.055,
+      "DM": 0.34,
       "n": 280608,
       "n_dates": 1495
     },
     "top_decile_qcut": {
-      "edge_pct": 1.121,
-      "DM": 2.35,
+      "edge_pct": 1.128,
+      "DM": 2.43,
       "n": 28061,
       "n_dates": 1465
     },
     "bulk_qcut_1to9": {
-      "edge_pct": -0.049,
-      "DM": -0.58,
+      "edge_pct": -0.056,
+      "DM": -0.62,
       "n": 252547,
       "n_dates": 1495
     },
     "top_bucket_frozen": {
-      "edge_pct": 1.24,
-      "DM": 1.26,
+      "edge_pct": 1.223,
+      "DM": 1.25,
       "n": 9397,
       "n_dates": 1389
     },
     "bulk_frozen_1to9": {
-      "edge_pct": 0.023,
-      "DM": 0.03,
+      "edge_pct": 0.018,
+      "DM": -0.01,
       "n": 271211,
       "n_dates": 1495
     }
@@ -186,62 +186,62 @@
   "decile_profile_qcut": {
     "engine": {
       "1": {
-        "edge_pct": -0.093,
-        "DM": -0.72,
+        "edge_pct": -0.09,
+        "DM": -0.74,
         "n": 28061,
         "n_dates": 1444
       },
       "2": {
-        "edge_pct": -0.052,
-        "DM": -0.11,
+        "edge_pct": -0.083,
+        "DM": -0.31,
         "n": 28061,
         "n_dates": 1409
       },
       "3": {
-        "edge_pct": -0.103,
-        "DM": -0.08,
+        "edge_pct": -0.092,
+        "DM": -0.0,
         "n": 28061,
         "n_dates": 1414
       },
       "4": {
-        "edge_pct": 0.102,
-        "DM": 0.42,
+        "edge_pct": 0.104,
+        "DM": 0.43,
         "n": 28060,
         "n_dates": 1409
       },
       "5": {
-        "edge_pct": -0.145,
-        "DM": -0.73,
+        "edge_pct": -0.164,
+        "DM": -0.87,
         "n": 28061,
         "n_dates": 1409
       },
       "6": {
-        "edge_pct": 0.001,
-        "DM": -0.23,
+        "edge_pct": -0.006,
+        "DM": -0.26,
         "n": 28061,
         "n_dates": 1413
       },
       "7": {
-        "edge_pct": -0.106,
-        "DM": -0.83,
+        "edge_pct": -0.096,
+        "DM": -0.82,
         "n": 28060,
         "n_dates": 1428
       },
       "8": {
-        "edge_pct": -0.124,
+        "edge_pct": -0.149,
         "DM": -1.12,
         "n": 28061,
         "n_dates": 1418
       },
       "9": {
-        "edge_pct": 0.294,
-        "DM": 0.86,
+        "edge_pct": 0.288,
+        "DM": 0.82,
         "n": 28061,
         "n_dates": 1456
       },
       "10": {
-        "edge_pct": 1.017,
-        "DM": 2.11,
+        "edge_pct": 1.024,
+        "DM": 2.19,
         "n": 28061,
         "n_dates": 1465
       }
@@ -359,7 +359,7 @@
       },
       "9": {
         "edge_pct": 0.008,
-        "DM": 0.3,
+        "DM": 0.31,
         "n": 28061,
         "n_dates": 1456
       },
@@ -373,7 +373,7 @@
   },
   "mean_pinball": {
     "garch_t": 0.32854,
-    "engine": 0.3283,
+    "engine": 0.32832,
     "evt_name": 0.3285,
     "evt_pool": 0.32863
   }

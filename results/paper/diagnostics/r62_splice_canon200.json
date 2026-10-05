@@ -1,0 +1,1368 @@
+{
+  "panel": "canon200",
+  "n_test": 221600,
+  "n_names": 200,
+  "precommit": "docs/R62_SPLICE_PRECOMMIT.md (written before this run)",
+  "note": "State-anchored GPD splice against the unconditional splice at the same p0. ES is the 20-node rule in BOTH arms so the comparison isolates the splice, not the ES convention. DM on row-minus-engine.",
+  "arms": {
+    "p0_0.05_uncond": {
+      "0.01": {
+        "meanFZ0": 2.14773,
+        "breach": 0.01023,
+        "dateclustered_NW_t": 0.38,
+        "meanFZ0_body_only": 2.14112,
+        "breach_body_only": 0.01023,
+        "gpd": {
+          "u_z": -1.458,
+          "beta": 0.5518,
+          "xi": 0.2694
+        },
+        "deciles": [
+          {
+            "decile": 1,
+            "breach": 0.0116,
+            "FZ0": 2.13346,
+            "FZ0_body": 2.14336,
+            "body_minus_engine": 0.0099,
+            "DM_body_minus_engine": 1.12,
+            "garch_minus_engine": 0.01066,
+            "DM_garch_minus_engine": 2.6,
+            "evt_binds": 0.545,
+            "override_depth_when_binding": 0.1896
+          },
+          {
+            "decile": 2,
+            "breach": 0.0123,
+            "FZ0": 2.14938,
+            "FZ0_body": 2.15431,
+            "body_minus_engine": 0.00493,
+            "DM_body_minus_engine": 1.14,
+            "garch_minus_engine": 0.00921,
+            "DM_garch_minus_engine": 1.36,
+            "evt_binds": 0.5746,
+            "override_depth_when_binding": 0.1973
+          },
+          {
+            "decile": 3,
+            "breach": 0.0108,
+            "FZ0": 2.09195,
+            "FZ0_body": 2.09865,
+            "body_minus_engine": 0.0067,
+            "DM_body_minus_engine": 0.87,
+            "garch_minus_engine": 0.00192,
+            "DM_garch_minus_engine": 0.52,
+            "evt_binds": 0.5876,
+            "override_depth_when_binding": 0.2136
+          },
+          {
+            "decile": 4,
+            "breach": 0.0109,
+            "FZ0": 2.07706,
+            "FZ0_body": 2.07537,
+            "body_minus_engine": -0.00169,
+            "DM_body_minus_engine": -0.0,
+            "garch_minus_engine": 0.00626,
+            "DM_garch_minus_engine": 1.25,
+            "evt_binds": 0.5967,
+            "override_depth_when_binding": 0.2217
+          },
+          {
+            "decile": 5,
+            "breach": 0.0103,
+            "FZ0": 2.11262,
+            "FZ0_body": 2.11316,
+            "body_minus_engine": 0.00054,
+            "DM_body_minus_engine": 0.05,
+            "garch_minus_engine": 0.00347,
+            "DM_garch_minus_engine": 0.6,
+            "evt_binds": 0.6194,
+            "override_depth_when_binding": 0.2343
+          },
+          {
+            "decile": 6,
+            "breach": 0.0097,
+            "FZ0": 2.12096,
+            "FZ0_body": 2.11336,
+            "body_minus_engine": -0.0076,
+            "DM_body_minus_engine": -0.75,
+            "garch_minus_engine": 0.00867,
+            "DM_garch_minus_engine": 2.08,
+            "evt_binds": 0.655,
+            "override_depth_when_binding": 0.264
+          },
+          {
+            "decile": 7,
+            "breach": 0.0108,
+            "FZ0": 2.17286,
+            "FZ0_body": 2.19074,
+            "body_minus_engine": 0.01789,
+            "DM_body_minus_engine": 1.31,
+            "garch_minus_engine": 0.01092,
+            "DM_garch_minus_engine": 2.76,
+            "evt_binds": 0.6877,
+            "override_depth_when_binding": 0.3083
+          },
+          {
+            "decile": 8,
+            "breach": 0.0104,
+            "FZ0": 2.15661,
+            "FZ0_body": 2.15894,
+            "body_minus_engine": 0.00233,
+            "DM_body_minus_engine": 0.74,
+            "garch_minus_engine": 0.00678,
+            "DM_garch_minus_engine": 1.88,
+            "evt_binds": 0.681,
+            "override_depth_when_binding": 0.3598
+          },
+          {
+            "decile": 9,
+            "breach": 0.0079,
+            "FZ0": 2.15808,
+            "FZ0_body": 2.12857,
+            "body_minus_engine": -0.0295,
+            "DM_body_minus_engine": -3.3,
+            "garch_minus_engine": 0.01283,
+            "DM_garch_minus_engine": 3.14,
+            "evt_binds": 0.6671,
+            "override_depth_when_binding": 0.4079
+          },
+          {
+            "decile": 10,
+            "breach": 0.0077,
+            "FZ0": 2.30435,
+            "FZ0_body": 2.23474,
+            "body_minus_engine": -0.06961,
+            "DM_body_minus_engine": -6.59,
+            "garch_minus_engine": 0.00914,
+            "DM_garch_minus_engine": 2.97,
+            "evt_binds": 0.6802,
+            "override_depth_when_binding": 0.5261
+          }
+        ]
+      },
+      "0.025": {
+        "meanFZ0": 1.84941,
+        "breach": 0.02779,
+        "dateclustered_NW_t": 2.01,
+        "meanFZ0_body_only": 1.84323,
+        "breach_body_only": 0.02779,
+        "gpd": {
+          "u_z": -1.458,
+          "beta": 0.5518,
+          "xi": 0.2694
+        },
+        "deciles": [
+          {
+            "decile": 1,
+            "breach": 0.0318,
+            "FZ0": 1.84266,
+            "FZ0_body": 1.85149,
+            "body_minus_engine": 0.00883,
+            "DM_body_minus_engine": 1.57,
+            "garch_minus_engine": 0.00271,
+            "DM_garch_minus_engine": 1.51,
+            "evt_binds": 0.4958,
+            "override_depth_when_binding": 0.1048
+          },
+          {
+            "decile": 2,
+            "breach": 0.0325,
+            "FZ0": 1.85842,
+            "FZ0_body": 1.86058,
+            "body_minus_engine": 0.00216,
+            "DM_body_minus_engine": 0.83,
+            "garch_minus_engine": 0.00294,
+            "DM_garch_minus_engine": 1.01,
+            "evt_binds": 0.5008,
+            "override_depth_when_binding": 0.1133
+          },
+          {
+            "decile": 3,
+            "breach": 0.0299,
+            "FZ0": 1.80761,
+            "FZ0_body": 1.81166,
+            "body_minus_engine": 0.00405,
+            "DM_body_minus_engine": 1.04,
+            "garch_minus_engine": 0.00241,
+            "DM_garch_minus_engine": 0.88,
+            "evt_binds": 0.5232,
+            "override_depth_when_binding": 0.1186
+          },
+          {
+            "decile": 4,
+            "breach": 0.028,
+            "FZ0": 1.78873,
+            "FZ0_body": 1.78847,
+            "body_minus_engine": -0.00026,
+            "DM_body_minus_engine": 0.32,
+            "garch_minus_engine": 0.0057,
+            "DM_garch_minus_engine": 2.07,
+            "evt_binds": 0.5253,
+            "override_depth_when_binding": 0.1243
+          },
+          {
+            "decile": 5,
+            "breach": 0.0281,
+            "FZ0": 1.80603,
+            "FZ0_body": 1.80643,
+            "body_minus_engine": 0.0004,
+            "DM_body_minus_engine": 0.18,
+            "garch_minus_engine": 0.00059,
+            "DM_garch_minus_engine": -0.01,
+            "evt_binds": 0.5506,
+            "override_depth_when_binding": 0.1361
+          },
+          {
+            "decile": 6,
+            "breach": 0.0277,
+            "FZ0": 1.81895,
+            "FZ0_body": 1.81506,
+            "body_minus_engine": -0.00389,
+            "DM_body_minus_engine": -0.56,
+            "garch_minus_engine": 0.00488,
+            "DM_garch_minus_engine": 2.13,
+            "evt_binds": 0.5943,
+            "override_depth_when_binding": 0.1558
+          },
+          {
+            "decile": 7,
+            "breach": 0.0285,
+            "FZ0": 1.87915,
+            "FZ0_body": 1.88867,
+            "body_minus_engine": 0.00952,
+            "DM_body_minus_engine": 1.45,
+            "garch_minus_engine": 0.00532,
+            "DM_garch_minus_engine": 2.13,
+            "evt_binds": 0.6417,
+            "override_depth_when_binding": 0.1843
+          },
+          {
+            "decile": 8,
+            "breach": 0.0281,
+            "FZ0": 1.86561,
+            "FZ0_body": 1.86469,
+            "body_minus_engine": -0.00091,
+            "DM_body_minus_engine": 0.44,
+            "garch_minus_engine": 0.00627,
+            "DM_garch_minus_engine": 2.64,
+            "evt_binds": 0.6534,
+            "override_depth_when_binding": 0.2188
+          },
+          {
+            "decile": 9,
+            "breach": 0.0228,
+            "FZ0": 1.85018,
+            "FZ0_body": 1.82836,
+            "body_minus_engine": -0.02183,
+            "DM_body_minus_engine": -3.66,
+            "garch_minus_engine": 0.00901,
+            "DM_garch_minus_engine": 4.75,
+            "evt_binds": 0.6804,
+            "override_depth_when_binding": 0.2508
+          },
+          {
+            "decile": 10,
+            "breach": 0.0205,
+            "FZ0": 1.97677,
+            "FZ0_body": 1.9169,
+            "body_minus_engine": -0.05987,
+            "DM_body_minus_engine": -6.86,
+            "garch_minus_engine": 0.00806,
+            "DM_garch_minus_engine": 4.27,
+            "evt_binds": 0.7346,
+            "override_depth_when_binding": 0.3349
+          }
+        ]
+      }
+    },
+    "p0_0.05_anchored": {
+      "0.01": {
+        "meanFZ0": 2.12865,
+        "breach": 0.01097,
+        "dateclustered_NW_t": 1.56,
+        "meanFZ0_body_only": 2.14112,
+        "breach_body_only": 0.01097,
+        "gpd": {
+          "u_z": -1.458,
+          "beta": 0.5518,
+          "xi": 0.2694
+        },
+        "deciles": [
+          {
+            "decile": 1,
+            "breach": 0.012,
+            "FZ0": 2.12749,
+            "FZ0_body": 2.14336,
+            "body_minus_engine": 0.01588,
+            "DM_body_minus_engine": 2.29,
+            "garch_minus_engine": 0.01663,
+            "DM_garch_minus_engine": 2.58,
+            "evt_binds": 0.6521,
+            "override_depth_when_binding": 0.1358
+          },
+          {
+            "decile": 2,
+            "breach": 0.0124,
+            "FZ0": 2.13684,
+            "FZ0_body": 2.15431,
+            "body_minus_engine": 0.01748,
+            "DM_body_minus_engine": 2.96,
+            "garch_minus_engine": 0.02176,
+            "DM_garch_minus_engine": 2.21,
+            "evt_binds": 0.6718,
+            "override_depth_when_binding": 0.1434
+          },
+          {
+            "decile": 3,
+            "breach": 0.011,
+            "FZ0": 2.08921,
+            "FZ0_body": 2.09865,
+            "body_minus_engine": 0.00944,
+            "DM_body_minus_engine": 1.43,
+            "garch_minus_engine": 0.00465,
+            "DM_garch_minus_engine": 0.73,
+            "evt_binds": 0.679,
+            "override_depth_when_binding": 0.1517
+          },
+          {
+            "decile": 4,
+            "breach": 0.0108,
+            "FZ0": 2.06617,
+            "FZ0_body": 2.07537,
+            "body_minus_engine": 0.0092,
+            "DM_body_minus_engine": 1.8,
+            "garch_minus_engine": 0.01715,
+            "DM_garch_minus_engine": 2.14,
+            "evt_binds": 0.6911,
+            "override_depth_when_binding": 0.1545
+          },
+          {
+            "decile": 5,
+            "breach": 0.0107,
+            "FZ0": 2.10253,
+            "FZ0_body": 2.11316,
+            "body_minus_engine": 0.01063,
+            "DM_body_minus_engine": 1.79,
+            "garch_minus_engine": 0.01356,
+            "DM_garch_minus_engine": 2.36,
+            "evt_binds": 0.6933,
+            "override_depth_when_binding": 0.1557
+          },
+          {
+            "decile": 6,
+            "breach": 0.0101,
+            "FZ0": 2.10596,
+            "FZ0_body": 2.11336,
+            "body_minus_engine": 0.00739,
+            "DM_body_minus_engine": 1.14,
+            "garch_minus_engine": 0.02367,
+            "DM_garch_minus_engine": 3.68,
+            "evt_binds": 0.7047,
+            "override_depth_when_binding": 0.1635
+          },
+          {
+            "decile": 7,
+            "breach": 0.012,
+            "FZ0": 2.16745,
+            "FZ0_body": 2.19074,
+            "body_minus_engine": 0.02329,
+            "DM_body_minus_engine": 2.31,
+            "garch_minus_engine": 0.01633,
+            "DM_garch_minus_engine": 1.76,
+            "evt_binds": 0.7347,
+            "override_depth_when_binding": 0.1682
+          },
+          {
+            "decile": 8,
+            "breach": 0.0119,
+            "FZ0": 2.13532,
+            "FZ0_body": 2.15894,
+            "body_minus_engine": 0.02362,
+            "DM_body_minus_engine": 3.12,
+            "garch_minus_engine": 0.02807,
+            "DM_garch_minus_engine": 2.66,
+            "evt_binds": 0.7277,
+            "override_depth_when_binding": 0.1655
+          },
+          {
+            "decile": 9,
+            "breach": 0.0095,
+            "FZ0": 2.12288,
+            "FZ0_body": 2.12857,
+            "body_minus_engine": 0.0057,
+            "DM_body_minus_engine": 0.2,
+            "garch_minus_engine": 0.04803,
+            "DM_garch_minus_engine": 6.2,
+            "evt_binds": 0.6812,
+            "override_depth_when_binding": 0.1581
+          },
+          {
+            "decile": 10,
+            "breach": 0.0093,
+            "FZ0": 2.23263,
+            "FZ0_body": 2.23474,
+            "body_minus_engine": 0.00211,
+            "DM_body_minus_engine": 0.09,
+            "garch_minus_engine": 0.08086,
+            "DM_garch_minus_engine": 10.0,
+            "evt_binds": 0.6192,
+            "override_depth_when_binding": 0.1508
+          }
+        ]
+      },
+      "0.025": {
+        "meanFZ0": 1.83688,
+        "breach": 0.03088,
+        "dateclustered_NW_t": 3.9,
+        "meanFZ0_body_only": 1.84323,
+        "breach_body_only": 0.03088,
+        "gpd": {
+          "u_z": -1.458,
+          "beta": 0.5518,
+          "xi": 0.2694
+        },
+        "deciles": [
+          {
+            "decile": 1,
+            "breach": 0.0335,
+            "FZ0": 1.8439,
+            "FZ0_body": 1.85149,
+            "body_minus_engine": 0.00759,
+            "DM_body_minus_engine": 2.88,
+            "garch_minus_engine": 0.00147,
+            "DM_garch_minus_engine": 0.96,
+            "evt_binds": 0.6272,
+            "override_depth_when_binding": 0.0392
+          },
+          {
+            "decile": 2,
+            "breach": 0.0336,
+            "FZ0": 1.85357,
+            "FZ0_body": 1.86058,
+            "body_minus_engine": 0.00701,
+            "DM_body_minus_engine": 3.32,
+            "garch_minus_engine": 0.00779,
+            "DM_garch_minus_engine": 1.87,
+            "evt_binds": 0.6343,
+            "override_depth_when_binding": 0.0414
+          },
+          {
+            "decile": 3,
+            "breach": 0.0313,
+            "FZ0": 1.80634,
+            "FZ0_body": 1.81166,
+            "body_minus_engine": 0.00532,
+            "DM_body_minus_engine": 2.01,
+            "garch_minus_engine": 0.00368,
+            "DM_garch_minus_engine": 0.8,
+            "evt_binds": 0.6472,
+            "override_depth_when_binding": 0.0441
+          },
+          {
+            "decile": 4,
+            "breach": 0.0294,
+            "FZ0": 1.78303,
+            "FZ0_body": 1.78847,
+            "body_minus_engine": 0.00544,
+            "DM_body_minus_engine": 2.68,
+            "garch_minus_engine": 0.0114,
+            "DM_garch_minus_engine": 2.33,
+            "evt_binds": 0.6473,
+            "override_depth_when_binding": 0.0446
+          },
+          {
+            "decile": 5,
+            "breach": 0.0289,
+            "FZ0": 1.80181,
+            "FZ0_body": 1.80643,
+            "body_minus_engine": 0.00462,
+            "DM_body_minus_engine": 2.16,
+            "garch_minus_engine": 0.00481,
+            "DM_garch_minus_engine": 0.99,
+            "evt_binds": 0.644,
+            "override_depth_when_binding": 0.0454
+          },
+          {
+            "decile": 6,
+            "breach": 0.0309,
+            "FZ0": 1.80921,
+            "FZ0_body": 1.81506,
+            "body_minus_engine": 0.00585,
+            "DM_body_minus_engine": 2.2,
+            "garch_minus_engine": 0.01461,
+            "DM_garch_minus_engine": 2.98,
+            "evt_binds": 0.6597,
+            "override_depth_when_binding": 0.0478
+          },
+          {
+            "decile": 7,
+            "breach": 0.032,
+            "FZ0": 1.87901,
+            "FZ0_body": 1.88867,
+            "body_minus_engine": 0.00966,
+            "DM_body_minus_engine": 2.51,
+            "garch_minus_engine": 0.00546,
+            "DM_garch_minus_engine": 0.54,
+            "evt_binds": 0.6833,
+            "override_depth_when_binding": 0.0513
+          },
+          {
+            "decile": 8,
+            "breach": 0.0333,
+            "FZ0": 1.85477,
+            "FZ0_body": 1.86469,
+            "body_minus_engine": 0.00993,
+            "DM_body_minus_engine": 3.39,
+            "garch_minus_engine": 0.01711,
+            "DM_garch_minus_engine": 2.26,
+            "evt_binds": 0.6769,
+            "override_depth_when_binding": 0.0509
+          },
+          {
+            "decile": 9,
+            "breach": 0.0286,
+            "FZ0": 1.82368,
+            "FZ0_body": 1.82836,
+            "body_minus_engine": 0.00468,
+            "DM_body_minus_engine": 1.5,
+            "garch_minus_engine": 0.03551,
+            "DM_garch_minus_engine": 6.69,
+            "evt_binds": 0.6464,
+            "override_depth_when_binding": 0.0483
+          },
+          {
+            "decile": 10,
+            "breach": 0.0273,
+            "FZ0": 1.91347,
+            "FZ0_body": 1.9169,
+            "body_minus_engine": 0.00342,
+            "DM_body_minus_engine": 1.4,
+            "garch_minus_engine": 0.07135,
+            "DM_garch_minus_engine": 9.05,
+            "evt_binds": 0.5917,
+            "override_depth_when_binding": 0.0487
+          }
+        ]
+      }
+    },
+    "p0_0.025_uncond": {
+      "0.01": {
+        "meanFZ0": 2.14731,
+        "breach": 0.01038,
+        "dateclustered_NW_t": 0.62,
+        "meanFZ0_body_only": 2.14112,
+        "breach_body_only": 0.01038,
+        "gpd": {
+          "u_z": -1.8804,
+          "beta": 0.639,
+          "xi": 0.2985
+        },
+        "deciles": [
+          {
+            "decile": 1,
+            "breach": 0.0117,
+            "FZ0": 2.1334,
+            "FZ0_body": 2.14336,
+            "body_minus_engine": 0.00997,
+            "DM_body_minus_engine": 1.17,
+            "garch_minus_engine": 0.01072,
+            "DM_garch_minus_engine": 2.62,
+            "evt_binds": 0.5053,
+            "override_depth_when_binding": 0.1879
+          },
+          {
+            "decile": 2,
+            "breach": 0.0124,
+            "FZ0": 2.14946,
+            "FZ0_body": 2.15431,
+            "body_minus_engine": 0.00486,
+            "DM_body_minus_engine": 1.15,
+            "garch_minus_engine": 0.00914,
+            "DM_garch_minus_engine": 1.34,
+            "evt_binds": 0.5367,
+            "override_depth_when_binding": 0.1947
+          },
+          {
+            "decile": 3,
+            "breach": 0.011,
+            "FZ0": 2.09195,
+            "FZ0_body": 2.09865,
+            "body_minus_engine": 0.0067,
+            "DM_body_minus_engine": 0.9,
+            "garch_minus_engine": 0.00192,
+            "DM_garch_minus_engine": 0.52,
+            "evt_binds": 0.5566,
+            "override_depth_when_binding": 0.2091
+          },
+          {
+            "decile": 4,
+            "breach": 0.0109,
+            "FZ0": 2.07674,
+            "FZ0_body": 2.07537,
+            "body_minus_engine": -0.00137,
+            "DM_body_minus_engine": 0.04,
+            "garch_minus_engine": 0.00658,
+            "DM_garch_minus_engine": 1.29,
+            "evt_binds": 0.5639,
+            "override_depth_when_binding": 0.2182
+          },
+          {
+            "decile": 5,
+            "breach": 0.0105,
+            "FZ0": 2.11235,
+            "FZ0_body": 2.11316,
+            "body_minus_engine": 0.0008,
+            "DM_body_minus_engine": 0.08,
+            "garch_minus_engine": 0.00374,
+            "DM_garch_minus_engine": 0.64,
+            "evt_binds": 0.5843,
+            "override_depth_when_binding": 0.2319
+          },
+          {
+            "decile": 6,
+            "breach": 0.0097,
+            "FZ0": 2.1202,
+            "FZ0_body": 2.11336,
+            "body_minus_engine": -0.00684,
+            "DM_body_minus_engine": -0.67,
+            "garch_minus_engine": 0.00944,
+            "DM_garch_minus_engine": 2.24,
+            "evt_binds": 0.6257,
+            "override_depth_when_binding": 0.26
+          },
+          {
+            "decile": 7,
+            "breach": 0.0111,
+            "FZ0": 2.17261,
+            "FZ0_body": 2.19074,
+            "body_minus_engine": 0.01814,
+            "DM_body_minus_engine": 1.35,
+            "garch_minus_engine": 0.01117,
+            "DM_garch_minus_engine": 2.76,
+            "evt_binds": 0.6628,
+            "override_depth_when_binding": 0.3036
+          },
+          {
+            "decile": 8,
+            "breach": 0.0107,
+            "FZ0": 2.15625,
+            "FZ0_body": 2.15894,
+            "body_minus_engine": 0.00269,
+            "DM_body_minus_engine": 0.78,
+            "garch_minus_engine": 0.00714,
+            "DM_garch_minus_engine": 1.92,
+            "evt_binds": 0.659,
+            "override_depth_when_binding": 0.3555
+          },
+          {
+            "decile": 9,
+            "breach": 0.0079,
+            "FZ0": 2.1571,
+            "FZ0_body": 2.12857,
+            "body_minus_engine": -0.02853,
+            "DM_body_minus_engine": -3.25,
+            "garch_minus_engine": 0.0138,
+            "DM_garch_minus_engine": 3.33,
+            "evt_binds": 0.6473,
+            "override_depth_when_binding": 0.4043
+          },
+          {
+            "decile": 10,
+            "breach": 0.0079,
+            "FZ0": 2.30306,
+            "FZ0_body": 2.23474,
+            "body_minus_engine": -0.06832,
+            "DM_body_minus_engine": -6.52,
+            "garch_minus_engine": 0.01043,
+            "DM_garch_minus_engine": 3.35,
+            "evt_binds": 0.6643,
+            "override_depth_when_binding": 0.5226
+          }
+        ]
+      },
+      "0.025": {
+        "meanFZ0": 1.84936,
+        "breach": 0.02777,
+        "dateclustered_NW_t": 2.0,
+        "meanFZ0_body_only": 1.84323,
+        "breach_body_only": 0.02777,
+        "gpd": {
+          "u_z": -1.8804,
+          "beta": 0.639,
+          "xi": 0.2985
+        },
+        "deciles": [
+          {
+            "decile": 1,
+            "breach": 0.0318,
+            "FZ0": 1.84252,
+            "FZ0_body": 1.85149,
+            "body_minus_engine": 0.00897,
+            "DM_body_minus_engine": 1.6,
+            "garch_minus_engine": 0.00285,
+            "DM_garch_minus_engine": 1.57,
+            "evt_binds": 0.5035,
+            "override_depth_when_binding": 0.1051
+          },
+          {
+            "decile": 2,
+            "breach": 0.0325,
+            "FZ0": 1.85837,
+            "FZ0_body": 1.86058,
+            "body_minus_engine": 0.00222,
+            "DM_body_minus_engine": 0.84,
+            "garch_minus_engine": 0.003,
+            "DM_garch_minus_engine": 1.03,
+            "evt_binds": 0.5074,
+            "override_depth_when_binding": 0.1137
+          },
+          {
+            "decile": 3,
+            "breach": 0.0298,
+            "FZ0": 1.80756,
+            "FZ0_body": 1.81166,
+            "body_minus_engine": 0.0041,
+            "DM_body_minus_engine": 1.06,
+            "garch_minus_engine": 0.00247,
+            "DM_garch_minus_engine": 0.9,
+            "evt_binds": 0.5301,
+            "override_depth_when_binding": 0.119
+          },
+          {
+            "decile": 4,
+            "breach": 0.028,
+            "FZ0": 1.78871,
+            "FZ0_body": 1.78847,
+            "body_minus_engine": -0.00024,
+            "DM_body_minus_engine": 0.33,
+            "garch_minus_engine": 0.00572,
+            "DM_garch_minus_engine": 2.08,
+            "evt_binds": 0.532,
+            "override_depth_when_binding": 0.1246
+          },
+          {
+            "decile": 5,
+            "breach": 0.0281,
+            "FZ0": 1.80597,
+            "FZ0_body": 1.80643,
+            "body_minus_engine": 0.00046,
+            "DM_body_minus_engine": 0.19,
+            "garch_minus_engine": 0.00066,
+            "DM_garch_minus_engine": 0.02,
+            "evt_binds": 0.556,
+            "override_depth_when_binding": 0.1367
+          },
+          {
+            "decile": 6,
+            "breach": 0.0277,
+            "FZ0": 1.81887,
+            "FZ0_body": 1.81506,
+            "body_minus_engine": -0.0038,
+            "DM_body_minus_engine": -0.54,
+            "garch_minus_engine": 0.00496,
+            "DM_garch_minus_engine": 2.16,
+            "evt_binds": 0.5986,
+            "override_depth_when_binding": 0.1566
+          },
+          {
+            "decile": 7,
+            "breach": 0.0284,
+            "FZ0": 1.87908,
+            "FZ0_body": 1.88867,
+            "body_minus_engine": 0.00959,
+            "DM_body_minus_engine": 1.46,
+            "garch_minus_engine": 0.00539,
+            "DM_garch_minus_engine": 2.15,
+            "evt_binds": 0.6454,
+            "override_depth_when_binding": 0.1851
+          },
+          {
+            "decile": 8,
+            "breach": 0.0281,
+            "FZ0": 1.8656,
+            "FZ0_body": 1.86469,
+            "body_minus_engine": -0.0009,
+            "DM_body_minus_engine": 0.44,
+            "garch_minus_engine": 0.00628,
+            "DM_garch_minus_engine": 2.64,
+            "evt_binds": 0.6571,
+            "override_depth_when_binding": 0.2195
+          },
+          {
+            "decile": 9,
+            "breach": 0.0228,
+            "FZ0": 1.85021,
+            "FZ0_body": 1.82836,
+            "body_minus_engine": -0.02186,
+            "DM_body_minus_engine": -3.65,
+            "garch_minus_engine": 0.00898,
+            "DM_garch_minus_engine": 4.71,
+            "evt_binds": 0.6844,
+            "override_depth_when_binding": 0.2512
+          },
+          {
+            "decile": 10,
+            "breach": 0.0204,
+            "FZ0": 1.97674,
+            "FZ0_body": 1.9169,
+            "body_minus_engine": -0.05984,
+            "DM_body_minus_engine": -6.84,
+            "garch_minus_engine": 0.00809,
+            "DM_garch_minus_engine": 4.29,
+            "evt_binds": 0.7373,
+            "override_depth_when_binding": 0.3355
+          }
+        ]
+      }
+    },
+    "p0_0.025_anchored": {
+      "0.01": {
+        "meanFZ0": 2.12875,
+        "breach": 0.01171,
+        "dateclustered_NW_t": 2.61,
+        "meanFZ0_body_only": 2.14112,
+        "breach_body_only": 0.01171,
+        "gpd": {
+          "u_z": -1.8804,
+          "beta": 0.639,
+          "xi": 0.2985
+        },
+        "deciles": [
+          {
+            "decile": 1,
+            "breach": 0.0123,
+            "FZ0": 2.12928,
+            "FZ0_body": 2.14336,
+            "body_minus_engine": 0.01408,
+            "DM_body_minus_engine": 2.75,
+            "garch_minus_engine": 0.01484,
+            "DM_garch_minus_engine": 2.1,
+            "evt_binds": 0.5981,
+            "override_depth_when_binding": 0.0904
+          },
+          {
+            "decile": 2,
+            "breach": 0.013,
+            "FZ0": 2.13776,
+            "FZ0_body": 2.15431,
+            "body_minus_engine": 0.01655,
+            "DM_body_minus_engine": 3.36,
+            "garch_minus_engine": 0.02083,
+            "DM_garch_minus_engine": 1.95,
+            "evt_binds": 0.6181,
+            "override_depth_when_binding": 0.0962
+          },
+          {
+            "decile": 3,
+            "breach": 0.0119,
+            "FZ0": 2.08992,
+            "FZ0_body": 2.09865,
+            "body_minus_engine": 0.00873,
+            "DM_body_minus_engine": 1.65,
+            "garch_minus_engine": 0.00395,
+            "DM_garch_minus_engine": 0.56,
+            "evt_binds": 0.6212,
+            "override_depth_when_binding": 0.1009
+          },
+          {
+            "decile": 4,
+            "breach": 0.0119,
+            "FZ0": 2.06488,
+            "FZ0_body": 2.07537,
+            "body_minus_engine": 0.01049,
+            "DM_body_minus_engine": 2.35,
+            "garch_minus_engine": 0.01843,
+            "DM_garch_minus_engine": 2.15,
+            "evt_binds": 0.6402,
+            "override_depth_when_binding": 0.1023
+          },
+          {
+            "decile": 5,
+            "breach": 0.0115,
+            "FZ0": 2.10328,
+            "FZ0_body": 2.11316,
+            "body_minus_engine": 0.00988,
+            "DM_body_minus_engine": 1.98,
+            "garch_minus_engine": 0.01281,
+            "DM_garch_minus_engine": 1.84,
+            "evt_binds": 0.6429,
+            "override_depth_when_binding": 0.1029
+          },
+          {
+            "decile": 6,
+            "breach": 0.011,
+            "FZ0": 2.10378,
+            "FZ0_body": 2.11336,
+            "body_minus_engine": 0.00958,
+            "DM_body_minus_engine": 1.73,
+            "garch_minus_engine": 0.02585,
+            "DM_garch_minus_engine": 3.4,
+            "evt_binds": 0.6525,
+            "override_depth_when_binding": 0.1067
+          },
+          {
+            "decile": 7,
+            "breach": 0.013,
+            "FZ0": 2.17079,
+            "FZ0_body": 2.19074,
+            "body_minus_engine": 0.01996,
+            "DM_body_minus_engine": 2.84,
+            "garch_minus_engine": 0.01299,
+            "DM_garch_minus_engine": 1.27,
+            "evt_binds": 0.6654,
+            "override_depth_when_binding": 0.1081
+          },
+          {
+            "decile": 8,
+            "breach": 0.0124,
+            "FZ0": 2.13768,
+            "FZ0_body": 2.15894,
+            "body_minus_engine": 0.02126,
+            "DM_body_minus_engine": 3.53,
+            "garch_minus_engine": 0.02571,
+            "DM_garch_minus_engine": 1.95,
+            "evt_binds": 0.6563,
+            "override_depth_when_binding": 0.1066
+          },
+          {
+            "decile": 9,
+            "breach": 0.0102,
+            "FZ0": 2.12039,
+            "FZ0_body": 2.12857,
+            "body_minus_engine": 0.00819,
+            "DM_body_minus_engine": 0.86,
+            "garch_minus_engine": 0.05051,
+            "DM_garch_minus_engine": 5.44,
+            "evt_binds": 0.6001,
+            "override_depth_when_binding": 0.1035
+          },
+          {
+            "decile": 10,
+            "breach": 0.01,
+            "FZ0": 2.22975,
+            "FZ0_body": 2.23474,
+            "body_minus_engine": 0.00499,
+            "DM_body_minus_engine": 0.75,
+            "garch_minus_engine": 0.08374,
+            "DM_garch_minus_engine": 8.68,
+            "evt_binds": 0.5377,
+            "override_depth_when_binding": 0.0948
+          }
+        ]
+      },
+      "0.025": {
+        "meanFZ0": 1.83989,
+        "breach": 0.03242,
+        "dateclustered_NW_t": 4.71,
+        "meanFZ0_body_only": 1.84323,
+        "breach_body_only": 0.03242,
+        "gpd": {
+          "u_z": -1.8804,
+          "beta": 0.639,
+          "xi": 0.2985
+        },
+        "deciles": [
+          {
+            "decile": 1,
+            "breach": 0.0349,
+            "FZ0": 1.8477,
+            "FZ0_body": 1.85149,
+            "body_minus_engine": 0.00379,
+            "DM_body_minus_engine": 2.99,
+            "garch_minus_engine": -0.00233,
+            "DM_garch_minus_engine": 0.04,
+            "evt_binds": 0.0,
+            "override_depth_when_binding": null
+          },
+          {
+            "decile": 2,
+            "breach": 0.0348,
+            "FZ0": 1.85633,
+            "FZ0_body": 1.86058,
+            "body_minus_engine": 0.00425,
+            "DM_body_minus_engine": 3.49,
+            "garch_minus_engine": 0.00503,
+            "DM_garch_minus_engine": 0.96,
+            "evt_binds": 0.0,
+            "override_depth_when_binding": null
+          },
+          {
+            "decile": 3,
+            "breach": 0.0327,
+            "FZ0": 1.80907,
+            "FZ0_body": 1.81166,
+            "body_minus_engine": 0.00259,
+            "DM_body_minus_engine": 1.82,
+            "garch_minus_engine": 0.00095,
+            "DM_garch_minus_engine": 0.08,
+            "evt_binds": 0.0,
+            "override_depth_when_binding": null
+          },
+          {
+            "decile": 4,
+            "breach": 0.0312,
+            "FZ0": 1.78527,
+            "FZ0_body": 1.78847,
+            "body_minus_engine": 0.0032,
+            "DM_body_minus_engine": 2.72,
+            "garch_minus_engine": 0.00917,
+            "DM_garch_minus_engine": 1.5,
+            "evt_binds": 0.0,
+            "override_depth_when_binding": null
+          },
+          {
+            "decile": 5,
+            "breach": 0.0308,
+            "FZ0": 1.80357,
+            "FZ0_body": 1.80643,
+            "body_minus_engine": 0.00286,
+            "DM_body_minus_engine": 2.32,
+            "garch_minus_engine": 0.00305,
+            "DM_garch_minus_engine": 0.39,
+            "evt_binds": 0.0,
+            "override_depth_when_binding": null
+          },
+          {
+            "decile": 6,
+            "breach": 0.0326,
+            "FZ0": 1.81181,
+            "FZ0_body": 1.81506,
+            "body_minus_engine": 0.00326,
+            "DM_body_minus_engine": 2.33,
+            "garch_minus_engine": 0.01202,
+            "DM_garch_minus_engine": 1.96,
+            "evt_binds": 0.0,
+            "override_depth_when_binding": null
+          },
+          {
+            "decile": 7,
+            "breach": 0.0333,
+            "FZ0": 1.88385,
+            "FZ0_body": 1.88867,
+            "body_minus_engine": 0.00482,
+            "DM_body_minus_engine": 2.89,
+            "garch_minus_engine": 0.00062,
+            "DM_garch_minus_engine": -0.16,
+            "evt_binds": 0.0,
+            "override_depth_when_binding": null
+          },
+          {
+            "decile": 8,
+            "breach": 0.0352,
+            "FZ0": 1.85956,
+            "FZ0_body": 1.86469,
+            "body_minus_engine": 0.00514,
+            "DM_body_minus_engine": 3.55,
+            "garch_minus_engine": 0.01232,
+            "DM_garch_minus_engine": 1.11,
+            "evt_binds": 0.0,
+            "override_depth_when_binding": null
+          },
+          {
+            "decile": 9,
+            "breach": 0.0301,
+            "FZ0": 1.82612,
+            "FZ0_body": 1.82836,
+            "body_minus_engine": 0.00224,
+            "DM_body_minus_engine": 1.05,
+            "garch_minus_engine": 0.03307,
+            "DM_garch_minus_engine": 5.18,
+            "evt_binds": 0.0,
+            "override_depth_when_binding": null
+          },
+          {
+            "decile": 10,
+            "breach": 0.0286,
+            "FZ0": 1.91563,
+            "FZ0_body": 1.9169,
+            "body_minus_engine": 0.00127,
+            "DM_body_minus_engine": 0.81,
+            "garch_minus_engine": 0.0692,
+            "DM_garch_minus_engine": 7.66,
+            "evt_binds": 0.0,
+            "override_depth_when_binding": null
+          }
+        ]
+      }
+    },
+    "p0_0.05_anchored_proportional": {
+      "0.01": {
+        "meanFZ0": 2.12757,
+        "breach": 0.01113,
+        "dateclustered_NW_t": 1.81,
+        "meanFZ0_body_only": 2.14112,
+        "breach_body_only": 0.01113,
+        "gpd": {
+          "u_z": -1.458,
+          "beta": 0.5518,
+          "xi": 0.2694
+        },
+        "deciles": [
+          {
+            "decile": 1,
+            "breach": 0.012,
+            "FZ0": 2.12707,
+            "FZ0_body": 2.14336,
+            "body_minus_engine": 0.0163,
+            "DM_body_minus_engine": 2.35,
+            "garch_minus_engine": 0.01705,
+            "DM_garch_minus_engine": 2.43,
+            "evt_binds": 0.6614,
+            "override_depth_when_binding": 0.1378
+          },
+          {
+            "decile": 2,
+            "breach": 0.0124,
+            "FZ0": 2.13535,
+            "FZ0_body": 2.15431,
+            "body_minus_engine": 0.01896,
+            "DM_body_minus_engine": 3.08,
+            "garch_minus_engine": 0.02324,
+            "DM_garch_minus_engine": 2.21,
+            "evt_binds": 0.6778,
+            "override_depth_when_binding": 0.1456
+          },
+          {
+            "decile": 3,
+            "breach": 0.011,
+            "FZ0": 2.08988,
+            "FZ0_body": 2.09865,
+            "body_minus_engine": 0.00877,
+            "DM_body_minus_engine": 1.29,
+            "garch_minus_engine": 0.00399,
+            "DM_garch_minus_engine": 0.56,
+            "evt_binds": 0.6838,
+            "override_depth_when_binding": 0.1528
+          },
+          {
+            "decile": 4,
+            "breach": 0.0108,
+            "FZ0": 2.06456,
+            "FZ0_body": 2.07537,
+            "body_minus_engine": 0.01081,
+            "DM_body_minus_engine": 2.02,
+            "garch_minus_engine": 0.01875,
+            "DM_garch_minus_engine": 2.15,
+            "evt_binds": 0.6952,
+            "override_depth_when_binding": 0.1553
+          },
+          {
+            "decile": 5,
+            "breach": 0.0108,
+            "FZ0": 2.10205,
+            "FZ0_body": 2.11316,
+            "body_minus_engine": 0.01111,
+            "DM_body_minus_engine": 1.88,
+            "garch_minus_engine": 0.01404,
+            "DM_garch_minus_engine": 2.2,
+            "evt_binds": 0.6936,
+            "override_depth_when_binding": 0.155
+          },
+          {
+            "decile": 6,
+            "breach": 0.0102,
+            "FZ0": 2.10458,
+            "FZ0_body": 2.11336,
+            "body_minus_engine": 0.00877,
+            "DM_body_minus_engine": 1.33,
+            "garch_minus_engine": 0.02505,
+            "DM_garch_minus_engine": 3.52,
+            "evt_binds": 0.7025,
+            "override_depth_when_binding": 0.1592
+          },
+          {
+            "decile": 7,
+            "breach": 0.0124,
+            "FZ0": 2.16869,
+            "FZ0_body": 2.19074,
+            "body_minus_engine": 0.02206,
+            "DM_body_minus_engine": 2.27,
+            "garch_minus_engine": 0.01509,
+            "DM_garch_minus_engine": 1.37,
+            "evt_binds": 0.7187,
+            "override_depth_when_binding": 0.1617
+          },
+          {
+            "decile": 8,
+            "breach": 0.0121,
+            "FZ0": 2.13439,
+            "FZ0_body": 2.15894,
+            "body_minus_engine": 0.02455,
+            "DM_body_minus_engine": 3.39,
+            "garch_minus_engine": 0.029,
+            "DM_garch_minus_engine": 2.39,
+            "evt_binds": 0.6991,
+            "override_depth_when_binding": 0.1559
+          },
+          {
+            "decile": 9,
+            "breach": 0.0098,
+            "FZ0": 2.12074,
+            "FZ0_body": 2.12857,
+            "body_minus_engine": 0.00783,
+            "DM_body_minus_engine": 0.72,
+            "garch_minus_engine": 0.05016,
+            "DM_garch_minus_engine": 5.79,
+            "evt_binds": 0.6352,
+            "override_depth_when_binding": 0.146
+          },
+          {
+            "decile": 10,
+            "breach": 0.0098,
+            "FZ0": 2.22837,
+            "FZ0_body": 2.23474,
+            "body_minus_engine": 0.00637,
+            "DM_body_minus_engine": 0.93,
+            "garch_minus_engine": 0.08512,
+            "DM_garch_minus_engine": 9.11,
+            "evt_binds": 0.5268,
+            "override_depth_when_binding": 0.1336
+          }
+        ]
+      },
+      "0.025": {
+        "meanFZ0": 1.83665,
+        "breach": 0.03102,
+        "dateclustered_NW_t": 3.97,
+        "meanFZ0_body_only": 1.84323,
+        "breach_body_only": 0.03102,
+        "gpd": {
+          "u_z": -1.458,
+          "beta": 0.5518,
+          "xi": 0.2694
+        },
+        "deciles": [
+          {
+            "decile": 1,
+            "breach": 0.0334,
+            "FZ0": 1.84393,
+            "FZ0_body": 1.85149,
+            "body_minus_engine": 0.00756,
+            "DM_body_minus_engine": 2.92,
+            "garch_minus_engine": 0.00144,
+            "DM_garch_minus_engine": 0.91,
+            "evt_binds": 0.6289,
+            "override_depth_when_binding": 0.0401
+          },
+          {
+            "decile": 2,
+            "breach": 0.0335,
+            "FZ0": 1.8529,
+            "FZ0_body": 1.86058,
+            "body_minus_engine": 0.00768,
+            "DM_body_minus_engine": 3.48,
+            "garch_minus_engine": 0.00846,
+            "DM_garch_minus_engine": 1.93,
+            "evt_binds": 0.6366,
+            "override_depth_when_binding": 0.042
+          },
+          {
+            "decile": 3,
+            "breach": 0.0315,
+            "FZ0": 1.80642,
+            "FZ0_body": 1.81166,
+            "body_minus_engine": 0.00524,
+            "DM_body_minus_engine": 1.92,
+            "garch_minus_engine": 0.00361,
+            "DM_garch_minus_engine": 0.73,
+            "evt_binds": 0.6435,
+            "override_depth_when_binding": 0.0447
+          },
+          {
+            "decile": 4,
+            "breach": 0.0296,
+            "FZ0": 1.78255,
+            "FZ0_body": 1.78847,
+            "body_minus_engine": 0.00592,
+            "DM_body_minus_engine": 2.79,
+            "garch_minus_engine": 0.01188,
+            "DM_garch_minus_engine": 2.27,
+            "evt_binds": 0.6441,
+            "override_depth_when_binding": 0.045
+          },
+          {
+            "decile": 5,
+            "breach": 0.0292,
+            "FZ0": 1.80169,
+            "FZ0_body": 1.80643,
+            "body_minus_engine": 0.00474,
+            "DM_body_minus_engine": 2.24,
+            "garch_minus_engine": 0.00493,
+            "DM_garch_minus_engine": 0.95,
+            "evt_binds": 0.6345,
+            "override_depth_when_binding": 0.0454
+          },
+          {
+            "decile": 6,
+            "breach": 0.0308,
+            "FZ0": 1.80866,
+            "FZ0_body": 1.81506,
+            "body_minus_engine": 0.0064,
+            "DM_body_minus_engine": 2.41,
+            "garch_minus_engine": 0.01516,
+            "DM_garch_minus_engine": 2.91,
+            "evt_binds": 0.6423,
+            "override_depth_when_binding": 0.047
+          },
+          {
+            "decile": 7,
+            "breach": 0.032,
+            "FZ0": 1.87987,
+            "FZ0_body": 1.88867,
+            "body_minus_engine": 0.0088,
+            "DM_body_minus_engine": 2.35,
+            "garch_minus_engine": 0.0046,
+            "DM_garch_minus_engine": 0.35,
+            "evt_binds": 0.6574,
+            "override_depth_when_binding": 0.0495
+          },
+          {
+            "decile": 8,
+            "breach": 0.0336,
+            "FZ0": 1.85469,
+            "FZ0_body": 1.86469,
+            "body_minus_engine": 0.01,
+            "DM_body_minus_engine": 3.64,
+            "garch_minus_engine": 0.01718,
+            "DM_garch_minus_engine": 2.09,
+            "evt_binds": 0.6313,
+            "override_depth_when_binding": 0.0489
+          },
+          {
+            "decile": 9,
+            "breach": 0.0289,
+            "FZ0": 1.82365,
+            "FZ0_body": 1.82836,
+            "body_minus_engine": 0.00471,
+            "DM_body_minus_engine": 1.75,
+            "garch_minus_engine": 0.03554,
+            "DM_garch_minus_engine": 6.22,
+            "evt_binds": 0.5847,
+            "override_depth_when_binding": 0.0455
+          },
+          {
+            "decile": 10,
+            "breach": 0.0276,
+            "FZ0": 1.91213,
+            "FZ0_body": 1.9169,
+            "body_minus_engine": 0.00476,
+            "DM_body_minus_engine": 2.24,
+            "garch_minus_engine": 0.0727,
+            "DM_garch_minus_engine": 8.57,
+            "evt_binds": 0.4988,
+            "override_depth_when_binding": 0.0437
+          }
+        ]
+      }
+    }
+  },
+  "controls": {
+    "nesting_identity": "PASS (asserted at tau in {0.025,0.01,0.001,0.00025} to 1e-10)",
+    "levels_above_p0_untouched": "PASS (build() only modifies tau <= p0; levels above are the body quantile)",
+    "ES_convention": "20-node in every arm, held fixed so the comparison isolates the splice",
+    "parametric_garch_t_FZ0_a0.01": 2.15572,
+    "fhs_pool_FZ0_a0.01": 2.1557,
+    "parametric_garch_t_FZ0_a0.025": 1.8542,
+    "fhs_pool_FZ0_a0.025": 1.85975
+  }
+}
