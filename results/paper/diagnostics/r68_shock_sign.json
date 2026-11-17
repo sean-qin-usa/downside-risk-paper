@@ -1,0 +1,149 @@
+{
+ "predictions_written_before_run": "P1 top-decile body edge after a positive largest shock at least 1.5x the edge after a negative one; P2 edge after negative shocks positive with DM>2; P3 GJR-skew-t edge positive after positive shocks, none after negative.",
+ "regions": {
+  "top decile, largest shock POSITIVE": {
+   "rows": 12541,
+   "median_shock_size": 8.07,
+   "body": {
+    "edge_pct": 3.93,
+    "DM": 7.11
+   },
+   "engine": {
+    "edge_pct": 3.32,
+    "DM": 6.89
+   },
+   "sav_caviar": {
+    "edge_pct": 3.79,
+    "DM": 4.93
+   },
+   "gjr_skewt": {
+    "edge_pct": 1.53,
+    "DM": 5.63
+   },
+   "fhs_name": {
+    "edge_pct": 0.48,
+    "DM": 4.61
+   },
+   "evt_name": {
+    "edge_pct": 0.41,
+    "DM": 4.42
+   },
+   "engine_fz0_gain_0.01": {
+    "gain": 0.0095,
+    "DM": 1.76
+   },
+   "engine_fz0_gain_0.025": {
+    "gain": 0.0089,
+    "DM": 2.83
+   }
+  },
+  "top decile, largest shock NEGATIVE": {
+   "rows": 9619,
+   "median_shock_size": 8.42,
+   "body": {
+    "edge_pct": 1.55,
+    "DM": 5.41
+   },
+   "engine": {
+    "edge_pct": 1.21,
+    "DM": 4.76
+   },
+   "sav_caviar": {
+    "edge_pct": 1.43,
+    "DM": 5.04
+   },
+   "gjr_skewt": {
+    "edge_pct": -1.75,
+    "DM": -7.21
+   },
+   "fhs_name": {
+    "edge_pct": 0.14,
+    "DM": 2.01
+   },
+   "evt_name": {
+    "edge_pct": 0.16,
+    "DM": 1.98
+   },
+   "engine_fz0_gain_0.01": {
+    "gain": 0.0124,
+    "DM": 2.47
+   },
+   "engine_fz0_gain_0.025": {
+    "gain": 0.0062,
+    "DM": 1.9
+   }
+  },
+  "deciles 1-9, largest shock positive": {
+   "rows": 103126,
+   "median_shock_size": 3.29,
+   "body": {
+    "edge_pct": 0.02,
+    "DM": 0.29
+   },
+   "engine": {
+    "edge_pct": -0.02,
+    "DM": -0.36
+   },
+   "sav_caviar": {
+    "edge_pct": 0.09,
+    "DM": 1.29
+   },
+   "gjr_skewt": {
+    "edge_pct": 0.09,
+    "DM": 1.82
+   },
+   "fhs_name": {
+    "edge_pct": -0.26,
+    "DM": -6.83
+   },
+   "evt_name": {
+    "edge_pct": -0.21,
+    "DM": -6.44
+   },
+   "engine_fz0_gain_0.01": {
+    "gain": 0.0077,
+    "DM": 3.09
+   },
+   "engine_fz0_gain_0.025": {
+    "gain": 0.0054,
+    "DM": 4.11
+   }
+  },
+  "deciles 1-9, largest shock negative": {
+   "rows": 96314,
+   "median_shock_size": 3.19,
+   "body": {
+    "edge_pct": 0.03,
+    "DM": 0.9
+   },
+   "engine": {
+    "edge_pct": -0.0,
+    "DM": 0.42
+   },
+   "sav_caviar": {
+    "edge_pct": 0.07,
+    "DM": 1.4
+   },
+   "gjr_skewt": {
+    "edge_pct": -0.11,
+    "DM": -2.92
+   },
+   "fhs_name": {
+    "edge_pct": -0.28,
+    "DM": -5.53
+   },
+   "evt_name": {
+    "edge_pct": -0.24,
+    "DM": -5.28
+   },
+   "engine_fz0_gain_0.01": {
+    "gain": 0.0104,
+    "DM": 4.23
+   },
+   "engine_fz0_gain_0.025": {
+    "gain": 0.0052,
+    "DM": 4.52
+   }
+  }
+ }
+}
