@@ -1,0 +1,102 @@
+\section{Checks added after the comparison audit}\label{sec:r67}
+An audit of every comparison in the replication repository (\texttt{docs/AUDIT\_2026-11.md}) looked for estimation and information asymmetries between the models compared, look-ahead, row mismatches, pooling artifacts and inference errors. This section reports the checks that followed. Each run's predictions were written into its script before it ran and are graded in that file.
+
+\subsection*{The sign of the shock}
+Table~\ref{tab:sign} splits the rows of Table~2 of the paper by the sign of the largest residual in the 63-day window behind each row's score (\texttt{tools/r68\_shock\_sign.py}). The shock sizes are the same in the two halves of the top decile.
+
+\begin{table}[htbp]\centering\begin{threeparttable}
+\caption{Pinball edge over GARCH-$t$ (\%, per-date DM in parentheses) by the sign of the window's largest shock.}\label{tab:sign}\footnotesize
+\begin{tabular}{lrccccc}\toprule
+Region & Rows & Median shock & Pooled body & Accuracy layer & SAV-CAViaR & GJR-skew-$t$ \\ \midrule
+Top decile, positive & 12,541 & 8.1 & $+3.93$ (7.1) & $+3.32$ (6.9) & $+3.79$ (4.9) & $+1.53$ (5.6) \\
+Top decile, negative & 9,619 & 8.4 & $+1.55$ (5.4) & $+1.21$ (4.8) & $+1.43$ (5.0) & $-1.75$ (-7.2) \\
+Deciles 1--9, positive & 103,126 & 3.3 & $+0.02$ (0.3) & $-0.02$ (-0.4) & $+0.09$ (1.3) & $+0.09$ (1.8) \\
+Deciles 1--9, negative & 96,314 & 3.2 & $+0.03$ (0.9) & $-0.00$ (0.4) & $+0.07$ (1.4) & $-0.11$ (-2.9) \\
+\bottomrule\end{tabular}
+\begin{tablenotes}\footnotesize\item Median shock: the largest residual of the window in conditional standard deviations of the GARCH-$t$ filter. Eleven-level pinball.\end{tablenotes}
+\end{threeparttable}\end{table}
+
+\subsection*{By kind of stock}
+Table~\ref{tab:groups} breaks the canonical comparison down by SIC division, by tercile of each name's estimation-window volatility, and by size cohort (\texttt{tools/r66\_group\_breakdown.py}; the per-row losses come from a rerun of \texttt{job\_bench\_all.py} that reproduces the committed FZ0 to five decimals). A Wald test rejects equal FZ0 gains over GARCH-$t$ across SIC groups ($p=0.002$ at 1\%, $0.001$ at 2.5\%) and across volatility terciles ($p=0.007$, $0.000$). The top-decile pinball edge is positive and significant in every group.
+
+\begin{table}[htbp]\centering\begin{threeparttable}
+\caption{The accuracy layer against GARCH-$t$ and GJR-GARCH-skew-$t$ by kind of stock: per-date DM of the FZ0 difference (positive: accuracy layer lower), and the pooled body's top-decile pinball edge over GARCH-$t$.}\label{tab:groups}\footnotesize\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lrcccccc}\toprule
+ & & \multicolumn{2}{c}{vs GARCH-$t$} & \multicolumn{2}{c}{vs GJR-skew-$t$} & Names won & Top-decile \\ \cmidrule(lr){3-4}\cmidrule(lr){5-6}
+Group & Names & 1\% & 2.5\% & 1\% & 2.5\% & at 1\% & edge (DM) \\ \midrule
+Business services, software & 25 & $+1.1$ & $+2.3$ & $+0.8$ & $+0.3$ & 14/25 & $+2.71\%$ (4.8) \\
+Finance, insurance, real estate & 44 & $+3.7$ & $+3.9$ & $+0.1$ & $-1.2$ & 37/44 & $+3.40\%$ (3.9) \\
+Durable manufacturing & 36 & $+2.5$ & $+2.4$ & $+2.4$ & $+1.7$ & 19/36 & $+2.46\%$ (4.4) \\
+Nondurable manufacturing & 30 & $+1.3$ & $-0.3$ & $+0.8$ & $+0.3$ & 18/30 & $+3.92\%$ (3.1) \\
+No SIC division & 4 & $+1.0$ & $+2.5$ & $-0.1$ & $-0.6$ & 3/4 & $+2.27\%$ (2.2) \\
+Other divisions (under 10 names each) & 24 & $-1.1$ & $+2.1$ & $-1.1$ & $-0.3$ & 12/24 & $+2.82\%$ (4.4) \\
+Transport, communications, utilities & 15 & $+3.3$ & $+3.7$ & $+0.6$ & $-0.1$ & 11/15 & $+3.12\%$ (4.1) \\
+Wholesale and retail trade & 22 & $+2.6$ & $+2.3$ & $+0.1$ & $-0.5$ & 16/22 & $+3.09\%$ (4.5) \\
+\midrule
+High-volatility tercile & 67 & $+3.3$ & $+2.1$ & $-0.4$ & $-0.8$ & 46/67 & $+2.96\%$ (7.2) \\
+Low-volatility tercile & 67 & $+4.4$ & $+5.4$ & $+1.8$ & $+0.7$ & 46/67 & $+2.55\%$ (4.4) \\
+Mid-volatility tercile & 66 & $+1.4$ & $+2.0$ & $+0.4$ & $-0.5$ & 38/66 & $+3.02\%$ (7.2) \\
+\midrule
+Large caps & 74 & $+3.8$ & $+4.9$ & $+1.4$ & $-0.0$ & 45/74 & $+2.54\%$ (5.7) \\
+Small caps & 126 & $+3.8$ & $+3.6$ & $+0.5$ & $-0.0$ & 85/126 & $+3.04\%$ (9.5) \\
+\bottomrule\end{tabular}\end{threeparttable}\end{table}
+
+\subsection*{Calendar overlap in the holdout and the point-in-time universe}
+Per-name 60/40 splits put test starts between 2008-01-25 and 2009-03-10 in the holdout and between 2003 and 2009 in the point-in-time universe, so the pooled learner trains on dates that are other names' test dates. Table~\ref{tab:strict} repeats both jobs with the pooled learner trained only before the earliest test start, and with scoring restricted to dates after the last training date.
+
+\begin{table}[htbp]\centering\begin{threeparttable}
+\caption{Top-cell and overall pinball edge over GARCH-$t$ with the calendar overlap removed (\%, per-date DM).}\label{tab:strict}\footnotesize
+\begin{tabular}{llccrr}\toprule
+Panel & Run & Top cell & Overall & Training rows & Test rows \\ \midrule
+Holdout 2000--2013 & as published & $+0.92$ (2.19) & $+0.04$ (0.43) & 414,616 & 280,608 \\
+Holdout 2000--2013 & train before earliest test start & $+0.82$ (1.88) & $+0.02$ (0.17) & 396,531 & 280,608 \\
+Holdout 2000--2013 & score after last training date & $+0.83$ (4.08) & $+0.25$ (2.91) & 414,616 & 242,293 \\
+\midrule
+Point-in-time universe & as published & $+3.17$ (7.02) & $+0.61$ (9.16) & 307,685 & 208,556 \\
+Point-in-time universe & train before earliest test start & $+1.25$ (4.06) & $+0.04$ (5.34) & 130,977 & 208,556 \\
+Point-in-time universe & score after last training date & $+1.77$ (3.08) & $+0.47$ (4.42) & 307,685 & 144,899 \\
+\bottomrule\end{tabular}
+\begin{tablenotes}\footnotesize\item Top cell: the top $\mathrm{mk}_{63}$ decile (holdout) or the frozen design-era top bucket (point-in-time). Overall percentages are row-weighted and the DMs are per-date, so a small percentage can carry a large statistic.\end{tablenotes}
+\end{threeparttable}\end{table}
+
+\subsection*{GAS, Taylor and SAV-CAViaR refitted}
+\texttt{tools/r67\_refit\_benchmarks.py} first re-runs the paper's own fitting and reproduces the canonical losses exactly, then refits each model on the whole estimation window with more starts and a longer optimiser (Table~\ref{tab:refit}).
+
+\begin{table}[htbp]\centering\begin{threeparttable}
+\caption{Benchmarks as fitted in the paper and refitted, against the accuracy layer (DM positive: accuracy layer lower).}\label{tab:refit}\footnotesize
+\begin{tabular}{llcccc}\toprule
+ & & \multicolumn{2}{c}{As in the paper} & \multicolumn{2}{c}{Refitted} \\ \cmidrule(lr){3-4}\cmidrule(lr){5-6}
+Benchmark & Level & Loss & DM & Loss & DM \\ \midrule
+Taylor ES-CAViaR (FZ0) & 1\% & 2.1647 & 3.76 & 2.1616 & 3.17 \\
+GAS (FZ0) & 1\% & 2.2324 & 9.91 & 2.2195 & 10.77 \\
+Taylor ES-CAViaR (FZ0) & 2.5\% & 1.8490 & 0.13 & 1.8493 & 0.24 \\
+GAS (FZ0) & 2.5\% & 1.8990 & 8.78 & unstable & --- \\
+SAV-CAViaR (pinball), overall & --- & 0.39554 & -1.63 & 0.39592 & -0.38 \\
+SAV-CAViaR (pinball), top decile & --- &  & -1.96 &  & -0.77 \\
+\bottomrule\end{tabular}
+\begin{tablenotes}\footnotesize\item Accuracy layer: FZ0 2.1465 at 1\% and 1.8486 at 2.5\%, eleven-level pinball 0.39603. With its scales estimated, the GAS diverges out of sample on some names at 2.5\% (489 non-finite test rows).\end{tablenotes}
+\end{threeparttable}\end{table}
+
+\subsection*{The estimator outside the equity panel: a pre-registered study}
+The protocol was fixed in \texttt{docs/CASE\_STUDY\_PRECOMMIT.md} before the confirmatory data were downloaded. Fifteen instruments are confirmatory (MSFT, PFE, WMT, CAT, BA, NFLX; IWM, XLU, HYG, LQD, SLV, DBA; GBP/USD, AUD/USD; ether) and seventeen, examined earlier, exploratory. The test window is 2020-01-02 to 2026-11-13. The estimator's pooled parts are trained once on the panel's pre-2020 rows, with every case-study ticker excluded. Because FZ0 is zero-homogeneous, loss differences are pooled across instruments by NYSE date. The primary test is non-inferiority with margin 0.01 in FZ0, Holm-adjusted over the seven benchmarks at each level. Table~\ref{tab:crossasset} gives the confirmatory result as registered, in which each per-instrument benchmark is refitted every January, and the result for all thirty-two instruments with every model fitted once before 2020. The second is post hoc: it was run after the first showed GJR-GARCH-skew-$t$ ahead at 2.5\%, to test whether refitting the benchmarks yearly while the pooled parts stayed frozen explained that lead. It did: across the thirty-two instruments GJR-GARCH-skew-$t$'s mean advantage falls from 0.0077 and 0.0055 (1\% and 2.5\%) to 0.0024 and 0.0023 under the common protocol.
+
+\begin{table}[htbp]\centering\begin{threeparttable}
+\caption{Accuracy layer minus benchmark, pooled FZ0 (negative: accuracy layer lower), with the one-sided 95\% upper bound. An asterisk marks non-inferiority at the Holm-adjusted 5\% level against a margin of 0.01.}\label{tab:crossasset}\footnotesize\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lcccc}\toprule
+ & \multicolumn{2}{c}{Confirmatory 15, as registered} & \multicolumn{2}{c}{All 32, every model fitted once} \\ \cmidrule(lr){2-3}\cmidrule(lr){4-5}
+Benchmark & 1\% & 2.5\% & 1\% & 2.5\% \\ \midrule
+Historical simulation & $-0.3461$ [$-0.0890$] & $-0.2207$ [$-0.0567$]* & $-0.3033$ [$-0.0866$] & $-0.1973$ [$-0.0605$]* \\
+EWMA & $-0.1593$ [$-0.0730$]* & $-0.0598$ [$-0.0280$]* & $-0.1527$ [$-0.0799$]* & $-0.0575$ [$-0.0319$]* \\
+GARCH-$t$ & $-0.0103$ [$+0.0191$] & $-0.0104$ [$+0.0029$]* & $-0.0083$ [$+0.0137$] & $-0.0088$ [$+0.0008$]* \\
+GJR-GARCH-skew-$t$ & $+0.0137$ [$+0.0316$] & $+0.0091$ [$+0.0164$] & $+0.0018$ [$+0.0182$] & $+0.0016$ [$+0.0088$]* \\
+FHS & $-0.0002$ [$+0.0182$] & $-0.0029$ [$+0.0043$]* & $+0.0030$ [$+0.0163$] & $-0.0016$ [$+0.0037$]* \\
+GARCH-EVT & $+0.0003$ [$+0.0162$] & $-0.0033$ [$+0.0035$]* & $+0.0047$ [$+0.0161$] & $-0.0012$ [$+0.0034$]* \\
+Beta-$t$-EGARCH & $-0.0081$ [$+0.0358$] & $-0.0024$ [$+0.0175$] & $-0.0148$ [$+0.0154$] & $-0.0068$ [$+0.0072$]* \\
+\bottomrule\end{tabular}
+\begin{tablenotes}\footnotesize\item Per-date Newey--West(10) inference on the NYSE calendar. On the confirmatory set the 90\% Model Confidence Set on FZ0 keeps every model except EWMA at 1\% and, at 2.5\%, keeps GJR-GARCH-skew-$t$, Beta-$t$-EGARCH, the accuracy layer and its variants and excludes GARCH-$t$, FHS, GARCH-EVT, historical simulation and EWMA.\end{tablenotes}
+\end{threeparttable}\end{table}
+
+Graded hypotheses on the confirmatory set: non-inferiority to GARCH-$t$ held at 2.5\% and was not shown at 1\%; non-inferiority to historical simulation, EWMA, FHS and GARCH-EVT held at 2.5\%, and only against EWMA at 1\%; it was not shown against GJR-GARCH-skew-$t$ or Beta-$t$-EGARCH at either level; the accuracy layer is in the 90\% FZ0 Model Confidence Set at both levels; and non-inferiority to SAV-CAViaR on pinball held at 2.5\% only. The rule for changing the recommended configuration to the flexible tail on the Beta-$t$-EGARCH scale was not met.
+
+Three further analyses of the saved daily losses are post hoc (\texttt{tools/r67\_case\_posthoc.py}). Flagged days are those on which each instrument's $\mathrm{mk}_{63}$ exceeds its pre-2020 90th percentile, 10.6\% of days. On flagged days Beta-$t$-EGARCH's single-level pinball gain over GARCH-$t$ is $+4.8\%$ (DM 2.5) at 1\% and $+3.4\%$ (DM 2.2) at 2.5\% on the fourteen stocks, and $-5.8\%$ (DM -1.6) and $-2.0\%$ (DM -1.1) on the eighteen other instruments. The flexible tail on the Beta-$t$-EGARCH scale gains $+7.2\%$ (DM 3.3) and $+5.0\%$ (DM 2.5) on the stocks' flagged days, and the accuracy layer $+0.0\%$ and $-0.1\%$. The score-gated scale's FZ0 gain over GARCH-$t$ across the thirty-two instruments is $-0.0038$ (DM -1.05) at 1\% and $-0.0008$ (DM -0.40) at 2.5\%.
+

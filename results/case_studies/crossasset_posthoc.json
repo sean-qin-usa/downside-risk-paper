@@ -1,0 +1,1080 @@
+{
+ "note": "gain > 0 and DM > 0: the model has the lower loss than the reference. Frozen protocol (every model fitted once on pre-2020 data). Post hoc, not confirmatory.",
+ "flagged_share_pct": 10.6,
+ "flagged_days_vs_garch_t": {
+  "all 32": {
+   "flagged": {
+    "bteg": {
+     "0.01": {
+      "fz0_gain": -0.0468,
+      "fz0_DM": -1.29,
+      "pinball_gain_pct": -2.07,
+      "pinball_DM": -0.76
+     },
+     "0.025": {
+      "fz0_gain": -0.0143,
+      "fz0_DM": -0.71,
+      "pinball_gain_pct": 0.12,
+      "pinball_DM": 0.08
+     }
+    },
+    "gjr_skewt": {
+     "0.01": {
+      "fz0_gain": -0.0196,
+      "fz0_DM": -0.5,
+      "pinball_gain_pct": 0.53,
+      "pinball_DM": 0.26
+     },
+     "0.025": {
+      "fz0_gain": -0.0066,
+      "fz0_DM": -0.33,
+      "pinball_gain_pct": 0.19,
+      "pinball_DM": 0.18
+     }
+    },
+    "engine": {
+     "0.01": {
+      "fz0_gain": 0.0095,
+      "fz0_DM": 0.34,
+      "pinball_gain_pct": 3.06,
+      "pinball_DM": 0.95
+     },
+     "0.025": {
+      "fz0_gain": 0.0117,
+      "fz0_DM": 0.88,
+      "pinball_gain_pct": 1.43,
+      "pinball_DM": 1.33
+     }
+    },
+    "body_bteg": {
+     "0.01": {
+      "fz0_gain": 0.0181,
+      "fz0_DM": 0.78,
+      "pinball_gain_pct": 2.53,
+      "pinball_DM": 1.46
+     },
+     "0.025": {
+      "fz0_gain": 0.03,
+      "fz0_DM": 1.93,
+      "pinball_gain_pct": 2.71,
+      "pinball_DM": 2.42
+     }
+    },
+    "engine_bteg": {
+     "0.01": {
+      "fz0_gain": 0.0116,
+      "fz0_DM": 0.55,
+      "pinball_gain_pct": 2.24,
+      "pinball_DM": 1.57
+     },
+     "0.025": {
+      "fz0_gain": 0.0262,
+      "fz0_DM": 2.1,
+      "pinball_gain_pct": 2.53,
+      "pinball_DM": 2.9
+     }
+    },
+    "fhs": {
+     "0.01": {
+      "fz0_gain": 0.0027,
+      "fz0_DM": 0.28,
+      "pinball_gain_pct": -0.15,
+      "pinball_DM": -0.24
+     },
+     "0.025": {
+      "fz0_gain": 0.0035,
+      "fz0_DM": 0.58,
+      "pinball_gain_pct": -0.11,
+      "pinball_DM": -0.29
+     }
+    }
+   },
+   "other": {
+    "bteg": {
+     "0.01": {
+      "fz0_gain": -0.0024,
+      "fz0_DM": -0.48,
+      "pinball_gain_pct": -0.27,
+      "pinball_DM": -0.41
+     },
+     "0.025": {
+      "fz0_gain": 0.0036,
+      "fz0_DM": 1.0,
+      "pinball_gain_pct": 0.3,
+      "pinball_DM": 0.78
+     }
+    },
+    "gjr_skewt": {
+     "0.01": {
+      "fz0_gain": 0.0123,
+      "fz0_DM": 1.26,
+      "pinball_gain_pct": 0.8,
+      "pinball_DM": 0.95
+     },
+     "0.025": {
+      "fz0_gain": 0.012,
+      "fz0_DM": 1.87,
+      "pinball_gain_pct": 0.93,
+      "pinball_DM": 1.59
+     }
+    },
+    "engine": {
+     "0.01": {
+      "fz0_gain": 0.0076,
+      "fz0_DM": 0.58,
+      "pinball_gain_pct": 0.19,
+      "pinball_DM": 0.31
+     },
+     "0.025": {
+      "fz0_gain": 0.0083,
+      "fz0_DM": 1.5,
+      "pinball_gain_pct": 0.28,
+      "pinball_DM": 1.29
+     }
+    },
+    "body_bteg": {
+     "0.01": {
+      "fz0_gain": 0.0072,
+      "fz0_DM": 0.56,
+      "pinball_gain_pct": 0.13,
+      "pinball_DM": 0.11
+     },
+     "0.025": {
+      "fz0_gain": 0.0114,
+      "fz0_DM": 1.51,
+      "pinball_gain_pct": 0.54,
+      "pinball_DM": 0.69
+     }
+    },
+    "engine_bteg": {
+     "0.01": {
+      "fz0_gain": 0.0048,
+      "fz0_DM": 0.33,
+      "pinball_gain_pct": -0.05,
+      "pinball_DM": -0.07
+     },
+     "0.025": {
+      "fz0_gain": 0.0102,
+      "fz0_DM": 1.35,
+      "pinball_gain_pct": 0.44,
+      "pinball_DM": 0.97
+     }
+    },
+    "fhs": {
+     "0.01": {
+      "fz0_gain": 0.0121,
+      "fz0_DM": 1.9,
+      "pinball_gain_pct": 0.46,
+      "pinball_DM": 0.98
+     },
+     "0.025": {
+      "fz0_gain": 0.0079,
+      "fz0_DM": 2.33,
+      "pinball_gain_pct": 0.25,
+      "pinball_DM": 1.01
+     }
+    }
+   }
+  },
+  "14 stocks": {
+   "flagged": {
+    "bteg": {
+     "0.01": {
+      "fz0_gain": 0.0361,
+      "fz0_DM": 1.08,
+      "pinball_gain_pct": 4.81,
+      "pinball_DM": 2.5
+     },
+     "0.025": {
+      "fz0_gain": 0.0332,
+      "fz0_DM": 1.56,
+      "pinball_gain_pct": 3.37,
+      "pinball_DM": 2.2
+     }
+    },
+    "gjr_skewt": {
+     "0.01": {
+      "fz0_gain": 0.0138,
+      "fz0_DM": 0.75,
+      "pinball_gain_pct": 1.73,
+      "pinball_DM": 1.14
+     },
+     "0.025": {
+      "fz0_gain": 0.0084,
+      "fz0_DM": 0.59,
+      "pinball_gain_pct": 0.65,
+      "pinball_DM": 0.51
+     }
+    },
+    "engine": {
+     "0.01": {
+      "fz0_gain": -0.0181,
+      "fz0_DM": -1.85,
+      "pinball_gain_pct": 0.01,
+      "pinball_DM": 0.02
+     },
+     "0.025": {
+      "fz0_gain": -0.0092,
+      "fz0_DM": -1.83,
+      "pinball_gain_pct": -0.13,
+      "pinball_DM": -0.43
+     }
+    },
+    "body_bteg": {
+     "0.01": {
+      "fz0_gain": 0.0708,
+      "fz0_DM": 2.47,
+      "pinball_gain_pct": 7.21,
+      "pinball_DM": 3.33
+     },
+     "0.025": {
+      "fz0_gain": 0.0615,
+      "fz0_DM": 2.6,
+      "pinball_gain_pct": 5.03,
+      "pinball_DM": 2.5
+     }
+    },
+    "engine_bteg": {
+     "0.01": {
+      "fz0_gain": 0.0304,
+      "fz0_DM": 1.38,
+      "pinball_gain_pct": 5.16,
+      "pinball_DM": 3.28
+     },
+     "0.025": {
+      "fz0_gain": 0.0382,
+      "fz0_DM": 2.15,
+      "pinball_gain_pct": 3.92,
+      "pinball_DM": 2.5
+     }
+    },
+    "fhs": {
+     "0.01": {
+      "fz0_gain": -0.0026,
+      "fz0_DM": -0.64,
+      "pinball_gain_pct": 0.12,
+      "pinball_DM": 0.36
+     },
+     "0.025": {
+      "fz0_gain": 0.0004,
+      "fz0_DM": 0.13,
+      "pinball_gain_pct": 0.11,
+      "pinball_DM": 0.44
+     }
+    }
+   },
+   "other": {
+    "bteg": {
+     "0.01": {
+      "fz0_gain": 0.0072,
+      "fz0_DM": 1.24,
+      "pinball_gain_pct": 0.18,
+      "pinball_DM": 0.33
+     },
+     "0.025": {
+      "fz0_gain": 0.011,
+      "fz0_DM": 2.87,
+      "pinball_gain_pct": 0.63,
+      "pinball_DM": 1.9
+     }
+    },
+    "gjr_skewt": {
+     "0.01": {
+      "fz0_gain": 0.0073,
+      "fz0_DM": 0.74,
+      "pinball_gain_pct": 0.58,
+      "pinball_DM": 0.67
+     },
+     "0.025": {
+      "fz0_gain": 0.0065,
+      "fz0_DM": 0.96,
+      "pinball_gain_pct": 0.67,
+      "pinball_DM": 1.18
+     }
+    },
+    "engine": {
+     "0.01": {
+      "fz0_gain": 0.0051,
+      "fz0_DM": 0.73,
+      "pinball_gain_pct": 0.18,
+      "pinball_DM": 0.67
+     },
+     "0.025": {
+      "fz0_gain": 0.0071,
+      "fz0_DM": 2.06,
+      "pinball_gain_pct": 0.29,
+      "pinball_DM": 1.38
+     }
+    },
+    "body_bteg": {
+     "0.01": {
+      "fz0_gain": 0.0173,
+      "fz0_DM": 1.29,
+      "pinball_gain_pct": 0.99,
+      "pinball_DM": 0.65
+     },
+     "0.025": {
+      "fz0_gain": 0.0169,
+      "fz0_DM": 2.01,
+      "pinball_gain_pct": 0.93,
+      "pinball_DM": 1.04
+     }
+    },
+    "engine_bteg": {
+     "0.01": {
+      "fz0_gain": 0.0149,
+      "fz0_DM": 1.48,
+      "pinball_gain_pct": 0.76,
+      "pinball_DM": 1.51
+     },
+     "0.025": {
+      "fz0_gain": 0.0181,
+      "fz0_DM": 3.15,
+      "pinball_gain_pct": 1.02,
+      "pinball_DM": 2.75
+     }
+    },
+    "fhs": {
+     "0.01": {
+      "fz0_gain": 0.0077,
+      "fz0_DM": 2.32,
+      "pinball_gain_pct": 0.46,
+      "pinball_DM": 2.07
+     },
+     "0.025": {
+      "fz0_gain": 0.0025,
+      "fz0_DM": 1.19,
+      "pinball_gain_pct": 0.02,
+      "pinball_DM": 0.12
+     }
+    }
+   }
+  },
+  "18 non-stocks": {
+   "flagged": {
+    "bteg": {
+     "0.01": {
+      "fz0_gain": -0.0886,
+      "fz0_DM": -1.79,
+      "pinball_gain_pct": -5.83,
+      "pinball_DM": -1.6
+     },
+     "0.025": {
+      "fz0_gain": -0.0399,
+      "fz0_DM": -1.52,
+      "pinball_gain_pct": -1.98,
+      "pinball_DM": -1.11
+     }
+    },
+    "gjr_skewt": {
+     "0.01": {
+      "fz0_gain": -0.0075,
+      "fz0_DM": -0.15,
+      "pinball_gain_pct": 1.49,
+      "pinball_DM": 0.55
+     },
+     "0.025": {
+      "fz0_gain": -0.0022,
+      "fz0_DM": -0.09,
+      "pinball_gain_pct": 0.38,
+      "pinball_DM": 0.29
+     }
+    },
+    "engine": {
+     "0.01": {
+      "fz0_gain": 0.0285,
+      "fz0_DM": 0.73,
+      "pinball_gain_pct": 4.21,
+      "pinball_DM": 1.05
+     },
+     "0.025": {
+      "fz0_gain": 0.0233,
+      "fz0_DM": 1.24,
+      "pinball_gain_pct": 1.95,
+      "pinball_DM": 1.32
+     }
+    },
+    "body_bteg": {
+     "0.01": {
+      "fz0_gain": -0.0161,
+      "fz0_DM": -0.46,
+      "pinball_gain_pct": -0.79,
+      "pinball_DM": -0.3
+     },
+     "0.025": {
+      "fz0_gain": 0.0069,
+      "fz0_DM": 0.35,
+      "pinball_gain_pct": 0.69,
+      "pinball_DM": 0.48
+     }
+    },
+    "engine_bteg": {
+     "0.01": {
+      "fz0_gain": 0.0073,
+      "fz0_DM": 0.26,
+      "pinball_gain_pct": 0.22,
+      "pinball_DM": 0.11
+     },
+     "0.025": {
+      "fz0_gain": 0.0165,
+      "fz0_DM": 1.19,
+      "pinball_gain_pct": 0.9,
+      "pinball_DM": 0.83
+     }
+    },
+    "fhs": {
+     "0.01": {
+      "fz0_gain": 0.0088,
+      "fz0_DM": 0.59,
+      "pinball_gain_pct": 0.06,
+      "pinball_DM": 0.06
+     },
+     "0.025": {
+      "fz0_gain": 0.0036,
+      "fz0_DM": 0.38,
+      "pinball_gain_pct": -0.38,
+      "pinball_DM": -0.62
+     }
+    }
+   },
+   "other": {
+    "bteg": {
+     "0.01": {
+      "fz0_gain": -0.0108,
+      "fz0_DM": -1.49,
+      "pinball_gain_pct": -0.69,
+      "pinball_DM": -0.74
+     },
+     "0.025": {
+      "fz0_gain": -0.0033,
+      "fz0_DM": -0.64,
+      "pinball_gain_pct": -0.02,
+      "pinball_DM": -0.03
+     }
+    },
+    "gjr_skewt": {
+     "0.01": {
+      "fz0_gain": 0.0164,
+      "fz0_DM": 1.39,
+      "pinball_gain_pct": 0.98,
+      "pinball_DM": 1.05
+     },
+     "0.025": {
+      "fz0_gain": 0.0157,
+      "fz0_DM": 2.11,
+      "pinball_gain_pct": 1.08,
+      "pinball_DM": 1.58
+     }
+    },
+    "engine": {
+     "0.01": {
+      "fz0_gain": 0.011,
+      "fz0_DM": 0.54,
+      "pinball_gain_pct": 0.27,
+      "pinball_DM": 0.24
+     },
+     "0.025": {
+      "fz0_gain": 0.0099,
+      "fz0_DM": 1.15,
+      "pinball_gain_pct": 0.29,
+      "pinball_DM": 0.92
+     }
+    },
+    "body_bteg": {
+     "0.01": {
+      "fz0_gain": 0.0,
+      "fz0_DM": 0.0,
+      "pinball_gain_pct": -0.5,
+      "pinball_DM": -0.45
+     },
+     "0.025": {
+      "fz0_gain": 0.0067,
+      "fz0_DM": 0.72,
+      "pinball_gain_pct": 0.2,
+      "pinball_DM": 0.26
+     }
+    },
+    "engine_bteg": {
+     "0.01": {
+      "fz0_gain": -0.0023,
+      "fz0_DM": -0.1,
+      "pinball_gain_pct": -0.67,
+      "pinball_DM": -0.61
+     },
+     "0.025": {
+      "fz0_gain": 0.0034,
+      "fz0_DM": 0.32,
+      "pinball_gain_pct": -0.07,
+      "pinball_DM": -0.11
+     }
+    },
+    "fhs": {
+     "0.01": {
+      "fz0_gain": 0.0167,
+      "fz0_DM": 1.59,
+      "pinball_gain_pct": 0.51,
+      "pinball_DM": 0.66
+     },
+     "0.025": {
+      "fz0_gain": 0.0122,
+      "fz0_DM": 1.9,
+      "pinball_gain_pct": 0.41,
+      "pinball_DM": 0.8
+     }
+    }
+   }
+  }
+ },
+ "noninferiority_all32": {
+  "0.01": {
+   "hs500": {
+    "engine_minus_benchmark": -0.3033,
+    "upper95": -0.0866,
+    "two_sided_DM": -2.3,
+    "p_holm": 0.0522,
+    "noninferior": false
+   },
+   "ewma": {
+    "engine_minus_benchmark": -0.1527,
+    "upper95": -0.0799,
+    "two_sided_DM": -3.45,
+    "p_holm": 0.0008,
+    "noninferior": true
+   },
+   "garch_t": {
+    "engine_minus_benchmark": -0.0083,
+    "upper95": 0.0137,
+    "two_sided_DM": -0.62,
+    "p_holm": 0.4287,
+    "noninferior": false
+   },
+   "gjr_skewt": {
+    "engine_minus_benchmark": 0.0018,
+    "upper95": 0.0182,
+    "two_sided_DM": 0.18,
+    "p_holm": 0.5834,
+    "noninferior": false
+   },
+   "fhs": {
+    "engine_minus_benchmark": 0.003,
+    "upper95": 0.0163,
+    "two_sided_DM": 0.37,
+    "p_holm": 0.5834,
+    "noninferior": false
+   },
+   "garch_evt": {
+    "engine_minus_benchmark": 0.0047,
+    "upper95": 0.0161,
+    "two_sided_DM": 0.69,
+    "p_holm": 0.5834,
+    "noninferior": false
+   },
+   "bteg": {
+    "engine_minus_benchmark": -0.0148,
+    "upper95": 0.0154,
+    "two_sided_DM": -0.81,
+    "p_holm": 0.4287,
+    "noninferior": false
+   }
+  },
+  "0.025": {
+   "hs500": {
+    "engine_minus_benchmark": -0.1973,
+    "upper95": -0.0605,
+    "two_sided_DM": -2.37,
+    "p_holm": 0.019,
+    "noninferior": true
+   },
+   "ewma": {
+    "engine_minus_benchmark": -0.0575,
+    "upper95": -0.0319,
+    "two_sided_DM": -3.69,
+    "p_holm": 0.0001,
+    "noninferior": true
+   },
+   "garch_t": {
+    "engine_minus_benchmark": -0.0088,
+    "upper95": 0.0008,
+    "two_sided_DM": -1.51,
+    "p_holm": 0.0025,
+    "noninferior": true
+   },
+   "gjr_skewt": {
+    "engine_minus_benchmark": 0.0016,
+    "upper95": 0.0088,
+    "two_sided_DM": 0.37,
+    "p_holm": 0.049,
+    "noninferior": true
+   },
+   "fhs": {
+    "engine_minus_benchmark": -0.0016,
+    "upper95": 0.0037,
+    "two_sided_DM": -0.51,
+    "p_holm": 0.0008,
+    "noninferior": true
+   },
+   "garch_evt": {
+    "engine_minus_benchmark": -0.0012,
+    "upper95": 0.0034,
+    "two_sided_DM": -0.42,
+    "p_holm": 0.0002,
+    "noninferior": true
+   },
+   "bteg": {
+    "engine_minus_benchmark": -0.0068,
+    "upper95": 0.0072,
+    "two_sided_DM": -0.8,
+    "p_holm": 0.049,
+    "noninferior": true
+   }
+  }
+ },
+ "gate": {
+  "0.01": {
+   "garch_t": {
+    "gain": -0.0038,
+    "DM": -1.05
+   },
+   "bteg": {
+    "gain": 0.0026,
+    "DM": 0.59
+   }
+  },
+  "0.025": {
+   "garch_t": {
+    "gain": -0.0008,
+    "DM": -0.4
+   },
+   "bteg": {
+    "gain": -0.0028,
+    "DM": -0.88
+   }
+  }
+ },
+ "by_class_vs_benchmarks": {
+  "0.01": {
+   "stocks": {
+    "hs500": {
+     "gain": 0.2418,
+     "DM": 2.15
+    },
+    "ewma": {
+     "gain": 0.149,
+     "DM": 3.8
+    },
+    "garch_t": {
+     "gain": 0.0043,
+     "DM": 0.64
+    },
+    "gjr_skewt": {
+     "gain": -0.0023,
+     "DM": -0.21
+    },
+    "fhs": {
+     "gain": -0.0026,
+     "DM": -0.5
+    },
+    "garch_evt": {
+     "gain": -0.0023,
+     "DM": -0.47
+    },
+    "bteg": {
+     "gain": -0.0023,
+     "DM": -0.23
+    }
+   },
+   "equity ETFs": {
+    "hs500": {
+     "gain": 0.4898,
+     "DM": 2.04
+    },
+    "ewma": {
+     "gain": 0.1985,
+     "DM": 2.34
+    },
+    "garch_t": {
+     "gain": 0.0515,
+     "DM": 1.54
+    },
+    "gjr_skewt": {
+     "gain": 0.0153,
+     "DM": 0.54
+    },
+    "fhs": {
+     "gain": 0.0127,
+     "DM": 0.77
+    },
+    "garch_evt": {
+     "gain": 0.0065,
+     "DM": 0.55
+    },
+    "bteg": {
+     "gain": 0.0566,
+     "DM": 1.44
+    }
+   },
+   "credit and rates": {
+    "hs500": {
+     "gain": 0.6565,
+     "DM": 1.84
+    },
+    "ewma": {
+     "gain": 0.1408,
+     "DM": 1.78
+    },
+    "garch_t": {
+     "gain": 0.016,
+     "DM": 0.38
+    },
+    "gjr_skewt": {
+     "gain": -0.0161,
+     "DM": -0.61
+    },
+    "fhs": {
+     "gain": 0.009,
+     "DM": 0.31
+    },
+    "garch_evt": {
+     "gain": -0.0018,
+     "DM": -0.08
+    },
+    "bteg": {
+     "gain": 0.0427,
+     "DM": 0.64
+    }
+   },
+   "commodities": {
+    "hs500": {
+     "gain": 0.304,
+     "DM": 3.01
+    },
+    "ewma": {
+     "gain": 0.083,
+     "DM": 1.82
+    },
+    "garch_t": {
+     "gain": -0.0031,
+     "DM": -0.17
+    },
+    "gjr_skewt": {
+     "gain": -0.0005,
+     "DM": -0.03
+    },
+    "fhs": {
+     "gain": -0.0117,
+     "DM": -0.9
+    },
+    "garch_evt": {
+     "gain": -0.0146,
+     "DM": -1.22
+    },
+    "bteg": {
+     "gain": 0.009,
+     "DM": 0.36
+    }
+   },
+   "FX": {
+    "hs500": {
+     "gain": 0.176,
+     "DM": 2.36
+    },
+    "ewma": {
+     "gain": 0.1237,
+     "DM": 2.09
+    },
+    "garch_t": {
+     "gain": -0.0138,
+     "DM": -0.46
+    },
+    "gjr_skewt": {
+     "gain": -0.022,
+     "DM": -0.92
+    },
+    "fhs": {
+     "gain": -0.016,
+     "DM": -0.64
+    },
+    "garch_evt": {
+     "gain": -0.0174,
+     "DM": -0.77
+    },
+    "bteg": {
+     "gain": 0.002,
+     "DM": 0.06
+    }
+   },
+   "crypto": {
+    "hs500": {
+     "gain": 0.0851,
+     "DM": 1.28
+    },
+    "ewma": {
+     "gain": 0.3377,
+     "DM": 2.29
+    },
+    "garch_t": {
+     "gain": 0.0116,
+     "DM": 1.58
+    },
+    "gjr_skewt": {
+     "gain": 0.0257,
+     "DM": 3.47
+    },
+    "fhs": {
+     "gain": -0.0081,
+     "DM": -0.49
+    },
+    "garch_evt": {
+     "gain": 0.0014,
+     "DM": 0.07
+    },
+    "bteg": {
+     "gain": 0.049,
+     "DM": 1.33
+    }
+   },
+   "all 32": {
+    "hs500": {
+     "gain": 0.3033,
+     "DM": 2.3
+    },
+    "ewma": {
+     "gain": 0.1527,
+     "DM": 3.45
+    },
+    "garch_t": {
+     "gain": 0.0083,
+     "DM": 0.62
+    },
+    "gjr_skewt": {
+     "gain": -0.0018,
+     "DM": -0.18
+    },
+    "fhs": {
+     "gain": -0.003,
+     "DM": -0.37
+    },
+    "garch_evt": {
+     "gain": -0.0047,
+     "DM": -0.69
+    },
+    "bteg": {
+     "gain": 0.0148,
+     "DM": 0.81
+    }
+   }
+  },
+  "0.025": {
+   "stocks": {
+    "hs500": {
+     "gain": 0.1576,
+     "DM": 2.11
+    },
+    "ewma": {
+     "gain": 0.0536,
+     "DM": 3.96
+    },
+    "garch_t": {
+     "gain": 0.0063,
+     "DM": 1.89
+    },
+    "gjr_skewt": {
+     "gain": -0.0008,
+     "DM": -0.12
+    },
+    "fhs": {
+     "gain": 0.004,
+     "DM": 1.15
+    },
+    "garch_evt": {
+     "gain": 0.0036,
+     "DM": 1.21
+    },
+    "bteg": {
+     "gain": -0.0057,
+     "DM": -1.11
+    }
+   },
+   "equity ETFs": {
+    "hs500": {
+     "gain": 0.2987,
+     "DM": 2.06
+    },
+    "ewma": {
+     "gain": 0.0751,
+     "DM": 2.27
+    },
+    "garch_t": {
+     "gain": 0.0241,
+     "DM": 1.73
+    },
+    "gjr_skewt": {
+     "gain": -0.0068,
+     "DM": -0.46
+    },
+    "fhs": {
+     "gain": -0.0009,
+     "DM": -0.13
+    },
+    "garch_evt": {
+     "gain": -0.002,
+     "DM": -0.29
+    },
+    "bteg": {
+     "gain": 0.0271,
+     "DM": 1.47
+    }
+   },
+   "credit and rates": {
+    "hs500": {
+     "gain": 0.4481,
+     "DM": 1.95
+    },
+    "ewma": {
+     "gain": 0.0633,
+     "DM": 2.05
+    },
+    "garch_t": {
+     "gain": 0.0217,
+     "DM": 1.14
+    },
+    "gjr_skewt": {
+     "gain": -0.0116,
+     "DM": -1.17
+    },
+    "fhs": {
+     "gain": 0.0141,
+     "DM": 1.21
+    },
+    "garch_evt": {
+     "gain": 0.013,
+     "DM": 1.22
+    },
+    "bteg": {
+     "gain": 0.0302,
+     "DM": 0.96
+    }
+   },
+   "commodities": {
+    "hs500": {
+     "gain": 0.2088,
+     "DM": 3.55
+    },
+    "ewma": {
+     "gain": 0.0287,
+     "DM": 1.85
+    },
+    "garch_t": {
+     "gain": 0.0037,
+     "DM": 0.51
+    },
+    "gjr_skewt": {
+     "gain": 0.0038,
+     "DM": 0.51
+    },
+    "fhs": {
+     "gain": -0.0006,
+     "DM": -0.12
+    },
+    "garch_evt": {
+     "gain": -0.0013,
+     "DM": -0.28
+    },
+    "bteg": {
+     "gain": 0.0094,
+     "DM": 0.75
+    }
+   },
+   "FX": {
+    "hs500": {
+     "gain": 0.1135,
+     "DM": 2.59
+    },
+    "ewma": {
+     "gain": 0.0586,
+     "DM": 2.44
+    },
+    "garch_t": {
+     "gain": -0.0002,
+     "DM": -0.01
+    },
+    "gjr_skewt": {
+     "gain": -0.0066,
+     "DM": -0.61
+    },
+    "fhs": {
+     "gain": -0.0041,
+     "DM": -0.36
+    },
+    "garch_evt": {
+     "gain": -0.0048,
+     "DM": -0.47
+    },
+    "bteg": {
+     "gain": 0.0104,
+     "DM": 0.66
+    }
+   },
+   "crypto": {
+    "hs500": {
+     "gain": 0.0346,
+     "DM": 0.92
+    },
+    "ewma": {
+     "gain": 0.11,
+     "DM": 1.9
+    },
+    "garch_t": {
+     "gain": 0.0077,
+     "DM": 1.44
+    },
+    "gjr_skewt": {
+     "gain": 0.0144,
+     "DM": 2.53
+    },
+    "fhs": {
+     "gain": -0.0112,
+     "DM": -1.12
+    },
+    "garch_evt": {
+     "gain": -0.0096,
+     "DM": -0.75
+    },
+    "bteg": {
+     "gain": 0.0052,
+     "DM": 0.24
+    }
+   },
+   "all 32": {
+    "hs500": {
+     "gain": 0.1973,
+     "DM": 2.37
+    },
+    "ewma": {
+     "gain": 0.0575,
+     "DM": 3.69
+    },
+    "garch_t": {
+     "gain": 0.0088,
+     "DM": 1.51
+    },
+    "gjr_skewt": {
+     "gain": -0.0016,
+     "DM": -0.37
+    },
+    "fhs": {
+     "gain": 0.0016,
+     "DM": 0.51
+    },
+    "garch_evt": {
+     "gain": 0.0012,
+     "DM": 0.42
+    },
+    "bteg": {
+     "gain": 0.0068,
+     "DM": 0.8
+    }
+   }
+  }
+ }
+}
