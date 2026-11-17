@@ -22,9 +22,11 @@ Journal build 59 → 62 pages (the corrections add text; no cuts were made in th
 
 - **The sign of the shock** (intro, §1.2, Table OA.21): the top-decile edge is +3.9% after a positive largest shock
   and +1.6% after a negative one; GJR-skew-t gains after positive shocks and loses after negative ones. Citations
-  added: Lee and Mykland (2008), Lee (2012), Patton and Sheppard (2015), Franses and Ghijsels (1999). **Their
-  bibliographic details and the one-clause descriptions of their findings were taken from abstracts and index records
-  and need checking against the full texts before submission.**
+  added: Lee and Mykland (2008), Lee (2012), Patton and Sheppard (2015), Franses and Ghijsels (1999). Checked on 2026-11-17 against publisher and RePEc records (volume, issue, pages, and the abstract of each): all four
+  bibliographic entries are correct. Two descriptions were tightened to what the abstracts support: stock jumps accompany
+  firm-specific *and* market-wide news (Lee 2012 finds macro releases predict stock jumps too), and Franses and Ghijsels
+  show that outlier-corrected GARCH models forecast better. Patton and Sheppard's result is on high-frequency data for the
+  S&P 500 and individual stocks, and the text now says so. The full texts were not read.
 - **Scope** (intro, §4.2, conclusion): the mechanism is claimed for individual stocks only. It replicates on fourteen
   stocks outside the training pool and does not appear on eighteen instruments in other asset classes.
 - **Online Appendix section *Checks added after the comparison audit*** (Tables OA.21–OA.25): shock sign; breakdown by
