@@ -539,4 +539,11 @@ OUT={'note':('Every standard benchmark on the same rows as job_composite.py / jo
  'evt_branch_binds_frac':binds}
 fn="bench_all_results_synthetic.json" if SYN else "bench_all_results.json"
 json.dump(OUT,open(os.path.join(P,fn),"w"),indent=2)
+# Opt-in (R66): save the per-row losses that every statistic above is computed from, for breakdowns by name group.
+# Nothing above reads this; without the flag the job is unchanged.
+if "--dump-rows" in sys.argv:
+    dp=sys.argv[sys.argv.index("--dump-rows")+1]
+    np.savez_compressed(dp,permno=PN,date=np.array([str(pd.Timestamp(d).date()) for d in dates]),y=Y,mk63=mk,rk_mk=rk_mk,
+        **{"pin__"+m:PL[m] for m in PIN_MODELS},**{"fz0__%s__%s"%(m,a):FZL[a][m] for a in FZL for m in FZL[a]})
+    lg("per-row losses written to %s"%dp)
 lg("BENCHALLDONE %.0fs"%(time.time()-t0))
