@@ -101,11 +101,17 @@ for pn in names:
     trn=df[df['idx']<sp]; tst=df[df['idx']>=sp]
     if len(tst)<30:
         n_short+=1; continue
-    TR.append(trn[RAWX+['y']])
+    TR.append(trn[RAWX+['y','date']])
     te=tst[RAWX+['y','sig','mk63','date']].copy(); te['mu']=mu; te['nu']=nu; te['tsc']=tsc; te['permno']=pn
     TE.append(te)
 lg("panels %d kept, %d dropped by fitting floors %.0fs"%(len(TE),n_short,time.time()-t0))
 TRc=pd.concat(TR); TEc=pd.concat(TE).reset_index(drop=True)
+# Opt-in audit switch (docs/AUDIT_2026-11.md, H1), as in job_wrds_holdout.py. Unset, the job is unchanged.
+STRICT=os.environ.get("PIT_STRICT","")
+if STRICT=="train":
+    cut=TEc['date'].min(); n0=len(TRc); TRc=TRc[TRc['date']<cut]; lg("STRICT train: pooled training rows before %s: %d of %d"%(pd.Timestamp(cut).date(),len(TRc),n0))
+elif STRICT=="test":
+    cut=TRc['date'].max(); n0=len(TEc); TEc=TEc[TEc['date']>cut].reset_index(drop=True); lg("STRICT test: test rows after %s: %d of %d"%(pd.Timestamp(cut).date(),len(TEc),n0))
 GQ={}
 for t in TAUS:
     m=HistGradientBoostingRegressor(random_state=0,loss='quantile',quantile=t,max_iter=250,max_depth=3,learning_rate=0.06).fit(TRc[RAWX].values,TRc['y'].values)
@@ -142,5 +148,5 @@ OUT={'note':'POINT-IN-TIME universe: top 200 by Q1-2000 market cap (shrcd 10/11)
      'top_frozen_share_pct':round(100*float(topF.sum())/float(okm.sum()),1),
      'decile_profile_qcut_edge_pct':prof_q,
      'design_edges_mk63':[round(e,4) for e in EDGES]}
-json.dump(OUT,open(os.path.join(P,"pit_universe_results.json"),"w"),indent=2)
+json.dump(OUT,open(os.path.join(os.environ.get("PIT_OUT",P),"pit_universe_results%s.json"%(("_strict_"+STRICT) if STRICT else "")),"w"),indent=2)
 lg("PITDONE %.0fs"%(time.time()-t0)); lg(json.dumps(OUT,indent=1)[:1500])
