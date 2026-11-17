@@ -23,7 +23,12 @@ from sklearn.ensemble import HistGradientBoostingRegressor
 from scipy import stats
 from arch import arch_model
 P=os.environ.get('GBC_PROJECT_DIR', os.path.dirname(os.path.abspath(__file__))); t0=time.time(); lg=lambda s:print(s,flush=True)
-OUTJ=os.path.join(P,"holdout_frontier_results.json")
+# Opt-in audit switch (docs/AUDIT_2026-11.md, H1). Per-name 60/40 splits put test starts between 2008-01-25 and 2009-03-10,
+# so the pooled learner trains on dates that are other names' test dates. HOLDOUT_STRICT=train keeps only pooled training
+# rows dated before the earliest test start; HOLDOUT_STRICT=test scores only test rows dated after the latest training row.
+# Unset, the job is unchanged.
+STRICT=os.environ.get("HOLDOUT_STRICT","")
+OUTJ=os.path.join(os.environ.get("HOLDOUT_OUT",P),"holdout_frontier_results%s.json"%(("_strict_"+STRICT) if STRICT else ""))
 CACHE=os.path.join(P,"holdout_panel_2000_2013.csv")
 
 # ---------- pull (cached) ----------
@@ -74,11 +79,15 @@ for pn in names:
     df['idx']=np.arange(n); df=df.dropna()
     trn=df[df['idx']<sp]; tst=df[df['idx']>=sp]
     if len(tst)<30: continue
-    TR.append(trn[RAWX+['y']])
+    TR.append(trn[RAWX+['y','date']])
     te=tst[RAWX+['y','sig','mk63','jump5','skew63','date']].copy(); te['mu']=mu; te['nu']=nu; te['tsc']=tsc
     TE.append(te); META.append(pn)
 lg("panels %d names %.0fs"%(len(META),time.time()-t0))
 TRc=pd.concat(TR); TEc=pd.concat(TE).reset_index(drop=True)
+if STRICT=="train":
+    cut=TEc['date'].min(); n0=len(TRc); TRc=TRc[TRc['date']<cut]; lg("STRICT train: pooled training rows before %s: %d of %d"%(pd.Timestamp(cut).date(),len(TRc),n0))
+elif STRICT=="test":
+    cut=TRc['date'].max(); n0=len(TEc); TEc=TEc[TEc['date']>cut].reset_index(drop=True); lg("STRICT test: test rows after %s: %d of %d"%(pd.Timestamp(cut).date(),len(TEc),n0))
 GQ={}
 for t in TAUS:
     m=HistGradientBoostingRegressor(random_state=0,loss='quantile',quantile=t,max_iter=250,max_depth=3,learning_rate=0.06).fit(TRc[RAWX].values,TRc['y'].values)
