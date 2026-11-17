@@ -164,3 +164,20 @@ off-panel lead came from the protocol asymmetry, in which the per-instrument ben
 pooled parts were not. Under the panel's protocol the off-panel comparison is a tie, as on the panel. A residual lean of
 about +0.002 remains, within noise. The confirmatory verdicts above stand as pre-registered; this diagnostic explains
 them and does not replace them. A like-for-like annual comparison would also retrain our pooled parts every year.
+
+## Post-hoc analyses on the saved daily losses, frozen protocol, all 32 instruments (2026-11-17)
+
+Not confirmatory: 17 of the 32 instruments were seen before the pre-commitment and the frozen protocol was adopted
+after the first run. No model was refitted. Flagged days are the days the score-gated row switches scale (mk63 above
+its pre-2020 90th percentile for that instrument): 10.6% of days.
+
+1. **The post-shock mechanism replicates on stocks and not on other assets.** On flagged days, Beta-t-EGARCH against
+   GARCH-t, single-level pinball: 14 stocks +4.8% at 1% (DM 2.5) and +3.4% at 2.5% (DM 2.2); 18 non-stock instruments
+   −5.8% (DM −1.6) and −2.0% (DM −1.1). The learned tail on the robust scale (`body_bteg`) on the stocks' flagged days:
+   +7.2% (DM 3.3) and +5.0% (DM 2.5), FZ0 DM 2.5 and 2.6. The accuracy layer (GARCH-t scale, pooled GPD tail) shows no
+   flagged-day gain on these stocks at the tail levels (0.0% and −0.1%; FZ0 DM −1.9 and −1.8).
+2. **Non-inferiority with all 32 pooled (margin 0.01, Holm).** At 2.5% the accuracy layer is non-inferior to every one
+   of the seven benchmarks, GJR-skew-t (upper bound +0.0088) and Beta-t-EGARCH (+0.0072) included. At 1% only to EWMA
+   (historical simulation p 0.052); the upper bounds against the GARCH family are +0.014 to +0.018.
+3. **The score-gated scale does not beat GARCH-t out of sample across the 32:** −0.0038 (DM −1.05) at 1% and −0.0008
+   (DM −0.40) at 2.5%. On the stocks alone the flagged-day FZ0 gain is positive and not significant (DM 1.1 and 1.6).
