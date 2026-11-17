@@ -1,0 +1,1897 @@
+{
+ "note": "Canonical bench_all rows broken down by kind of stock; engine = accuracy layer. gain > 0 and DM > 0 mean the engine has the LOWER loss than the benchmark.",
+ "predictions_written_before_run": "P1 engine FZ0 gain over GARCH-t positive in every SIC group at 1%; P2 heterogeneity not rejected across SIC groups at either level, rejected across volatility terciles at 1% with the smallest gain in the high tercile; P3 engine and GJR-skew-t within noise in every SIC group at both levels; P4 top-decile body pinball edge over GARCH-t positive in every SIC group and largest in the high-volatility tercile.",
+ "volatility_tercile_cutoffs_pct_daily": [
+  1.869,
+  2.755
+ ],
+ "groupings": {
+  "sic": {
+   "groups": {
+    "business services (incl. software)": {
+     "n_names": 25,
+     "n_rows": 27700,
+     "fz0_0.01": {
+      "garch_t": {
+       "gain": 0.0033,
+       "DM": 1.11,
+       "names_engine_lower": 14,
+       "names": 25,
+       "p_holm_two_sided": 0.7744
+      },
+      "gjr_skewt": {
+       "gain": 0.0068,
+       "DM": 0.75,
+       "names_engine_lower": 14,
+       "names": 25,
+       "p_holm_two_sided": 1.0
+      },
+      "fhs_pool": {
+       "gain": 0.0106,
+       "DM": 2.82,
+       "names_engine_lower": 19,
+       "names": 25
+      },
+      "fhs_name": {
+       "gain": 0.0108,
+       "DM": 1.19,
+       "names_engine_lower": 12,
+       "names": 25
+      },
+      "evt_pool": {
+       "gain": 0.0074,
+       "DM": 2.21,
+       "names_engine_lower": 15,
+       "names": 25
+      },
+      "evt_name": {
+       "gain": 0.0052,
+       "DM": 0.61,
+       "names_engine_lower": 13,
+       "names": 25
+      },
+      "ewma": {
+       "gain": 0.189,
+       "DM": 5.65,
+       "names_engine_lower": 24,
+       "names": 25
+      },
+      "hs500": {
+       "gain": 0.0864,
+       "DM": 3.48,
+       "names_engine_lower": 21,
+       "names": 25
+      },
+      "gas_pzc": {
+       "gain": 0.0864,
+       "DM": 4.54,
+       "names_engine_lower": 22,
+       "names": 25
+      },
+      "taylor": {
+       "gain": 0.0216,
+       "DM": 1.29,
+       "names_engine_lower": 16,
+       "names": 25
+      }
+     },
+     "fz0_0.025": {
+      "garch_t": {
+       "gain": 0.0043,
+       "DM": 2.29,
+       "names_engine_lower": 16,
+       "names": 25,
+       "p_holm_two_sided": 0.0939
+      },
+      "gjr_skewt": {
+       "gain": 0.0018,
+       "DM": 0.28,
+       "names_engine_lower": 15,
+       "names": 25,
+       "p_holm_two_sided": 1.0
+      },
+      "fhs_pool": {
+       "gain": 0.0132,
+       "DM": 4.34,
+       "names_engine_lower": 22,
+       "names": 25
+      },
+      "fhs_name": {
+       "gain": 0.0086,
+       "DM": 2.09,
+       "names_engine_lower": 13,
+       "names": 25
+      },
+      "evt_pool": {
+       "gain": 0.0106,
+       "DM": 4.11,
+       "names_engine_lower": 22,
+       "names": 25
+      },
+      "evt_name": {
+       "gain": 0.0056,
+       "DM": 1.35,
+       "names_engine_lower": 13,
+       "names": 25
+      },
+      "ewma": {
+       "gain": 0.0555,
+       "DM": 4.84,
+       "names_engine_lower": 20,
+       "names": 25
+      },
+      "hs500": {
+       "gain": 0.0695,
+       "DM": 3.54,
+       "names_engine_lower": 20,
+       "names": 25
+      },
+      "gas_pzc": {
+       "gain": 0.0619,
+       "DM": 4.8,
+       "names_engine_lower": 20,
+       "names": 25
+      },
+      "taylor": {
+       "gain": -0.0075,
+       "DM": -1.04,
+       "names_engine_lower": 9,
+       "names": 25
+      }
+     },
+     "pinball_engine_vs_garch_t": {
+      "edge_pct": 0.471,
+      "DM": 5.51
+     },
+     "top_decile_body_vs_garch_t_pinball": {
+      "edge_pct": 2.71,
+      "DM": 4.83,
+      "rows": 3146
+     }
+    },
+    "finance, insurance, real estate": {
+     "n_names": 44,
+     "n_rows": 48752,
+     "fz0_0.01": {
+      "garch_t": {
+       "gain": 0.0198,
+       "DM": 3.68,
+       "names_engine_lower": 37,
+       "names": 44,
+       "p_holm_two_sided": 0.0019
+      },
+      "gjr_skewt": {
+       "gain": 0.0004,
+       "DM": 0.07,
+       "names_engine_lower": 23,
+       "names": 44,
+       "p_holm_two_sided": 1.0
+      },
+      "fhs_pool": {
+       "gain": 0.0162,
+       "DM": 3.08,
+       "names_engine_lower": 35,
+       "names": 44
+      },
+      "fhs_name": {
+       "gain": 0.0392,
+       "DM": 3.13,
+       "names_engine_lower": 37,
+       "names": 44
+      },
+      "evt_pool": {
+       "gain": 0.0139,
+       "DM": 3.25,
+       "names_engine_lower": 36,
+       "names": 44
+      },
+      "evt_name": {
+       "gain": 0.0366,
+       "DM": 3.28,
+       "names_engine_lower": 34,
+       "names": 44
+      },
+      "ewma": {
+       "gain": 0.1537,
+       "DM": 3.03,
+       "names_engine_lower": 39,
+       "names": 44
+      },
+      "hs500": {
+       "gain": 0.1581,
+       "DM": 4.27,
+       "names_engine_lower": 35,
+       "names": 44
+      },
+      "gas_pzc": {
+       "gain": 0.0819,
+       "DM": 4.89,
+       "names_engine_lower": 36,
+       "names": 44
+      },
+      "taylor": {
+       "gain": 0.0204,
+       "DM": 2.69,
+       "names_engine_lower": 25,
+       "names": 44
+      }
+     },
+     "fz0_0.025": {
+      "garch_t": {
+       "gain": 0.0107,
+       "DM": 3.93,
+       "names_engine_lower": 40,
+       "names": 44,
+       "p_holm_two_sided": 0.0007
+      },
+      "gjr_skewt": {
+       "gain": -0.0046,
+       "DM": -1.24,
+       "names_engine_lower": 21,
+       "names": 44,
+       "p_holm_two_sided": 1.0
+      },
+      "fhs_pool": {
+       "gain": 0.017,
+       "DM": 3.96,
+       "names_engine_lower": 39,
+       "names": 44
+      },
+      "fhs_name": {
+       "gain": 0.0191,
+       "DM": 3.5,
+       "names_engine_lower": 37,
+       "names": 44
+      },
+      "evt_pool": {
+       "gain": 0.0153,
+       "DM": 4.05,
+       "names_engine_lower": 40,
+       "names": 44
+      },
+      "evt_name": {
+       "gain": 0.016,
+       "DM": 3.41,
+       "names_engine_lower": 34,
+       "names": 44
+      },
+      "ewma": {
+       "gain": 0.0454,
+       "DM": 2.24,
+       "names_engine_lower": 36,
+       "names": 44
+      },
+      "hs500": {
+       "gain": 0.1136,
+       "DM": 4.39,
+       "names_engine_lower": 39,
+       "names": 44
+      },
+      "gas_pzc": {
+       "gain": 0.0469,
+       "DM": 3.63,
+       "names_engine_lower": 35,
+       "names": 44
+      },
+      "taylor": {
+       "gain": -0.0001,
+       "DM": -0.02,
+       "names_engine_lower": 22,
+       "names": 44
+      }
+     },
+     "pinball_engine_vs_garch_t": {
+      "edge_pct": 0.32,
+      "DM": 2.84
+     },
+     "top_decile_body_vs_garch_t_pinball": {
+      "edge_pct": 3.403,
+      "DM": 3.92,
+      "rows": 3860
+     }
+    },
+    "manufacturing (durable: machinery, electronics, computers)": {
+     "n_names": 36,
+     "n_rows": 39888,
+     "fz0_0.01": {
+      "garch_t": {
+       "gain": 0.0065,
+       "DM": 2.48,
+       "names_engine_lower": 19,
+       "names": 36,
+       "p_holm_two_sided": 0.0657
+      },
+      "gjr_skewt": {
+       "gain": 0.0157,
+       "DM": 2.44,
+       "names_engine_lower": 23,
+       "names": 36,
+       "p_holm_two_sided": 0.1175
+      },
+      "fhs_pool": {
+       "gain": 0.0059,
+       "DM": 1.85,
+       "names_engine_lower": 20,
+       "names": 36
+      },
+      "fhs_name": {
+       "gain": 0.0345,
+       "DM": 2.94,
+       "names_engine_lower": 22,
+       "names": 36
+      },
+      "evt_pool": {
+       "gain": 0.0057,
+       "DM": 2.0,
+       "names_engine_lower": 20,
+       "names": 36
+      },
+      "evt_name": {
+       "gain": 0.027,
+       "DM": 2.55,
+       "names_engine_lower": 22,
+       "names": 36
+      },
+      "ewma": {
+       "gain": 0.1683,
+       "DM": 5.15,
+       "names_engine_lower": 32,
+       "names": 36
+      },
+      "hs500": {
+       "gain": 0.1103,
+       "DM": 5.56,
+       "names_engine_lower": 30,
+       "names": 36
+      },
+      "gas_pzc": {
+       "gain": 0.0886,
+       "DM": 7.11,
+       "names_engine_lower": 30,
+       "names": 36
+      },
+      "taylor": {
+       "gain": 0.0444,
+       "DM": 2.82,
+       "names_engine_lower": 18,
+       "names": 36
+      }
+     },
+     "fz0_0.025": {
+      "garch_t": {
+       "gain": 0.0032,
+       "DM": 2.35,
+       "names_engine_lower": 20,
+       "names": 36,
+       "p_holm_two_sided": 0.0939
+      },
+      "gjr_skewt": {
+       "gain": 0.0069,
+       "DM": 1.7,
+       "names_engine_lower": 22,
+       "names": 36,
+       "p_holm_two_sided": 0.713
+      },
+      "fhs_pool": {
+       "gain": 0.0095,
+       "DM": 4.29,
+       "names_engine_lower": 27,
+       "names": 36
+      },
+      "fhs_name": {
+       "gain": 0.013,
+       "DM": 2.49,
+       "names_engine_lower": 20,
+       "names": 36
+      },
+      "evt_pool": {
+       "gain": 0.0078,
+       "DM": 4.22,
+       "names_engine_lower": 25,
+       "names": 36
+      },
+      "evt_name": {
+       "gain": 0.0119,
+       "DM": 2.44,
+       "names_engine_lower": 18,
+       "names": 36
+      },
+      "ewma": {
+       "gain": 0.0569,
+       "DM": 4.92,
+       "names_engine_lower": 31,
+       "names": 36
+      },
+      "hs500": {
+       "gain": 0.0604,
+       "DM": 4.34,
+       "names_engine_lower": 29,
+       "names": 36
+      },
+      "gas_pzc": {
+       "gain": 0.0461,
+       "DM": 5.55,
+       "names_engine_lower": 31,
+       "names": 36
+      },
+      "taylor": {
+       "gain": 0.0141,
+       "DM": 1.79,
+       "names_engine_lower": 18,
+       "names": 36
+      }
+     },
+     "pinball_engine_vs_garch_t": {
+      "edge_pct": 0.118,
+      "DM": 1.32
+     },
+     "top_decile_body_vs_garch_t_pinball": {
+      "edge_pct": 2.457,
+      "DM": 4.41,
+      "rows": 3744
+     }
+    },
+    "manufacturing (nondurable: food, chemicals, pharma)": {
+     "n_names": 30,
+     "n_rows": 33240,
+     "fz0_0.01": {
+      "garch_t": {
+       "gain": 0.0027,
+       "DM": 1.3,
+       "names_engine_lower": 18,
+       "names": 30,
+       "p_holm_two_sided": 0.7744
+      },
+      "gjr_skewt": {
+       "gain": 0.0057,
+       "DM": 0.84,
+       "names_engine_lower": 14,
+       "names": 30,
+       "p_holm_two_sided": 1.0
+      },
+      "fhs_pool": {
+       "gain": 0.0044,
+       "DM": 1.51,
+       "names_engine_lower": 18,
+       "names": 30
+      },
+      "fhs_name": {
+       "gain": 0.0198,
+       "DM": 2.5,
+       "names_engine_lower": 23,
+       "names": 30
+      },
+      "evt_pool": {
+       "gain": 0.0055,
+       "DM": 1.97,
+       "names_engine_lower": 21,
+       "names": 30
+      },
+      "evt_name": {
+       "gain": 0.0228,
+       "DM": 2.86,
+       "names_engine_lower": 22,
+       "names": 30
+      },
+      "ewma": {
+       "gain": 0.1642,
+       "DM": 4.74,
+       "names_engine_lower": 25,
+       "names": 30
+      },
+      "hs500": {
+       "gain": 0.0941,
+       "DM": 5.1,
+       "names_engine_lower": 26,
+       "names": 30
+      },
+      "gas_pzc": {
+       "gain": 0.0822,
+       "DM": 4.83,
+       "names_engine_lower": 23,
+       "names": 30
+      },
+      "taylor": {
+       "gain": 0.0198,
+       "DM": 1.82,
+       "names_engine_lower": 15,
+       "names": 30
+      }
+     },
+     "fz0_0.025": {
+      "garch_t": {
+       "gain": -0.0004,
+       "DM": -0.31,
+       "names_engine_lower": 12,
+       "names": 30,
+       "p_holm_two_sided": 0.7566
+      },
+      "gjr_skewt": {
+       "gain": 0.0016,
+       "DM": 0.35,
+       "names_engine_lower": 14,
+       "names": 30,
+       "p_holm_two_sided": 1.0
+      },
+      "fhs_pool": {
+       "gain": 0.0041,
+       "DM": 2.23,
+       "names_engine_lower": 19,
+       "names": 30
+      },
+      "fhs_name": {
+       "gain": 0.0172,
+       "DM": 4.04,
+       "names_engine_lower": 22,
+       "names": 30
+      },
+      "evt_pool": {
+       "gain": 0.0033,
+       "DM": 2.13,
+       "names_engine_lower": 17,
+       "names": 30
+      },
+      "evt_name": {
+       "gain": 0.0097,
+       "DM": 2.66,
+       "names_engine_lower": 19,
+       "names": 30
+      },
+      "ewma": {
+       "gain": 0.0528,
+       "DM": 4.4,
+       "names_engine_lower": 24,
+       "names": 30
+      },
+      "hs500": {
+       "gain": 0.0551,
+       "DM": 4.18,
+       "names_engine_lower": 24,
+       "names": 30
+      },
+      "gas_pzc": {
+       "gain": 0.0718,
+       "DM": 7.91,
+       "names_engine_lower": 27,
+       "names": 30
+      },
+      "taylor": {
+       "gain": -0.0025,
+       "DM": -0.44,
+       "names_engine_lower": 9,
+       "names": 30
+      }
+     },
+     "pinball_engine_vs_garch_t": {
+      "edge_pct": 0.229,
+      "DM": 1.87
+     },
+     "top_decile_body_vs_garch_t_pinball": {
+      "edge_pct": 3.922,
+      "DM": 3.07,
+      "rows": 3034
+     }
+    },
+    "non-classifiable (mostly missing SIC)": {
+     "n_names": 4,
+     "n_rows": 4432,
+     "fz0_0.01": {
+      "garch_t": {
+       "gain": 0.0194,
+       "DM": 1.03,
+       "names_engine_lower": 3,
+       "names": 4,
+       "p_holm_two_sided": 0.7744
+      },
+      "gjr_skewt": {
+       "gain": -0.0034,
+       "DM": -0.11,
+       "names_engine_lower": 1,
+       "names": 4,
+       "p_holm_two_sided": 1.0
+      },
+      "fhs_pool": {
+       "gain": 0.0086,
+       "DM": 0.83,
+       "names_engine_lower": 2,
+       "names": 4
+      },
+      "fhs_name": {
+       "gain": 0.0096,
+       "DM": 0.36,
+       "names_engine_lower": 1,
+       "names": 4
+      },
+      "evt_pool": {
+       "gain": 0.0129,
+       "DM": 1.19,
+       "names_engine_lower": 3,
+       "names": 4
+      },
+      "evt_name": {
+       "gain": 0.0086,
+       "DM": 0.33,
+       "names_engine_lower": 1,
+       "names": 4
+      },
+      "ewma": {
+       "gain": 0.2571,
+       "DM": 2.08,
+       "names_engine_lower": 4,
+       "names": 4
+      },
+      "hs500": {
+       "gain": 0.0327,
+       "DM": 0.72,
+       "names_engine_lower": 3,
+       "names": 4
+      },
+      "gas_pzc": {
+       "gain": 0.0833,
+       "DM": 2.12,
+       "names_engine_lower": 4,
+       "names": 4
+      },
+      "taylor": {
+       "gain": 0.0302,
+       "DM": 1.0,
+       "names_engine_lower": 2,
+       "names": 4
+      }
+     },
+     "fz0_0.025": {
+      "garch_t": {
+       "gain": 0.0101,
+       "DM": 2.51,
+       "names_engine_lower": 3,
+       "names": 4,
+       "p_holm_two_sided": 0.0724
+      },
+      "gjr_skewt": {
+       "gain": -0.0086,
+       "DM": -0.64,
+       "names_engine_lower": 1,
+       "names": 4,
+       "p_holm_two_sided": 1.0
+      },
+      "fhs_pool": {
+       "gain": 0.0015,
+       "DM": 0.53,
+       "names_engine_lower": 2,
+       "names": 4
+      },
+      "fhs_name": {
+       "gain": -0.01,
+       "DM": -0.93,
+       "names_engine_lower": 2,
+       "names": 4
+      },
+      "evt_pool": {
+       "gain": 0.0029,
+       "DM": 1.1,
+       "names_engine_lower": 2,
+       "names": 4
+      },
+      "evt_name": {
+       "gain": -0.0039,
+       "DM": -0.45,
+       "names_engine_lower": 2,
+       "names": 4
+      },
+      "ewma": {
+       "gain": 0.0768,
+       "DM": 1.8,
+       "names_engine_lower": 4,
+       "names": 4
+      },
+      "hs500": {
+       "gain": 0.0303,
+       "DM": 1.04,
+       "names_engine_lower": 3,
+       "names": 4
+      },
+      "gas_pzc": {
+       "gain": 0.0101,
+       "DM": 0.44,
+       "names_engine_lower": 1,
+       "names": 4
+      },
+      "taylor": {
+       "gain": 0.0098,
+       "DM": 0.81,
+       "names_engine_lower": 2,
+       "names": 4
+      }
+     },
+     "pinball_engine_vs_garch_t": {
+      "edge_pct": 0.327,
+      "DM": 1.49
+     },
+     "top_decile_body_vs_garch_t_pinball": {
+      "edge_pct": 2.27,
+      "DM": 2.16,
+      "rows": 738
+     }
+    },
+    "other (divisions with <10 names)": {
+     "n_names": 24,
+     "n_rows": 26592,
+     "fz0_0.01": {
+      "garch_t": {
+       "gain": -0.0034,
+       "DM": -1.15,
+       "names_engine_lower": 12,
+       "names": 24,
+       "p_holm_two_sided": 0.7744
+      },
+      "gjr_skewt": {
+       "gain": -0.0091,
+       "DM": -1.12,
+       "names_engine_lower": 11,
+       "names": 24,
+       "p_holm_two_sided": 1.0
+      },
+      "fhs_pool": {
+       "gain": 0.0056,
+       "DM": 1.91,
+       "names_engine_lower": 12,
+       "names": 24
+      },
+      "fhs_name": {
+       "gain": 0.0236,
+       "DM": 1.8,
+       "names_engine_lower": 14,
+       "names": 24
+      },
+      "evt_pool": {
+       "gain": 0.0057,
+       "DM": 2.08,
+       "names_engine_lower": 13,
+       "names": 24
+      },
+      "evt_name": {
+       "gain": 0.0187,
+       "DM": 1.52,
+       "names_engine_lower": 11,
+       "names": 24
+      },
+      "ewma": {
+       "gain": 0.1549,
+       "DM": 4.09,
+       "names_engine_lower": 20,
+       "names": 24
+      },
+      "hs500": {
+       "gain": 0.0791,
+       "DM": 2.87,
+       "names_engine_lower": 20,
+       "names": 24
+      },
+      "gas_pzc": {
+       "gain": 0.1099,
+       "DM": 5.17,
+       "names_engine_lower": 20,
+       "names": 24
+      },
+      "taylor": {
+       "gain": -0.0116,
+       "DM": -0.95,
+       "names_engine_lower": 8,
+       "names": 24
+      }
+     },
+     "fz0_0.025": {
+      "garch_t": {
+       "gain": 0.0033,
+       "DM": 2.07,
+       "names_engine_lower": 17,
+       "names": 24,
+       "p_holm_two_sided": 0.0939
+      },
+      "gjr_skewt": {
+       "gain": -0.0017,
+       "DM": -0.34,
+       "names_engine_lower": 12,
+       "names": 24,
+       "p_holm_two_sided": 1.0
+      },
+      "fhs_pool": {
+       "gain": 0.0067,
+       "DM": 4.21,
+       "names_engine_lower": 18,
+       "names": 24
+      },
+      "fhs_name": {
+       "gain": 0.0186,
+       "DM": 3.74,
+       "names_engine_lower": 14,
+       "names": 24
+      },
+      "evt_pool": {
+       "gain": 0.0056,
+       "DM": 4.2,
+       "names_engine_lower": 18,
+       "names": 24
+      },
+      "evt_name": {
+       "gain": 0.0139,
+       "DM": 3.27,
+       "names_engine_lower": 15,
+       "names": 24
+      },
+      "ewma": {
+       "gain": 0.0457,
+       "DM": 3.43,
+       "names_engine_lower": 19,
+       "names": 24
+      },
+      "hs500": {
+       "gain": 0.0587,
+       "DM": 3.27,
+       "names_engine_lower": 18,
+       "names": 24
+      },
+      "gas_pzc": {
+       "gain": 0.0599,
+       "DM": 5.42,
+       "names_engine_lower": 18,
+       "names": 24
+      },
+      "taylor": {
+       "gain": 0.0078,
+       "DM": 1.04,
+       "names_engine_lower": 12,
+       "names": 24
+      }
+     },
+     "pinball_engine_vs_garch_t": {
+      "edge_pct": 0.182,
+      "DM": 1.91
+     },
+     "top_decile_body_vs_garch_t_pinball": {
+      "edge_pct": 2.823,
+      "DM": 4.43,
+      "rows": 2985
+     }
+    },
+    "transport, communications, utilities": {
+     "n_names": 15,
+     "n_rows": 16620,
+     "fz0_0.01": {
+      "garch_t": {
+       "gain": 0.0245,
+       "DM": 3.32,
+       "names_engine_lower": 11,
+       "names": 15,
+       "p_holm_two_sided": 0.0063
+      },
+      "gjr_skewt": {
+       "gain": 0.0048,
+       "DM": 0.57,
+       "names_engine_lower": 8,
+       "names": 15,
+       "p_holm_two_sided": 1.0
+      },
+      "fhs_pool": {
+       "gain": 0.0168,
+       "DM": 2.56,
+       "names_engine_lower": 10,
+       "names": 15
+      },
+      "fhs_name": {
+       "gain": 0.0403,
+       "DM": 2.76,
+       "names_engine_lower": 10,
+       "names": 15
+      },
+      "evt_pool": {
+       "gain": 0.0149,
+       "DM": 2.52,
+       "names_engine_lower": 11,
+       "names": 15
+      },
+      "evt_name": {
+       "gain": 0.0373,
+       "DM": 2.68,
+       "names_engine_lower": 10,
+       "names": 15
+      },
+      "ewma": {
+       "gain": 0.2252,
+       "DM": 5.1,
+       "names_engine_lower": 14,
+       "names": 15
+      },
+      "hs500": {
+       "gain": 0.0891,
+       "DM": 3.37,
+       "names_engine_lower": 12,
+       "names": 15
+      },
+      "gas_pzc": {
+       "gain": 0.0662,
+       "DM": 3.4,
+       "names_engine_lower": 10,
+       "names": 15
+      },
+      "taylor": {
+       "gain": -0.0048,
+       "DM": -0.34,
+       "names_engine_lower": 6,
+       "names": 15
+      }
+     },
+     "fz0_0.025": {
+      "garch_t": {
+       "gain": 0.0151,
+       "DM": 3.69,
+       "names_engine_lower": 12,
+       "names": 15,
+       "p_holm_two_sided": 0.0016
+      },
+      "gjr_skewt": {
+       "gain": -0.0006,
+       "DM": -0.1,
+       "names_engine_lower": 8,
+       "names": 15,
+       "p_holm_two_sided": 1.0
+      },
+      "fhs_pool": {
+       "gain": 0.0222,
+       "DM": 4.04,
+       "names_engine_lower": 13,
+       "names": 15
+      },
+      "fhs_name": {
+       "gain": 0.0182,
+       "DM": 2.93,
+       "names_engine_lower": 11,
+       "names": 15
+      },
+      "evt_pool": {
+       "gain": 0.0199,
+       "DM": 3.97,
+       "names_engine_lower": 13,
+       "names": 15
+      },
+      "evt_name": {
+       "gain": 0.0177,
+       "DM": 3.0,
+       "names_engine_lower": 11,
+       "names": 15
+      },
+      "ewma": {
+       "gain": 0.0761,
+       "DM": 4.53,
+       "names_engine_lower": 14,
+       "names": 15
+      },
+      "hs500": {
+       "gain": 0.0569,
+       "DM": 3.12,
+       "names_engine_lower": 11,
+       "names": 15
+      },
+      "gas_pzc": {
+       "gain": 0.0285,
+       "DM": 2.59,
+       "names_engine_lower": 12,
+       "names": 15
+      },
+      "taylor": {
+       "gain": -0.0013,
+       "DM": -0.16,
+       "names_engine_lower": 7,
+       "names": 15
+      }
+     },
+     "pinball_engine_vs_garch_t": {
+      "edge_pct": 0.345,
+      "DM": 3.65
+     },
+     "top_decile_body_vs_garch_t_pinball": {
+      "edge_pct": 3.119,
+      "DM": 4.11,
+      "rows": 1213
+     }
+    },
+    "wholesale and retail trade": {
+     "n_names": 22,
+     "n_rows": 24376,
+     "fz0_0.01": {
+      "garch_t": {
+       "gain": 0.0094,
+       "DM": 2.58,
+       "names_engine_lower": 16,
+       "names": 22,
+       "p_holm_two_sided": 0.0593
+      },
+      "gjr_skewt": {
+       "gain": 0.0011,
+       "DM": 0.13,
+       "names_engine_lower": 11,
+       "names": 22,
+       "p_holm_two_sided": 1.0
+      },
+      "fhs_pool": {
+       "gain": 0.004,
+       "DM": 1.09,
+       "names_engine_lower": 10,
+       "names": 22
+      },
+      "fhs_name": {
+       "gain": 0.0062,
+       "DM": 0.82,
+       "names_engine_lower": 12,
+       "names": 22
+      },
+      "evt_pool": {
+       "gain": 0.0064,
+       "DM": 1.76,
+       "names_engine_lower": 11,
+       "names": 22
+      },
+      "evt_name": {
+       "gain": 0.0048,
+       "DM": 0.6,
+       "names_engine_lower": 11,
+       "names": 22
+      },
+      "ewma": {
+       "gain": 0.1962,
+       "DM": 4.84,
+       "names_engine_lower": 21,
+       "names": 22
+      },
+      "hs500": {
+       "gain": 0.0758,
+       "DM": 2.97,
+       "names_engine_lower": 16,
+       "names": 22
+      },
+      "gas_pzc": {
+       "gain": 0.0813,
+       "DM": 3.99,
+       "names_engine_lower": 16,
+       "names": 22
+      },
+      "taylor": {
+       "gain": 0.0109,
+       "DM": 0.87,
+       "names_engine_lower": 11,
+       "names": 22
+      }
+     },
+     "fz0_0.025": {
+      "garch_t": {
+       "gain": 0.004,
+       "DM": 2.31,
+       "names_engine_lower": 15,
+       "names": 22,
+       "p_holm_two_sided": 0.0939
+      },
+      "gjr_skewt": {
+       "gain": -0.0027,
+       "DM": -0.49,
+       "names_engine_lower": 12,
+       "names": 22,
+       "p_holm_two_sided": 1.0
+      },
+      "fhs_pool": {
+       "gain": 0.0084,
+       "DM": 3.54,
+       "names_engine_lower": 15,
+       "names": 22
+      },
+      "fhs_name": {
+       "gain": 0.0022,
+       "DM": 0.69,
+       "names_engine_lower": 10,
+       "names": 22
+      },
+      "evt_pool": {
+       "gain": 0.0075,
+       "DM": 3.58,
+       "names_engine_lower": 17,
+       "names": 22
+      },
+      "evt_name": {
+       "gain": 0.0021,
+       "DM": 0.64,
+       "names_engine_lower": 9,
+       "names": 22
+      },
+      "ewma": {
+       "gain": 0.0642,
+       "DM": 4.25,
+       "names_engine_lower": 19,
+       "names": 22
+      },
+      "hs500": {
+       "gain": 0.0443,
+       "DM": 2.45,
+       "names_engine_lower": 17,
+       "names": 22
+      },
+      "gas_pzc": {
+       "gain": 0.0343,
+       "DM": 3.23,
+       "names_engine_lower": 14,
+       "names": 22
+      },
+      "taylor": {
+       "gain": -0.0172,
+       "DM": -2.75,
+       "names_engine_lower": 6,
+       "names": 22
+      }
+     },
+     "pinball_engine_vs_garch_t": {
+      "edge_pct": 0.275,
+      "DM": 2.77
+     },
+     "top_decile_body_vs_garch_t_pinball": {
+      "edge_pct": 3.088,
+      "DM": 4.48,
+      "rows": 3440
+     }
+    }
+   },
+   "heterogeneity_engine_vs_garch_t": {
+    "0.01": {
+     "wald_chi2": 22.94,
+     "df": 7,
+     "p": 0.0017,
+     "dates_all_groups": 1108
+    },
+    "0.025": {
+     "wald_chi2": 25.43,
+     "df": 7,
+     "p": 0.0006,
+     "dates_all_groups": 1108
+    }
+   }
+  },
+  "vol": {
+   "groups": {
+    "high volatility tercile": {
+     "n_names": 67,
+     "n_rows": 74236,
+     "fz0_0.01": {
+      "garch_t": {
+       "gain": 0.0053,
+       "DM": 3.28,
+       "names_engine_lower": 46,
+       "names": 67,
+       "p_holm_two_sided": 0.0021
+      },
+      "gjr_skewt": {
+       "gain": -0.0017,
+       "DM": -0.38,
+       "names_engine_lower": 33,
+       "names": 67,
+       "p_holm_two_sided": 1.0
+      },
+      "fhs_pool": {
+       "gain": 0.0017,
+       "DM": 0.73,
+       "names_engine_lower": 34,
+       "names": 67
+      },
+      "fhs_name": {
+       "gain": 0.0189,
+       "DM": 2.55,
+       "names_engine_lower": 39,
+       "names": 67
+      },
+      "evt_pool": {
+       "gain": 0.0054,
+       "DM": 2.35,
+       "names_engine_lower": 42,
+       "names": 67
+      },
+      "evt_name": {
+       "gain": 0.0177,
+       "DM": 2.62,
+       "names_engine_lower": 37,
+       "names": 67
+      },
+      "ewma": {
+       "gain": 0.166,
+       "DM": 4.55,
+       "names_engine_lower": 57,
+       "names": 67
+      },
+      "hs500": {
+       "gain": 0.0973,
+       "DM": 6.1,
+       "names_engine_lower": 53,
+       "names": 67
+      },
+      "gas_pzc": {
+       "gain": 0.1097,
+       "DM": 8.8,
+       "names_engine_lower": 55,
+       "names": 67
+      },
+      "taylor": {
+       "gain": 0.0278,
+       "DM": 3.14,
+       "names_engine_lower": 35,
+       "names": 67
+      }
+     },
+     "fz0_0.025": {
+      "garch_t": {
+       "gain": 0.0015,
+       "DM": 2.09,
+       "names_engine_lower": 44,
+       "names": 67,
+       "p_holm_two_sided": 0.0732
+      },
+      "gjr_skewt": {
+       "gain": -0.0023,
+       "DM": -0.78,
+       "names_engine_lower": 31,
+       "names": 67,
+       "p_holm_two_sided": 1.0
+      },
+      "fhs_pool": {
+       "gain": 0.0006,
+       "DM": 0.69,
+       "names_engine_lower": 39,
+       "names": 67
+      },
+      "fhs_name": {
+       "gain": 0.0115,
+       "DM": 2.56,
+       "names_engine_lower": 41,
+       "names": 67
+      },
+      "evt_pool": {
+       "gain": 0.0014,
+       "DM": 2.09,
+       "names_engine_lower": 45,
+       "names": 67
+      },
+      "evt_name": {
+       "gain": 0.009,
+       "DM": 2.51,
+       "names_engine_lower": 40,
+       "names": 67
+      },
+      "ewma": {
+       "gain": 0.0561,
+       "DM": 4.36,
+       "names_engine_lower": 54,
+       "names": 67
+      },
+      "hs500": {
+       "gain": 0.0679,
+       "DM": 6.12,
+       "names_engine_lower": 56,
+       "names": 67
+      },
+      "gas_pzc": {
+       "gain": 0.0674,
+       "DM": 10.74,
+       "names_engine_lower": 55,
+       "names": 67
+      },
+      "taylor": {
+       "gain": 0.0085,
+       "DM": 1.83,
+       "names_engine_lower": 29,
+       "names": 67
+      }
+     },
+     "pinball_engine_vs_garch_t": {
+      "edge_pct": 0.291,
+      "DM": 4.22
+     },
+     "top_decile_body_vs_garch_t_pinball": {
+      "edge_pct": 2.962,
+      "DM": 7.2,
+      "rows": 9309
+     }
+    },
+    "low volatility tercile": {
+     "n_names": 67,
+     "n_rows": 74236,
+     "fz0_0.01": {
+      "garch_t": {
+       "gain": 0.0179,
+       "DM": 4.41,
+       "names_engine_lower": 46,
+       "names": 67,
+       "p_holm_two_sided": 0.0
+      },
+      "gjr_skewt": {
+       "gain": 0.0116,
+       "DM": 1.76,
+       "names_engine_lower": 38,
+       "names": 67,
+       "p_holm_two_sided": 0.2352
+      },
+      "fhs_pool": {
+       "gain": 0.019,
+       "DM": 4.65,
+       "names_engine_lower": 50,
+       "names": 67
+      },
+      "fhs_name": {
+       "gain": 0.0199,
+       "DM": 4.64,
+       "names_engine_lower": 46,
+       "names": 67
+      },
+      "evt_pool": {
+       "gain": 0.0146,
+       "DM": 4.3,
+       "names_engine_lower": 47,
+       "names": 67
+      },
+      "evt_name": {
+       "gain": 0.0161,
+       "DM": 4.18,
+       "names_engine_lower": 39,
+       "names": 67
+      },
+      "ewma": {
+       "gain": 0.1833,
+       "DM": 7.34,
+       "names_engine_lower": 65,
+       "names": 67
+      },
+      "hs500": {
+       "gain": 0.1001,
+       "DM": 3.86,
+       "names_engine_lower": 56,
+       "names": 67
+      },
+      "gas_pzc": {
+       "gain": 0.0677,
+       "DM": 4.96,
+       "names_engine_lower": 53,
+       "names": 67
+      },
+      "taylor": {
+       "gain": 0.0063,
+       "DM": 0.96,
+       "names_engine_lower": 30,
+       "names": 67
+      }
+     },
+     "fz0_0.025": {
+      "garch_t": {
+       "gain": 0.0123,
+       "DM": 5.4,
+       "names_engine_lower": 49,
+       "names": 67,
+       "p_holm_two_sided": 0.0
+      },
+      "gjr_skewt": {
+       "gain": 0.0036,
+       "DM": 0.74,
+       "names_engine_lower": 38,
+       "names": 67,
+       "p_holm_two_sided": 1.0
+      },
+      "fhs_pool": {
+       "gain": 0.0251,
+       "DM": 6.48,
+       "names_engine_lower": 61,
+       "names": 67
+      },
+      "fhs_name": {
+       "gain": 0.0118,
+       "DM": 5.08,
+       "names_engine_lower": 40,
+       "names": 67
+      },
+      "evt_pool": {
+       "gain": 0.0213,
+       "DM": 6.4,
+       "names_engine_lower": 61,
+       "names": 67
+      },
+      "evt_name": {
+       "gain": 0.0088,
+       "DM": 3.62,
+       "names_engine_lower": 36,
+       "names": 67
+      },
+      "ewma": {
+       "gain": 0.0544,
+       "DM": 6.11,
+       "names_engine_lower": 59,
+       "names": 67
+      },
+      "hs500": {
+       "gain": 0.0632,
+       "DM": 3.12,
+       "names_engine_lower": 55,
+       "names": 67
+      },
+      "gas_pzc": {
+       "gain": 0.0373,
+       "DM": 3.99,
+       "names_engine_lower": 52,
+       "names": 67
+      },
+      "taylor": {
+       "gain": -0.0011,
+       "DM": -0.2,
+       "names_engine_lower": 25,
+       "names": 67
+      }
+     },
+     "pinball_engine_vs_garch_t": {
+      "edge_pct": 0.161,
+      "DM": 1.75
+     },
+     "top_decile_body_vs_garch_t_pinball": {
+      "edge_pct": 2.548,
+      "DM": 4.44,
+      "rows": 5519
+     }
+    },
+    "mid volatility tercile": {
+     "n_names": 66,
+     "n_rows": 73128,
+     "fz0_0.01": {
+      "garch_t": {
+       "gain": 0.0043,
+       "DM": 1.35,
+       "names_engine_lower": 38,
+       "names": 66,
+       "p_holm_two_sided": 0.177
+      },
+      "gjr_skewt": {
+       "gain": 0.0019,
+       "DM": 0.43,
+       "names_engine_lower": 34,
+       "names": 66,
+       "p_holm_two_sided": 1.0
+      },
+      "fhs_pool": {
+       "gain": 0.0068,
+       "DM": 2.23,
+       "names_engine_lower": 42,
+       "names": 66
+      },
+      "fhs_name": {
+       "gain": 0.039,
+       "DM": 3.62,
+       "names_engine_lower": 46,
+       "names": 66
+      },
+      "evt_pool": {
+       "gain": 0.0058,
+       "DM": 2.34,
+       "names_engine_lower": 41,
+       "names": 66
+      },
+      "evt_name": {
+       "gain": 0.0346,
+       "DM": 3.56,
+       "names_engine_lower": 48,
+       "names": 66
+      },
+      "ewma": {
+       "gain": 0.1745,
+       "DM": 4.89,
+       "names_engine_lower": 57,
+       "names": 66
+      },
+      "hs500": {
+       "gain": 0.1168,
+       "DM": 5.47,
+       "names_engine_lower": 54,
+       "names": 66
+      },
+      "gas_pzc": {
+       "gain": 0.0801,
+       "DM": 6.62,
+       "names_engine_lower": 53,
+       "names": 66
+      },
+      "taylor": {
+       "gain": 0.0205,
+       "DM": 2.17,
+       "names_engine_lower": 36,
+       "names": 66
+      }
+     },
+     "fz0_0.025": {
+      "garch_t": {
+       "gain": 0.0028,
+       "DM": 2.0,
+       "names_engine_lower": 42,
+       "names": 66,
+       "p_holm_two_sided": 0.0732
+      },
+      "gjr_skewt": {
+       "gain": -0.0015,
+       "DM": -0.54,
+       "names_engine_lower": 36,
+       "names": 66,
+       "p_holm_two_sided": 1.0
+      },
+      "fhs_pool": {
+       "gain": 0.0076,
+       "DM": 3.52,
+       "names_engine_lower": 55,
+       "names": 66
+      },
+      "fhs_name": {
+       "gain": 0.0183,
+       "DM": 4.39,
+       "names_engine_lower": 48,
+       "names": 66
+      },
+      "evt_pool": {
+       "gain": 0.0061,
+       "DM": 3.41,
+       "names_engine_lower": 48,
+       "names": 66
+      },
+      "evt_name": {
+       "gain": 0.0151,
+       "DM": 3.95,
+       "names_engine_lower": 45,
+       "names": 66
+      },
+      "ewma": {
+       "gain": 0.0541,
+       "DM": 4.16,
+       "names_engine_lower": 54,
+       "names": 66
+      },
+      "hs500": {
+       "gain": 0.0778,
+       "DM": 4.8,
+       "names_engine_lower": 50,
+       "names": 66
+      },
+      "gas_pzc": {
+       "gain": 0.0465,
+       "DM": 5.29,
+       "names_engine_lower": 51,
+       "names": 66
+      },
+      "taylor": {
+       "gain": -0.0063,
+       "DM": -1.52,
+       "names_engine_lower": 31,
+       "names": 66
+      }
+     },
+     "pinball_engine_vs_garch_t": {
+      "edge_pct": 0.289,
+      "DM": 3.74
+     },
+     "top_decile_body_vs_garch_t_pinball": {
+      "edge_pct": 3.016,
+      "DM": 7.17,
+      "rows": 7332
+     }
+    }
+   },
+   "heterogeneity_engine_vs_garch_t": {
+    "0.01": {
+     "wald_chi2": 9.98,
+     "df": 2,
+     "p": 0.0068,
+     "dates_all_groups": 1108
+    },
+    "0.025": {
+     "wald_chi2": 20.2,
+     "df": 2,
+     "p": 0.0,
+     "dates_all_groups": 1108
+    }
+   }
+  },
+  "cohort": {
+   "groups": {
+    "largecap": {
+     "n_names": 74,
+     "n_rows": 81992,
+     "fz0_0.01": {
+      "garch_t": {
+       "gain": 0.0125,
+       "DM": 3.81,
+       "names_engine_lower": 45,
+       "names": 74,
+       "p_holm_two_sided": 0.0002
+      },
+      "gjr_skewt": {
+       "gain": 0.0081,
+       "DM": 1.36,
+       "names_engine_lower": 38,
+       "names": 74,
+       "p_holm_two_sided": 0.3477
+      },
+      "fhs_pool": {
+       "gain": 0.0161,
+       "DM": 4.44,
+       "names_engine_lower": 54,
+       "names": 74
+      },
+      "fhs_name": {
+       "gain": 0.0151,
+       "DM": 4.11,
+       "names_engine_lower": 45,
+       "names": 74
+      },
+      "evt_pool": {
+       "gain": 0.0117,
+       "DM": 3.93,
+       "names_engine_lower": 48,
+       "names": 74
+      },
+      "evt_name": {
+       "gain": 0.0128,
+       "DM": 3.57,
+       "names_engine_lower": 42,
+       "names": 74
+      },
+      "ewma": {
+       "gain": 0.1828,
+       "DM": 7.1,
+       "names_engine_lower": 70,
+       "names": 74
+      },
+      "hs500": {
+       "gain": 0.0976,
+       "DM": 4.16,
+       "names_engine_lower": 61,
+       "names": 74
+      },
+      "gas_pzc": {
+       "gain": 0.0689,
+       "DM": 5.08,
+       "names_engine_lower": 57,
+       "names": 74
+      },
+      "taylor": {
+       "gain": 0.0006,
+       "DM": 0.08,
+       "names_engine_lower": 30,
+       "names": 74
+      }
+     },
+     "fz0_0.025": {
+      "garch_t": {
+       "gain": 0.0095,
+       "DM": 4.92,
+       "names_engine_lower": 49,
+       "names": 74,
+       "p_holm_two_sided": 0.0
+      },
+      "gjr_skewt": {
+       "gain": -0.0001,
+       "DM": -0.02,
+       "names_engine_lower": 39,
+       "names": 74,
+       "p_holm_two_sided": 1.0
+      },
+      "fhs_pool": {
+       "gain": 0.0219,
+       "DM": 6.29,
+       "names_engine_lower": 65,
+       "names": 74
+      },
+      "fhs_name": {
+       "gain": 0.007,
+       "DM": 2.97,
+       "names_engine_lower": 41,
+       "names": 74
+      },
+      "evt_pool": {
+       "gain": 0.0184,
+       "DM": 6.32,
+       "names_engine_lower": 63,
+       "names": 74
+      },
+      "evt_name": {
+       "gain": 0.0053,
+       "DM": 1.95,
+       "names_engine_lower": 39,
+       "names": 74
+      },
+      "ewma": {
+       "gain": 0.0515,
+       "DM": 5.52,
+       "names_engine_lower": 64,
+       "names": 74
+      },
+      "hs500": {
+       "gain": 0.0593,
+       "DM": 3.13,
+       "names_engine_lower": 58,
+       "names": 74
+      },
+      "gas_pzc": {
+       "gain": 0.0339,
+       "DM": 3.61,
+       "names_engine_lower": 56,
+       "names": 74
+      },
+      "taylor": {
+       "gain": -0.0062,
+       "DM": -1.07,
+       "names_engine_lower": 25,
+       "names": 74
+      }
+     },
+     "pinball_engine_vs_garch_t": {
+      "edge_pct": 0.272,
+      "DM": 3.33
+     },
+     "top_decile_body_vs_garch_t_pinball": {
+      "edge_pct": 2.538,
+      "DM": 5.7,
+      "rows": 6322
+     }
+    },
+    "smallcap": {
+     "n_names": 126,
+     "n_rows": 139608,
+     "fz0_0.01": {
+      "garch_t": {
+       "gain": 0.0072,
+       "DM": 3.84,
+       "names_engine_lower": 85,
+       "names": 126,
+       "p_holm_two_sided": 0.0002
+      },
+      "gjr_skewt": {
+       "gain": 0.0015,
+       "DM": 0.45,
+       "names_engine_lower": 67,
+       "names": 126,
+       "p_holm_two_sided": 0.6527
+      },
+      "fhs_pool": {
+       "gain": 0.0051,
+       "DM": 2.02,
+       "names_engine_lower": 72,
+       "names": 126
+      },
+      "fhs_name": {
+       "gain": 0.0322,
+       "DM": 3.92,
+       "names_engine_lower": 86,
+       "names": 126
+      },
+      "evt_pool": {
+       "gain": 0.0068,
+       "DM": 3.09,
+       "names_engine_lower": 82,
+       "names": 126
+      },
+      "evt_name": {
+       "gain": 0.0286,
+       "DM": 4.1,
+       "names_engine_lower": 82,
+       "names": 126
+      },
+      "ewma": {
+       "gain": 0.1698,
+       "DM": 5.2,
+       "names_engine_lower": 109,
+       "names": 126
+      },
+      "hs500": {
+       "gain": 0.1089,
+       "DM": 6.69,
+       "names_engine_lower": 102,
+       "names": 126
+      },
+      "gas_pzc": {
+       "gain": 0.0958,
+       "DM": 9.95,
+       "names_engine_lower": 104,
+       "names": 126
+      },
+      "taylor": {
+       "gain": 0.0285,
+       "DM": 4.69,
+       "names_engine_lower": 71,
+       "names": 126
+      }
+     },
+     "fz0_0.025": {
+      "garch_t": {
+       "gain": 0.0033,
+       "DM": 3.64,
+       "names_engine_lower": 86,
+       "names": 126,
+       "p_holm_two_sided": 0.0003
+      },
+      "gjr_skewt": {
+       "gain": -0.0,
+       "DM": -0.01,
+       "names_engine_lower": 66,
+       "names": 126,
+       "p_holm_two_sided": 1.0
+      },
+      "fhs_pool": {
+       "gain": 0.0048,
+       "DM": 3.26,
+       "names_engine_lower": 90,
+       "names": 126
+      },
+      "fhs_name": {
+       "gain": 0.0178,
+       "DM": 4.11,
+       "names_engine_lower": 88,
+       "names": 126
+      },
+      "evt_pool": {
+       "gain": 0.0045,
+       "DM": 3.74,
+       "names_engine_lower": 91,
+       "names": 126
+      },
+      "evt_name": {
+       "gain": 0.0143,
+       "DM": 4.08,
+       "names_engine_lower": 82,
+       "names": 126
+      },
+      "ewma": {
+       "gain": 0.0569,
+       "DM": 4.91,
+       "names_engine_lower": 103,
+       "names": 126
+      },
+      "hs500": {
+       "gain": 0.0757,
+       "DM": 5.98,
+       "names_engine_lower": 103,
+       "names": 126
+      },
+      "gas_pzc": {
+       "gain": 0.0601,
+       "DM": 10.65,
+       "names_engine_lower": 102,
+       "names": 126
+      },
+      "taylor": {
+       "gain": 0.0042,
+       "DM": 1.53,
+       "names_engine_lower": 60,
+       "names": 126
+      }
+     },
+     "pinball_engine_vs_garch_t": {
+      "edge_pct": 0.259,
+      "DM": 4.34
+     },
+     "top_decile_body_vs_garch_t_pinball": {
+      "edge_pct": 3.042,
+      "DM": 9.54,
+      "rows": 15838
+     }
+    }
+   },
+   "heterogeneity_engine_vs_garch_t": {
+    "0.01": {
+     "wald_chi2": 2.38,
+     "df": 1,
+     "p": 0.1231,
+     "dates_all_groups": 1108
+    },
+    "0.025": {
+     "wald_chi2": 10.33,
+     "df": 1,
+     "p": 0.0013,
+     "dates_all_groups": 1108
+    }
+   }
+  }
+ }
+}

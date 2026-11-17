@@ -1,0 +1,390 @@
+{
+  "panel": "holdout",
+  "n_names": 200,
+  "n_rows": 280608,
+  "note": "Read-only. Per test row, over the 63-day window defining its mk63: share1 = share of the window's centered fourth-moment sum from its single largest term; zmax = largest |z-zbar|/s_z; mk_drop1 = mk63 with that residual removed; age = trading days since it (1 = yesterday). Deciles are pooled test-row ranks of mk63.",
+  "predictions_written_before_run": "P1 top-decile median share1 >= 0.60; P2 top-decile median zmax >= 6.5; P3 top-decile median mk_drop1 < 3; P4 deciles 1-8 median share1 < 0.30; P5 top-decile median age between 15 and 45.",
+  "by_decile": {
+    "1": {
+      "n": 28061,
+      "mk63_mean": -0.46,
+      "mk63_median": -0.425,
+      "share1_q25_med_q75": [
+        0.159,
+        0.19,
+        0.229
+      ],
+      "frac_share1_gt_half": 0.0,
+      "zmax_q25_med_q75": [
+        2.211,
+        2.318,
+        2.439
+      ],
+      "mk_drop1_q25_med_q75": [
+        -0.718,
+        -0.588,
+        -0.47
+      ],
+      "age_q25_med_q75": [
+        16.0,
+        32.0,
+        47.0
+      ],
+      "zraw_q25_med_q75": [
+        1.922,
+        2.162,
+        2.385
+      ],
+      "sd_rest_q25_med_q75": [
+        0.807,
+        0.891,
+        0.97
+      ]
+    },
+    "2": {
+      "n": 28061,
+      "mk63_mean": -0.09,
+      "mk63_median": -0.091,
+      "share1_q25_med_q75": [
+        0.193,
+        0.234,
+        0.285
+      ],
+      "frac_share1_gt_half": 0.0,
+      "zmax_q25_med_q75": [
+        2.401,
+        2.519,
+        2.648
+      ],
+      "mk_drop1_q25_med_q75": [
+        -0.424,
+        -0.299,
+        -0.192
+      ],
+      "age_q25_med_q75": [
+        16.0,
+        32.0,
+        48.0
+      ],
+      "zraw_q25_med_q75": [
+        2.104,
+        2.348,
+        2.616
+      ],
+      "sd_rest_q25_med_q75": [
+        0.806,
+        0.887,
+        0.962
+      ]
+    },
+    "3": {
+      "n": 28061,
+      "mk63_mean": 0.18,
+      "mk63_median": 0.177,
+      "share1_q25_med_q75": [
+        0.219,
+        0.265,
+        0.323
+      ],
+      "frac_share1_gt_half": 0.004,
+      "zmax_q25_med_q75": [
+        2.529,
+        2.655,
+        2.79
+      ],
+      "mk_drop1_q25_med_q75": [
+        -0.258,
+        -0.092,
+        0.033
+      ],
+      "age_q25_med_q75": [
+        17.0,
+        33.0,
+        48.0
+      ],
+      "zraw_q25_med_q75": [
+        2.225,
+        2.497,
+        2.779
+      ],
+      "sd_rest_q25_med_q75": [
+        0.805,
+        0.885,
+        0.97
+      ]
+    },
+    "4": {
+      "n": 28060,
+      "mk63_mean": 0.45,
+      "mk63_median": 0.447,
+      "share1_q25_med_q75": [
+        0.247,
+        0.299,
+        0.362
+      ],
+      "frac_share1_gt_half": 0.023,
+      "zmax_q25_med_q75": [
+        2.658,
+        2.789,
+        2.928
+      ],
+      "mk_drop1_q25_med_q75": [
+        -0.112,
+        0.094,
+        0.253
+      ],
+      "age_q25_med_q75": [
+        17.0,
+        33.0,
+        48.0
+      ],
+      "zraw_q25_med_q75": [
+        2.363,
+        2.649,
+        2.94
+      ],
+      "sd_rest_q25_med_q75": [
+        0.799,
+        0.888,
+        0.974
+      ]
+    },
+    "5": {
+      "n": 28061,
+      "mk63_mean": 0.75,
+      "mk63_median": 0.748,
+      "share1_q25_med_q75": [
+        0.278,
+        0.337,
+        0.412
+      ],
+      "frac_share1_gt_half": 0.071,
+      "zmax_q25_med_q75": [
+        2.794,
+        2.932,
+        3.085
+      ],
+      "mk_drop1_q25_med_q75": [
+        0.006,
+        0.277,
+        0.478
+      ],
+      "age_q25_med_q75": [
+        16.0,
+        33.0,
+        48.0
+      ],
+      "zraw_q25_med_q75": [
+        2.518,
+        2.791,
+        3.148
+      ],
+      "sd_rest_q25_med_q75": [
+        0.805,
+        0.884,
+        0.974
+      ]
+    },
+    "6": {
+      "n": 28061,
+      "mk63_mean": 1.12,
+      "mk63_median": 1.111,
+      "share1_q25_med_q75": [
+        0.316,
+        0.387,
+        0.467
+      ],
+      "frac_share1_gt_half": 0.164,
+      "zmax_q25_med_q75": [
+        2.947,
+        3.102,
+        3.257
+      ],
+      "mk_drop1_q25_med_q75": [
+        0.113,
+        0.457,
+        0.742
+      ],
+      "age_q25_med_q75": [
+        16.0,
+        32.0,
+        48.0
+      ],
+      "zraw_q25_med_q75": [
+        2.668,
+        2.985,
+        3.37
+      ],
+      "sd_rest_q25_med_q75": [
+        0.8,
+        0.878,
+        0.978
+      ]
+    },
+    "7": {
+      "n": 28060,
+      "mk63_mean": 1.62,
+      "mk63_median": 1.604,
+      "share1_q25_med_q75": [
+        0.367,
+        0.452,
+        0.534
+      ],
+      "frac_share1_gt_half": 0.356,
+      "zmax_q25_med_q75": [
+        3.147,
+        3.315,
+        3.465
+      ],
+      "mk_drop1_q25_med_q75": [
+        0.203,
+        0.651,
+        1.058
+      ],
+      "age_q25_med_q75": [
+        15.0,
+        31.0,
+        47.0
+      ],
+      "zraw_q25_med_q75": [
+        2.883,
+        3.223,
+        3.623
+      ],
+      "sd_rest_q25_med_q75": [
+        0.792,
+        0.882,
+        0.987
+      ]
+    },
+    "8": {
+      "n": 28061,
+      "mk63_mean": 2.42,
+      "mk63_median": 2.385,
+      "share1_q25_med_q75": [
+        0.428,
+        0.53,
+        0.621
+      ],
+      "frac_share1_gt_half": 0.574,
+      "zmax_q25_med_q75": [
+        3.395,
+        3.58,
+        3.739
+      ],
+      "mk_drop1_q25_med_q75": [
+        0.314,
+        0.935,
+        1.537
+      ],
+      "age_q25_med_q75": [
+        16.0,
+        31.0,
+        48.0
+      ],
+      "zraw_q25_med_q75": [
+        3.184,
+        3.558,
+        3.989
+      ],
+      "sd_rest_q25_med_q75": [
+        0.795,
+        0.882,
+        0.989
+      ]
+    },
+    "9": {
+      "n": 28061,
+      "mk63_mean": 4.16,
+      "mk63_median": 4.049,
+      "share1_q25_med_q75": [
+        0.574,
+        0.689,
+        0.761
+      ],
+      "frac_share1_gt_half": 0.854,
+      "zmax_q25_med_q75": [
+        3.873,
+        4.064,
+        4.243
+      ],
+      "mk_drop1_q25_med_q75": [
+        0.227,
+        0.978,
+        2.068
+      ],
+      "age_q25_med_q75": [
+        16.0,
+        31.0,
+        47.0
+      ],
+      "zraw_q25_med_q75": [
+        3.726,
+        4.147,
+        4.6
+      ],
+      "sd_rest_q25_med_q75": [
+        0.789,
+        0.865,
+        0.958
+      ]
+    },
+    "10": {
+      "n": 28061,
+      "mk63_mean": 13.3,
+      "mk63_median": 10.327,
+      "share1_q25_med_q75": [
+        0.835,
+        0.896,
+        0.95
+      ],
+      "frac_share1_gt_half": 0.99,
+      "zmax_q25_med_q75": [
+        4.703,
+        5.089,
+        5.637
+      ],
+      "mk_drop1_q25_med_q75": [
+        0.132,
+        0.77,
+        2.018
+      ],
+      "age_q25_med_q75": [
+        17.0,
+        32.0,
+        48.0
+      ],
+      "zraw_q25_med_q75": [
+        4.848,
+        5.674,
+        6.966
+      ],
+      "sd_rest_q25_med_q75": [
+        0.723,
+        0.807,
+        0.898
+      ]
+    }
+  },
+  "bulk_d1to8": {
+    "share1_median": 0.319,
+    "mk63_median": 0.594,
+    "mk63_q90": 2.105
+  },
+  "top_d10": {
+    "share1_median": 0.896,
+    "zmax_median": 5.089,
+    "mk_drop1_median": 0.77,
+    "age_median": 32.0,
+    "zraw_median": 5.674,
+    "frac_share1_gt_half": 0.9901,
+    "frac_mk_drop1_below_bulk_q90": 0.761
+  },
+  "grades": {
+    "P1": true,
+    "P2": false,
+    "P3": true,
+    "P4": false,
+    "P5": true
+  }
+}
