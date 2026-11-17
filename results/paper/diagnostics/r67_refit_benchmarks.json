@@ -1,0 +1,108 @@
+{
+ "note": "pub = the paper's fitting re-run here; fix = full window, free GAS scales, more starts and iterations. DM > 0: the accuracy layer has the lower loss.",
+ "n_rows": 221600,
+ "fz0": {
+  "0.01": {
+   "gas_pub": {
+    "meanFZ0": 2.23238,
+    "nonfinite": 0,
+    "breach_pct": 0.92,
+    "engine_DM": 9.91,
+    "engine_DM_top_decile": 6.78
+   },
+   "gas_fix": {
+    "meanFZ0": 2.21954,
+    "nonfinite": 0,
+    "breach_pct": 1.17,
+    "engine_DM": 10.77,
+    "engine_DM_top_decile": 6.86
+   },
+   "gas_dumped_meanFZ0": 2.23238,
+   "gas_converged_names": 200,
+   "taylor_pub": {
+    "meanFZ0": 2.16472,
+    "nonfinite": 0,
+    "breach_pct": 0.98,
+    "engine_DM": 3.76,
+    "engine_DM_top_decile": -0.8
+   },
+   "taylor_fix": {
+    "meanFZ0": 2.16158,
+    "nonfinite": 0,
+    "breach_pct": 1.07,
+    "engine_DM": 3.17,
+    "engine_DM_top_decile": -1.8
+   },
+   "taylor_dumped_meanFZ0": 2.16472,
+   "taylor_converged_names": 200,
+   "engine_meanFZ0": 2.14653
+  },
+  "0.025": {
+   "gas_pub": {
+    "meanFZ0": 1.89905,
+    "nonfinite": 0,
+    "breach_pct": 2.53,
+    "engine_DM": 8.78,
+    "engine_DM_top_decile": 5.42
+   },
+   "gas_fix": {
+    "meanFZ0": 119762.44399,
+    "nonfinite": 489,
+    "breach_pct": 3.1,
+    "engine_DM": 1.01,
+    "engine_DM_top_decile": 3.41
+   },
+   "gas_dumped_meanFZ0": 1.89905,
+   "gas_converged_names": 200,
+   "taylor_pub": {
+    "meanFZ0": 1.84899,
+    "nonfinite": 0,
+    "breach_pct": 2.62,
+    "engine_DM": 0.13,
+    "engine_DM_top_decile": -4.34
+   },
+   "taylor_fix": {
+    "meanFZ0": 1.84926,
+    "nonfinite": 0,
+    "breach_pct": 2.74,
+    "engine_DM": 0.24,
+    "engine_DM_top_decile": -2.62
+   },
+   "taylor_dumped_meanFZ0": 1.84899,
+   "taylor_converged_names": 200,
+   "engine_meanFZ0": 1.84863
+  }
+ },
+ "caviar": {
+  "pub": {
+   "mean_pinball": 0.39554,
+   "engine_minus_caviar_pct": {
+    "overall": 0.126,
+    "top_mk63_decile": 0.372,
+    "deciles_1to9": 0.095
+   },
+   "engine_DM": {
+    "overall": -1.63,
+    "top_mk63_decile": -1.96,
+    "deciles_1to9": -1.16
+   },
+   "caviar_vs_garch_t_top_decile_pct": 2.806
+  },
+  "fix": {
+   "mean_pinball": 0.39592,
+   "engine_minus_caviar_pct": {
+    "overall": 0.03,
+    "top_mk63_decile": 0.158,
+    "deciles_1to9": 0.014
+   },
+   "engine_DM": {
+    "overall": -0.38,
+    "top_mk63_decile": -0.77,
+    "deciles_1to9": -0.13
+   },
+   "caviar_vs_garch_t_top_decile_pct": 2.598
+  },
+  "dumped_mean_pinball": 0.39554,
+  "engine_mean_pinball": 0.39603
+ }
+}
