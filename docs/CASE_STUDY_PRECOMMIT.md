@@ -181,3 +181,48 @@ its pre-2020 90th percentile for that instrument): 10.6% of days.
    (historical simulation p 0.052); the upper bounds against the GARCH family are +0.014 to +0.018.
 3. **The score-gated scale does not beat GARCH-t out of sample across the 32:** −0.0038 (DM −1.05) at 1% and −0.0008
    (DM −0.40) at 2.5%. On the stocks alone the flagged-day FZ0 gain is positive and not significant (DM 1.1 and 1.6).
+
+## Like-for-like annual protocol (written 2026-11-18, before the run)
+
+**Why.** A review of the case-study tests found three ways they were tilted against the estimator. (1) Its pooled parts
+were trained once before 2020 and frozen for seven years, although Algorithm 1 of the paper refits every stage
+annually. (2) On flagged days the tests scored the accuracy layer at the 1% and 2.5% levels, where the pooled GPD tail
+overrides the learned one, whereas the paper's frontier is the pooled body's eleven-level pinball. (3) The frozen
+protocol used to explain GJR-skew-t's lead removes the asymmetry by handicapping every model, not by giving the
+estimator what it is specified to have.
+
+**Run.** `code/case_studies/crossasset_annual.py`, all 32 instruments, 2020-01-02 to 2026-11-13. Every per-instrument
+model is refitted each January (as registered). The estimator's pooled parts are retrained each January on all panel
+rows dated before it (the panel ends in 2024, so 2026 uses the 2025 fit), case-study tickers excluded. Rows added: the
+pooled body on the GARCH-t scale; frozen-pool versions of the body and the accuracy layer for comparison; eleven-level
+pinball for the body, the accuracy layer, GARCH-t, GJR-skew-t and Beta-t-EGARCH. Not confirmatory: all 32 instruments
+have been seen. Statistics as before (NYSE-date pooling, Newey-West(10), Holm, margin 0.01).
+
+**Predictions.**
+- A1. Annual retraining lowers the accuracy layer's pooled FZ0 relative to its frozen-pool version at both levels.
+- A2. The accuracy layer and GJR-skew-t are within noise at both levels (pooled |DM| < 1.96), and GJR-skew-t's mean
+  advantage with instruments as the unit is below +0.004 at both.
+- A3. The accuracy layer's pooled FZ0 is significantly below GARCH-t's at 2.5% (DM < −1.96) and below it, not
+  significantly, at 1%.
+- A4. On the fourteen stocks' flagged days the pooled body's eleven-level pinball beats GARCH-t (DM > 2).
+- A5. On the eighteen other instruments' flagged days it does not (|DM| < 2).
+
+**Outcome (2026-11-18, `results/case_studies/crossasset_annual_results.json`).** Removing the tilt did not change the
+picture.
+
+| prediction | result |
+|---|---|
+| A1 retraining lowers the accuracy layer's FZ0 | **failed**: against its frozen-pool version −0.0014 (DM −1.2) at 1%, 0.0000 at 2.5%. Seven years without retraining cost nothing |
+| A2 tie with GJR-skew-t | pooled DMs within noise (−0.9, −1.1) as predicted; the instrument-level advantage of GJR-skew-t is +0.0092 (t 1.5) and +0.0056 (t 1.7), above the predicted +0.004 |
+| A3 significantly below GARCH-t at 2.5% | **failed** on significance: lower by 0.0080 (DM 1.3) at 2.5% and 0.0053 (DM 0.4) at 1%, on 21 and 18 of 32 instruments |
+| A4 body beats GARCH-t on the stocks' flagged days, eleven-level pinball | **failed** narrowly: +0.59% (DM 1.8); frozen-pool body +0.73% (DM 2.4); Beta-t-EGARCH +0.86% (DM 1.9) |
+| A5 not on the other instruments | held: −0.16% (DM −0.4) |
+
+Read with the panel: the accuracy layer's FZ0 gain over GARCH-t is 0.0092 (1%) and 0.0056 (2.5%) on the panel, where
+221,600 rows make it significant (DM 4.9, 5.5), and 0.0053 and 0.0080 on the 32 instruments, where it is not. The
+estimate is the same size; the case study has roughly a ninth of the panel's rows per date. Against GJR-skew-t the
+accuracy layer is ahead by 0.0039 at 1% and level at 2.5% on the panel, and behind by 0.0084 and 0.0046 on the 32
+instruments; none of the four is significant. Non-inferiority (margin 0.01, Holm, all 32): shown at 2.5% against
+GARCH-t, FHS, GARCH-EVT, EWMA and historical simulation, not against GJR-skew-t (upper bound +0.0118) or Beta-t-EGARCH
+(+0.0096); at 1% only against EWMA. The 90% FZ0 confidence set keeps every model except EWMA at both levels. Kupiec
+passes at 1%: accuracy layer 29 of 32, GARCH-EVT 30, GJR-skew-t 29, GARCH-t 23, Beta-t-EGARCH 22.
