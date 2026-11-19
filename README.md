@@ -79,6 +79,22 @@ Several jobs rebuild the accuracy layer themselves rather than reading the canon
 
 `code/paper/toy_example.py` runs the whole pipeline on synthetic data and needs no licensed input. Job scripts take the project root, where the licensed panel lives, from the `GBC_PROJ` or `GBC_PROJECT_DIR` environment variable where they read one, and otherwise from a path set at the top of the script.
 
+## Results after R67, not yet in the manuscript
+
+The manuscript in `submission/` is revision R67. Later analyses are recorded in documents, each with its predictions
+written before the run:
+
+| document | what it records | scripts and results |
+|---|---|---|
+| `docs/SHOCK_RESPONSE_RESULTS.md` | The closed-form response of GARCH(1,1) to one shock; the share of that response that is real, by asset class, sector and shock type; earnings announcements; SPA tests, model confidence sets, conditional tests and a simulation | `tools/r71_shock_response.py`, `r72_spa_mcs.py`, `r73_simulation.py`, `r75_conditional_tests.py`; `results/paper/diagnostics/r71` to `r75` |
+| `docs/PANELS_PRECOMMIT.md` | Six further panels on public data (US and international stocks, two ETF panels, currencies, crypto), pre-registered, graded | `code/panels/`; `results/panels/` |
+| `docs/CASE_STUDY_PRECOMMIT.md` | The pre-registered 15-instrument study and its like-for-like rerun | `code/case_studies/`; `results/case_studies/` |
+| `docs/AUDIT_2026-11.md` | Audit of every comparison for fairness errors, with the fix runs | `tools/r66` to `r70`; `results/paper/diagnostics/` |
+| `docs/WORKLIST.md` | What is left to do | |
+
+The six further panels and the earnings dates use free data (yfinance) and rebuild with `code/panels/download.py` and
+`code/panels/download_earnings.py`.
+
 ## Environment
 
 Results committed from 2026-10-01 were produced with Python 3.10.12, numpy 1.26.4, scipy 1.15.3,

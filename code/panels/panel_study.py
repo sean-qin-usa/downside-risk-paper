@@ -3,6 +3,9 @@
 #   python code/panels/panel_study.py <panel>          (panel names: code/panels/panels.json)
 # Each panel trains its own pooled models under a strict calendar split; every model is fitted once before test0.
 # Output: results/panels/<panel>_results.json (committed) and data/panels/<panel>_rows.npz (per-row forecasts, not committed).
+# PS_SCREEN=1 (a deviation recorded in docs/PANELS_PRECOMMIT.md, off by default): a data-quality screen on the price file
+# alone. A name is dropped if it has a daily return above +100% or below -70% (unadjusted splits and spin-offs), or ten
+# or more consecutive unchanged closes (a stale feed). Output files then carry the suffix "_screened".
 import os; os.environ["OMP_NUM_THREADS"] = "1"
 import sys, json, math, time, warnings; warnings.filterwarnings("ignore")
 import numpy as np, pandas as pd
@@ -19,7 +22,7 @@ C = X.C; converged_es = X.converged_es; A, TAUS, ZX, P0, SUBN, HGB, LEVS, lev_fo
 PANEL = sys.argv[1]; CFG = json.load(open(os.path.join(HERE, "panels.json")))[PANEL]; END = "2026-11-13"
 CAL0, TEST0 = pd.Timestamp(CFG["cal0"]), pd.Timestamp(CFG["test0"]); DDIR = os.path.join(ROOT, "data", "panels", PANEL)
 NW = int(os.environ.get("PS_WORKERS", "15")); t0 = time.time(); lg = lambda s: print("%5.0fs %s" % (time.time() - t0, s), flush=True)
-JA = {a: TAUS.index(a) for a in A}
+JA = {a: TAUS.index(a) for a in A}; SCREEN = os.environ.get("PS_SCREEN", "0") == "1"; TAG = PANEL + ("_screened" if SCREEN else "")
 
 def nfeat(y):       # returns-space inputs of the neural network (tools/r70_neural_quantile.py)
     s = pd.Series(y); f = {}
@@ -37,6 +40,11 @@ def one_name(tk):
     if tk.endswith("=X"):
         r_ = s.pct_change(); bad = ((r_.abs() > 0.03) & (r_.shift(-1).abs() > 0.03) & (np.sign(r_) != np.sign(r_.shift(-1)))).fillna(False).values; nbad = int(bad.sum()); s = s[~bad]
     r = (s.pct_change() * 100).dropna(); r = r[np.isfinite(r)]; dates = r.index; y = r.values.astype(float); n = len(y)
+    if SCREEN and n:
+        zr = (y == 0); run = mx = 0
+        for v in zr: run = run + 1 if v else 0; mx = max(mx, run)
+        if y.max() > 100 or y.min() < -70: return tk, "screened: daily return of %+.0f%%" % (y.max() if y.max() > 100 else y.min())
+        if mx >= 10: return tk, "screened: %d consecutive unchanged closes" % mx
     tr = dates < CAL0; te = dates >= TEST0; est = dates < TEST0; ne = int(est.sum())
     if tr.sum() < CFG["min_train"] or te.sum() < 250: return tk, "too short (%d train, %d test)" % (tr.sum(), te.sum())
     try:
@@ -130,7 +138,7 @@ if __name__ == "__main__":
     keep = np.isfinite(mk) & np.isfinite(sgn) & np.all([np.isfinite(Q[m]).all(1) for m in MS], axis=0) & np.all([np.isfinite(VE[m][a][1]) for m in VE for a in A], axis=0)
     Y, dates, NAME, mk, sgn, ssz = Y[keep], dates[keep], NAME[keep], mk[keep], sgn[keep], ssz[keep]; Q = {m: Q[m][keep] for m in MS}; VE = {m: {a: (VE[m][a][0][keep], VE[m][a][1][keep]) for a in A} for m in VE}
     rk = pd.qcut(pd.Series(mk).rank(method="first"), 10, labels=False).values + 1
-    np.savez_compressed(os.path.join(ROOT, "data", "panels", PANEL + "_rows.npz"), y=Y.astype("float32"), date=np.array([str(d.date()) for d in dates]), name=NAME, names=np.array(names), mk63=mk, rk=rk,
+    np.savez_compressed(os.path.join(ROOT, "data", "panels", TAG + "_rows.npz"), y=Y.astype("float32"), date=np.array([str(d.date()) for d in dates]), name=NAME, names=np.array(names), mk63=mk, rk=rk,
                         shock_sign=sgn, shock_size=ssz, taus=np.array(TAUS), **{"q__" + m: Q[m].astype("float32") for m in MS}, **{"es__%s__%s" % (m, a): VE[m][a][1].astype("float32") for m in VE for a in A})
     # ---------------------------------------------------------------- scoring
     pin = lambda q, t: np.where(Y - q >= 0, t * (Y - q), (t - 1) * (Y - q))
@@ -146,7 +154,7 @@ if __name__ == "__main__":
     edge = lambda Lr, Lm, mask: {"edge_pct": round(100 * float((Lr - Lm)[mask].mean() / Lr[mask].mean()), 2), "DM": dm(Lr - Lm, mask)}
     gain = lambda Lr, Lm, mask: {"gain": round(float((Lr - Lm)[mask].mean()), 4), "DM": dm(Lr - Lm, mask)}
     ALL = np.ones(len(Y), bool); TOP = rk == 10; D9 = rk == 9; LOW = rk <= 8; REST = rk <= 9
-    OUT = {"panel": PANEL, "class": CFG["class"], "precommit": "docs/PANELS_PRECOMMIT.md", "note": "edge_pct > 0 and DM > 0: the first-named model has the lower loss than the reference.",
+    OUT = {"panel": TAG, "screened": SCREEN, "class": CFG["class"], "precommit": "docs/PANELS_PRECOMMIT.md", "note": "edge_pct > 0 and DM > 0: the first-named model has the lower loss than the reference.",
            "listed": len(CFG["tickers"]), "n_names": len(names), "dropped": dropped, "fx_ticks_removed": int(sum(R[t]["nbad"] for t in names)), "n_test_rows": int(len(Y)), "n_dates": int(len(pd.unique(dates))),
            "test": [str(dates.min().date()), str(dates.max().date())], "n_train_rows": int(len(POOLS["garch_t"])),
            "top_decile": {"mk63_median": round(float(np.median(mk[TOP])), 2), "largest_shock_median": round(float(np.median(ssz[TOP])), 2), "share_positive_shock": round(float((sgn[TOP] > 0).mean()), 3)}, "measures": {}, "fz0": {}}
@@ -166,9 +174,9 @@ if __name__ == "__main__":
         "Y_why": bool(sig(vg["param_bteg"]["top"]) and not sig(vb["body"])),
         "C_class": bool(sig(vg["sav_caviar"]["top"]) and sig(vg["neural"]["top"]) and not sig(vb["sav_caviar"]) and not sig(vb["neural"])),
         "S_shape": bool(vb["body_bteg"]["edge_pct"] > 0), "G_sign": bool(P_["sign"]["body"]["top_positive"]["edge_pct"] > P_["sign"]["body"]["top_negative"]["edge_pct"])}
-    json.dump(OUT, open(os.path.join(ROOT, "results", "panels", PANEL + "_results.json"), "w"), indent=1)
+    json.dump(OUT, open(os.path.join(ROOT, "results", "panels", TAG + "_results.json"), "w"), indent=1)
     f = lambda e: "%+.2f%% (%s)" % (e["edge_pct"], e["DM"])
-    print("\n######## %s: %d names, %d test rows, %d dates; top decile: kurtosis %.1f, largest shock %.1f SD, %.0f%% positive" % (PANEL, len(names), len(Y), OUT["n_dates"], OUT["top_decile"]["mk63_median"], OUT["top_decile"]["largest_shock_median"], 100 * OUT["top_decile"]["share_positive_shock"]))
+    print("\n######## %s: %d names, %d test rows, %d dates; top decile: kurtosis %.1f, largest shock %.1f SD, %.0f%% positive" % (TAG, len(names), len(Y), OUT["n_dates"], OUT["top_decile"]["mk63_median"], OUT["top_decile"]["largest_shock_median"], 100 * OUT["top_decile"]["share_positive_shock"]))
     for meas in ("pin_0.025", "pin_0.01", "pin11"):
         b = OUT["measures"][meas]; print("--- %s vs GARCH-t  [top | decile 9 | deciles 1-8 | overall]   then top decile vs Beta-t-EGARCH" % meas)
         for m in MS[1:]: print("  %-12s %s | %s | %s | %s   || %s" % (m, f(b["vs_garch_t"][m]["top"]), f(b["vs_garch_t"][m]["decile9"]), f(b["vs_garch_t"][m]["deciles1to8"]), f(b["vs_garch_t"][m]["overall"]), f(b["vs_bteg_t_top"][m]) if m in b["vs_bteg_t_top"] else "ref"))

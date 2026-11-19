@@ -79,4 +79,60 @@ Nothing in this file may change after the first download. Deviations are recorde
 
 ## Deviations
 
-(none yet)
+1. **Names dropped by the mechanical rule.** `us_largecap`: 230 listed, 201 in the panel (10 with no price file from
+   the source, 19 with too few returns before 2014). `intl_largecap`: 350 listed, 338 in the panel (3 with no file, 9
+   too short). The other four panels kept every listed instrument. The dropped names and reasons are in each result
+   file under `dropped`.
+2. **Currency bad ticks.** The 3% spike-and-reverse rule removed 285 prices across the 29 pairs.
+3. **International price files contain errors the pre-commitment did not foresee.** Unadjusted splits and
+   spin-offs (daily returns of +8,528%, +1,060%, +355% and -78% in four names) and stale feeds (the same close for up
+   to 65 consecutive days). In the run as registered they dominate every loss comparison (see
+   `docs/SHOCK_RESPONSE_RESULTS.md`, Section 5). A second run applies a screen on the price file alone, switched on by
+   `PS_SCREEN=1` in `code/panels/panel_study.py`: a name is dropped if it has a daily return above +100% or below
+   -70%, or ten or more consecutive unchanged closes. The screen was chosen after the contaminated run was seen. It
+   uses no model output, drops 15 international names, and drops none in `us_largecap`, `etf_equity` or `etf_other`
+   (it is not applied to currencies or crypto, where such moves are real). Both runs are committed and both are
+   graded below; the screened run is the one to read.
+4. **A rerun.** The first `intl_largecap` run was killed with its parent shell before it wrote any output and was
+   started again unchanged.
+5. **Analyses added after this file.** The closed-form shock response, the SPA tests and the conditional tests on
+   these panels (`tools/r71`, `r72`, `r75`) are not part of this pre-commitment. Their predictions are in their own
+   script headers.
+
+## Outcome (graded 2026-11-19 on 2.5% pinball loss, as specified)
+
+| panel | names | test rows | W | Y | C | S | G | trees, top decile | trees, deciles 1-8 | Beta-t-EGARCH, top decile | neural network, top decile | trees on Beta-t-EGARCH against its Student-t, top decile |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| `us_largecap` | 201 | 549333 | holds | holds | holds | holds | holds | +5.1% (8.1) | +0.9% (2.99) | +5.4% (3.35) | +6.0% (9.15) | +0.9% (2.32) |
+| `intl_largecap`, as registered | 338 | 923277 | holds | holds | holds | fails | holds | +14.9% (3.11) | +1.2% (3.28) | +19.3% (2.68) | +21.0% (3.2) | -305.5% (-9.07) |
+| `intl_largecap`, screened | 323 | 882325 | holds | holds | fails | holds | holds | +4.4% (10.49) | +1.1% (3.0) | +3.4% (2.3) | +6.3% (13.85) | +2.4% (2.61) |
+| `etf_equity` | 113 | 308829 | fails | fails | fails | holds | holds | -3.1% (-1.32) | -0.3% (-0.61) | -1.0% (-0.45) | -1.8% (0.73) | +0.3% (-0.16) |
+| `etf_other` | 32 | 87456 | fails | fails | fails | holds | fails | +0.8% (-0.79) | +0.3% (1.0) | -2.1% (-0.48) | +0.5% (-0.57) | +3.4% (0.76) |
+| `fx` | 29 | 81942 | holds | fails | fails | holds | holds | +1.4% (2.34) | +0.1% (0.88) | -1.7% (-0.63) | +2.4% (3.78) | +3.1% (0.61) |
+| `crypto` | 27 | 48006 | holds | holds | holds | fails | holds | +15.4% (3.15) | +1.2% (1.39) | +20.1% (2.18) | +17.1% (3.45) | -0.2% (0.95) |
+
+Edges are over GARCH-t unless stated, with the per-date Newey-West(10) Diebold-Mariano statistic in parentheses.
+
+Against the predictions:
+
+- **`us_largecap`.** All five hold, as predicted.
+- **`intl_largecap`.** Predicted: all five hold. Screened run: W, Y, S and G hold; C fails, because the neural
+  network beats Beta-t-EGARCH in the top decile (+2.9%, DM 2.05) where the hypothesis said no flexible model would.
+  As registered: S fails and the edges are implausibly large, both produced by the data errors of deviation 3.
+- **`etf_equity`.** Predicted: W holds but weaker than on stocks, Y and C fail. Outcome: all three fail. The
+  prediction for W was wrong; there is no post-shock gain on equity ETFs.
+- **`etf_other`.** Predicted: W, Y and C fail. Outcome: all three fail.
+- **`fx`.** Predicted: W, Y and C fail. Outcome: W holds (a small gain, +1.4%, DM 2.3); Y and C fail. The prediction
+  for W was wrong.
+- **`crypto`.** Predicted: W, Y and C fail. Outcome: all three hold, with the largest gains of any panel. The
+  predictions were wrong: crypto behaves like single stocks, not like the other non-stock classes.
+
+Holm across the six panels for W (one-sided p-values from the trees' top-decile statistic, screened international
+run): `us_largecap`, `intl_largecap`, `crypto` and `fx` remain significant at 5%; the two ETF panels do not.
+
+What follows, by the rules set above. W and Y hold on both stock panels, and C on one of them, so the paper states
+the where and the why for large-cap stocks in eight markets and notes that on the international panel one flexible
+model also beats the robust filter. W, Y and C hold on crypto, so the scope sentence widens to it. The two ETF
+panels fail as a pair, and currencies show only a small gain, so the stock-versus-other contrast is stated as a
+result. The closed-form analysis explains the pattern with one number per panel
+(`docs/SHOCK_RESPONSE_RESULTS.md`, Table 1).

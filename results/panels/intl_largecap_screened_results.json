@@ -1,0 +1,1656 @@
+{
+ "panel": "intl_largecap_screened",
+ "screened": true,
+ "class": "stocks",
+ "precommit": "docs/PANELS_PRECOMMIT.md",
+ "note": "edge_pct > 0 and DM > 0: the first-named model has the lower loss than the reference.",
+ "listed": 350,
+ "n_names": 323,
+ "dropped": {
+  "SHEL.L": "screened: 29 consecutive unchanged closes",
+  "GLEN.L": "too short (661 train, 2744 test)",
+  "AHT.L": "no data",
+  "FRES.L": "too short (1426 train, 2747 test)",
+  "CRDA.L": "screened: 33 consecutive unchanged closes",
+  "SDR.L": "no data",
+  "BAYN.DE": "screened: 24 consecutive unchanged closes",
+  "PAH3.DE": "too short (1252 train, 2764 test)",
+  "KGX.DE": "too short (121 train, 2764 test)",
+  "CS.PA": "screened: 23 consecutive unchanged closes",
+  "VIV.PA": "screened: daily return of -78%",
+  "UBI.PA": "screened: 14 consecutive unchanged closes",
+  "ATO.PA": "screened: daily return of +8528%",
+  "8766.T": "screened: daily return of +1060%",
+  "8750.T": "too short (920 train, 2675 test)",
+  "TRI.TO": "too short (1398 train, 2728 test)",
+  "SCG.AX": "too short (766 train, 2752 test)",
+  "GPT.AX": "screened: 11 consecutive unchanged closes",
+  "CAR.AX": "too short (1085 train, 2752 test)",
+  "TAH.AX": "screened: daily return of +355%",
+  "2318.HK": "screened: 45 consecutive unchanged closes",
+  "0003.HK": "screened: 28 consecutive unchanged closes",
+  "0011.HK": "no data",
+  "0027.HK": "screened: 28 consecutive unchanged closes",
+  "2313.HK": "screened: 10 consecutive unchanged closes",
+  "0151.HK": "too short (1425 train, 2676 test)",
+  "1199.HK": "screened: 65 consecutive unchanged closes"
+ },
+ "fx_ticks_removed": 0,
+ "n_test_rows": 882325,
+ "n_dates": 2829,
+ "test": [
+  "2016-01-04",
+  "2026-11-13"
+ ],
+ "n_train_rows": 723602,
+ "top_decile": {
+  "mk63_median": 14.86,
+  "largest_shock_median": 6.58,
+  "share_positive_shock": 0.482
+ },
+ "measures": {
+  "pin_0.025": {
+   "vs_garch_t": {
+    "gjr_skewt": {
+     "top": {
+      "edge_pct": 0.77,
+      "DM": 1.51
+     },
+     "decile9": {
+      "edge_pct": 1.41,
+      "DM": 3.4
+     },
+     "deciles1to8": {
+      "edge_pct": 0.87,
+      "DM": 2.33
+     },
+     "overall": {
+      "edge_pct": 0.91,
+      "DM": 2.48
+     },
+     "profile": [
+      0.39,
+      0.91,
+      0.66,
+      0.76,
+      0.86,
+      1.3,
+      0.99,
+      1.07,
+      1.41,
+      0.77
+     ]
+    },
+    "fhs": {
+     "top": {
+      "edge_pct": 0.67,
+      "DM": 4.63
+     },
+     "decile9": {
+      "edge_pct": 0.37,
+      "DM": 2.97
+     },
+     "deciles1to8": {
+      "edge_pct": -0.02,
+      "DM": -0.25
+     },
+     "overall": {
+      "edge_pct": 0.09,
+      "DM": 0.67
+     },
+     "profile": [
+      -0.23,
+      -0.13,
+      -0.12,
+      -0.17,
+      -0.05,
+      0.09,
+      0.12,
+      0.27,
+      0.37,
+      0.67
+     ]
+    },
+    "param_bteg": {
+     "top": {
+      "edge_pct": 3.44,
+      "DM": 2.3
+     },
+     "decile9": {
+      "edge_pct": 0.86,
+      "DM": 1.64
+     },
+     "deciles1to8": {
+      "edge_pct": -0.06,
+      "DM": -0.12
+     },
+     "overall": {
+      "edge_pct": 0.4,
+      "DM": 0.99
+     },
+     "profile": [
+      -0.03,
+      0.0,
+      -0.03,
+      -0.02,
+      0.09,
+      -0.03,
+      -0.41,
+      -0.01,
+      0.86,
+      3.44
+     ]
+    },
+    "sav_caviar": {
+     "top": {
+      "edge_pct": 3.76,
+      "DM": 3.72
+     },
+     "decile9": {
+      "edge_pct": 0.8,
+      "DM": 1.52
+     },
+     "deciles1to8": {
+      "edge_pct": -0.04,
+      "DM": -0.15
+     },
+     "overall": {
+      "edge_pct": 0.43,
+      "DM": 1.24
+     },
+     "profile": [
+      -0.0,
+      -0.21,
+      0.03,
+      -0.36,
+      -0.15,
+      0.2,
+      -0.17,
+      0.33,
+      0.8,
+      3.76
+     ]
+    },
+    "neural": {
+     "top": {
+      "edge_pct": 6.27,
+      "DM": 13.85
+     },
+     "decile9": {
+      "edge_pct": 3.41,
+      "DM": 8.24
+     },
+     "deciles1to8": {
+      "edge_pct": 1.65,
+      "DM": 3.82
+     },
+     "overall": {
+      "edge_pct": 2.3,
+      "DM": 6.23
+     },
+     "profile": [
+      0.7,
+      1.33,
+      1.0,
+      1.75,
+      1.64,
+      2.35,
+      1.85,
+      2.48,
+      3.41,
+      6.27
+     ]
+    },
+    "body": {
+     "top": {
+      "edge_pct": 4.38,
+      "DM": 10.49
+     },
+     "decile9": {
+      "edge_pct": 2.12,
+      "DM": 5.69
+     },
+     "deciles1to8": {
+      "edge_pct": 1.07,
+      "DM": 3.0
+     },
+     "overall": {
+      "edge_pct": 1.52,
+      "DM": 4.94
+     },
+     "profile": [
+      0.28,
+      0.57,
+      0.69,
+      1.19,
+      1.14,
+      1.62,
+      1.36,
+      1.67,
+      2.12,
+      4.38
+     ]
+    },
+    "engine": {
+     "top": {
+      "edge_pct": 0.75,
+      "DM": 3.24
+     },
+     "decile9": {
+      "edge_pct": 0.81,
+      "DM": 2.06
+     },
+     "deciles1to8": {
+      "edge_pct": 0.83,
+      "DM": 2.16
+     },
+     "overall": {
+      "edge_pct": 0.82,
+      "DM": 2.26
+     },
+     "profile": [
+      0.38,
+      0.56,
+      0.69,
+      1.04,
+      0.88,
+      1.23,
+      0.86,
+      0.99,
+      0.81,
+      0.75
+     ]
+    },
+    "body_bteg": {
+     "top": {
+      "edge_pct": 5.79,
+      "DM": 8.33
+     },
+     "decile9": {
+      "edge_pct": 2.67,
+      "DM": 7.52
+     },
+     "deciles1to8": {
+      "edge_pct": 1.07,
+      "DM": 3.41
+     },
+     "overall": {
+      "edge_pct": 1.72,
+      "DM": 7.35
+     },
+     "profile": [
+      0.33,
+      0.66,
+      0.63,
+      1.07,
+      1.27,
+      1.73,
+      1.03,
+      1.82,
+      2.67,
+      5.79
+     ]
+    },
+    "engine_bteg": {
+     "top": {
+      "edge_pct": 5.58,
+      "DM": 8.75
+     },
+     "decile9": {
+      "edge_pct": 2.42,
+      "DM": 7.62
+     },
+     "deciles1to8": {
+      "edge_pct": 0.98,
+      "DM": 3.08
+     },
+     "overall": {
+      "edge_pct": 1.6,
+      "DM": 7.08
+     },
+     "profile": [
+      0.31,
+      0.57,
+      0.6,
+      1.05,
+      1.09,
+      1.6,
+      0.88,
+      1.73,
+      2.42,
+      5.58
+     ]
+    }
+   },
+   "vs_bteg_t_top": {
+    "garch_t": {
+     "edge_pct": -3.57,
+     "DM": -2.3
+    },
+    "gjr_skewt": {
+     "edge_pct": -2.77,
+     "DM": -1.55
+    },
+    "fhs": {
+     "edge_pct": -2.87,
+     "DM": -1.99
+    },
+    "sav_caviar": {
+     "edge_pct": 0.33,
+     "DM": 0.66
+    },
+    "neural": {
+     "edge_pct": 2.93,
+     "DM": 2.05
+    },
+    "body": {
+     "edge_pct": 0.97,
+     "DM": 0.91
+    },
+    "engine": {
+     "edge_pct": -2.79,
+     "DM": -1.6
+    },
+    "body_bteg": {
+     "edge_pct": 2.43,
+     "DM": 2.61
+    },
+    "engine_bteg": {
+     "edge_pct": 2.22,
+     "DM": 2.28
+    }
+   },
+   "vs_bteg_t_overall": {
+    "garch_t": {
+     "edge_pct": -0.4,
+     "DM": -0.99
+    },
+    "gjr_skewt": {
+     "edge_pct": 0.52,
+     "DM": 0.64
+    },
+    "fhs": {
+     "edge_pct": -0.31,
+     "DM": -0.99
+    },
+    "sav_caviar": {
+     "edge_pct": 0.04,
+     "DM": 0.05
+    },
+    "neural": {
+     "edge_pct": 1.91,
+     "DM": 2.53
+    },
+    "body": {
+     "edge_pct": 1.13,
+     "DM": 1.6
+    },
+    "engine": {
+     "edge_pct": 0.43,
+     "DM": 0.51
+    },
+    "body_bteg": {
+     "edge_pct": 1.33,
+     "DM": 2.28
+    },
+    "engine_bteg": {
+     "edge_pct": 1.21,
+     "DM": 2.01
+    }
+   },
+   "sign": {
+    "body": {
+     "top_positive": {
+      "edge_pct": 5.0,
+      "DM": 9.34
+     },
+     "top_negative": {
+      "edge_pct": 3.85,
+      "DM": 5.97
+     }
+    },
+    "sav_caviar": {
+     "top_positive": {
+      "edge_pct": 4.78,
+      "DM": 6.01
+     },
+     "top_negative": {
+      "edge_pct": 2.87,
+      "DM": 2.82
+     }
+    },
+    "neural": {
+     "top_positive": {
+      "edge_pct": 7.23,
+      "DM": 10.33
+     },
+     "top_negative": {
+      "edge_pct": 5.44,
+      "DM": 9.27
+     }
+    },
+    "gjr_skewt": {
+     "top_positive": {
+      "edge_pct": 4.41,
+      "DM": 8.43
+     },
+     "top_negative": {
+      "edge_pct": -2.4,
+      "DM": -5.42
+     }
+    },
+    "param_bteg": {
+     "top_positive": {
+      "edge_pct": 5.3,
+      "DM": 5.98
+     },
+     "top_negative": {
+      "edge_pct": 1.83,
+      "DM": 1.31
+     }
+    }
+   }
+  },
+  "pin_0.01": {
+   "vs_garch_t": {
+    "gjr_skewt": {
+     "top": {
+      "edge_pct": 1.0,
+      "DM": 1.35
+     },
+     "decile9": {
+      "edge_pct": 1.75,
+      "DM": 2.86
+     },
+     "deciles1to8": {
+      "edge_pct": 1.24,
+      "DM": 1.92
+     },
+     "overall": {
+      "edge_pct": 1.27,
+      "DM": 2.05
+     },
+     "profile": [
+      0.34,
+      1.14,
+      0.94,
+      0.78,
+      1.06,
+      2.25,
+      1.51,
+      1.84,
+      1.75,
+      1.0
+     ]
+    },
+    "fhs": {
+     "top": {
+      "edge_pct": 0.84,
+      "DM": 3.64
+     },
+     "decile9": {
+      "edge_pct": 0.18,
+      "DM": 0.85
+     },
+     "deciles1to8": {
+      "edge_pct": -0.4,
+      "DM": -1.48
+     },
+     "overall": {
+      "edge_pct": -0.21,
+      "DM": -0.87
+     },
+     "profile": [
+      -0.62,
+      -0.43,
+      -0.6,
+      -0.72,
+      -0.42,
+      -0.45,
+      0.01,
+      0.04,
+      0.18,
+      0.84
+     ]
+    },
+    "param_bteg": {
+     "top": {
+      "edge_pct": 1.25,
+      "DM": 0.56
+     },
+     "decile9": {
+      "edge_pct": -0.27,
+      "DM": 0.16
+     },
+     "deciles1to8": {
+      "edge_pct": -0.29,
+      "DM": -0.66
+     },
+     "overall": {
+      "edge_pct": -0.13,
+      "DM": -0.1
+     },
+     "profile": [
+      0.16,
+      0.17,
+      -0.18,
+      -0.13,
+      -0.18,
+      -0.56,
+      -0.79,
+      -0.77,
+      -0.27,
+      1.25
+     ]
+    },
+    "sav_caviar": {
+     "top": {
+      "edge_pct": 1.9,
+      "DM": 1.04
+     },
+     "decile9": {
+      "edge_pct": -0.23,
+      "DM": 0.07
+     },
+     "deciles1to8": {
+      "edge_pct": -0.45,
+      "DM": -0.96
+     },
+     "overall": {
+      "edge_pct": -0.18,
+      "DM": -0.28
+     },
+     "profile": [
+      0.05,
+      0.05,
+      -0.23,
+      -0.83,
+      -0.36,
+      -0.6,
+      -0.95,
+      -0.71,
+      -0.23,
+      1.9
+     ]
+    },
+    "neural": {
+     "top": {
+      "edge_pct": 5.97,
+      "DM": 8.81
+     },
+     "decile9": {
+      "edge_pct": 3.7,
+      "DM": 5.55
+     },
+     "deciles1to8": {
+      "edge_pct": 2.15,
+      "DM": 2.75
+     },
+     "overall": {
+      "edge_pct": 2.7,
+      "DM": 4.01
+     },
+     "profile": [
+      0.96,
+      1.92,
+      1.42,
+      1.69,
+      2.13,
+      3.39,
+      2.23,
+      3.38,
+      3.7,
+      5.97
+     ]
+    },
+    "body": {
+     "top": {
+      "edge_pct": 4.22,
+      "DM": 10.43
+     },
+     "decile9": {
+      "edge_pct": 2.58,
+      "DM": 4.37
+     },
+     "deciles1to8": {
+      "edge_pct": 1.35,
+      "DM": 2.22
+     },
+     "overall": {
+      "edge_pct": 1.77,
+      "DM": 3.13
+     },
+     "profile": [
+      -0.03,
+      0.83,
+      0.87,
+      1.08,
+      1.35,
+      2.28,
+      1.74,
+      2.57,
+      2.58,
+      4.22
+     ]
+    },
+    "engine": {
+     "top": {
+      "edge_pct": 1.59,
+      "DM": 3.69
+     },
+     "decile9": {
+      "edge_pct": 1.65,
+      "DM": 2.8
+     },
+     "deciles1to8": {
+      "edge_pct": 1.18,
+      "DM": 1.92
+     },
+     "overall": {
+      "edge_pct": 1.27,
+      "DM": 2.17
+     },
+     "profile": [
+      0.26,
+      0.84,
+      1.0,
+      1.06,
+      1.04,
+      2.04,
+      1.33,
+      1.84,
+      1.65,
+      1.59
+     ]
+    },
+    "body_bteg": {
+     "top": {
+      "edge_pct": 5.12,
+      "DM": 5.39
+     },
+     "decile9": {
+      "edge_pct": 2.68,
+      "DM": 4.56
+     },
+     "deciles1to8": {
+      "edge_pct": 1.26,
+      "DM": 2.67
+     },
+     "overall": {
+      "edge_pct": 1.8,
+      "DM": 5.1
+     },
+     "profile": [
+      0.34,
+      1.13,
+      0.84,
+      1.03,
+      1.33,
+      2.1,
+      1.11,
+      2.1,
+      2.68,
+      5.12
+     ]
+    },
+    "engine_bteg": {
+     "top": {
+      "edge_pct": 5.1,
+      "DM": 5.66
+     },
+     "decile9": {
+      "edge_pct": 2.58,
+      "DM": 4.84
+     },
+     "deciles1to8": {
+      "edge_pct": 1.35,
+      "DM": 2.89
+     },
+     "overall": {
+      "edge_pct": 1.86,
+      "DM": 5.76
+     },
+     "profile": [
+      0.64,
+      1.09,
+      1.06,
+      1.2,
+      1.23,
+      2.21,
+      1.21,
+      2.09,
+      2.58,
+      5.1
+     ]
+    }
+   },
+   "vs_bteg_t_top": {
+    "garch_t": {
+     "edge_pct": -1.26,
+     "DM": -0.56
+    },
+    "gjr_skewt": {
+     "edge_pct": -0.25,
+     "DM": -0.2
+    },
+    "fhs": {
+     "edge_pct": -0.42,
+     "DM": -0.2
+    },
+    "sav_caviar": {
+     "edge_pct": 0.66,
+     "DM": 0.64
+    },
+    "neural": {
+     "edge_pct": 4.78,
+     "DM": 1.9
+    },
+    "body": {
+     "edge_pct": 3.01,
+     "DM": 1.15
+    },
+    "engine": {
+     "edge_pct": 0.34,
+     "DM": 0.04
+    },
+    "body_bteg": {
+     "edge_pct": 3.92,
+     "DM": 2.23
+    },
+    "engine_bteg": {
+     "edge_pct": 3.9,
+     "DM": 2.14
+    }
+   },
+   "vs_bteg_t_overall": {
+    "garch_t": {
+     "edge_pct": 0.13,
+     "DM": 0.1
+    },
+    "gjr_skewt": {
+     "edge_pct": 1.4,
+     "DM": 1.06
+    },
+    "fhs": {
+     "edge_pct": -0.08,
+     "DM": -0.31
+    },
+    "sav_caviar": {
+     "edge_pct": -0.05,
+     "DM": -0.67
+    },
+    "neural": {
+     "edge_pct": 2.83,
+     "DM": 2.14
+    },
+    "body": {
+     "edge_pct": 1.9,
+     "DM": 1.53
+    },
+    "engine": {
+     "edge_pct": 1.4,
+     "DM": 1.07
+    },
+    "body_bteg": {
+     "edge_pct": 1.93,
+     "DM": 2.06
+    },
+    "engine_bteg": {
+     "edge_pct": 1.99,
+     "DM": 2.08
+    }
+   },
+   "sign": {
+    "body": {
+     "top_positive": {
+      "edge_pct": 5.06,
+      "DM": 6.87
+     },
+     "top_negative": {
+      "edge_pct": 3.51,
+      "DM": 8.35
+     }
+    },
+    "sav_caviar": {
+     "top_positive": {
+      "edge_pct": 3.82,
+      "DM": 2.81
+     },
+     "top_negative": {
+      "edge_pct": 0.27,
+      "DM": 0.64
+     }
+    },
+    "neural": {
+     "top_positive": {
+      "edge_pct": 7.46,
+      "DM": 7.78
+     },
+     "top_negative": {
+      "edge_pct": 4.69,
+      "DM": 5.81
+     }
+    },
+    "gjr_skewt": {
+     "top_positive": {
+      "edge_pct": 4.45,
+      "DM": 6.47
+     },
+     "top_negative": {
+      "edge_pct": -1.95,
+      "DM": -3.48
+     }
+    },
+    "param_bteg": {
+     "top_positive": {
+      "edge_pct": 4.24,
+      "DM": 3.01
+     },
+     "top_negative": {
+      "edge_pct": -1.31,
+      "DM": 0.08
+     }
+    }
+   }
+  },
+  "pin11": {
+   "vs_garch_t": {
+    "gjr_skewt": {
+     "top": {
+      "edge_pct": -0.18,
+      "DM": -1.17
+     },
+     "decile9": {
+      "edge_pct": 0.19,
+      "DM": 1.62
+     },
+     "deciles1to8": {
+      "edge_pct": 0.19,
+      "DM": 2.05
+     },
+     "overall": {
+      "edge_pct": 0.16,
+      "DM": 1.7
+     },
+     "profile": [
+      0.18,
+      0.23,
+      0.18,
+      0.22,
+      0.14,
+      0.23,
+      0.16,
+      0.19,
+      0.19,
+      -0.18
+     ]
+    },
+    "fhs": {
+     "top": {
+      "edge_pct": -0.01,
+      "DM": -0.74
+     },
+     "decile9": {
+      "edge_pct": -0.03,
+      "DM": -1.44
+     },
+     "deciles1to8": {
+      "edge_pct": -0.03,
+      "DM": -3.05
+     },
+     "overall": {
+      "edge_pct": -0.03,
+      "DM": -3.01
+     },
+     "profile": [
+      -0.05,
+      -0.03,
+      -0.04,
+      -0.02,
+      -0.04,
+      -0.03,
+      -0.01,
+      -0.02,
+      -0.03,
+      -0.01
+     ]
+    },
+    "param_bteg": {
+     "top": {
+      "edge_pct": 2.42,
+      "DM": 6.52
+     },
+     "decile9": {
+      "edge_pct": 0.57,
+      "DM": 2.83
+     },
+     "deciles1to8": {
+      "edge_pct": 0.04,
+      "DM": 0.59
+     },
+     "overall": {
+      "edge_pct": 0.32,
+      "DM": 2.87
+     },
+     "profile": [
+      0.01,
+      0.04,
+      0.02,
+      0.02,
+      0.06,
+      -0.01,
+      0.02,
+      0.13,
+      0.57,
+      2.42
+     ]
+    },
+    "sav_caviar": {
+     "top": {
+      "edge_pct": 2.12,
+      "DM": 8.73
+     },
+     "decile9": {
+      "edge_pct": 0.4,
+      "DM": 2.9
+     },
+     "deciles1to8": {
+      "edge_pct": -0.12,
+      "DM": -1.97
+     },
+     "overall": {
+      "edge_pct": 0.15,
+      "DM": 1.86
+     },
+     "profile": [
+      -0.16,
+      -0.16,
+      -0.16,
+      -0.19,
+      -0.15,
+      -0.15,
+      -0.09,
+      0.06,
+      0.4,
+      2.12
+     ]
+    },
+    "neural": {
+     "top": {
+      "edge_pct": 2.97,
+      "DM": 14.45
+     },
+     "decile9": {
+      "edge_pct": 1.24,
+      "DM": 9.41
+     },
+     "deciles1to8": {
+      "edge_pct": 0.43,
+      "DM": 4.88
+     },
+     "overall": {
+      "edge_pct": 0.76,
+      "DM": 8.83
+     },
+     "profile": [
+      0.26,
+      0.32,
+      0.27,
+      0.41,
+      0.44,
+      0.53,
+      0.42,
+      0.77,
+      1.24,
+      2.97
+     ]
+    },
+    "body": {
+     "top": {
+      "edge_pct": 1.86,
+      "DM": 12.44
+     },
+     "decile9": {
+      "edge_pct": 0.56,
+      "DM": 5.1
+     },
+     "deciles1to8": {
+      "edge_pct": 0.2,
+      "DM": 2.77
+     },
+     "overall": {
+      "edge_pct": 0.4,
+      "DM": 5.51
+     },
+     "profile": [
+      0.07,
+      0.13,
+      0.13,
+      0.24,
+      0.16,
+      0.3,
+      0.22,
+      0.38,
+      0.56,
+      1.86
+     ]
+    },
+    "engine": {
+     "top": {
+      "edge_pct": 1.65,
+      "DM": 11.85
+     },
+     "decile9": {
+      "edge_pct": 0.49,
+      "DM": 4.48
+     },
+     "deciles1to8": {
+      "edge_pct": 0.19,
+      "DM": 2.56
+     },
+     "overall": {
+      "edge_pct": 0.36,
+      "DM": 4.89
+     },
+     "profile": [
+      0.08,
+      0.12,
+      0.13,
+      0.24,
+      0.14,
+      0.28,
+      0.19,
+      0.34,
+      0.49,
+      1.65
+     ]
+    },
+    "body_bteg": {
+     "top": {
+      "edge_pct": 2.94,
+      "DM": 14.06
+     },
+     "decile9": {
+      "edge_pct": 1.08,
+      "DM": 9.27
+     },
+     "deciles1to8": {
+      "edge_pct": 0.28,
+      "DM": 3.96
+     },
+     "overall": {
+      "edge_pct": 0.62,
+      "DM": 9.63
+     },
+     "profile": [
+      0.05,
+      0.14,
+      0.15,
+      0.28,
+      0.26,
+      0.39,
+      0.31,
+      0.64,
+      1.08,
+      2.94
+     ]
+    },
+    "engine_bteg": {
+     "top": {
+      "edge_pct": 2.93,
+      "DM": 14.23
+     },
+     "decile9": {
+      "edge_pct": 1.07,
+      "DM": 9.32
+     },
+     "deciles1to8": {
+      "edge_pct": 0.28,
+      "DM": 3.91
+     },
+     "overall": {
+      "edge_pct": 0.62,
+      "DM": 9.64
+     },
+     "profile": [
+      0.06,
+      0.14,
+      0.15,
+      0.29,
+      0.25,
+      0.38,
+      0.31,
+      0.64,
+      1.07,
+      2.93
+     ]
+    }
+   },
+   "vs_bteg_t_top": {
+    "garch_t": {
+     "edge_pct": -2.48,
+     "DM": -6.52
+    },
+    "gjr_skewt": {
+     "edge_pct": -2.67,
+     "DM": -5.75
+    },
+    "fhs": {
+     "edge_pct": -2.49,
+     "DM": -6.7
+    },
+    "sav_caviar": {
+     "edge_pct": -0.31,
+     "DM": -2.15
+    },
+    "neural": {
+     "edge_pct": 0.57,
+     "DM": 1.8
+    },
+    "body": {
+     "edge_pct": -0.57,
+     "DM": -1.57
+    },
+    "engine": {
+     "edge_pct": -0.79,
+     "DM": -2.13
+    },
+    "body_bteg": {
+     "edge_pct": 0.53,
+     "DM": 2.4
+    },
+    "engine_bteg": {
+     "edge_pct": 0.52,
+     "DM": 2.32
+    }
+   },
+   "vs_bteg_t_overall": {
+    "garch_t": {
+     "edge_pct": -0.33,
+     "DM": -2.87
+    },
+    "gjr_skewt": {
+     "edge_pct": -0.17,
+     "DM": -0.9
+    },
+    "fhs": {
+     "edge_pct": -0.35,
+     "DM": -3.29
+    },
+    "sav_caviar": {
+     "edge_pct": -0.18,
+     "DM": -4.64
+    },
+    "neural": {
+     "edge_pct": 0.44,
+     "DM": 2.83
+    },
+    "body": {
+     "edge_pct": 0.08,
+     "DM": 0.44
+    },
+    "engine": {
+     "edge_pct": 0.04,
+     "DM": 0.2
+    },
+    "body_bteg": {
+     "edge_pct": 0.3,
+     "DM": 2.05
+    },
+    "engine_bteg": {
+     "edge_pct": 0.3,
+     "DM": 2.01
+    }
+   },
+   "sign": {
+    "body": {
+     "top_positive": {
+      "edge_pct": 2.11,
+      "DM": 11.21
+     },
+     "top_negative": {
+      "edge_pct": 1.64,
+      "DM": 8.83
+     }
+    },
+    "sav_caviar": {
+     "top_positive": {
+      "edge_pct": 2.34,
+      "DM": 10.92
+     },
+     "top_negative": {
+      "edge_pct": 1.92,
+      "DM": 6.97
+     }
+    },
+    "neural": {
+     "top_positive": {
+      "edge_pct": 3.32,
+      "DM": 13.5
+     },
+     "top_negative": {
+      "edge_pct": 2.67,
+      "DM": 11.1
+     }
+    },
+    "gjr_skewt": {
+     "top_positive": {
+      "edge_pct": 2.06,
+      "DM": 12.42
+     },
+     "top_negative": {
+      "edge_pct": -2.17,
+      "DM": -13.56
+     }
+    },
+    "param_bteg": {
+     "top_positive": {
+      "edge_pct": 2.88,
+      "DM": 9.54
+     },
+     "top_negative": {
+      "edge_pct": 2.01,
+      "DM": 4.63
+     }
+    }
+   }
+  }
+ },
+ "fz0": {
+  "0.01": {
+   "vs_garch_t": {
+    "gjr_skewt": {
+     "top": {
+      "gain": 0.0097,
+      "DM": 1.23
+     },
+     "deciles1to9": {
+      "gain": 0.0099,
+      "DM": 1.55
+     },
+     "overall": {
+      "gain": 0.0099,
+      "DM": 1.63
+     }
+    },
+    "fhs": {
+     "top": {
+      "gain": 0.0057,
+      "DM": 1.95
+     },
+     "deciles1to9": {
+      "gain": -0.009,
+      "DM": -2.7
+     },
+     "overall": {
+      "gain": -0.0075,
+      "DM": -2.4
+     }
+    },
+    "param_bteg": {
+     "top": {
+      "gain": -0.0012,
+      "DM": -0.04
+     },
+     "deciles1to9": {
+      "gain": -0.0084,
+      "DM": -1.46
+     },
+     "overall": {
+      "gain": -0.0077,
+      "DM": -0.99
+     }
+    },
+    "body": {
+     "top": {
+      "gain": 0.0377,
+      "DM": 7.82
+     },
+     "deciles1to9": {
+      "gain": 0.0096,
+      "DM": 1.53
+     },
+     "overall": {
+      "gain": 0.0124,
+      "DM": 2.05
+     }
+    },
+    "engine": {
+     "top": {
+      "gain": 0.0148,
+      "DM": 3.41
+     },
+     "deciles1to9": {
+      "gain": 0.0138,
+      "DM": 2.13
+     },
+     "overall": {
+      "gain": 0.0139,
+      "DM": 2.25
+     }
+    },
+    "body_bteg": {
+     "top": {
+      "gain": 0.0378,
+      "DM": 2.98
+     },
+     "deciles1to9": {
+      "gain": 0.0088,
+      "DM": 1.73
+     },
+     "overall": {
+      "gain": 0.0117,
+      "DM": 2.41
+     }
+    },
+    "engine_bteg": {
+     "top": {
+      "gain": 0.0444,
+      "DM": 3.86
+     },
+     "deciles1to9": {
+      "gain": 0.0175,
+      "DM": 3.48
+     },
+     "overall": {
+      "gain": 0.0202,
+      "DM": 4.72
+     }
+    }
+   },
+   "vs_bteg_t": {
+    "garch_t": {
+     "top": {
+      "gain": 0.0012,
+      "DM": 0.04
+     },
+     "overall": {
+      "gain": 0.0077,
+      "DM": 0.99
+     }
+    },
+    "gjr_skewt": {
+     "top": {
+      "gain": 0.011,
+      "DM": 0.33
+     },
+     "overall": {
+      "gain": 0.0175,
+      "DM": 1.39
+     }
+    },
+    "fhs": {
+     "top": {
+      "gain": 0.0069,
+      "DM": 0.32
+     },
+     "overall": {
+      "gain": 0.0002,
+      "DM": -0.17
+     }
+    },
+    "body": {
+     "top": {
+      "gain": 0.0389,
+      "DM": 1.72
+     },
+     "overall": {
+      "gain": 0.0201,
+      "DM": 1.62
+     }
+    },
+    "engine": {
+     "top": {
+      "gain": 0.016,
+      "DM": 0.58
+     },
+     "overall": {
+      "gain": 0.0216,
+      "DM": 1.63
+     }
+    },
+    "body_bteg": {
+     "top": {
+      "gain": 0.039,
+      "DM": 2.31
+     },
+     "overall": {
+      "gain": 0.0194,
+      "DM": 1.94
+     }
+    },
+    "engine_bteg": {
+     "top": {
+      "gain": 0.0456,
+      "DM": 2.49
+     },
+     "overall": {
+      "gain": 0.0279,
+      "DM": 2.64
+     }
+    }
+   },
+   "breach_pct": {
+    "garch_t": 1.17,
+    "gjr_skewt": 1.21,
+    "fhs": 1.3,
+    "param_bteg": 1.28,
+    "body": 1.28,
+    "engine": 1.19,
+    "body_bteg": 1.35,
+    "engine_bteg": 1.25
+   },
+   "breach_pct_top_decile": {
+    "garch_t": 0.84,
+    "gjr_skewt": 0.88,
+    "fhs": 0.95,
+    "param_bteg": 1.26,
+    "body": 0.96,
+    "engine": 0.86,
+    "body_bteg": 1.23,
+    "engine_bteg": 1.15
+   }
+  },
+  "0.025": {
+   "vs_garch_t": {
+    "gjr_skewt": {
+     "top": {
+      "gain": 0.0093,
+      "DM": 2.03
+     },
+     "deciles1to9": {
+      "gain": 0.0093,
+      "DM": 2.28
+     },
+     "overall": {
+      "gain": 0.0093,
+      "DM": 2.39
+     }
+    },
+    "fhs": {
+     "top": {
+      "gain": 0.006,
+      "DM": 3.61
+     },
+     "deciles1to9": {
+      "gain": -0.0021,
+      "DM": -1.32
+     },
+     "overall": {
+      "gain": -0.0013,
+      "DM": -0.89
+     }
+    },
+    "param_bteg": {
+     "top": {
+      "gain": 0.029,
+      "DM": 1.93
+     },
+     "deciles1to9": {
+      "gain": -0.0022,
+      "DM": -0.5
+     },
+     "overall": {
+      "gain": 0.0009,
+      "DM": 0.34
+     }
+    },
+    "body": {
+     "top": {
+      "gain": 0.0457,
+      "DM": 12.79
+     },
+     "deciles1to9": {
+      "gain": 0.0105,
+      "DM": 2.65
+     },
+     "overall": {
+      "gain": 0.014,
+      "DM": 3.84
+     }
+    },
+    "engine": {
+     "top": {
+      "gain": 0.0098,
+      "DM": 3.95
+     },
+     "deciles1to9": {
+      "gain": 0.0105,
+      "DM": 2.45
+     },
+     "overall": {
+      "gain": 0.0105,
+      "DM": 2.57
+     }
+    },
+    "body_bteg": {
+     "top": {
+      "gain": 0.0559,
+      "DM": 6.85
+     },
+     "deciles1to9": {
+      "gain": 0.0108,
+      "DM": 3.14
+     },
+     "overall": {
+      "gain": 0.0153,
+      "DM": 4.92
+     }
+    },
+    "engine_bteg": {
+     "top": {
+      "gain": 0.0569,
+      "DM": 8.05
+     },
+     "deciles1to9": {
+      "gain": 0.0141,
+      "DM": 4.06
+     },
+     "overall": {
+      "gain": 0.0184,
+      "DM": 6.36
+     }
+    }
+   },
+   "vs_bteg_t": {
+    "garch_t": {
+     "top": {
+      "gain": -0.029,
+      "DM": -1.93
+     },
+     "overall": {
+      "gain": -0.0009,
+      "DM": -0.34
+     }
+    },
+    "gjr_skewt": {
+     "top": {
+      "gain": -0.0198,
+      "DM": -1.23
+     },
+     "overall": {
+      "gain": 0.0084,
+      "DM": 1.05
+     }
+    },
+    "fhs": {
+     "top": {
+      "gain": -0.0231,
+      "DM": -1.64
+     },
+     "overall": {
+      "gain": -0.0022,
+      "DM": -0.86
+     }
+    },
+    "body": {
+     "top": {
+      "gain": 0.0166,
+      "DM": 1.47
+     },
+     "overall": {
+      "gain": 0.0131,
+      "DM": 1.75
+     }
+    },
+    "engine": {
+     "top": {
+      "gain": -0.0192,
+      "DM": -1.12
+     },
+     "overall": {
+      "gain": 0.0095,
+      "DM": 1.12
+     }
+    },
+    "body_bteg": {
+     "top": {
+      "gain": 0.0269,
+      "DM": 2.98
+     },
+     "overall": {
+      "gain": 0.0144,
+      "DM": 2.31
+     }
+    },
+    "engine_bteg": {
+     "top": {
+      "gain": 0.0279,
+      "DM": 2.85
+     },
+     "overall": {
+      "gain": 0.0175,
+      "DM": 2.63
+     }
+    }
+   },
+   "breach_pct": {
+    "garch_t": 2.54,
+    "gjr_skewt": 2.62,
+    "fhs": 2.73,
+    "param_bteg": 2.73,
+    "body": 2.71,
+    "engine": 2.47,
+    "body_bteg": 2.82,
+    "engine_bteg": 2.6
+   },
+   "breach_pct_top_decile": {
+    "garch_t": 1.85,
+    "gjr_skewt": 1.95,
+    "fhs": 1.98,
+    "param_bteg": 2.66,
+    "body": 2.16,
+    "engine": 1.79,
+    "body_bteg": 2.62,
+    "engine_bteg": 2.44
+   }
+  }
+ },
+ "graded_on_pinball_2.5pct": {
+  "W_where": true,
+  "Y_why": true,
+  "C_class": false,
+  "S_shape": true,
+  "G_sign": true
+ }
+}

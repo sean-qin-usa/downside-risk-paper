@@ -1,0 +1,1502 @@
+{
+ "note": "Each entry: mean and standard deviation over 5 simulated panels of 100 series x 2768 days. edge > 0: the named model has lower 2.5% pinball loss than GARCH-t.",
+ "predictions_written_before_run": "see the script header (M1-M4)",
+ "processes": {
+  "garch": {
+   "al": 0.14,
+   "be": 0.81,
+   "nu": 4.0,
+   "p": 0.0,
+   "js": 0.0,
+   "kappa": 0.0
+  },
+  "jump_0": {
+   "al": 0.06,
+   "be": 0.92,
+   "nu": 8.0,
+   "p": 0.015873015873015872,
+   "js": 5.0,
+   "kappa": 0.0
+  },
+  "jump_0.25": {
+   "al": 0.06,
+   "be": 0.92,
+   "nu": 8.0,
+   "p": 0.015873015873015872,
+   "js": 5.0,
+   "kappa": 0.25
+  },
+  "jump_1": {
+   "al": 0.06,
+   "be": 0.92,
+   "nu": 8.0,
+   "p": 0.015873015873015872,
+   "js": 5.0,
+   "kappa": 1.0
+  }
+ },
+ "results": {
+  "garch": {
+   "fitted_alpha_median": {
+    "mean": 0.138,
+    "sd": 0.004
+   },
+   "fitted_beta_median": {
+    "mean": 0.81,
+    "sd": 0.007
+   },
+   "fitted_nu_median": {
+    "mean": 4.028,
+    "sd": 0.054
+   },
+   "top_decile_shock_size_median": {
+    "mean": 6.467,
+    "sd": 0.14
+   },
+   "top_decile_mean_D": {
+    "mean": 0.108,
+    "sd": 0.007
+   },
+   "lambda_top_decile_pinball": {
+    "mean": 1.03,
+    "sd": 0.144
+   },
+   "lambda_top_decile_likelihood": {
+    "mean": 1.05,
+    "sd": 0.061
+   },
+   "lambda_top_D_decile_pinball": {
+    "mean": 1.04,
+    "sd": 0.065
+   },
+   "lambda_all_rows_pinball": {
+    "mean": 1.08,
+    "sd": 0.045
+   },
+   "lambda_pre_test": {
+    "mean": 1.04,
+    "sd": 0.178
+   },
+   "garch_t_breach_all": {
+    "mean": 2.541,
+    "sd": 0.037
+   },
+   "garch_t_breach_top_decile": {
+    "mean": 2.473,
+    "sd": 0.147
+   },
+   "bteg_breach_top_decile": {
+    "mean": 3.451,
+    "sd": 0.191
+   },
+   "breach_age_1-10": {
+    "mean": 2.439,
+    "sd": 0.362
+   },
+   "predicted_lambda0_age_1-10": {
+    "mean": 0.888,
+    "sd": 0.034
+   },
+   "breach_age_11-21": {
+    "mean": 2.502,
+    "sd": 0.351
+   },
+   "predicted_lambda0_age_11-21": {
+    "mean": 2.038,
+    "sd": 0.032
+   },
+   "breach_age_22-42": {
+    "mean": 2.595,
+    "sd": 0.255
+   },
+   "predicted_lambda0_age_22-42": {
+    "mean": 2.44,
+    "sd": 0.009
+   },
+   "breach_age_43-63": {
+    "mean": 2.347,
+    "sd": 0.331
+   },
+   "predicted_lambda0_age_43-63": {
+    "mean": 2.497,
+    "sd": 0.001
+   },
+   "edge_cf0_top_decile": {
+    "mean": -8.856,
+    "sd": 1.878
+   },
+   "dm_cf0_top_decile": {
+    "mean": -5.332,
+    "sd": 0.538
+   },
+   "edge_cf0_top_D_decile": {
+    "mean": -17.297,
+    "sd": 2.135
+   },
+   "dm_cf0_top_D_decile": {
+    "mean": -8.519,
+    "sd": 0.934
+   },
+   "edge_cf0_all_days": {
+    "mean": -2.568,
+    "sd": 0.297
+   },
+   "dm_cf0_all_days": {
+    "mean": -9.218,
+    "sd": 0.749
+   },
+   "edge_cf_pre_top_decile": {
+    "mean": -0.08,
+    "sd": 0.13
+   },
+   "dm_cf_pre_top_decile": {
+    "mean": -0.412,
+    "sd": 0.746
+   },
+   "edge_cf_pre_top_D_decile": {
+    "mean": -0.168,
+    "sd": 0.264
+   },
+   "dm_cf_pre_top_D_decile": {
+    "mean": -0.684,
+    "sd": 1.057
+   },
+   "edge_cf_pre_all_days": {
+    "mean": -0.024,
+    "sd": 0.037
+   },
+   "dm_cf_pre_all_days": {
+    "mean": -0.695,
+    "sd": 1.259
+   },
+   "edge_bteg_top_decile": {
+    "mean": -9.635,
+    "sd": 2.369
+   },
+   "dm_bteg_top_decile": {
+    "mean": -4.102,
+    "sd": 0.31
+   },
+   "edge_bteg_top_D_decile": {
+    "mean": -8.466,
+    "sd": 2.005
+   },
+   "dm_bteg_top_D_decile": {
+    "mean": -4.792,
+    "sd": 0.792
+   },
+   "edge_bteg_all_days": {
+    "mean": -2.321,
+    "sd": 0.27
+   },
+   "dm_bteg_all_days": {
+    "mean": -6.74,
+    "sd": 1.038
+   }
+  },
+  "jump_0": {
+   "fitted_alpha_median": {
+    "mean": 0.035,
+    "sd": 0.002
+   },
+   "fitted_beta_median": {
+    "mean": 0.923,
+    "sd": 0.006
+   },
+   "fitted_nu_median": {
+    "mean": 3.93,
+    "sd": 0.047
+   },
+   "top_decile_shock_size_median": {
+    "mean": 9.323,
+    "sd": 0.053
+   },
+   "top_decile_mean_D": {
+    "mean": 0.254,
+    "sd": 0.017
+   },
+   "lambda_top_decile_pinball": {
+    "mean": -0.02,
+    "sd": 0.027
+   },
+   "lambda_top_decile_likelihood": {
+    "mean": 0.0,
+    "sd": 0.0
+   },
+   "lambda_top_D_decile_pinball": {
+    "mean": 0.02,
+    "sd": 0.027
+   },
+   "lambda_all_rows_pinball": {
+    "mean": 0.03,
+    "sd": 0.027
+   },
+   "lambda_pre_test": {
+    "mean": 0.01,
+    "sd": 0.022
+   },
+   "garch_t_breach_all": {
+    "mean": 2.299,
+    "sd": 0.042
+   },
+   "garch_t_breach_top_decile": {
+    "mean": 1.388,
+    "sd": 0.052
+   },
+   "bteg_breach_top_decile": {
+    "mean": 1.998,
+    "sd": 0.071
+   },
+   "breach_age_1-10": {
+    "mean": 0.587,
+    "sd": 0.167
+   },
+   "predicted_lambda0_age_1-10": {
+    "mean": 0.661,
+    "sd": 0.064
+   },
+   "breach_age_11-21": {
+    "mean": 1.237,
+    "sd": 0.224
+   },
+   "predicted_lambda0_age_11-21": {
+    "mean": 1.186,
+    "sd": 0.046
+   },
+   "breach_age_22-42": {
+    "mean": 1.343,
+    "sd": 0.215
+   },
+   "predicted_lambda0_age_22-42": {
+    "mean": 1.795,
+    "sd": 0.061
+   },
+   "breach_age_43-63": {
+    "mean": 1.827,
+    "sd": 0.178
+   },
+   "predicted_lambda0_age_43-63": {
+    "mean": 2.199,
+    "sd": 0.057
+   },
+   "edge_cf0_top_decile": {
+    "mean": 7.134,
+    "sd": 0.392
+   },
+   "dm_cf0_top_decile": {
+    "mean": 8.424,
+    "sd": 1.223
+   },
+   "edge_cf0_top_D_decile": {
+    "mean": 8.6,
+    "sd": 0.376
+   },
+   "dm_cf0_top_D_decile": {
+    "mean": 7.478,
+    "sd": 0.554
+   },
+   "edge_cf0_all_days": {
+    "mean": 0.887,
+    "sd": 0.102
+   },
+   "dm_cf0_all_days": {
+    "mean": 6.943,
+    "sd": 0.608
+   },
+   "edge_cf_pre_top_decile": {
+    "mean": 7.1,
+    "sd": 0.45
+   },
+   "dm_cf_pre_top_decile": {
+    "mean": 8.511,
+    "sd": 1.153
+   },
+   "edge_cf_pre_top_D_decile": {
+    "mean": 8.59,
+    "sd": 0.385
+   },
+   "dm_cf_pre_top_D_decile": {
+    "mean": 7.587,
+    "sd": 0.664
+   },
+   "edge_cf_pre_all_days": {
+    "mean": 0.888,
+    "sd": 0.101
+   },
+   "dm_cf_pre_all_days": {
+    "mean": 7.044,
+    "sd": 0.481
+   },
+   "edge_bteg_top_decile": {
+    "mean": 8.174,
+    "sd": 0.764
+   },
+   "dm_bteg_top_decile": {
+    "mean": 9.751,
+    "sd": 1.116
+   },
+   "edge_bteg_top_D_decile": {
+    "mean": 9.256,
+    "sd": 0.475
+   },
+   "dm_bteg_top_D_decile": {
+    "mean": 11.346,
+    "sd": 1.463
+   },
+   "edge_bteg_all_days": {
+    "mean": 2.153,
+    "sd": 0.13
+   },
+   "dm_bteg_all_days": {
+    "mean": 12.08,
+    "sd": 1.285
+   }
+  },
+  "jump_0.25": {
+   "fitted_alpha_median": {
+    "mean": 0.045,
+    "sd": 0.002
+   },
+   "fitted_beta_median": {
+    "mean": 0.933,
+    "sd": 0.002
+   },
+   "fitted_nu_median": {
+    "mean": 4.29,
+    "sd": 0.059
+   },
+   "top_decile_shock_size_median": {
+    "mean": 8.83,
+    "sd": 0.18
+   },
+   "top_decile_mean_D": {
+    "mean": 0.291,
+    "sd": 0.004
+   },
+   "lambda_top_decile_pinball": {
+    "mean": 0.27,
+    "sd": 0.027
+   },
+   "lambda_top_decile_likelihood": {
+    "mean": 0.42,
+    "sd": 0.027
+   },
+   "lambda_top_D_decile_pinball": {
+    "mean": 0.32,
+    "sd": 0.045
+   },
+   "lambda_all_rows_pinball": {
+    "mean": 0.35,
+    "sd": 0.0
+   },
+   "lambda_pre_test": {
+    "mean": 0.31,
+    "sd": 0.022
+   },
+   "garch_t_breach_all": {
+    "mean": 2.189,
+    "sd": 0.04
+   },
+   "garch_t_breach_top_decile": {
+    "mean": 1.626,
+    "sd": 0.094
+   },
+   "bteg_breach_top_decile": {
+    "mean": 2.596,
+    "sd": 0.119
+   },
+   "breach_age_1-10": {
+    "mean": 0.83,
+    "sd": 0.158
+   },
+   "predicted_lambda0_age_1-10": {
+    "mean": 0.425,
+    "sd": 0.013
+   },
+   "breach_age_11-21": {
+    "mean": 1.347,
+    "sd": 0.353
+   },
+   "predicted_lambda0_age_11-21": {
+    "mean": 0.967,
+    "sd": 0.021
+   },
+   "breach_age_22-42": {
+    "mean": 1.773,
+    "sd": 0.331
+   },
+   "predicted_lambda0_age_22-42": {
+    "mean": 1.671,
+    "sd": 0.008
+   },
+   "breach_age_43-63": {
+    "mean": 1.987,
+    "sd": 0.13
+   },
+   "predicted_lambda0_age_43-63": {
+    "mean": 2.18,
+    "sd": 0.012
+   },
+   "edge_cf0_top_decile": {
+    "mean": 0.982,
+    "sd": 0.522
+   },
+   "dm_cf0_top_decile": {
+    "mean": 0.907,
+    "sd": 0.536
+   },
+   "edge_cf0_top_D_decile": {
+    "mean": 0.64,
+    "sd": 1.199
+   },
+   "dm_cf0_top_D_decile": {
+    "mean": 0.147,
+    "sd": 0.852
+   },
+   "edge_cf0_all_days": {
+    "mean": 0.013,
+    "sd": 0.079
+   },
+   "dm_cf0_all_days": {
+    "mean": 0.074,
+    "sd": 0.447
+   },
+   "edge_cf_pre_top_decile": {
+    "mean": 3.141,
+    "sd": 0.306
+   },
+   "dm_cf_pre_top_decile": {
+    "mean": 4.843,
+    "sd": 0.747
+   },
+   "edge_cf_pre_top_D_decile": {
+    "mean": 4.087,
+    "sd": 0.402
+   },
+   "dm_cf_pre_top_D_decile": {
+    "mean": 4.328,
+    "sd": 0.607
+   },
+   "edge_cf_pre_all_days": {
+    "mean": 0.504,
+    "sd": 0.052
+   },
+   "dm_cf_pre_all_days": {
+    "mean": 4.669,
+    "sd": 0.358
+   },
+   "edge_bteg_top_decile": {
+    "mean": 2.546,
+    "sd": 0.384
+   },
+   "dm_bteg_top_decile": {
+    "mean": 2.718,
+    "sd": 0.867
+   },
+   "edge_bteg_top_D_decile": {
+    "mean": 3.545,
+    "sd": 0.621
+   },
+   "dm_bteg_top_D_decile": {
+    "mean": 3.027,
+    "sd": 0.76
+   },
+   "edge_bteg_all_days": {
+    "mean": 0.421,
+    "sd": 0.156
+   },
+   "dm_bteg_all_days": {
+    "mean": 2.552,
+    "sd": 1.032
+   }
+  },
+  "jump_1": {
+   "fitted_alpha_median": {
+    "mean": 0.068,
+    "sd": 0.001
+   },
+   "fitted_beta_median": {
+    "mean": 0.921,
+    "sd": 0.001
+   },
+   "fitted_nu_median": {
+    "mean": 4.677,
+    "sd": 0.061
+   },
+   "top_decile_shock_size_median": {
+    "mean": 8.344,
+    "sd": 0.245
+   },
+   "top_decile_mean_D": {
+    "mean": 0.228,
+    "sd": 0.006
+   },
+   "lambda_top_decile_pinball": {
+    "mean": 0.84,
+    "sd": 0.114
+   },
+   "lambda_top_decile_likelihood": {
+    "mean": 1.0,
+    "sd": 0.106
+   },
+   "lambda_top_D_decile_pinball": {
+    "mean": 0.82,
+    "sd": 0.091
+   },
+   "lambda_all_rows_pinball": {
+    "mean": 0.76,
+    "sd": 0.082
+   },
+   "lambda_pre_test": {
+    "mean": 0.84,
+    "sd": 0.089
+   },
+   "garch_t_breach_all": {
+    "mean": 2.217,
+    "sd": 0.013
+   },
+   "garch_t_breach_top_decile": {
+    "mean": 2.175,
+    "sd": 0.149
+   },
+   "bteg_breach_top_decile": {
+    "mean": 3.643,
+    "sd": 0.179
+   },
+   "breach_age_1-10": {
+    "mean": 2.27,
+    "sd": 0.331
+   },
+   "predicted_lambda0_age_1-10": {
+    "mean": 0.485,
+    "sd": 0.022
+   },
+   "breach_age_11-21": {
+    "mean": 2.188,
+    "sd": 0.535
+   },
+   "predicted_lambda0_age_11-21": {
+    "mean": 1.289,
+    "sd": 0.054
+   },
+   "breach_age_22-42": {
+    "mean": 2.088,
+    "sd": 0.31
+   },
+   "predicted_lambda0_age_22-42": {
+    "mean": 1.981,
+    "sd": 0.035
+   },
+   "breach_age_43-63": {
+    "mean": 2.206,
+    "sd": 0.189
+   },
+   "predicted_lambda0_age_43-63": {
+    "mean": 2.345,
+    "sd": 0.015
+   },
+   "edge_cf0_top_decile": {
+    "mean": -10.165,
+    "sd": 1.515
+   },
+   "dm_cf0_top_decile": {
+    "mean": -6.514,
+    "sd": 1.049
+   },
+   "edge_cf0_top_D_decile": {
+    "mean": -15.872,
+    "sd": 2.366
+   },
+   "dm_cf0_top_D_decile": {
+    "mean": -7.921,
+    "sd": 0.808
+   },
+   "edge_cf0_all_days": {
+    "mean": -1.971,
+    "sd": 0.292
+   },
+   "dm_cf0_all_days": {
+    "mean": -8.255,
+    "sd": 0.763
+   },
+   "edge_cf_pre_top_decile": {
+    "mean": 0.102,
+    "sd": 0.182
+   },
+   "dm_cf_pre_top_decile": {
+    "mean": 0.633,
+    "sd": 0.93
+   },
+   "edge_cf_pre_top_D_decile": {
+    "mean": 0.229,
+    "sd": 0.272
+   },
+   "dm_cf_pre_top_D_decile": {
+    "mean": 1.196,
+    "sd": 0.938
+   },
+   "edge_cf_pre_all_days": {
+    "mean": 0.061,
+    "sd": 0.032
+   },
+   "dm_cf_pre_all_days": {
+    "mean": 2.812,
+    "sd": 1.298
+   },
+   "edge_bteg_top_decile": {
+    "mean": -6.353,
+    "sd": 1.508
+   },
+   "dm_bteg_top_decile": {
+    "mean": -4.889,
+    "sd": 1.098
+   },
+   "edge_bteg_top_D_decile": {
+    "mean": -6.837,
+    "sd": 1.958
+   },
+   "dm_bteg_top_D_decile": {
+    "mean": -4.852,
+    "sd": 1.054
+   },
+   "edge_bteg_all_days": {
+    "mean": -1.525,
+    "sd": 0.319
+   },
+   "dm_bteg_all_days": {
+    "mean": -7.402,
+    "sd": 1.229
+   }
+  }
+ },
+ "per_panel": {
+  "garch": [
+   {
+    "fitted_alpha_median": 0.14253104382119308,
+    "fitted_beta_median": 0.8031097901401479,
+    "fitted_nu_median": 3.9599828437203115,
+    "top_decile_shock_size_median": 6.424815256209729,
+    "top_decile_mean_D": 0.09868028048991981,
+    "lambda_top_decile_pinball": 1.2,
+    "lambda_top_decile_likelihood": 1.15,
+    "lambda_top_D_decile_pinball": 1.0,
+    "lambda_all_rows_pinball": 1.1,
+    "lambda_pre_test": 1.05,
+    "garch_t_breach_all": 2.5902527075812274,
+    "garch_t_breach_top_decile": 2.6353790613718413,
+    "bteg_breach_top_decile": 3.4837545126353793,
+    "breach_age_1-10": 2.67639902676399,
+    "predicted_lambda0_age_1-10": 0.9413215835511942,
+    "breach_age_11-21": 2.698327037236913,
+    "predicted_lambda0_age_11-21": 2.0853578255875473,
+    "breach_age_22-42": 2.6015396867533847,
+    "predicted_lambda0_age_22-42": 2.4513984846695074,
+    "breach_age_43-63": 2.6205450733752618,
+    "predicted_lambda0_age_43-63": 2.498639899183214,
+    "edge_cf0_top_decile": -6.449903515571818,
+    "dm_cf0_top_decile": -4.779355909356369,
+    "edge_cf0_top_D_decile": -14.332624463305885,
+    "dm_cf0_top_D_decile": -7.637817078963418,
+    "edge_cf0_all_days": -2.1647681703541557,
+    "dm_cf0_all_days": -9.183516427242324,
+    "edge_cf_pre_top_decile": 0.014549019761847222,
+    "dm_cf_pre_top_decile": 0.33598200470864087,
+    "edge_cf_pre_top_D_decile": -0.0034751543179678585,
+    "dm_cf_pre_top_D_decile": 0.002695245294298217,
+    "edge_cf_pre_all_days": 0.003151805732939228,
+    "dm_cf_pre_all_days": 0.3954766880272684,
+    "edge_bteg_top_decile": -6.2542896155077905,
+    "dm_bteg_top_decile": -4.347723658632934,
+    "edge_bteg_top_D_decile": -5.525974203847532,
+    "dm_bteg_top_D_decile": -3.8483631467397488,
+    "edge_bteg_all_days": -1.9280767184793879,
+    "dm_bteg_all_days": -6.425638523060293
+   },
+   {
+    "fitted_alpha_median": 0.13313926487668296,
+    "fitted_beta_median": 0.8165453007834114,
+    "fitted_nu_median": 4.074236363378002,
+    "top_decile_shock_size_median": 6.325289502838692,
+    "top_decile_mean_D": 0.10935022660221175,
+    "lambda_top_decile_pinball": 1.0,
+    "lambda_top_decile_likelihood": 1.05,
+    "lambda_top_D_decile_pinball": 0.95,
+    "lambda_all_rows_pinball": 1.0,
+    "lambda_pre_test": 1.3,
+    "garch_t_breach_all": 2.527075812274368,
+    "garch_t_breach_top_decile": 2.563176895306859,
+    "bteg_breach_top_decile": 3.4657039711191335,
+    "breach_age_1-10": 2.6455026455026456,
+    "predicted_lambda0_age_1-10": 0.8806534875761298,
+    "breach_age_11-21": 2.31058570660935,
+    "predicted_lambda0_age_11-21": 2.003507133780248,
+    "breach_age_22-42": 2.6380873866446826,
+    "predicted_lambda0_age_22-42": 2.4293224650800553,
+    "breach_age_43-63": 2.577984016499098,
+    "predicted_lambda0_age_43-63": 2.496625661608015,
+    "edge_cf0_top_decile": -8.865069456649763,
+    "dm_cf0_top_decile": -5.7658184021004155,
+    "edge_cf0_top_D_decile": -15.717824743566899,
+    "dm_cf0_top_D_decile": -8.133477130856281,
+    "edge_cf0_all_days": -2.3535566796964598,
+    "dm_cf0_all_days": -9.046738446040289,
+    "edge_cf_pre_top_decile": -0.2897223750170791,
+    "dm_cf_pre_top_decile": -1.230831053663845,
+    "edge_cf_pre_top_D_decile": -0.5749355202673431,
+    "dm_cf_pre_top_D_decile": -1.7368863931826362,
+    "edge_cf_pre_all_days": -0.07767005499852062,
+    "dm_cf_pre_all_days": -1.770853315665799,
+    "edge_bteg_top_decile": -8.66016392901861,
+    "dm_bteg_top_decile": -3.8885951015957296,
+    "edge_bteg_top_D_decile": -7.5717839150965816,
+    "dm_bteg_top_D_decile": -4.09551935230844,
+    "edge_bteg_all_days": -2.1805632299262534,
+    "dm_bteg_all_days": -7.030288709653873
+   },
+   {
+    "fitted_alpha_median": 0.13783634349541263,
+    "fitted_beta_median": 0.8109126694930487,
+    "fitted_nu_median": 4.04108268786624,
+    "top_decile_shock_size_median": 6.44840130034348,
+    "top_decile_mean_D": 0.10916008689714984,
+    "lambda_top_decile_pinball": 0.85,
+    "lambda_top_decile_likelihood": 1.05,
+    "lambda_top_D_decile_pinball": 1.05,
+    "lambda_all_rows_pinball": 1.1,
+    "lambda_pre_test": 0.85,
+    "garch_t_breach_all": 2.546931407942238,
+    "garch_t_breach_top_decile": 2.454873646209386,
+    "bteg_breach_top_decile": 3.7364620938628157,
+    "breach_age_1-10": 2.079722703639515,
+    "predicted_lambda0_age_1-10": 0.8837625364154337,
+    "breach_age_11-21": 3.007915567282322,
+    "predicted_lambda0_age_11-21": 2.0428534516913435,
+    "breach_age_22-42": 2.8289298105150786,
+    "predicted_lambda0_age_22-42": 2.442711586190319,
+    "breach_age_43-63": 1.9692473698408417,
+    "predicted_lambda0_age_43-63": 2.4970645806541567,
+    "edge_cf0_top_decile": -9.449791112820522,
+    "dm_cf0_top_decile": -5.774982459706505,
+    "edge_cf0_top_D_decile": -18.59114426046148,
+    "dm_cf0_top_D_decile": -10.064813413857879,
+    "edge_cf0_all_days": -2.840385111259637,
+    "dm_cf0_all_days": -10.396804431319959,
+    "edge_cf_pre_top_decile": 0.03963012598366611,
+    "dm_cf_pre_top_decile": 0.40424531548664566,
+    "edge_cf_pre_top_D_decile": -0.2161227200084049,
+    "dm_cf_pre_top_D_decile": -1.1852115231929123,
+    "edge_cf_pre_all_days": -0.037969708153398805,
+    "dm_cf_pre_all_days": -1.5907550281884675,
+    "edge_bteg_top_decile": -12.023847857620442,
+    "dm_bteg_top_decile": -3.818005358516035,
+    "edge_bteg_top_D_decile": -8.748024122156629,
+    "dm_bteg_top_D_decile": -5.728499257040025,
+    "edge_bteg_all_days": -2.381913289946923,
+    "dm_bteg_all_days": -5.361073526548039
+   },
+   {
+    "fitted_alpha_median": 0.13407891959396534,
+    "fitted_beta_median": 0.8153197289983722,
+    "fitted_nu_median": 3.9841619005543354,
+    "top_decile_shock_size_median": 6.702137046760923,
+    "top_decile_mean_D": 0.11704165518425656,
+    "lambda_top_decile_pinball": 1.15,
+    "lambda_top_decile_likelihood": 1.0,
+    "lambda_top_D_decile_pinball": 1.1,
+    "lambda_all_rows_pinball": 1.1,
+    "lambda_pre_test": 0.9,
+    "garch_t_breach_all": 2.490072202166065,
+    "garch_t_breach_top_decile": 2.247292418772563,
+    "bteg_breach_top_decile": 3.2220216606498195,
+    "breach_age_1-10": 2.7777777777777777,
+    "predicted_lambda0_age_1-10": 0.8453001404704825,
+    "breach_age_11-21": 2.369912416280268,
+    "predicted_lambda0_age_11-21": 2.0132101442123136,
+    "breach_age_22-42": 2.168021680216802,
+    "predicted_lambda0_age_22-42": 2.433137940634789,
+    "breach_age_43-63": 2.000548095368594,
+    "predicted_lambda0_age_43-63": 2.497000166006964,
+    "edge_cf0_top_decile": -11.537120547831462,
+    "dm_cf0_top_decile": -5.628268070530396,
+    "edge_cf0_top_D_decile": -18.882435074134186,
+    "dm_cf0_top_D_decile": -8.638287858313872,
+    "edge_cf0_all_days": -2.8131809003470414,
+    "dm_cf0_all_days": -9.153009979741233,
+    "edge_cf_pre_top_decile": -0.10089596974604885,
+    "dm_cf_pre_top_decile": -0.9497635695363116,
+    "edge_cf_pre_top_D_decile": -0.16950056030758956,
+    "dm_cf_pre_top_D_decile": -1.3140877387222407,
+    "edge_cf_pre_all_days": -0.024440839263575615,
+    "dm_cf_pre_all_days": -1.4373271402024825,
+    "edge_bteg_top_decile": -11.720376891149357,
+    "dm_bteg_top_decile": -4.516844263850911,
+    "edge_bteg_top_D_decile": -9.882635422535875,
+    "dm_bteg_top_D_decile": -5.219655943034416,
+    "edge_bteg_all_days": -2.579831277215549,
+    "dm_bteg_all_days": -8.230070357758441
+   },
+   {
+    "fitted_alpha_median": 0.13993625019181793,
+    "fitted_beta_median": 0.8019747355221114,
+    "fitted_nu_median": 4.080823413446447,
+    "top_decile_shock_size_median": 6.4357803397141735,
+    "top_decile_mean_D": 0.10620593305188337,
+    "lambda_top_decile_pinball": 0.95,
+    "lambda_top_decile_likelihood": 1.0,
+    "lambda_top_D_decile_pinball": 1.1,
+    "lambda_all_rows_pinball": 1.1,
+    "lambda_pre_test": 1.1,
+    "garch_t_breach_all": 2.550541516245487,
+    "garch_t_breach_top_decile": 2.463898916967509,
+    "bteg_breach_top_decile": 3.3483754512635375,
+    "breach_age_1-10": 2.014218009478673,
+    "predicted_lambda0_age_1-10": 0.8904524205730301,
+    "breach_age_11-21": 2.1231422505307855,
+    "predicted_lambda0_age_11-21": 2.047403090791141,
+    "breach_age_22-42": 2.737520128824477,
+    "predicted_lambda0_age_22-42": 2.4425015380871526,
+    "breach_age_43-63": 2.5647805393971446,
+    "predicted_lambda0_age_43-63": 2.497241350696267,
+    "edge_cf0_top_decile": -7.9778080772851725,
+    "dm_cf0_top_decile": -4.7139707383006835,
+    "edge_cf0_top_D_decile": -18.96082133885,
+    "dm_cf0_top_D_decile": -8.121937687954684,
+    "edge_cf0_all_days": -2.6691291991440043,
+    "dm_cf0_all_days": -8.31214525975479,
+    "edge_cf_pre_top_decile": -0.06129888830394919,
+    "dm_cf_pre_top_decile": -0.6187928010942694,
+    "edge_cf_pre_top_D_decile": 0.12262145289345117,
+    "dm_cf_pre_top_D_decile": 0.8123707454823761,
+    "edge_cf_pre_all_days": 0.016009437353970767,
+    "dm_cf_pre_all_days": 0.9306497221688228,
+    "edge_bteg_top_decile": -9.517434249418173,
+    "dm_bteg_top_decile": -3.9385452028463543,
+    "edge_bteg_top_D_decile": -10.59960268274201,
+    "dm_bteg_top_D_decile": -5.065830262537379,
+    "edge_bteg_all_days": -2.5369255534802364,
+    "dm_bteg_all_days": -6.650905859054965
+   }
+  ],
+  "jump_0": [
+   {
+    "fitted_alpha_median": 0.036208906164120265,
+    "fitted_beta_median": 0.9247913591059039,
+    "fitted_nu_median": 3.989993005543079,
+    "top_decile_shock_size_median": 9.321323718564031,
+    "top_decile_mean_D": 0.243523192021063,
+    "lambda_top_decile_pinball": -0.0,
+    "lambda_top_decile_likelihood": -0.0,
+    "lambda_top_D_decile_pinball": -0.0,
+    "lambda_all_rows_pinball": -0.0,
+    "lambda_pre_test": -0.0,
+    "garch_t_breach_all": 2.259927797833935,
+    "garch_t_breach_top_decile": 1.2996389891696751,
+    "bteg_breach_top_decile": 2.012635379061372,
+    "breach_age_1-10": 0.4363636363636364,
+    "predicted_lambda0_age_1-10": 0.5833000959689393,
+    "breach_age_11-21": 1.0382513661202186,
+    "predicted_lambda0_age_11-21": 1.1778468012381438,
+    "breach_age_22-42": 1.0379746835443038,
+    "predicted_lambda0_age_22-42": 1.8330892111919745,
+    "breach_age_43-63": 1.9872611464968153,
+    "predicted_lambda0_age_43-63": 2.228863888288279,
+    "edge_cf0_top_decile": 7.178852094488926,
+    "dm_cf0_top_decile": 8.349769418787766,
+    "edge_cf0_top_D_decile": 8.850861666063071,
+    "dm_cf0_top_D_decile": 6.879825842356698,
+    "edge_cf0_all_days": 0.9980463554250021,
+    "dm_cf0_all_days": 7.630680262376111,
+    "edge_cf_pre_top_decile": 7.178852094488926,
+    "dm_cf_pre_top_decile": 8.349769418787766,
+    "edge_cf_pre_top_D_decile": 8.850861666063071,
+    "dm_cf_pre_top_D_decile": 6.879825842356698,
+    "edge_cf_pre_all_days": 0.9980463554250021,
+    "dm_cf_pre_all_days": 7.630680262376111,
+    "edge_bteg_top_decile": 8.418690152290663,
+    "dm_bteg_top_decile": 9.12450766728775,
+    "edge_bteg_top_D_decile": 9.34860914189751,
+    "dm_bteg_top_D_decile": 12.430872952074658,
+    "edge_bteg_all_days": 2.088526905137232,
+    "dm_bteg_all_days": 13.810744307130062
+   },
+   {
+    "fitted_alpha_median": 0.032023619657024,
+    "fitted_beta_median": 0.9180664554443254,
+    "fitted_nu_median": 3.939178976247256,
+    "top_decile_shock_size_median": 9.375807755291502,
+    "top_decile_mean_D": 0.2562722314498756,
+    "lambda_top_decile_pinball": -0.05,
+    "lambda_top_decile_likelihood": -0.0,
+    "lambda_top_D_decile_pinball": 0.05,
+    "lambda_all_rows_pinball": 0.05,
+    "lambda_pre_test": -0.0,
+    "garch_t_breach_all": 2.342057761732852,
+    "garch_t_breach_top_decile": 1.4350180505415162,
+    "bteg_breach_top_decile": 2.003610108303249,
+    "breach_age_1-10": 0.44958253050738595,
+    "predicted_lambda0_age_1-10": 0.6498442846107871,
+    "breach_age_11-21": 1.564185544768069,
+    "predicted_lambda0_age_11-21": 1.2139835874249902,
+    "breach_age_22-42": 1.3280212483399734,
+    "predicted_lambda0_age_22-42": 1.7770481965331746,
+    "breach_age_43-63": 1.8698770491803278,
+    "predicted_lambda0_age_43-63": 2.1605760493001904,
+    "edge_cf0_top_decile": 6.952572124874866,
+    "dm_cf0_top_decile": 10.541196265808669,
+    "edge_cf0_top_D_decile": 8.07197994293258,
+    "dm_cf0_top_D_decile": 8.099218707768175,
+    "edge_cf0_all_days": 0.7536784174418036,
+    "dm_cf0_all_days": 6.496325839267719,
+    "edge_cf_pre_top_decile": 6.952572124874866,
+    "dm_cf_pre_top_decile": 10.541196265808669,
+    "edge_cf_pre_top_D_decile": 8.07197994293258,
+    "dm_cf_pre_top_D_decile": 8.099218707768175,
+    "edge_cf_pre_all_days": 0.7536784174418036,
+    "dm_cf_pre_all_days": 6.496325839267719,
+    "edge_bteg_top_decile": 7.480442918830804,
+    "dm_bteg_top_decile": 11.419254885266998,
+    "edge_bteg_top_D_decile": 9.21163324848439,
+    "dm_bteg_top_D_decile": 12.915285603108934,
+    "edge_bteg_all_days": 2.165387230218367,
+    "dm_bteg_all_days": 12.683930053884332
+   },
+   {
+    "fitted_alpha_median": 0.035953019824699284,
+    "fitted_beta_median": 0.9227639670972214,
+    "fitted_nu_median": 3.9390003006756107,
+    "top_decile_shock_size_median": 9.30115316883811,
+    "top_decile_mean_D": 0.2611924630397559,
+    "lambda_top_decile_pinball": -0.0,
+    "lambda_top_decile_likelihood": -0.0,
+    "lambda_top_D_decile_pinball": 0.05,
+    "lambda_all_rows_pinball": 0.05,
+    "lambda_pre_test": -0.0,
+    "garch_t_breach_all": 2.344765342960289,
+    "garch_t_breach_top_decile": 1.3989169675090252,
+    "bteg_breach_top_decile": 2.0938628158844765,
+    "breach_age_1-10": 0.5548705302096177,
+    "predicted_lambda0_age_1-10": 0.6495251858846657,
+    "breach_age_11-21": 1.3013013013013013,
+    "predicted_lambda0_age_11-21": 1.1724218990906765,
+    "breach_age_22-42": 1.645979492714517,
+    "predicted_lambda0_age_22-42": 1.7915364600330157,
+    "breach_age_43-63": 1.5716568993074054,
+    "predicted_lambda0_age_43-63": 2.2177099294546894,
+    "edge_cf0_top_decile": 7.212128976218238,
+    "dm_cf0_top_decile": 7.9257632336450135,
+    "edge_cf0_top_D_decile": 8.956633838588347,
+    "dm_cf0_top_D_decile": 7.754077281292,
+    "edge_cf0_all_days": 0.8889566601320781,
+    "dm_cf0_all_days": 7.435459042189482,
+    "edge_cf_pre_top_decile": 7.212128976218238,
+    "dm_cf_pre_top_decile": 7.9257632336450135,
+    "edge_cf_pre_top_D_decile": 8.956633838588347,
+    "dm_cf_pre_top_D_decile": 7.754077281292,
+    "edge_cf_pre_all_days": 0.8889566601320781,
+    "dm_cf_pre_all_days": 7.435459042189482,
+    "edge_bteg_top_decile": 7.922107825930406,
+    "dm_bteg_top_decile": 8.913494756780743,
+    "edge_bteg_top_D_decile": 9.452395260131963,
+    "dm_bteg_top_D_decile": 11.267706600793666,
+    "edge_bteg_all_days": 2.348488862713883,
+    "dm_bteg_all_days": 11.61026540647792
+   },
+   {
+    "fitted_alpha_median": 0.03281420890987494,
+    "fitted_beta_median": 0.932475961044141,
+    "fitted_nu_median": 3.9204257961372857,
+    "top_decile_shock_size_median": 9.370928481815058,
+    "top_decile_mean_D": 0.27537424181072495,
+    "lambda_top_decile_pinball": -0.05,
+    "lambda_top_decile_likelihood": -0.0,
+    "lambda_top_D_decile_pinball": -0.0,
+    "lambda_all_rows_pinball": -0.0,
+    "lambda_pre_test": -0.0,
+    "garch_t_breach_all": 2.2635379061371843,
+    "garch_t_breach_top_decile": 1.407942238267148,
+    "bteg_breach_top_decile": 1.895306859205776,
+    "breach_age_1-10": 0.6510416666666667,
+    "predicted_lambda0_age_1-10": 0.6595518487182871,
+    "breach_age_11-21": 1.014415376401495,
+    "predicted_lambda0_age_11-21": 1.1220641898574395,
+    "breach_age_22-42": 1.3398608606029374,
+    "predicted_lambda0_age_22-42": 1.7057840522305274,
+    "breach_age_43-63": 1.978891820580475,
+    "predicted_lambda0_age_43-63": 2.1217780761759255,
+    "edge_cf0_top_decile": 7.698566224656547,
+    "dm_cf0_top_decile": 7.810923911415884,
+    "edge_cf0_top_D_decile": 8.775931655863731,
+    "dm_cf0_top_D_decile": 6.903093663469457,
+    "edge_cf0_all_days": 0.9719453437693442,
+    "dm_cf0_all_days": 6.960418760331381,
+    "edge_cf_pre_top_decile": 7.698566224656547,
+    "dm_cf_pre_top_decile": 7.810923911415884,
+    "edge_cf_pre_top_D_decile": 8.775931655863731,
+    "dm_cf_pre_top_D_decile": 6.903093663469457,
+    "edge_cf_pre_all_days": 0.9719453437693442,
+    "dm_cf_pre_all_days": 6.960418760331381,
+    "edge_bteg_top_decile": 9.385857654664537,
+    "dm_bteg_top_decile": 10.3843502301923,
+    "edge_bteg_top_D_decile": 9.77633356055259,
+    "dm_bteg_top_D_decile": 10.950340119763501,
+    "edge_bteg_all_days": 2.1643183790873954,
+    "dm_bteg_all_days": 11.947291240019796
+   },
+   {
+    "fitted_alpha_median": 0.036714069659418896,
+    "fitted_beta_median": 0.919387828789946,
+    "fitted_nu_median": 3.859859234939488,
+    "top_decile_shock_size_median": 9.24816137008125,
+    "top_decile_mean_D": 0.23226545837435925,
+    "lambda_top_decile_pinball": -0.0,
+    "lambda_top_decile_likelihood": -0.0,
+    "lambda_top_D_decile_pinball": -0.0,
+    "lambda_all_rows_pinball": 0.05,
+    "lambda_pre_test": 0.05,
+    "garch_t_breach_all": 2.2851985559566788,
+    "garch_t_breach_top_decile": 1.3989169675090252,
+    "bteg_breach_top_decile": 1.9855595667870036,
+    "breach_age_1-10": 0.8414239482200648,
+    "predicted_lambda0_age_1-10": 0.7616549814200178,
+    "breach_age_11-21": 1.269169751454257,
+    "predicted_lambda0_age_11-21": 1.2437168655651094,
+    "breach_age_22-42": 1.3619696176008382,
+    "predicted_lambda0_age_22-42": 1.8675082058389292,
+    "breach_age_43-63": 1.7250392054364874,
+    "predicted_lambda0_age_43-63": 2.2642278653069496,
+    "edge_cf0_top_decile": 6.629479335351555,
+    "dm_cf0_top_decile": 7.490041048752734,
+    "edge_cf0_top_D_decile": 8.345378158499587,
+    "dm_cf0_top_D_decile": 7.756281975551094,
+    "edge_cf0_all_days": 0.8210257747583735,
+    "dm_cf0_all_days": 6.191429224604144,
+    "edge_cf_pre_top_decile": 6.4573676226075865,
+    "dm_cf_pre_top_decile": 7.9266451020772,
+    "edge_cf_pre_top_D_decile": 8.292479466897824,
+    "dm_cf_pre_top_D_decile": 8.296311499499954,
+    "edge_cf_pre_all_days": 0.8265506261601141,
+    "dm_cf_pre_all_days": 6.69723473988928,
+    "edge_bteg_top_decile": 7.664954029863454,
+    "dm_bteg_top_decile": 8.911548220118501,
+    "edge_bteg_top_D_decile": 8.491456883538536,
+    "dm_bteg_top_D_decile": 9.16488462198426,
+    "edge_bteg_all_days": 1.9963611495331945,
+    "dm_bteg_all_days": 10.347058101164109
+   }
+  ],
+  "jump_0.25": [
+   {
+    "fitted_alpha_median": 0.04755465024218818,
+    "fitted_beta_median": 0.9334105404435334,
+    "fitted_nu_median": 4.281288683690674,
+    "top_decile_shock_size_median": 8.917644622340717,
+    "top_decile_mean_D": 0.288027363361457,
+    "lambda_top_decile_pinball": 0.25,
+    "lambda_top_decile_likelihood": 0.4,
+    "lambda_top_D_decile_pinball": 0.35,
+    "lambda_all_rows_pinball": 0.35,
+    "lambda_pre_test": 0.3,
+    "garch_t_breach_all": 2.220216606498195,
+    "garch_t_breach_top_decile": 1.651624548736462,
+    "bteg_breach_top_decile": 2.6173285198555956,
+    "breach_age_1-10": 0.9821976672805401,
+    "predicted_lambda0_age_1-10": 0.41078933274256063,
+    "breach_age_11-21": 1.090909090909091,
+    "predicted_lambda0_age_11-21": 0.9803409812842969,
+    "breach_age_22-42": 1.9164226776683522,
+    "predicted_lambda0_age_22-42": 1.6740116964263025,
+    "breach_age_43-63": 1.9633855133987794,
+    "predicted_lambda0_age_43-63": 2.1894516626438145,
+    "edge_cf0_top_decile": 0.8224218603874244,
+    "dm_cf0_top_decile": 0.93147269837917,
+    "edge_cf0_top_D_decile": -0.6850256852803571,
+    "dm_cf0_top_D_decile": -0.7096050524436539,
+    "edge_cf0_all_days": -0.12338155508970765,
+    "dm_cf0_all_days": -0.6912272671551253,
+    "edge_cf_pre_top_decile": 3.3174169166121295,
+    "dm_cf_pre_top_decile": 5.666910990053231,
+    "edge_cf_pre_top_D_decile": 3.5188319378101727,
+    "dm_cf_pre_top_D_decile": 3.5401719153943576,
+    "edge_cf_pre_all_days": 0.4711828401009033,
+    "dm_cf_pre_all_days": 4.522530454154984,
+    "edge_bteg_top_decile": 2.845628970311773,
+    "dm_bteg_top_decile": 3.4887830166837723,
+    "edge_bteg_top_D_decile": 3.091586552754015,
+    "dm_bteg_top_D_decile": 2.5126101224857615,
+    "edge_bteg_all_days": 0.3169780460102308,
+    "dm_bteg_all_days": 2.0032066637435824
+   },
+   {
+    "fitted_alpha_median": 0.04407512248280224,
+    "fitted_beta_median": 0.9336741100062831,
+    "fitted_nu_median": 4.260324233184942,
+    "top_decile_shock_size_median": 8.771914117980133,
+    "top_decile_mean_D": 0.29453829878524523,
+    "lambda_top_decile_pinball": 0.3,
+    "lambda_top_decile_likelihood": 0.4,
+    "lambda_top_D_decile_pinball": 0.35,
+    "lambda_all_rows_pinball": 0.35,
+    "lambda_pre_test": 0.3,
+    "garch_t_breach_all": 2.177797833935018,
+    "garch_t_breach_top_decile": 1.5884476534296028,
+    "bteg_breach_top_decile": 2.5,
+    "breach_age_1-10": 0.9264978381717109,
+    "predicted_lambda0_age_1-10": 0.4353535344047483,
+    "breach_age_11-21": 1.2658227848101267,
+    "predicted_lambda0_age_11-21": 0.9642412015370118,
+    "breach_age_22-42": 1.620067938332898,
+    "predicted_lambda0_age_22-42": 1.6581823874399413,
+    "breach_age_43-63": 2.022410494670675,
+    "predicted_lambda0_age_43-63": 2.1643120892476055,
+    "edge_cf0_top_decile": 0.7900939010756836,
+    "dm_cf0_top_decile": 0.8164395714285969,
+    "edge_cf0_top_D_decile": -0.2733209315590127,
+    "dm_cf0_top_D_decile": -0.5108328256968319,
+    "edge_cf0_all_days": 0.014521329565362544,
+    "dm_cf0_all_days": 0.06749070798724509,
+    "edge_cf_pre_top_decile": 3.299319259275888,
+    "dm_cf_pre_top_decile": 4.643667723696932,
+    "edge_cf_pre_top_D_decile": 3.9214894813491226,
+    "dm_cf_pre_top_D_decile": 3.934476611852349,
+    "edge_cf_pre_all_days": 0.5583504648182199,
+    "dm_cf_pre_all_days": 4.338471389386302,
+    "edge_bteg_top_decile": 2.3650397514768104,
+    "dm_bteg_top_decile": 2.0239417794330743,
+    "edge_bteg_top_D_decile": 3.11272902244065,
+    "dm_bteg_top_D_decile": 2.596172536024806,
+    "edge_bteg_all_days": 0.20075514612621473,
+    "dm_bteg_all_days": 1.0068309931712174
+   },
+   {
+    "fitted_alpha_median": 0.046143645145249476,
+    "fitted_beta_median": 0.9328521930534412,
+    "fitted_nu_median": 4.211356066578963,
+    "top_decile_shock_size_median": 8.663179739278394,
+    "top_decile_mean_D": 0.2951651177860169,
+    "lambda_top_decile_pinball": 0.25,
+    "lambda_top_decile_likelihood": 0.4,
+    "lambda_top_D_decile_pinball": 0.35,
+    "lambda_all_rows_pinball": 0.35,
+    "lambda_pre_test": 0.3,
+    "garch_t_breach_all": 2.1236462093862816,
+    "garch_t_breach_top_decile": 1.5433212996389893,
+    "bteg_breach_top_decile": 2.4819494584837543,
+    "breach_age_1-10": 0.7164179104477612,
+    "predicted_lambda0_age_1-10": 0.42023302254647776,
+    "breach_age_11-21": 1.787538304392237,
+    "predicted_lambda0_age_11-21": 0.963234299016404,
+    "breach_age_22-42": 1.3626834381551363,
+    "predicted_lambda0_age_22-42": 1.669921045804532,
+    "breach_age_43-63": 1.9829248141007987,
+    "predicted_lambda0_age_43-63": 2.170666786134783,
+    "edge_cf0_top_decile": 1.249736133215414,
+    "dm_cf0_top_decile": 0.8792119531597522,
+    "edge_cf0_top_D_decile": 0.7974965685697886,
+    "dm_cf0_top_D_decile": 0.19259462902380883,
+    "edge_cf0_all_days": 0.07439589448655261,
+    "dm_cf0_all_days": 0.4184726236364785,
+    "edge_cf_pre_top_decile": 3.2616140724571667,
+    "dm_cf_pre_top_decile": 5.194727973126435,
+    "edge_cf_pre_top_D_decile": 4.22300737127153,
+    "dm_cf_pre_top_D_decile": 4.692025957653936,
+    "edge_cf_pre_all_days": 0.5522190195195298,
+    "dm_cf_pre_all_days": 5.1755064908154,
+    "edge_bteg_top_decile": 2.854566729278883,
+    "dm_bteg_top_decile": 3.3655216685274776,
+    "edge_bteg_top_D_decile": 3.8154849189479147,
+    "dm_bteg_top_D_decile": 3.6395476799884947,
+    "edge_bteg_all_days": 0.5543722909392401,
+    "dm_bteg_all_days": 3.51236470599664
+   },
+   {
+    "fitted_alpha_median": 0.043354167149461,
+    "fitted_beta_median": 0.9336410696145889,
+    "fitted_nu_median": 4.341774723772518,
+    "top_decile_shock_size_median": 9.099698865806255,
+    "top_decile_mean_D": 0.2929349201843565,
+    "lambda_top_decile_pinball": 0.3,
+    "lambda_top_decile_likelihood": 0.45,
+    "lambda_top_D_decile_pinball": 0.3,
+    "lambda_all_rows_pinball": 0.35,
+    "lambda_pre_test": 0.35,
+    "garch_t_breach_all": 2.2184115523465704,
+    "garch_t_breach_top_decile": 1.7779783393501805,
+    "bteg_breach_top_decile": 2.779783393501805,
+    "breach_age_1-10": 0.9137635636778983,
+    "predicted_lambda0_age_1-10": 0.44132324142406293,
+    "breach_age_11-21": 0.9595959595959596,
+    "predicted_lambda0_age_11-21": 0.9895184684567382,
+    "breach_age_22-42": 2.24418915308576,
+    "predicted_lambda0_age_22-42": 1.681145611151108,
+    "breach_age_43-63": 2.1630615640599005,
+    "predicted_lambda0_age_43-63": 2.18146319942736,
+    "edge_cf0_top_decile": 0.33302733510439153,
+    "dm_cf0_top_decile": 0.2011045843723994,
+    "edge_cf0_top_D_decile": 0.9821871434389972,
+    "dm_cf0_top_D_decile": 0.3125442286406197,
+    "edge_cf0_all_days": 0.04872087254961334,
+    "dm_cf0_all_days": 0.2592879584540877,
+    "edge_cf_pre_top_decile": 2.596915224635439,
+    "dm_cf_pre_top_decile": 3.6788617405570996,
+    "edge_cf_pre_top_D_decile": 4.161116541700958,
+    "dm_cf_pre_top_D_decile": 4.394765872446672,
+    "edge_cf_pre_all_days": 0.5019783963941138,
+    "dm_cf_pre_all_days": 4.903553820167591,
+    "edge_bteg_top_decile": 1.9571279664741155,
+    "dm_bteg_top_decile": 1.5639957799958035,
+    "edge_bteg_top_D_decile": 3.1861216596098294,
+    "dm_bteg_top_D_decile": 2.347564010169011,
+    "edge_bteg_all_days": 0.4888579366201625,
+    "dm_bteg_all_days": 3.077016141929378
+   },
+   {
+    "fitted_alpha_median": 0.04577385678514383,
+    "fitted_beta_median": 0.9301052754482977,
+    "fitted_nu_median": 4.353302119196395,
+    "top_decile_shock_size_median": 8.698060131880824,
+    "top_decile_mean_D": 0.2865450268507146,
+    "lambda_top_decile_pinball": 0.25,
+    "lambda_top_decile_likelihood": 0.45,
+    "lambda_top_D_decile_pinball": 0.25,
+    "lambda_all_rows_pinball": 0.35,
+    "lambda_pre_test": 0.3,
+    "garch_t_breach_all": 2.204873646209386,
+    "garch_t_breach_top_decile": 1.5703971119133575,
+    "bteg_breach_top_decile": 2.5992779783393503,
+    "breach_age_1-10": 0.6116207951070336,
+    "predicted_lambda0_age_1-10": 0.41942094156662063,
+    "breach_age_11-21": 1.632208922742111,
+    "predicted_lambda0_age_11-21": 0.9354397391110724,
+    "breach_age_22-42": 1.7213983050847457,
+    "predicted_lambda0_age_22-42": 1.6696045799830004,
+    "breach_age_43-63": 1.8010963194988252,
+    "predicted_lambda0_age_43-63": 2.1921709390101802,
+    "edge_cf0_top_decile": 1.713756906796451,
+    "dm_cf0_top_decile": 1.7085516326732924,
+    "edge_cf0_top_D_decile": 2.3778409792222766,
+    "dm_cf0_top_D_decile": 1.4526344077384594,
+    "edge_cf0_all_days": 0.051809256077529724,
+    "dm_cf0_all_days": 0.3183133974243186,
+    "edge_cf_pre_top_decile": 3.22979944980466,
+    "dm_cf_pre_top_decile": 5.032623748805737,
+    "edge_cf_pre_top_D_decile": 4.60895305991662,
+    "dm_cf_pre_top_D_decile": 5.076932567853553,
+    "edge_cf_pre_all_days": 0.43660791405169247,
+    "dm_cf_pre_all_days": 4.403609348275172,
+    "edge_bteg_top_decile": 2.7075280287861605,
+    "dm_bteg_top_decile": 3.145981474262509,
+    "edge_bteg_top_D_decile": 4.519601599420846,
+    "dm_bteg_top_D_decile": 4.03756233865021,
+    "edge_bteg_all_days": 0.5440504000677584,
+    "dm_bteg_all_days": 3.161105767375857
+   }
+  ],
+  "jump_1": [
+   {
+    "fitted_alpha_median": 0.06852222890579773,
+    "fitted_beta_median": 0.9231793296733044,
+    "fitted_nu_median": 4.618420417467649,
+    "top_decile_shock_size_median": 8.554196493416455,
+    "top_decile_mean_D": 0.22479264524665898,
+    "lambda_top_decile_pinball": 0.85,
+    "lambda_top_decile_likelihood": 1.15,
+    "lambda_top_D_decile_pinball": 0.9,
+    "lambda_all_rows_pinball": 0.8,
+    "lambda_pre_test": 0.85,
+    "garch_t_breach_all": 2.2093862815884475,
+    "garch_t_breach_top_decile": 1.9675090252707579,
+    "bteg_breach_top_decile": 3.4837545126353793,
+    "breach_age_1-10": 2.0474137931034484,
+    "predicted_lambda0_age_1-10": 0.49402472265090597,
+    "breach_age_11-21": 2.6170105686965277,
+    "predicted_lambda0_age_11-21": 1.321893421183287,
+    "breach_age_22-42": 1.5816743932369783,
+    "predicted_lambda0_age_22-42": 1.9868177561547091,
+    "breach_age_43-63": 1.9607843137254901,
+    "predicted_lambda0_age_43-63": 2.341311750356421,
+    "edge_cf0_top_decile": -11.013518977735536,
+    "dm_cf0_top_decile": -6.543209718132316,
+    "edge_cf0_top_D_decile": -17.950595103680218,
+    "dm_cf0_top_D_decile": -8.300040357313412,
+    "edge_cf0_all_days": -2.1328213929333444,
+    "dm_cf0_all_days": -7.9342681699612125,
+    "edge_cf_pre_top_decile": 0.11333082469435617,
+    "dm_cf_pre_top_decile": 0.7125303674561857,
+    "edge_cf_pre_top_D_decile": 0.05420073900945005,
+    "dm_cf_pre_top_D_decile": 0.36089219561592994,
+    "edge_cf_pre_all_days": 0.05028818293369244,
+    "dm_cf_pre_all_days": 2.1598079104682215,
+    "edge_bteg_top_decile": -7.750340334864133,
+    "dm_bteg_top_decile": -5.2085421898328255,
+    "edge_bteg_top_D_decile": -8.974361966252875,
+    "dm_bteg_top_D_decile": -5.198502869727476,
+    "edge_bteg_all_days": -1.8864910093011635,
+    "dm_bteg_all_days": -7.612325959296276
+   },
+   {
+    "fitted_alpha_median": 0.06753775272023535,
+    "fitted_beta_median": 0.920282050915515,
+    "fitted_nu_median": 4.6082667461533475,
+    "top_decile_shock_size_median": 8.175436360616473,
+    "top_decile_mean_D": 0.23222604701249336,
+    "lambda_top_decile_pinball": 0.7,
+    "lambda_top_decile_likelihood": 0.9,
+    "lambda_top_D_decile_pinball": 0.7,
+    "lambda_all_rows_pinball": 0.65,
+    "lambda_pre_test": 0.9,
+    "garch_t_breach_all": 2.2193140794223827,
+    "garch_t_breach_top_decile": 2.148014440433213,
+    "bteg_breach_top_decile": 3.537906137184116,
+    "breach_age_1-10": 2.332037756801777,
+    "predicted_lambda0_age_1-10": 0.4634844954886596,
+    "breach_age_11-21": 1.3533834586466165,
+    "predicted_lambda0_age_11-21": 1.2519709479899583,
+    "breach_age_22-42": 2.2322614934892373,
+    "predicted_lambda0_age_22-42": 1.9563462315178513,
+    "breach_age_43-63": 2.4140869071286564,
+    "predicted_lambda0_age_43-63": 2.338297563344776,
+    "edge_cf0_top_decile": -7.881199256700663,
+    "dm_cf0_top_decile": -5.5816587183459365,
+    "edge_cf0_top_D_decile": -12.454938699659259,
+    "dm_cf0_top_D_decile": -6.964364498114872,
+    "edge_cf0_all_days": -1.5232990171566776,
+    "dm_cf0_all_days": -7.2353102793166135,
+    "edge_cf_pre_top_decile": 0.21400422534837205,
+    "dm_cf_pre_top_decile": 1.9214748120911382,
+    "edge_cf_pre_top_D_decile": 0.4089496109174476,
+    "dm_cf_pre_top_D_decile": 2.5245077194710794,
+    "edge_cf_pre_all_days": 0.074010508395259,
+    "dm_cf_pre_all_days": 4.875633637383788,
+    "edge_bteg_top_decile": -4.622660489622656,
+    "dm_bteg_top_decile": -3.928101764437951,
+    "edge_bteg_top_D_decile": -4.114002748545703,
+    "dm_bteg_top_D_decile": -3.5115652830990616,
+    "edge_bteg_all_days": -1.1848093290235218,
+    "dm_bteg_all_days": -6.388074362661218
+   },
+   {
+    "fitted_alpha_median": 0.06969917143578633,
+    "fitted_beta_median": 0.9211735550158016,
+    "fitted_nu_median": 4.747918376273907,
+    "top_decile_shock_size_median": 8.050031442616644,
+    "top_decile_mean_D": 0.22454537243554487,
+    "lambda_top_decile_pinball": 0.95,
+    "lambda_top_decile_likelihood": 1.05,
+    "lambda_top_D_decile_pinball": 0.9,
+    "lambda_all_rows_pinball": 0.8,
+    "lambda_pre_test": 0.75,
+    "garch_t_breach_all": 2.2012635379061374,
+    "garch_t_breach_top_decile": 2.2743682310469313,
+    "bteg_breach_top_decile": 3.7093862815884475,
+    "breach_age_1-10": 2.8213166144200628,
+    "predicted_lambda0_age_1-10": 0.5101958756711871,
+    "breach_age_11-21": 2.4912805181863478,
+    "predicted_lambda0_age_11-21": 1.318753062210478,
+    "breach_age_22-42": 2.011963023382273,
+    "predicted_lambda0_age_22-42": 2.0009265180059543,
+    "breach_age_43-63": 2.125825912094226,
+    "predicted_lambda0_age_43-63": 2.35473804359134,
+    "edge_cf0_top_decile": -10.772765186251833,
+    "dm_cf0_top_decile": -7.577703926685764,
+    "edge_cf0_top_D_decile": -16.797017912462415,
+    "dm_cf0_top_D_decile": -8.98092410328999,
+    "edge_cf0_all_days": -2.1427864576524276,
+    "dm_cf0_all_days": -8.999149353126043,
+    "edge_cf_pre_top_decile": -0.15670034047344988,
+    "dm_cf_pre_top_decile": -0.6654794368678747,
+    "edge_cf_pre_top_D_decile": -0.04235752950033871,
+    "dm_cf_pre_top_D_decile": 0.2918870704957742,
+    "edge_cf_pre_all_days": 0.054438202454483095,
+    "dm_cf_pre_all_days": 1.3888175781270435,
+    "edge_bteg_top_decile": -6.11960529376612,
+    "dm_bteg_top_decile": -5.4494414666909465,
+    "edge_bteg_top_D_decile": -7.243111369807368,
+    "dm_bteg_top_D_decile": -5.967611577977008,
+    "edge_bteg_all_days": -1.451950388711831,
+    "dm_bteg_all_days": -7.795326698967164
+   },
+   {
+    "fitted_alpha_median": 0.06658894254775313,
+    "fitted_beta_median": 0.9217358711062309,
+    "fitted_nu_median": 4.709406122951291,
+    "top_decile_shock_size_median": 8.626628719008133,
+    "top_decile_mean_D": 0.23561398757270977,
+    "lambda_top_decile_pinball": 0.75,
+    "lambda_top_decile_likelihood": 0.9,
+    "lambda_top_D_decile_pinball": 0.75,
+    "lambda_all_rows_pinball": 0.7,
+    "lambda_pre_test": 0.75,
+    "garch_t_breach_all": 2.217509025270758,
+    "garch_t_breach_top_decile": 2.1299638989169676,
+    "bteg_breach_top_decile": 3.555956678700361,
+    "breach_age_1-10": 2.021857923497268,
+    "predicted_lambda0_age_1-10": 0.45931854504778014,
+    "breach_age_11-21": 1.9497178040020522,
+    "predicted_lambda0_age_11-21": 1.2131344058622804,
+    "breach_age_22-42": 2.262068965517241,
+    "predicted_lambda0_age_22-42": 1.935941996793797,
+    "breach_age_43-63": 2.1490750816104462,
+    "predicted_lambda0_age_43-63": 2.3262798335595734,
+    "edge_cf0_top_decile": -9.45293960190387,
+    "dm_cf0_top_decile": -5.341595404498275,
+    "edge_cf0_top_D_decile": -14.427212407599086,
+    "dm_cf0_top_D_decile": -7.283926972745165,
+    "edge_cf0_all_days": -1.8282315762455073,
+    "dm_cf0_all_days": -8.077774125685426,
+    "edge_cf_pre_top_decile": 0.3176590715925244,
+    "dm_cf_pre_top_decile": 0.8294793843103908,
+    "edge_cf_pre_top_D_decile": 0.6117757924982717,
+    "dm_cf_pre_top_D_decile": 1.6774856443936617,
+    "edge_cf_pre_all_days": 0.10702157395106658,
+    "dm_cf_pre_all_days": 2.6988394228555905,
+    "edge_bteg_top_decile": -5.23372599910286,
+    "dm_bteg_top_decile": -3.610661934815486,
+    "edge_bteg_top_D_decile": -5.667000101615377,
+    "dm_bteg_top_D_decile": -3.993317489334229,
+    "edge_bteg_all_days": -1.274857142274254,
+    "dm_bteg_all_days": -6.068499687505592
+   },
+   {
+    "fitted_alpha_median": 0.06945343880752591,
+    "fitted_beta_median": 0.9194404125253075,
+    "fitted_nu_median": 4.698659255865915,
+    "top_decile_shock_size_median": 8.311881011047237,
+    "top_decile_mean_D": 0.22105003775912263,
+    "lambda_top_decile_pinball": 0.95,
+    "lambda_top_decile_likelihood": 1.0,
+    "lambda_top_D_decile_pinball": 0.85,
+    "lambda_all_rows_pinball": 0.85,
+    "lambda_pre_test": 0.95,
+    "garch_t_breach_all": 2.2355595667870034,
+    "garch_t_breach_top_decile": 2.3555956678700363,
+    "bteg_breach_top_decile": 3.925992779783394,
+    "breach_age_1-10": 2.12879191059074,
+    "predicted_lambda0_age_1-10": 0.4969003118619319,
+    "breach_age_11-21": 2.5267249757045676,
+    "predicted_lambda0_age_11-21": 1.34027625207908,
+    "breach_age_22-42": 2.3526230394808003,
+    "predicted_lambda0_age_22-42": 2.0231933505859794,
+    "breach_age_43-63": 2.380261248185777,
+    "predicted_lambda0_age_43-63": 2.3661594121514824,
+    "edge_cf0_top_decile": -11.702810368603911,
+    "dm_cf0_top_decile": -7.5247106242187956,
+    "edge_cf0_top_D_decile": -17.729439714113198,
+    "dm_cf0_top_D_decile": -8.077534652788621,
+    "edge_cf0_all_days": -2.2255084820427293,
+    "dm_cf0_all_days": -9.029602262386392,
+    "edge_cf_pre_top_decile": 0.020435665460502035,
+    "dm_cf_pre_top_decile": 0.3689541761694467,
+    "edge_cf_pre_top_D_decile": 0.11185251675846267,
+    "dm_cf_pre_top_D_decile": 1.1255809903059038,
+    "edge_cf_pre_all_days": 0.021045920014030113,
+    "dm_cf_pre_all_days": 2.934687257018871,
+    "edge_bteg_top_decile": -8.040542695816592,
+    "dm_bteg_top_decile": -6.247203327474694,
+    "edge_bteg_top_D_decile": -8.18547748328397,
+    "dm_bteg_top_D_decile": -5.590565673692576,
+    "edge_bteg_all_days": -1.8276877876248303,
+    "dm_bteg_all_days": -9.145328806392106
+   }
+  ]
+ }
+}
