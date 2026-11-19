@@ -29,3 +29,6 @@ __pycache__/
 
 # diagnostic script outputs live beside the scripts; the committed copies are in results/paper/diagnostics/
 tools/*.json
+
+# Private working notes and correspondence: never committed.
+local/

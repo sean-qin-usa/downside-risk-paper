@@ -19,9 +19,15 @@
 import os, json, time, math, warnings; warnings.filterwarnings("ignore")
 import numpy as np, pandas as pd
 from sklearn.ensemble import HistGradientBoostingRegressor
-from scipy import stats
+from scipy import stats, optimize
 from arch import arch_model
-P=r"C:\Users\OWNER\Claude\Projects\GBC Project"; t0=time.time(); lg=lambda s:print(s,flush=True)
+P=os.environ.get("GBC_PROJ",r"C:\Users\OWNER\Claude\Projects\GBC Project")
+# Opt-in audit switch (docs/AUDIT_2026-11.md, M2). The capped filter reuses the uncapped omega, alpha, beta and nu, which
+# lowers its variance level; the learner retrained on its residuals can absorb that, the capped Student-t benchmark
+# cannot. FR_FAIR=1 re-levels the capped scale per name so its training residuals have unit variance and refits the
+# benchmark's degrees of freedom on those residuals by maximum likelihood. Unset, the job is unchanged.
+FAIR=os.environ.get("FR_FAIR")=="1"; OUTDIR=os.environ.get("FR_OUT",P)
+t0=time.time(); lg=lambda s:print(s,flush=True)
 rr=pd.read_csv(os.path.join(P,"crsp_panel_returns.csv"),dtype={'permno':'int32'})
 rr['date']=pd.to_datetime(rr['date']); rr['ret']=pd.to_numeric(rr['ret'],errors='coerce')*100.0
 cnt=rr.groupby('permno')['ret'].count().sort_values(ascending=False); names=cnt[cnt>=1500].index.tolist()[:200]
@@ -65,7 +71,11 @@ def build_panel(K=9.0):
         except Exception: continue
         tsc=math.sqrt(nu/(nu-2)) if nu>2 else 1.0
         sig_s=run_filter(y,sp,om,al,be,mu,robust=False)
-        sig_r=run_filter(y,sp,om,al,be,mu,robust=True,K=K)
+        sig_r=run_filter(y,sp,om,al,be,mu,robust=True,K=K); nu_r=nu
+        if FAIR:
+            zr=(y[:sp]-mu)/sig_r[:sp]; c=math.sqrt(float(np.mean(zr*zr))); sig_r=sig_r*c; zr=zr/c
+            nll=lambda v: -float(np.sum(stats.t.logpdf(zr*math.sqrt(v/(v-2)),v)+0.5*math.log(v/(v-2))))
+            nu_r=float(optimize.minimize_scalar(nll,bounds=(2.1,60.0),method='bounded').x)
         ds=build_feats(y,sig_s,mu,dts); dr=build_feats(y,sig_r,mu,dts)
         for df in (ds,dr): df['idx']=np.arange(n)
         keep=ZX+['mk63']
@@ -79,7 +89,7 @@ def build_panel(K=9.0):
         t=pd.DataFrame({'permno':pn,'date':tst_s['date'].values,'y':tst_s['y'].values,
             'sig_s':tst_s['sig'].values,'sig_r':tst_r['sig'].values,
             'mk_s':tst_s['mk63'].values,'mk_r':tst_r['mk63'].values,
-            'mu':mu,'nu':nu,'tsc':tsc})
+            'mu':mu,'nu':nu,'tsc':tsc,'nu_r':nu_r,'tsc_r':math.sqrt(nu_r/(nu_r-2))})
         # feature matrices aligned to test rows for each filter
         for c in ZX: t['s_'+c]=tst_s[c].values
         for c in ZX: t['r_'+c]=tst_r[c].values
@@ -134,7 +144,7 @@ def full_run(K):
     Y=TE['y'].values; MU=TE['mu'].values; NU=TE['nu'].values; TSC=TE['tsc'].values
     SIGs=TE['sig_s'].values; SIGr=TE['sig_r'].values
     plEs=pinball_engine(Y,SIGs,MU,ZQs); plGs=pinball_garch(Y,SIGs,MU,NU,TSC)
-    plEr=pinball_engine(Y,SIGr,MU,ZQr); plGr=pinball_garch(Y,SIGr,MU,NU,TSC)
+    plEr=pinball_engine(Y,SIGr,MU,ZQr); plGr=pinball_garch(Y,SIGr,MU,TE['nu_r'].values,TE['tsc_r'].values)
     di,_=pd.factorize(pd.to_datetime(TE['date'].values),sort=True); di=np.asarray(di)
     res={}
     # (1) STD frontier: engine_std vs GARCH-t_std, by std mk63
@@ -157,5 +167,6 @@ OUT={'note':'Decisive jump-robust GARCH frontier test. ROB_engine_vs_garch top_d
      'n_names_target':200,'taus':TAUS}
 OUT['K9_3sigma']=full_run(9.0)
 OUT['K16_4sigma']=full_run(16.0)
-json.dump(OUT,open(os.path.join(P,"frontier_robust_results.json"),"w"),indent=1)
+OUT['fair']=FAIR
+json.dump(OUT,open(os.path.join(OUTDIR,"frontier_robust_results%s.json"%("_fair" if FAIR else "")),"w"),indent=1)
 lg("DONE %.0fs -> frontier_robust_results.json"%(time.time()-t0))
