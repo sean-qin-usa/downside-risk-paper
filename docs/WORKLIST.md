@@ -12,19 +12,25 @@ The manuscript in `submission/` is revision R67. The results produced since then
 `docs/PANELS_PRECOMMIT.md`, `results/paper/diagnostics/r69` to `r75`) are not in the text yet. They change what the paper
 is about, so the next step is a rewrite around them, not an edit of R67.
 
-**The paper the evidence now supports.** One question: when a flexible tail-risk model beats GARCH, what has it
-learned? The answer in four steps, each with its own table:
+**The paper the evidence now supports.** One question: when a flexible tail-risk model beats GARCH on stocks, what has
+it learned? The answer in five steps, each with its own table:
 
 1. **Where.** The gain sits on the days after one large shock: 8 to 9% of tail loss at the 1% and 2.5% levels on the
    tenth of stock-days with the highest score, against 1 to 2% elsewhere.
 2. **Why.** GARCH(1,1) carries a large shock into its variance for as long as its persistence parameter dictates. On
    stocks only about a tenth of that extra variance is real (lambda near 0.1). The closed-form response of the
-   GARCH recursion predicts GARCH-t's breach rate by shock age and by name, with no free parameter.
-3. **What the shocks are.** Three quarters of them are earnings announcements. After an earnings shock the extra
-   variance is almost entirely spurious; after other shocks more of it is real.
-4. **What follows.** A filter that discounts large shocks (Beta-t-EGARCH, or GARCH-t with the closed-form correction)
-   recovers most of the gain. A learned tail on top of the robust filter adds a further 1 to 4%. Where shocks persist
-   (equity and bond ETFs, lambda near 1) nothing beats GARCH-t, and the same test says so.
+   GARCH recursion predicts GARCH-t's breach rate by shock age and by name with no free parameter, and with the
+   pre-test lambda it predicts the size of the flexible models' gain panel by panel.
+3. **What the shocks are.** Three quarters are earnings announcements, and lambda is low for any shock that is the
+   firm's own. After market-wide shocks lambda is near 1 or above, which is why nothing beats GARCH-t on equity ETFs.
+4. **The other half of the same fact.** On announcement dates and the day after, 3% of days, the 2.5% VaR of every
+   model is breached 13 to 15% of the time. A calendar is worth 5 to 8% of tail loss to every model at 2.5% and 9 to
+   15% at 1%, two to four times the gap between GARCH-t and the best flexible model.
+5. **What is left.** With the calendar in every model the flexible models beat GARCH-t by 1 to 4%, and a GARCH-t fitted
+   with announcement days masked by at most about 1% (nothing significant at the 1% level on the CRSP panel).
+
+Evidence for steps 4 and 5 and for the origin split is in `docs/EARNINGS_CALENDAR_RESULTS.md`. DECIDE: whether steps 4
+and 5 are the paper's main result or a section of it (see 1.12).
 
 ## 1. Framing and contribution
 
@@ -40,6 +46,7 @@ learned? The answer in four steps, each with its own table:
 | 1.8 | Scope across asset classes | DONE (`docs/PANELS_PRECOMMIT.md`, `r71/`) | State as a result: lambda by asset class, one table |
 | 1.9 | Prior work on outliers and announcements in GARCH must be credited | OPEN | Franses and Ghijsels (1999), Carnero, Pena and Ruiz (2007), Grane and Veiga (2014), Muler and Yohai (2008), Harvey (2013), Andersen, Bollerslev and Diebold (2007); add Jones, Lamont and Lumsdaine (1998) on announcement shocks that do not persist, and the earnings-announcement volatility literature. Say exactly what is new: the attribution of flexible models' VaR gains, lambda measured across asset classes, the closed-form test, the earnings share |
 | 1.10 | Title | DECIDE | Keep the R63 question title or shorten |
+| 1.12 | The earnings calendar | DECIDE | Steps 4 and 5 above change the headline from "flexible models discard one-off shocks" to "single-stock VaR comparisons are mostly about a missing calendar". Decide which leads. Before either: 7.7, 7.8, 7.9 |
 | 1.11 | Structure | DECIDE | Proposed: introduction; framework (location, scale, shape; the two-by-two design; model table); data and evaluation; where; why (closed form, lambda, earnings); other panels; conclusion with limitations |
 
 ## 2. Evaluation design
@@ -70,6 +77,7 @@ learned? The answer in four steps, each with its own table:
 | 3.2 | Why these window lengths | DONE (`r69`, windows 21 to 250 days) | One robustness row |
 | 3.3 | "Jump indicator" is neither | OPEN | Rename; reserve "jump" for the literature's use |
 | 3.4 | The score mostly records one recent shock | DONE | Lead with it |
+| 3.7 | What decides lambda | DONE (`r76/`, block H) | Firm-specific against market-wide shocks, within equities; does not order crypto, currencies or the other ETFs |
 | 3.5 | A score derived from the model instead of chosen | DONE (`r71/`, block F; `r75/`) | D, the share of tomorrow's GARCH variance due to one past shock. DECIDE: replace the kurtosis score by D in the main text, or keep kurtosis as the pre-registered score and present D as its explanation. D is the better locator on the CRSP panel, about equal on US large caps |
 | 3.6 | The cross-sectional regression of the score needs an equation and a table, or should go | OPEN | Likely superseded by the regressions on D |
 
@@ -130,4 +138,8 @@ Several of these sit in sections that the rewrite may drop. Fix what stays; for 
 | 7.4 | Length | deferred | Write out first, cut later |
 | 7.5 | Preprint | DECIDE | Replace after the rewrite |
 | 7.6 | Citations added in R65 and R67 were checked at abstract level only | OPEN | Read the full texts |
+| 7.8 | Flexible models with the calendar as a training feature | OPEN | The like-for-like test so far gives each model two multipliers after the fact (`r78/`); retrain the trees and the network with days-to-announcement features |
+| 7.9 | Literature on announcement effects in volatility and VaR models | OPEN | Earnings-day variance is long established; check whether published ML-against-GARCH VaR comparisons on single stocks control for the calendar, and credit GARCH models with announcement dummies |
+| 7.10 | Scheduled one-offs outside stocks | OPEN | Central-bank and macro release days on the ETF, currency and bond panels |
+| 7.11 | What the flexible models' remaining 1 to 2% on ordinary days is | OPEN | Not explained by shock age, D, the score or the volatility level (`r76/`, block S) |
 | 7.7 | Earnings result needs a second source | OPEN | Check the announcement dates against another free calendar on a sample of names; test the earnings-only correction on the canonical names without dates |
