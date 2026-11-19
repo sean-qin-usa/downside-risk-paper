@@ -1,0 +1,346 @@
+{
+ "note": "edge_pct > 0 and DM > 0: the first-named model has the lower loss. Neural model: pooled returns-space quantile network, no GARCH filter.",
+ "predictions_written_before_run": "P1 same frontier (top-decile eleven-level edge over GARCH-t DM > 3; deciles 1-8 at least 1.5 points lower); P2 does not beat Beta-t-EGARCH in the top decile (DM < 1.96); P3 does not beat GARCH-t significantly overall.",
+ "n_train": 244800,
+ "n_valid": 83000,
+ "features": [
+  "lag1",
+  "lag2",
+  "lag3",
+  "lag4",
+  "lag5",
+  "mabs5",
+  "sd5",
+  "mabs21",
+  "sd21",
+  "mabs63",
+  "sd63",
+  "min21",
+  "max21",
+  "dn5"
+ ],
+ "eleven_level": {
+  "neural_vs_garch_t": {
+   "top_decile": {
+    "edge_pct": 3.7,
+    "DM": 7.91
+   },
+   "decile9": {
+    "edge_pct": 1.19,
+    "DM": 6.7
+   },
+   "deciles1to8": {
+    "edge_pct": 0.54,
+    "DM": 7.12
+   },
+   "overall": {
+    "edge_pct": 0.96,
+    "DM": 10.47
+   }
+  },
+  "neural_vs_bteg_t": {
+   "top_decile": {
+    "edge_pct": 0.15,
+    "DM": -0.1
+   },
+   "decile9": {
+    "edge_pct": 0.61,
+    "DM": 3.77
+   },
+   "deciles1to8": {
+    "edge_pct": 0.18,
+    "DM": 2.38
+   },
+   "overall": {
+    "edge_pct": 0.22,
+    "DM": 2.74
+   }
+  },
+  "neural_vs_pooled_trees": {
+   "top_decile": {
+    "edge_pct": 0.78,
+    "DM": 1.95
+   },
+   "decile9": {
+    "edge_pct": 0.73,
+    "DM": 3.81
+   },
+   "deciles1to8": {
+    "edge_pct": 0.57,
+    "DM": 7.01
+   },
+   "overall": {
+    "edge_pct": 0.61,
+    "DM": 7.46
+   }
+  },
+  "neural_vs_sav_caviar": {
+   "top_decile": {
+    "edge_pct": 0.92,
+    "DM": 2.34
+   },
+   "decile9": {
+    "edge_pct": 0.85,
+    "DM": 5.02
+   },
+   "deciles1to8": {
+    "edge_pct": 0.49,
+    "DM": 7.61
+   },
+   "overall": {
+    "edge_pct": 0.57,
+    "DM": 8.34
+   }
+  },
+  "decile_profile_vs_garch_t": [
+   0.67,
+   0.6,
+   0.32,
+   0.51,
+   0.58,
+   0.46,
+   0.49,
+   0.65,
+   1.19,
+   3.7
+  ],
+  "for_comparison_top_decile_vs_garch_t": {
+   "body": {
+    "edge_pct": 2.94,
+    "DM": 10.56
+   },
+   "sav_caviar": {
+    "edge_pct": 2.81,
+    "DM": 8.16
+   },
+   "param_bteg": {
+    "edge_pct": 3.56,
+    "DM": 8.8
+   },
+   "body_bteg": {
+    "edge_pct": 3.92,
+    "DM": 9.43
+   }
+  },
+  "breach_pct": {
+   "0.01": 1.01,
+   "0.025": 2.65
+  }
+ },
+ "level_0.01": {
+  "neural_vs_garch_t": {
+   "top_decile": {
+    "edge_pct": 10.01,
+    "DM": 7.95
+   },
+   "decile9": {
+    "edge_pct": 6.25,
+    "DM": 6.75
+   },
+   "deciles1to8": {
+    "edge_pct": 1.33,
+    "DM": 4.01
+   },
+   "overall": {
+    "edge_pct": 2.87,
+    "DM": 8.07
+   }
+  },
+  "neural_vs_bteg_t": {
+   "top_decile": {
+    "edge_pct": 2.46,
+    "DM": 0.93
+   },
+   "decile9": {
+    "edge_pct": 3.08,
+    "DM": 3.33
+   },
+   "deciles1to8": {
+    "edge_pct": 1.26,
+    "DM": 3.5
+   },
+   "overall": {
+    "edge_pct": 1.57,
+    "DM": 4.17
+   }
+  },
+  "neural_vs_pooled_trees": {
+   "top_decile": {
+    "edge_pct": 0.89,
+    "DM": -0.05
+   },
+   "decile9": {
+    "edge_pct": 1.39,
+    "DM": 0.6
+   },
+   "deciles1to8": {
+    "edge_pct": 0.42,
+    "DM": 0.94
+   },
+   "overall": {
+    "edge_pct": 0.57,
+    "DM": 1.18
+   }
+  },
+  "neural_vs_sav_caviar": {
+   "top_decile": {
+    "edge_pct": 3.24,
+    "DM": 1.5
+   },
+   "decile9": {
+    "edge_pct": 4.34,
+    "DM": 4.23
+   },
+   "deciles1to8": {
+    "edge_pct": 1.68,
+    "DM": 4.26
+   },
+   "overall": {
+    "edge_pct": 2.12,
+    "DM": 5.65
+   }
+  },
+  "decile_profile_vs_garch_t": [
+   0.06,
+   1.25,
+   0.1,
+   0.47,
+   1.65,
+   1.56,
+   2.57,
+   2.78,
+   6.25,
+   10.01
+  ],
+  "for_comparison_top_decile_vs_garch_t": {
+   "body": {
+    "edge_pct": 9.2,
+    "DM": 9.08
+   },
+   "sav_caviar": {
+    "edge_pct": 6.99,
+    "DM": 6.36
+   },
+   "param_bteg": {
+    "edge_pct": 7.74,
+    "DM": 6.44
+   },
+   "body_bteg": {
+    "edge_pct": 11.07,
+    "DM": 7.97
+   }
+  },
+  "breach_pct": {
+   "0.01": 1.01,
+   "0.025": 2.65
+  }
+ },
+ "level_0.025": {
+  "neural_vs_garch_t": {
+   "top_decile": {
+    "edge_pct": 8.73,
+    "DM": 8.35
+   },
+   "decile9": {
+    "edge_pct": 4.71,
+    "DM": 6.75
+   },
+   "deciles1to8": {
+    "edge_pct": 1.21,
+    "DM": 4.64
+   },
+   "overall": {
+    "edge_pct": 2.44,
+    "DM": 8.35
+   }
+  },
+  "neural_vs_bteg_t": {
+   "top_decile": {
+    "edge_pct": 1.12,
+    "DM": 0.78
+   },
+   "decile9": {
+    "edge_pct": 2.0,
+    "DM": 3.48
+   },
+   "deciles1to8": {
+    "edge_pct": 0.91,
+    "DM": 3.72
+   },
+   "overall": {
+    "edge_pct": 1.04,
+    "DM": 3.91
+   }
+  },
+  "neural_vs_pooled_trees": {
+   "top_decile": {
+    "edge_pct": 0.56,
+    "DM": 0.29
+   },
+   "decile9": {
+    "edge_pct": 1.58,
+    "DM": 2.04
+   },
+   "deciles1to8": {
+    "edge_pct": 0.85,
+    "DM": 2.14
+   },
+   "overall": {
+    "edge_pct": 0.89,
+    "DM": 2.22
+   }
+  },
+  "neural_vs_sav_caviar": {
+   "top_decile": {
+    "edge_pct": 4.41,
+    "DM": 3.45
+   },
+   "decile9": {
+    "edge_pct": 3.74,
+    "DM": 5.03
+   },
+   "deciles1to8": {
+    "edge_pct": 1.63,
+    "DM": 5.92
+   },
+   "overall": {
+    "edge_pct": 2.15,
+    "DM": 7.32
+   }
+  },
+  "decile_profile_vs_garch_t": [
+   0.58,
+   0.93,
+   0.79,
+   0.95,
+   0.91,
+   0.93,
+   2.1,
+   2.3,
+   4.71,
+   8.73
+  ],
+  "for_comparison_top_decile_vs_garch_t": {
+   "body": {
+    "edge_pct": 8.21,
+    "DM": 9.37
+   },
+   "sav_caviar": {
+    "edge_pct": 4.52,
+    "DM": 3.35
+   },
+   "param_bteg": {
+    "edge_pct": 7.69,
+    "DM": 7.48
+   },
+   "body_bteg": {
+    "edge_pct": 10.06,
+    "DM": 9.3
+   }
+  },
+  "breach_pct": {
+   "0.01": 1.01,
+   "0.025": 2.65
+  }
+ }
+}

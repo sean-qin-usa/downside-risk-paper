@@ -596,4 +596,17 @@ OUT={'note':('Every standard benchmark on the same rows as job_composite.py / jo
  'evt_branch_binds_frac':binds}
 fn="bench_all_bteg_results_synthetic.json" if SYN else "bench_all_bteg_results.json"
 json.dump(OUT,open(os.path.join(P,fn),"w"),indent=2)
+# Opt-in (R68): save every model's quantile forecast at every level, the FZ0 losses, and the scales, per test row, so
+# that the frontier can be re-scored at the 1% and 2.5% levels alone. Nothing above reads this; without the flag the
+# job is unchanged.
+if "--dump-rows" in sys.argv:
+    dp=sys.argv[sys.argv.index("--dump-rows")+1]
+    np.savez_compressed(dp,permno=PN,date=np.array([str(pd.Timestamp(d).date()) for d in dates]),y=Y.astype('float32'),
+        mk63=mk,rk_mk=rk_mk,rk_bmk=rk_bmk,sig=SIG.astype('float32'),mu=MU.astype('float32'),nu=NU.astype('float32'),
+        bsig=BSIG.astype('float32'),bmu=BMU.astype('float32'),taus=np.array(TAUS),
+        **{"q__"+m:np.stack([RQ[m][t] for t in TAUS],axis=1).astype('float32') for m in PIN_MODELS},
+        **{"fz0__%s__%s"%(m,a):np.asarray(FZL[a][m],float).astype('float32') for a in FZL for m in FZL[a] if FZL[a][m] is not None},
+        **{"var__%s__%s"%(m,a):np.asarray(VE[a][m][0],float).astype('float32') for a in VE for m in VE[a] if VE[a][m][0] is not None},
+        **{"es__%s__%s"%(m,a):np.asarray(VE[a][m][1],float).astype('float32') for a in VE for m in VE[a] if VE[a][m][1] is not None})
+    lg("per-row forecasts written to %s"%dp)
 lg("BENCHALLBTEGDONE %.0fs -> %s"%(time.time()-t0,fn))
