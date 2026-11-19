@@ -167,6 +167,32 @@ lg("pre-test lambda (top decile of %d pre-test rows): %s" % (len(PRE), LAM_PRE))
 QX = dict(Q); QC0 = {a: cfq(a, 0.0) for a in AL}; QCP = {a: cfq(a, LAM_PRE[0.025]) for a in AL}
 LOSS = {a: {m: pin(Y, QX[m][:, J[a]], a) for m in MODELS} for a in AL}
 for a in AL: LOSS[a]["cf0"] = pin(Y, QC0[a], a); LOSS[a]["cf_pre"] = pin(Y, QCP[a], a); LOSS[a]["cf_earn"] = np.where(EARN == 1, LOSS[a]["cf0"], LOSS[a]["garch_t"])
+if os.environ.get("R71_DUMP"):
+    # Per-row file for tools/r76_origin_accounting.py (not committed). Nothing is estimated or graded here: for every test
+    # row it stores the GARCH-t fit, the date and return of the largest shock, the return of the other names of the panel
+    # on that date (leave-one-out equal-weighted mean; within the name's own market on the international panel), the name's
+    # slope on that mean over the pre-test window, and whether the row's own date is an announcement date or the day after.
+    grp = GROUPS.get("market", {k: "all" for k in names}); MKT = {}
+    for g in sorted(set(grp.values())):
+        W = pd.DataFrame({k: pd.Series(YS[k], index=DT[k]) for k in names if grp[k] == g}); MKT[g] = (W.sum(1), W.count(1))
+    SDATE = np.empty(n, "datetime64[D]"); SRET, MS, MZ, BM, E0, E1, ALR = (np.full(n, np.nan) for _ in range(7)); PX = []; SER = {}
+    for k in names:
+        sm, ct = MKT[grp[k]]; dt = DT[k]; own = pd.Series(YS[k], index=dt); c_ = ct.reindex(dt).values; loo = pd.Series(np.where(c_ >= 6, (sm.reindex(dt).values - own.values) / np.maximum(c_ - 1, 1), np.nan), index=dt)
+        lv = loo.values; ne_ = test_start[k]; ok = np.isfinite(lv[:ne_]); b = float(np.polyfit(lv[:ne_][ok], YS[k][:ne_][ok], 1)[0]) if ok.sum() > 250 else np.nan
+        mz = lv / loo.rolling(250, min_periods=60).std().shift(1).values; f0 = np.full(len(dt), np.nan); f1 = f0.copy(); fn = os.path.join(EDIR, TICK[k] + ".csv")
+        if WHAT in ("canon", "us_largecap") and os.path.exists(fn):
+            ed = pd.DatetimeIndex(sorted(set(pd.Timestamp(str(x)[:10]) for x in pd.read_csv(fn)["announcement"])))
+            if len(ed) >= 8:
+                p_ = np.searchsorted(dt.values, ed.values); p_ = p_[p_ < len(dt)]; f0 = np.zeros(len(dt)); f1 = np.zeros(len(dt)); f0[p_] = 1; f1[np.minimum(p_ + 1, len(dt) - 1)] = 1; bf = dt.values < ed.values[0]; f0[bf] = np.nan; f1[bf] = np.nan
+        m, pos = rowsel[k]; r = res[k]; sd_ = r["sidx"][pos]; SDATE[m] = dt.values[sd_].astype("datetime64[D]"); SRET[m] = YS[k][sd_] - r["mu"]; MS[m] = lv[sd_]; MZ[m] = mz[sd_]; BM[m] = b; E0[m] = f0[pos]; E1[m] = f1[pos]; ALR[m] = r["al"]
+        i = np.arange(pre_start[k], test_start[k]); i = i[np.isfinite(r["mk"][i]) & np.isfinite(r["D"][i])]; fs = np.where(np.isfinite(f0[r["sidx"][i]]), np.maximum(f0, f1)[r["sidx"][i]], np.nan)
+        PX.append(pd.DataFrame({"y": YS[k][i], "sig": r["sig"][i], "mu": r["mu"], "nu": r["nu"], "D": r["D"][i], "mk": r["mk"][i], "e0": f0[i], "e1": f1[i], "earn": fs}))
+        if np.isfinite(f0).any(): SER[k] = dict(y=YS[k], f0=f0, f1=f1, ts=int(test_start[k]), rows=m, pos=pos)
+    PX = pd.concat(PX, ignore_index=True)
+    if SER: import pickle; pickle.dump(SER, open(os.path.join(ROOT, "data", "panels", WHAT + "_series.pkl"), "wb"))   # full return series and calendar flags for tools/r78_calendar_garch.py
+    np.savez_compressed(os.path.join(ROOT, "data", "panels", WHAT + "_dump.npz"), sig=SIG, mu=MU, nu=NU, alpha=ALR, beta=BE, D=DD, age=AGE.astype("int16"), sign=SGN.astype("int8"), size=SIZ, earn=EARN, sdate=SDATE.astype(str), sret=SRET, mkt_s=MS, mktz_s=MZ, bmk=BM, e0=E0, e1=E1,
+                        **{"pre_" + c: PX[c].values for c in PX.columns})
+    lg("wrote the per-row dump (%d test rows, %d pre-test rows)" % (n, len(PX))); sys.exit(0)
 def dm(d, mask):
     s = pd.Series(d[mask], index=dates[mask]).groupby(level=0).mean().values; s = s[np.isfinite(s)]
     if len(s) < 30: return None

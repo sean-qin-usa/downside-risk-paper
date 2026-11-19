@@ -87,6 +87,7 @@ written before the run:
 | document | what it records | scripts and results |
 |---|---|---|
 | `docs/SHOCK_RESPONSE_RESULTS.md` | The closed-form response of GARCH(1,1) to one shock; the share of that response that is real, by asset class, sector and shock type; earnings announcements; SPA tests, model confidence sets, conditional tests and a simulation | `tools/r71_shock_response.py`, `r72_spa_mcs.py`, `r73_simulation.py`, `r75_conditional_tests.py`; `results/paper/diagnostics/r71` to `r75` |
+| `docs/EARNINGS_CALENDAR_RESULTS.md` | What decides that share (firm-specific against market-wide shocks); the gain the closed form predicts against the gain each model made; breach rates on earnings announcement days; a GARCH-t that knows the earnings calendar, against the flexible models with and without it | `tools/r76_origin_accounting.py`, `r78_calendar_garch.py`; `results/paper/diagnostics/r76`, `r78` |
 | `docs/PANELS_PRECOMMIT.md` | Six further panels on public data (US and international stocks, two ETF panels, currencies, crypto), pre-registered, graded | `code/panels/`; `results/panels/` |
 | `docs/CASE_STUDY_PRECOMMIT.md` | The pre-registered 15-instrument study and its like-for-like rerun | `code/case_studies/`; `results/case_studies/` |
 | `docs/AUDIT_2026-11.md` | Audit of every comparison for fairness errors, with the fix runs | `tools/r66` to `r70`; `results/paper/diagnostics/` |
