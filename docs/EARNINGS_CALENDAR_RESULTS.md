@@ -728,3 +728,139 @@ models. No model without the calendar is in any set.
 | T5 | Empirical quantiles 0.2% to 1.0% better than the Student-t, and within 1.0% of the best flexible model | Fails (-0.2%; 1.1% behind) | Holds (+0.4%; 0.8% behind) |
 | T6 | Two-fix beats every parametric model with multipliers (DM above 2) and every model without the calendar by 5% (CRSP), 3.5% (US) | Fails for Beta-t-EGARCH (DM 1.8); holds for the rest | Fails for GJR-skew-t, Beta-t-EGARCH and SAV-CAViaR; holds for the rest |
 | T7 | The confidence set holds no model without the calendar, holds a flexible model with it, and (CRSP) not the two-fix model | Holds | Holds for the first two parts |
+
+## 9. Sixth pass: an equation for the value of information, the last 1%, and a second clock
+
+Three directions, each with predictions in the script header written before its run. All use one per-row table per
+panel built by `tools/calpanel.py`.
+
+### 9.1 What a piece of information is worth to a VaR model (`tools/r83_information_value.py`)
+
+Both errors of GARCH-t are errors of scale on an identifiable set of days. If the standardized return on a day of
+type d is `tau_d` times a Student-t with `nu_d` degrees of freedom, the expected pinball loss at level a of a forecast
+q is
+
+    EL_d(q) = q (F(q/tau_d) - a) + tau_d f(q/tau_d) (nu_d + (q/tau_d)^2) / (nu_d - 1),
+
+and the value of knowing the day type is
+
+    V(a) = sum_d p_d m_d [EL_d(q) - EL_d(c_d q)] / sum_d p_d m_d EL_d(q),
+
+with `p_d` the share of days of type d, `m_d` their relative volatility and `c_d` the best multiplier. Everything on
+the right is estimated before the test period. Nothing in V depends on which model is being helped, which is why
+every model gains about the same from the calendar (Section 8.1).
+
+The calendar, predicted against realized (GARCH-t with multipliers; the other models in brackets):
+
+| | V | Realized |
+|---|---|---|
+| CRSP panel, 2.5% | 7.2% | 7.8% (7.7% to 8.5%) |
+| CRSP panel, 1% | 11.5% | 12.9% (12.4% to 15.0%) |
+| US large caps, 2.5% | 5.3% | 5.5% (5.6% to 5.8%) |
+| US large caps, 1% | 8.6% | 9.5% (9% to 10%) |
+
+The reaction-day multiplier it implies is 3.5 against 3.7 chosen on pre-test rows (CRSP) and 2.8 against 2.6 (US
+large caps). A version that uses only the variance ratio and no tail index under-predicts (6.1% and 4.7% at 2.5%).
+
+Portfolios, a prediction not tested before. For an equal-weighted portfolio of N names a reporting name adds
+`(kappa - 1) sigma_i^2 / N^2` to the variance, `kappa` being the single-name variance ratio of the day. Nothing is
+fitted at the portfolio level. Gain of the informed VaR over the portfolio's own GARCH-t at 2.5%, with V in brackets:
+
+| N | CRSP panel | US large caps |
+|---|---|---|
+| 1 | 7.2% (8.2%) | 5.3% (5.4%) |
+| 2 | 5.0% (6.7%) | 4.0% (3.4%) |
+| 5 | 3.6% (3.9%) | 1.2% (1.3%) |
+| 10 | 1.6% (1.9%) | 0.4% (0.4%) |
+| 20 | 0.8% (0.6%) | 0.0% (0.1%) |
+| 50 | 0.4% (0.1%) | 0.0% (0.0%) |
+| whole panel | 0.1% (0.0%) | 0.0% (0.0%) |
+
+At N = 10 the portfolio GARCH-t's 2.5% VaR is breached on 8.0% (CRSP) and 5.7% (US large caps) of the days in the
+top 5% by earnings share of variance; the informed VaR on 3.5% and 3.0%. The calendar matters for a single name and
+for a concentrated portfolio, and stops mattering at about 20 names (CRSP) or 10 (US large caps).
+
+The closed form for the earnings share of portfolio variance, `x / (1 + rho (N - 1) + x)`, is within 30% of the test
+period on US large caps up to N = 50 but too low by 40% to 64% on the CRSP panel from N = 10. It assumes equal
+volatilities; the CRSP panel mixes large and small companies.
+
+| | Prediction | CRSP panel | US large caps |
+|---|---|---|---|
+| A1 | V within 1.0 point at 2.5% and 2.0 points at 1% | Holds (0.5; 1.4) | Holds (0.2; 1.0) |
+| A2 | Implied reaction-day multiplier within 0.3 | Holds (3.5 against 3.7) | Holds (2.8 against 2.6) |
+| C1 | Gain falls with N: 5% to 9% at 1; 0.5% to 3% at 10; below 0.6% at 50; about zero for the panel | Holds | Falls as predicted; 0.4% at N = 10, just under the band |
+| C2 | V within 0.5 points or a factor 1.5 of the realized gain at every N | Holds | Holds |
+| C3 | Variance-share formula within 30% at every N | Fails from N = 10 | Holds to N = 50, fails for the whole panel |
+| C4 | At N = 10: breached on at least 5% of heavy earnings days, informed VaR under 4% | Holds (8.0%; 3.5%) | Holds (5.7%; 3.0%) |
+
+### 9.2 What the flexible models' last 1% is (`tools/r84_last_percent.py`)
+
+The trees on the masked scale were refitted with the calendar and one group of their five inputs at a time. Share of
+the full model's margin over the masked calendar GARCH-t on ordinary days at 2.5%:
+
+| Inputs besides the calendar | CRSP panel | US large caps |
+|---|---|---|
+| None (pooled quantiles by day type) | 3% | 2% |
+| Volatility level | 93% | 3% |
+| of which the name's usual level / today against the usual | 43% / 55% | 5% / 0% |
+| Recent scale of the residuals | 53% | 39% |
+| Last residual and share of down days | -3% | 29% |
+| Level and recent scale | 114% | 65% |
+| All five | 100% | 100% |
+
+Pooling the tail across names adds nothing. On the CRSP panel the margin is carried by the volatility level; on US
+large caps no single input carries it and the full margin needs all five together. Two one-parameter versions
+(sigma scaled by a power of the recent residual scale, or shrunk toward the name's usual level) chose a parameter of
+zero or -0.05 on pre-test rows and add nothing. The last 1% is not reduced to a named source: it is a non-linear
+dependence of the standardized quantile on the volatility state, which differs between the two panels.
+
+| | Prediction | CRSP panel | US large caps |
+|---|---|---|---|
+| L1 | Calendar-only trees within 0.4% of the masked model | Holds (-0.1%) | Holds (0.0%) |
+| L2 | The refit with all five inputs reproduces the stored trees | Holds (0.0%) | Holds (0.0%) |
+| L3 | Recent residual scale carries at least half and more than the level | Fails (53%, but the level carries 93%) | Fails (39%) |
+| L4 | Scale tracking gains 0.3% to 1.5% | Fails (parameter 0) | Fails (parameter 0) |
+| L5 | Two-fix GARCH-t with scale tracking within 0.6% of the best flexible model | Fails (1.1% behind) | Fails (1.2% behind) |
+| M1 | Today's volatility against the usual carries more than the usual level, and at least half | Holds (55% against 43%) | Fails |
+| M2 | Level shrinkage gains 0.4% to 1.2% | Fails (parameter 0) | Fails (-0.05, no gain) |
+| M3 | Two-fix GARCH-t with level shrinkage within 0.6% of the best flexible model | Fails (0.9%) | Fails (1.2%) |
+
+### 9.3 A second clock for the announcement variance (`tools/r85_two_clock.py`)
+
+r78-r82 give every name the same multiplier on its reaction day. Two structural questions.
+
+Multiple or addition. If the announcement added a variance of its own, the squared standardized residual on reaction
+days would fall as ordinary volatility rises. It does: by thirds of today's volatility relative to the firm's usual
+level it is 20.6, 15.6 and 10.2 on the CRSP panel (test) and 14.4, 12.1 and 8.3 on US large caps. The slope of its log
+on the log of relative volatility is -1.21 (s.e. 0.15) and -1.37 (0.08); a pure multiple gives 0 and a pure addition
+about -2.
+
+Does the announcement variance belong to the firm. `J2_ij = (1 - w) theta sbar2_i + w H_ij`, with `H_ij` the mean
+excess squared return of the firm's last eight announcements; the reaction-day VaR uses `sqrt(s2_t + J2_ij)`. The
+pre-test weight on the firm's own history is 0.7 (CRSP) and 0.4 (US large caps). Loss on reaction days at 2.5%:
+
+| | CRSP panel | US large caps |
+|---|---|---|
+| Second clock against the constant multiplier | +7.7% (DM 1.9) | +10.4% (4.4) |
+| against a constant addition per firm | +7.2% (2.0) | +12.1% (6.8) |
+| against a multiple with the firm's history | +4.2% (1.0) | +3.1% (1.0) |
+| against the flexible models with calendar inputs | +6.4% to +11.0% (1.5 to 2.5) | +7.5% to +9.6% (4.0 to 4.8) |
+| Gain over all days | 0.46% | 0.53% |
+
+A constant addition per firm is no better than the constant multiplier (+0.5%, -1.9%): the gain is the firm's own
+history, not the additive form. Reaction days are 5% to 6% of total loss, so the all-days gain is half a percent.
+
+The option benchmark (CRSP panel, OptionMetrics). The announcement variance implied by the 30-day and 60-day
+at-the-money implied volatilities the evening before is available for 90% of reaction days, is zero for 11% of
+those (the 30-day volatility is not above the 60-day one) and has a median standard deviation of 4.3%, about half
+of what the returns show. A VaR built on it is far worse than the second clock (-54% on reaction days). Adding it to the second clock changes nothing (+1.2%, DM 0.5). This two-maturity estimate is too crude to
+serve as the benchmark; a proper one needs the option chain around each announcement. Open.
+
+| | Prediction | CRSP panel | US large caps |
+|---|---|---|---|
+| W1 | Squared residual in the lowest third of relative volatility at least twice the highest third | 2.0 in the test period, 1.9 pre-test | 1.7 and 1.8: falls, by less than twice |
+| W2 | Constant addition beats the constant multiplier by 1.5% | Fails (+0.5%) | Fails (-1.9%) |
+| W3 | Firm history beats the constant addition by 1.5% (DM above 2), weight at least 0.3 | +7.2%, weight 0.7, DM 1.97 | Holds (+12.1%, 6.8; 0.4) |
+| W4 | Addition with history beats multiple with history | In sign only (+4.2%, DM 1.0) | In sign only (+3.1%, DM 1.0) |
+| W5 | Not worse than any flexible model on reaction days; 0.1% to 0.6% over all days | Holds | Holds |
+| W6 | Option-implied variance beats firm history by 3%; the two together beat both | Fails as implemented | not run |
