@@ -1,0 +1,1083 @@
+{
+ "universe": "us_largecap",
+ "rows": 543867,
+ "training_rows": 420851,
+ "predictions_written_before_run": "see the script header (L1-L5; M1-M3 written after the CRSP run of L1-L5)",
+ "gamma": {
+  "masked calendar GARCH-t": 0.0,
+  "two-fix GARCH-t": 0.0
+ },
+ "delta": {
+  "masked calendar GARCH-t": -0.05,
+  "two-fix GARCH-t": -0.05
+ },
+ "median_recent_scale_pre_test": 0.963,
+ "0.01": {
+  "vs_masked_calendar_garch_t": {
+   "S0 calendar only": {
+    "all days": {
+     "edge_pct": -0.14,
+     "DM": -2.26
+    },
+    "other days": {
+     "edge_pct": 0.01,
+     "DM": 0.15
+    },
+    "top decile, other days": {
+     "edge_pct": -0.06,
+     "DM": -1.13
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": 0.03,
+     "DM": 0.37
+    }
+   },
+   "S1 + volatility level": {
+    "all days": {
+     "edge_pct": -0.04,
+     "DM": -0.07
+    },
+    "other days": {
+     "edge_pct": -0.22,
+     "DM": -0.37
+    },
+    "top decile, other days": {
+     "edge_pct": 0.19,
+     "DM": 1.7
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": -0.3,
+     "DM": -0.48
+    }
+   },
+   "S1a + the name's usual volatility": {
+    "all days": {
+     "edge_pct": -0.03,
+     "DM": -0.22
+    },
+    "other days": {
+     "edge_pct": -0.18,
+     "DM": -1.26
+    },
+    "top decile, other days": {
+     "edge_pct": -0.11,
+     "DM": -0.21
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": -0.2,
+     "DM": -1.34
+    }
+   },
+   "S1b + volatility against the usual": {
+    "all days": {
+     "edge_pct": -0.2,
+     "DM": -0.46
+    },
+    "other days": {
+     "edge_pct": -0.19,
+     "DM": -0.41
+    },
+    "top decile, other days": {
+     "edge_pct": 0.05,
+     "DM": 1.06
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": -0.22,
+     "DM": -0.46
+    }
+   },
+   "S2 + recent residual scale": {
+    "all days": {
+     "edge_pct": 0.22,
+     "DM": 0.58
+    },
+    "other days": {
+     "edge_pct": 0.43,
+     "DM": 1.09
+    },
+    "top decile, other days": {
+     "edge_pct": 0.17,
+     "DM": 0.7
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": 0.42,
+     "DM": 0.89
+    }
+   },
+   "S3 + last residual, down days": {
+    "all days": {
+     "edge_pct": 0.13,
+     "DM": 0.65
+    },
+    "other days": {
+     "edge_pct": 0.17,
+     "DM": 0.82
+    },
+    "top decile, other days": {
+     "edge_pct": 0.36,
+     "DM": 0.53
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": 0.13,
+     "DM": 0.6
+    }
+   },
+   "S5 + level and recent scale": {
+    "all days": {
+     "edge_pct": 0.75,
+     "DM": 2.46
+    },
+    "other days": {
+     "edge_pct": 0.77,
+     "DM": 2.51
+    },
+    "top decile, other days": {
+     "edge_pct": 1.1,
+     "DM": 4.55
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": 0.66,
+     "DM": 1.83
+    }
+   },
+   "S4 + all five": {
+    "all days": {
+     "edge_pct": 1.31,
+     "DM": 2.1
+    },
+    "other days": {
+     "edge_pct": 1.3,
+     "DM": 2.01
+    },
+    "top decile, other days": {
+     "edge_pct": 1.3,
+     "DM": 4.04
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": 1.25,
+     "DM": 1.65
+    }
+   },
+   "two-fix GARCH-t": {
+    "all days": {
+     "edge_pct": -0.03,
+     "DM": -0.31
+    },
+    "other days": {
+     "edge_pct": 0.07,
+     "DM": 0.63
+    },
+    "top decile, other days": {
+     "edge_pct": 0.7,
+     "DM": 3.24
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": -0.0,
+     "DM": -0.16
+    }
+   },
+   "masked calendar GARCH-t, scale tracking": {
+    "all days": {
+     "edge_pct": 0.0,
+     "DM": 0.0
+    },
+    "other days": {
+     "edge_pct": 0.0,
+     "DM": 0.0
+    },
+    "top decile, other days": {
+     "edge_pct": 0.0,
+     "DM": 0.0
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": 0.0,
+     "DM": 0.0
+    }
+   },
+   "two-fix GARCH-t, scale tracking": {
+    "all days": {
+     "edge_pct": -0.03,
+     "DM": -0.31
+    },
+    "other days": {
+     "edge_pct": 0.07,
+     "DM": 0.63
+    },
+    "top decile, other days": {
+     "edge_pct": 0.7,
+     "DM": 3.24
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": -0.0,
+     "DM": -0.16
+    }
+   },
+   "masked calendar GARCH-t, level shrinkage": {
+    "all days": {
+     "edge_pct": 0.0,
+     "DM": 0.0
+    },
+    "other days": {
+     "edge_pct": -0.04,
+     "DM": -0.06
+    },
+    "top decile, other days": {
+     "edge_pct": 0.31,
+     "DM": 2.36
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": -0.1,
+     "DM": -0.17
+    }
+   },
+   "two-fix GARCH-t, level shrinkage": {
+    "all days": {
+     "edge_pct": -0.09,
+     "DM": -0.25
+    },
+    "other days": {
+     "edge_pct": -0.03,
+     "DM": -0.06
+    },
+    "top decile, other days": {
+     "edge_pct": 0.83,
+     "DM": 1.96
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": -0.14,
+     "DM": -0.36
+    }
+   },
+   "trees on masked scale, calendar inputs": {
+    "all days": {
+     "edge_pct": 1.0,
+     "DM": 2.27
+    },
+    "other days": {
+     "edge_pct": 0.96,
+     "DM": 2.15
+    },
+    "top decile, other days": {
+     "edge_pct": 1.33,
+     "DM": 3.19
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": 0.85,
+     "DM": 1.64
+    }
+   },
+   "trees on robust scale, calendar inputs": {
+    "all days": {
+     "edge_pct": 1.12,
+     "DM": 2.19
+    },
+    "other days": {
+     "edge_pct": 1.22,
+     "DM": 2.4
+    },
+    "top decile, other days": {
+     "edge_pct": 2.33,
+     "DM": 3.08
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": 1.06,
+     "DM": 1.7
+    }
+   },
+   "neural network, calendar inputs": {
+    "all days": {
+     "edge_pct": 1.62,
+     "DM": 2.44
+    },
+    "other days": {
+     "edge_pct": 1.48,
+     "DM": 2.17
+    },
+    "top decile, other days": {
+     "edge_pct": 1.28,
+     "DM": 2.88
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": 1.51,
+     "DM": 1.81
+    }
+   },
+   "GARCH-t": {
+    "all days": {
+     "edge_pct": -11.79,
+     "DM": -13.1
+    },
+    "other days": {
+     "edge_pct": -1.46,
+     "DM": -3.02
+    },
+    "top decile, other days": {
+     "edge_pct": -8.03,
+     "DM": -5.92
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": -0.61,
+     "DM": -1.24
+    }
+   }
+  },
+  "best_flexible_with_calendar": "neural network, calendar inputs",
+  "share_of_S4_margin_other_days": {
+   "S0 calendar only": 0.005,
+   "S1 + volatility level": -0.169,
+   "S1a + the name's usual volatility": -0.137,
+   "S1b + volatility against the usual": -0.144,
+   "S2 + recent residual scale": 0.333,
+   "S3 + last residual, down days": 0.127,
+   "S5 + level and recent scale": 0.592,
+   "S4 + all five": 1.0
+  },
+  "against_best_flexible": {
+   "masked calendar GARCH-t": {
+    "all days": {
+     "edge_pct": -1.65,
+     "DM": -2.44
+    },
+    "other days": {
+     "edge_pct": -1.51,
+     "DM": -2.17
+    },
+    "top decile, other days": {
+     "edge_pct": -1.29,
+     "DM": -2.88
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": -1.53,
+     "DM": -1.81
+    }
+   },
+   "two-fix GARCH-t": {
+    "all days": {
+     "edge_pct": -1.68,
+     "DM": -2.56
+    },
+    "other days": {
+     "edge_pct": -1.44,
+     "DM": -2.13
+    },
+    "top decile, other days": {
+     "edge_pct": -0.58,
+     "DM": -1.43
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": -1.53,
+     "DM": -1.96
+    }
+   },
+   "masked calendar GARCH-t, scale tracking": {
+    "all days": {
+     "edge_pct": -1.65,
+     "DM": -2.44
+    },
+    "other days": {
+     "edge_pct": -1.51,
+     "DM": -2.17
+    },
+    "top decile, other days": {
+     "edge_pct": -1.29,
+     "DM": -2.88
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": -1.53,
+     "DM": -1.81
+    }
+   },
+   "two-fix GARCH-t, scale tracking": {
+    "all days": {
+     "edge_pct": -1.68,
+     "DM": -2.56
+    },
+    "other days": {
+     "edge_pct": -1.44,
+     "DM": -2.13
+    },
+    "top decile, other days": {
+     "edge_pct": -0.58,
+     "DM": -1.43
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": -1.53,
+     "DM": -1.96
+    }
+   },
+   "masked calendar GARCH-t, level shrinkage": {
+    "all days": {
+     "edge_pct": -1.65,
+     "DM": -1.64
+    },
+    "other days": {
+     "edge_pct": -1.54,
+     "DM": -1.47
+    },
+    "top decile, other days": {
+     "edge_pct": -0.97,
+     "DM": -2.46
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": -1.63,
+     "DM": -1.29
+    }
+   },
+   "two-fix GARCH-t, level shrinkage": {
+    "all days": {
+     "edge_pct": -1.74,
+     "DM": -1.78
+    },
+    "other days": {
+     "edge_pct": -1.54,
+     "DM": -1.51
+    },
+    "top decile, other days": {
+     "edge_pct": -0.45,
+     "DM": -1.14
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": -1.67,
+     "DM": -1.42
+    }
+   },
+   "S4 + all five": {
+    "all days": {
+     "edge_pct": -0.32,
+     "DM": -1.12
+    },
+    "other days": {
+     "edge_pct": -0.19,
+     "DM": -0.67
+    },
+    "top decile, other days": {
+     "edge_pct": 0.03,
+     "DM": -0.3
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": -0.27,
+     "DM": -0.83
+    }
+   }
+  },
+  "share_of_gap_to_best_closed": {
+   "two-fix GARCH-t": -0.02,
+   "masked calendar GARCH-t, scale tracking": 0.0,
+   "two-fix GARCH-t, scale tracking": -0.02,
+   "masked calendar GARCH-t, level shrinkage": 0.0,
+   "two-fix GARCH-t, level shrinkage": -0.056
+  },
+  "S4_vs_stored_trees_on_masked_scale": {
+   "edge_pct": 0.31,
+   "DM": 1.01
+  },
+  "breach_pct": {
+   "S0 calendar only": {
+    "all days": 1.37,
+    "other days": 1.34
+   },
+   "S1 + volatility level": {
+    "all days": 1.37,
+    "other days": 1.35
+   },
+   "S1a + the name's usual volatility": {
+    "all days": 1.4,
+    "other days": 1.38
+   },
+   "S1b + volatility against the usual": {
+    "all days": 1.38,
+    "other days": 1.35
+   },
+   "S2 + recent residual scale": {
+    "all days": 1.39,
+    "other days": 1.35
+   },
+   "S3 + last residual, down days": {
+    "all days": 1.4,
+    "other days": 1.38
+   },
+   "S5 + level and recent scale": {
+    "all days": 1.38,
+    "other days": 1.35
+   },
+   "S4 + all five": {
+    "all days": 1.39,
+    "other days": 1.36
+   },
+   "masked calendar GARCH-t": {
+    "all days": 1.38,
+    "other days": 1.35
+   },
+   "two-fix GARCH-t": {
+    "all days": 1.45,
+    "other days": 1.42
+   },
+   "masked calendar GARCH-t, scale tracking": {
+    "all days": 1.38,
+    "other days": 1.35
+   },
+   "two-fix GARCH-t, scale tracking": {
+    "all days": 1.45,
+    "other days": 1.42
+   },
+   "masked calendar GARCH-t, level shrinkage": {
+    "all days": 1.37,
+    "other days": 1.34
+   },
+   "two-fix GARCH-t, level shrinkage": {
+    "all days": 1.44,
+    "other days": 1.42
+   },
+   "trees on masked scale, calendar inputs": {
+    "all days": 1.41,
+    "other days": 1.39
+   },
+   "trees on robust scale, calendar inputs": {
+    "all days": 1.41,
+    "other days": 1.38
+   },
+   "neural network, calendar inputs": {
+    "all days": 1.33,
+    "other days": 1.32
+   },
+   "GARCH-t": {
+    "all days": 1.3,
+    "other days": 1.03
+   }
+  }
+ },
+ "0.025": {
+  "vs_masked_calendar_garch_t": {
+   "S0 calendar only": {
+    "all days": {
+     "edge_pct": 0.01,
+     "DM": 0.21
+    },
+    "other days": {
+     "edge_pct": 0.02,
+     "DM": 0.25
+    },
+    "top decile, other days": {
+     "edge_pct": -0.09,
+     "DM": -1.9
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": 0.04,
+     "DM": 0.53
+    }
+   },
+   "S1 + volatility level": {
+    "all days": {
+     "edge_pct": 0.21,
+     "DM": 1.5
+    },
+    "other days": {
+     "edge_pct": 0.03,
+     "DM": 0.33
+    },
+    "top decile, other days": {
+     "edge_pct": 0.11,
+     "DM": 2.2
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": 0.03,
+     "DM": 0.27
+    }
+   },
+   "S1a + the name's usual volatility": {
+    "all days": {
+     "edge_pct": 0.03,
+     "DM": 0.44
+    },
+    "other days": {
+     "edge_pct": 0.05,
+     "DM": 0.81
+    },
+    "top decile, other days": {
+     "edge_pct": -0.04,
+     "DM": -1.39
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": 0.06,
+     "DM": 1.04
+    }
+   },
+   "S1b + volatility against the usual": {
+    "all days": {
+     "edge_pct": 0.08,
+     "DM": 0.65
+    },
+    "other days": {
+     "edge_pct": 0.0,
+     "DM": 0.04
+    },
+    "top decile, other days": {
+     "edge_pct": 0.01,
+     "DM": 1.66
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": 0.01,
+     "DM": 0.08
+    }
+   },
+   "S2 + recent residual scale": {
+    "all days": {
+     "edge_pct": 0.4,
+     "DM": 1.42
+    },
+    "other days": {
+     "edge_pct": 0.42,
+     "DM": 1.43
+    },
+    "top decile, other days": {
+     "edge_pct": 0.83,
+     "DM": 3.68
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": 0.34,
+     "DM": 1.04
+    }
+   },
+   "S3 + last residual, down days": {
+    "all days": {
+     "edge_pct": 0.24,
+     "DM": 1.83
+    },
+    "other days": {
+     "edge_pct": 0.31,
+     "DM": 2.23
+    },
+    "top decile, other days": {
+     "edge_pct": 0.32,
+     "DM": 1.84
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": 0.3,
+     "DM": 2.1
+    }
+   },
+   "S5 + level and recent scale": {
+    "all days": {
+     "edge_pct": 0.82,
+     "DM": 2.86
+    },
+    "other days": {
+     "edge_pct": 0.7,
+     "DM": 2.41
+    },
+    "top decile, other days": {
+     "edge_pct": 1.13,
+     "DM": 4.22
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": 0.63,
+     "DM": 1.87
+    }
+   },
+   "S4 + all five": {
+    "all days": {
+     "edge_pct": 1.16,
+     "DM": 2.54
+    },
+    "other days": {
+     "edge_pct": 1.07,
+     "DM": 2.27
+    },
+    "top decile, other days": {
+     "edge_pct": 0.99,
+     "DM": 4.25
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": 1.05,
+     "DM": 1.98
+    }
+   },
+   "two-fix GARCH-t": {
+    "all days": {
+     "edge_pct": 0.03,
+     "DM": 0.46
+    },
+    "other days": {
+     "edge_pct": 0.1,
+     "DM": 1.31
+    },
+    "top decile, other days": {
+     "edge_pct": 1.0,
+     "DM": 4.02
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": -0.01,
+     "DM": -0.23
+    }
+   },
+   "masked calendar GARCH-t, scale tracking": {
+    "all days": {
+     "edge_pct": 0.0,
+     "DM": 0.0
+    },
+    "other days": {
+     "edge_pct": 0.0,
+     "DM": 0.0
+    },
+    "top decile, other days": {
+     "edge_pct": 0.0,
+     "DM": 0.0
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": 0.0,
+     "DM": 0.0
+    }
+   },
+   "two-fix GARCH-t, scale tracking": {
+    "all days": {
+     "edge_pct": 0.03,
+     "DM": 0.46
+    },
+    "other days": {
+     "edge_pct": 0.1,
+     "DM": 1.31
+    },
+    "top decile, other days": {
+     "edge_pct": 1.0,
+     "DM": 4.02
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": -0.01,
+     "DM": -0.23
+    }
+   },
+   "masked calendar GARCH-t, level shrinkage": {
+    "all days": {
+     "edge_pct": 0.07,
+     "DM": 0.28
+    },
+    "other days": {
+     "edge_pct": 0.04,
+     "DM": 0.18
+    },
+    "top decile, other days": {
+     "edge_pct": 0.32,
+     "DM": 2.67
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": 0.0,
+     "DM": 0.04
+    }
+   },
+   "two-fix GARCH-t, level shrinkage": {
+    "all days": {
+     "edge_pct": 0.06,
+     "DM": 0.24
+    },
+    "other days": {
+     "edge_pct": 0.1,
+     "DM": 0.39
+    },
+    "top decile, other days": {
+     "edge_pct": 1.12,
+     "DM": 2.86
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": -0.02,
+     "DM": -0.12
+    }
+   },
+   "trees on masked scale, calendar inputs": {
+    "all days": {
+     "edge_pct": 1.13,
+     "DM": 2.4
+    },
+    "other days": {
+     "edge_pct": 1.12,
+     "DM": 2.31
+    },
+    "top decile, other days": {
+     "edge_pct": 0.92,
+     "DM": 4.42
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": 1.12,
+     "DM": 2.06
+    }
+   },
+   "trees on robust scale, calendar inputs": {
+    "all days": {
+     "edge_pct": 1.24,
+     "DM": 3.68
+    },
+    "other days": {
+     "edge_pct": 1.17,
+     "DM": 3.48
+    },
+    "top decile, other days": {
+     "edge_pct": 2.25,
+     "DM": 3.06
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": 0.99,
+     "DM": 2.43
+    }
+   },
+   "neural network, calendar inputs": {
+    "all days": {
+     "edge_pct": 1.16,
+     "DM": 2.99
+    },
+    "other days": {
+     "edge_pct": 1.0,
+     "DM": 2.61
+    },
+    "top decile, other days": {
+     "edge_pct": 1.33,
+     "DM": 3.02
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": 0.92,
+     "DM": 2.14
+    }
+   },
+   "GARCH-t": {
+    "all days": {
+     "edge_pct": -7.0,
+     "DM": -12.9
+    },
+    "other days": {
+     "edge_pct": -1.21,
+     "DM": -3.48
+    },
+    "top decile, other days": {
+     "edge_pct": -6.09,
+     "DM": -6.64
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": -0.56,
+     "DM": -1.63
+    }
+   }
+  },
+  "best_flexible_with_calendar": "trees on robust scale, calendar inputs",
+  "share_of_S4_margin_other_days": {
+   "S0 calendar only": 0.015,
+   "S1 + volatility level": 0.033,
+   "S1a + the name's usual volatility": 0.046,
+   "S1b + volatility against the usual": 0.002,
+   "S2 + recent residual scale": 0.388,
+   "S3 + last residual, down days": 0.29,
+   "S5 + level and recent scale": 0.652,
+   "S4 + all five": 1.0
+  },
+  "against_best_flexible": {
+   "masked calendar GARCH-t": {
+    "all days": {
+     "edge_pct": -1.25,
+     "DM": -3.68
+    },
+    "other days": {
+     "edge_pct": -1.18,
+     "DM": -3.48
+    },
+    "top decile, other days": {
+     "edge_pct": -2.3,
+     "DM": -3.06
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": -1.0,
+     "DM": -2.43
+    }
+   },
+   "two-fix GARCH-t": {
+    "all days": {
+     "edge_pct": -1.22,
+     "DM": -3.64
+    },
+    "other days": {
+     "edge_pct": -1.08,
+     "DM": -3.24
+    },
+    "top decile, other days": {
+     "edge_pct": -1.27,
+     "DM": -2.22
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": -1.01,
+     "DM": -2.64
+    }
+   },
+   "masked calendar GARCH-t, scale tracking": {
+    "all days": {
+     "edge_pct": -1.25,
+     "DM": -3.68
+    },
+    "other days": {
+     "edge_pct": -1.18,
+     "DM": -3.48
+    },
+    "top decile, other days": {
+     "edge_pct": -2.3,
+     "DM": -3.06
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": -1.0,
+     "DM": -2.43
+    }
+   },
+   "two-fix GARCH-t, scale tracking": {
+    "all days": {
+     "edge_pct": -1.22,
+     "DM": -3.64
+    },
+    "other days": {
+     "edge_pct": -1.08,
+     "DM": -3.24
+    },
+    "top decile, other days": {
+     "edge_pct": -1.27,
+     "DM": -2.22
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": -1.01,
+     "DM": -2.64
+    }
+   },
+   "masked calendar GARCH-t, level shrinkage": {
+    "all days": {
+     "edge_pct": -1.18,
+     "DM": -2.5
+    },
+    "other days": {
+     "edge_pct": -1.14,
+     "DM": -2.35
+    },
+    "top decile, other days": {
+     "edge_pct": -1.98,
+     "DM": -3.04
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": -0.99,
+     "DM": -1.65
+    }
+   },
+   "two-fix GARCH-t, level shrinkage": {
+    "all days": {
+     "edge_pct": -1.19,
+     "DM": -2.56
+    },
+    "other days": {
+     "edge_pct": -1.09,
+     "DM": -2.27
+    },
+    "top decile, other days": {
+     "edge_pct": -1.15,
+     "DM": -2.6
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": -1.02,
+     "DM": -1.84
+    }
+   },
+   "S4 + all five": {
+    "all days": {
+     "edge_pct": -0.08,
+     "DM": -0.28
+    },
+    "other days": {
+     "edge_pct": -0.1,
+     "DM": -0.4
+    },
+    "top decile, other days": {
+     "edge_pct": -1.28,
+     "DM": -1.83
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": 0.06,
+     "DM": 0.21
+    }
+   }
+  },
+  "share_of_gap_to_best_closed": {
+   "two-fix GARCH-t": 0.027,
+   "masked calendar GARCH-t, scale tracking": 0.0,
+   "two-fix GARCH-t, scale tracking": 0.027,
+   "masked calendar GARCH-t, level shrinkage": 0.056,
+   "two-fix GARCH-t, level shrinkage": 0.047
+  },
+  "S4_vs_stored_trees_on_masked_scale": {
+   "edge_pct": 0.03,
+   "DM": 0.63
+  },
+  "breach_pct": {
+   "S0 calendar only": {
+    "all days": 2.97,
+    "other days": 2.92
+   },
+   "S1 + volatility level": {
+    "all days": 2.96,
+    "other days": 2.91
+   },
+   "S1a + the name's usual volatility": {
+    "all days": 2.97,
+    "other days": 2.91
+   },
+   "S1b + volatility against the usual": {
+    "all days": 2.97,
+    "other days": 2.92
+   },
+   "S2 + recent residual scale": {
+    "all days": 3.01,
+    "other days": 2.97
+   },
+   "S3 + last residual, down days": {
+    "all days": 2.98,
+    "other days": 2.93
+   },
+   "S5 + level and recent scale": {
+    "all days": 2.96,
+    "other days": 2.92
+   },
+   "S4 + all five": {
+    "all days": 2.95,
+    "other days": 2.9
+   },
+   "masked calendar GARCH-t": {
+    "all days": 3.04,
+    "other days": 2.99
+   },
+   "two-fix GARCH-t": {
+    "all days": 3.2,
+    "other days": 3.14
+   },
+   "masked calendar GARCH-t, scale tracking": {
+    "all days": 3.04,
+    "other days": 2.99
+   },
+   "two-fix GARCH-t, scale tracking": {
+    "all days": 3.2,
+    "other days": 3.14
+   },
+   "masked calendar GARCH-t, level shrinkage": {
+    "all days": 3.03,
+    "other days": 2.98
+   },
+   "two-fix GARCH-t, level shrinkage": {
+    "all days": 3.19,
+    "other days": 3.13
+   },
+   "trees on masked scale, calendar inputs": {
+    "all days": 2.98,
+    "other days": 2.92
+   },
+   "trees on robust scale, calendar inputs": {
+    "all days": 3.02,
+    "other days": 2.98
+   },
+   "neural network, calendar inputs": {
+    "all days": 2.84,
+    "other days": 2.83
+   },
+   "GARCH-t": {
+    "all days": 2.85,
+    "other days": 2.5
+   }
+  }
+ }
+}

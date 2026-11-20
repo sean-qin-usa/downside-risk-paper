@@ -1,0 +1,252 @@
+{
+ "universe": "us_largecap",
+ "names": 199,
+ "predictions_written_before_run": "see the script header (A1-A2, C1-C4)",
+ "day_types_pre_test": {
+  "reaction day": {
+   "tau": 2.3118375990460445,
+   "nu": 6.438368198468943,
+   "p": 0.015974493764100414,
+   "m": 0.9754511067278456,
+   "variance_ratio": 7.678070643452465,
+   "rows": 8248
+  },
+  "day after": {
+   "tau": 0.9076431491303416,
+   "nu": 6.08230952150846,
+   "p": 0.015970816394449378,
+   "m": 1.1001605461162127,
+   "variance_ratio": 1.235561334343727,
+   "rows": 8249
+  },
+  "other days": {
+   "tau": 0.7885780145972966,
+   "nu": 6.45615379778461,
+   "p": 0.9680546898414502,
+   "m": 0.9987640046107122,
+   "variance_ratio": 0.907007208578576,
+   "rows": 504650
+  }
+ },
+ "A": {
+  "0.01": {
+   "V_pct": 8.55,
+   "V_two_number_version_pct": 7.7,
+   "realized_garch_t_with_multipliers_pct": 9.52,
+   "realized_other_models_gain_from_calendar_pct": {
+    "GJR-skew-t": 9.69,
+    "Beta-t-EGARCH": 9.59,
+    "SAV-CAViaR": 9.6,
+    "FHS": 9.93
+   }
+  },
+  "0.025": {
+   "V_pct": 5.27,
+   "V_two_number_version_pct": 4.73,
+   "realized_garch_t_with_multipliers_pct": 5.51,
+   "realized_other_models_gain_from_calendar_pct": {
+    "GJR-skew-t": 5.6,
+    "Beta-t-EGARCH": 5.58,
+    "SAV-CAViaR": 5.58,
+    "FHS": 5.69
+   }
+  },
+  "implied_multipliers": {
+   "reaction day": 2.8,
+   "day after": 1.11
+  },
+  "multipliers_chosen_on_pre_test_rows_r82": [
+   2.6,
+   1.0
+  ]
+ },
+ "C": {
+  "names": 192,
+  "days": 5375,
+  "test_days": 2733,
+  "from": "2005-07-06",
+  "variance_ratio_pre_test": {
+   "reaction day": 8.52,
+   "day after": 1.58
+  },
+  "mean_pairwise_correlation_pre_test": 0.472,
+  "x": 0.1298,
+  "by_N": {
+   "1": {
+    "portfolios": 192,
+    "variance_share_test": 0.1107,
+    "variance_share_formula": 0.1149,
+    "0.01": {
+     "gain_pct": 8.75,
+     "se_across_portfolios": 0.55,
+     "share_of_portfolios_with_gain": 0.85,
+     "V": 8.67,
+     "breach_top5_plain": 1.3,
+     "breach_top5_informed": 1.3,
+     "breach_plain": 1.3,
+     "breach_informed": 1.3
+    },
+    "0.025": {
+     "gain_pct": 5.3,
+     "se_across_portfolios": 0.32,
+     "share_of_portfolios_with_gain": 0.87,
+     "V": 5.42,
+     "breach_top5_plain": 2.84,
+     "breach_top5_informed": 3.04,
+     "breach_plain": 2.84,
+     "breach_informed": 3.04
+    }
+   },
+   "2": {
+    "portfolios": 40,
+    "variance_share_test": 0.0848,
+    "variance_share_formula": 0.081,
+    "0.01": {
+     "gain_pct": 6.06,
+     "se_across_portfolios": 0.9,
+     "share_of_portfolios_with_gain": 0.82,
+     "V": 5.22,
+     "breach_top5_plain": 6.88,
+     "breach_top5_informed": 1.55,
+     "breach_plain": 1.31,
+     "breach_informed": 1.23
+    },
+    "0.025": {
+     "gain_pct": 4.0,
+     "se_across_portfolios": 0.51,
+     "share_of_portfolios_with_gain": 0.85,
+     "V": 3.39,
+     "breach_top5_plain": 10.59,
+     "breach_top5_informed": 3.66,
+     "breach_plain": 2.84,
+     "breach_informed": 2.83
+    }
+   },
+   "5": {
+    "portfolios": 40,
+    "variance_share_test": 0.0505,
+    "variance_share_formula": 0.043,
+    "0.01": {
+     "gain_pct": 1.74,
+     "se_across_portfolios": 0.34,
+     "share_of_portfolios_with_gain": 0.82,
+     "V": 1.91,
+     "breach_top5_plain": 4.69,
+     "breach_top5_informed": 1.64,
+     "breach_plain": 1.48,
+     "breach_informed": 1.41
+    },
+    "0.025": {
+     "gain_pct": 1.21,
+     "se_across_portfolios": 0.17,
+     "share_of_portfolios_with_gain": 0.9,
+     "V": 1.28,
+     "breach_top5_plain": 8.19,
+     "breach_top5_informed": 3.61,
+     "breach_plain": 3.04,
+     "breach_informed": 2.94
+    }
+   },
+   "10": {
+    "portfolios": 40,
+    "variance_share_test": 0.0306,
+    "variance_share_formula": 0.0241,
+    "0.01": {
+     "gain_pct": 0.27,
+     "se_across_portfolios": 0.14,
+     "share_of_portfolios_with_gain": 0.55,
+     "V": 0.64,
+     "breach_top5_plain": 2.66,
+     "breach_top5_informed": 1.17,
+     "breach_plain": 1.45,
+     "breach_informed": 1.4
+    },
+    "0.025": {
+     "gain_pct": 0.37,
+     "se_across_portfolios": 0.09,
+     "share_of_portfolios_with_gain": 0.68,
+     "V": 0.44,
+     "breach_top5_plain": 5.69,
+     "breach_top5_informed": 2.97,
+     "breach_plain": 3.03,
+     "breach_informed": 2.93
+    }
+   },
+   "20": {
+    "portfolios": 40,
+    "variance_share_test": 0.0164,
+    "variance_share_formula": 0.0128,
+    "0.01": {
+     "gain_pct": -0.02,
+     "se_across_portfolios": 0.05,
+     "share_of_portfolios_with_gain": 0.47,
+     "V": 0.14,
+     "breach_top5_plain": 1.73,
+     "breach_top5_informed": 1.2,
+     "breach_plain": 1.42,
+     "breach_informed": 1.39
+    },
+    "0.025": {
+     "gain_pct": 0.01,
+     "se_across_portfolios": 0.03,
+     "share_of_portfolios_with_gain": 0.42,
+     "V": 0.1,
+     "breach_top5_plain": 3.67,
+     "breach_top5_informed": 2.68,
+     "breach_plain": 2.93,
+     "breach_informed": 2.91
+    }
+   },
+   "50": {
+    "portfolios": 40,
+    "variance_share_test": 0.0069,
+    "variance_share_formula": 0.0053,
+    "0.01": {
+     "gain_pct": 0.04,
+     "se_across_portfolios": 0.01,
+     "share_of_portfolios_with_gain": 0.72,
+     "V": 0.02,
+     "breach_top5_plain": 1.7,
+     "breach_top5_informed": 1.62,
+     "breach_plain": 1.45,
+     "breach_informed": 1.44
+    },
+    "0.025": {
+     "gain_pct": 0.0,
+     "se_across_portfolios": 0.01,
+     "share_of_portfolios_with_gain": 0.47,
+     "V": 0.01,
+     "breach_top5_plain": 3.19,
+     "breach_top5_informed": 2.81,
+     "breach_plain": 2.93,
+     "breach_informed": 2.93
+    }
+   },
+   "192": {
+    "portfolios": 1,
+    "variance_share_test": 0.0019,
+    "variance_share_formula": 0.0014,
+    "0.01": {
+     "gain_pct": 0.01,
+     "se_across_portfolios": null,
+     "share_of_portfolios_with_gain": 1.0,
+     "V": 0.0,
+     "breach_top5_plain": 1.46,
+     "breach_top5_informed": 1.46,
+     "breach_plain": 1.39,
+     "breach_informed": 1.39
+    },
+    "0.025": {
+     "gain_pct": -0.01,
+     "se_across_portfolios": null,
+     "share_of_portfolios_with_gain": 0.0,
+     "V": 0.0,
+     "breach_top5_plain": 2.92,
+     "breach_top5_informed": 2.92,
+     "breach_plain": 3.0,
+     "breach_informed": 3.0
+    }
+   }
+  }
+ }
+}
