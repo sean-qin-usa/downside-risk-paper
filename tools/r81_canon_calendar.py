@@ -128,6 +128,8 @@ if __name__ == "__main__":
     q = Nn["q"].astype(float)[:, JT][np.where(np.isfinite(pp), pp, 0).astype(int)]; q[~np.isfinite(pp)] = np.nan; Q["neural network, stored"] = q
     gs = Rw["q__garch_t"].astype(float)[:, JT[1]][pi]; lg("GARCH-t refit against the stored forecast: 99.9th percentile of the relative gap %.2e" % float(np.nanquantile(np.abs(Q["GARCH-t"][:, 1] - gs)[has] / np.abs(gs[has]), 0.999)))
     U = has & np.isfinite(CAL).all(1) & np.all([np.isfinite(q).all(1) for q in Q.values()], axis=0); dates = pd.to_datetime(DATE); TOP = rk == 10; RW = R0 | R1
+    if os.environ.get("CAL_DUMP"):   # per-row forecasts for tools/r82_two_fix_garch.py (not committed); nothing is scored in this mode
+        np.savez_compressed(os.path.join(ROOT, "data", "panels", WHAT + "_calrows.npz"), name=NAME.astype(str), date=DATE.astype(str), y=Y, cal=CAL, rk=rk, U=U, **{"q__" + k: v for k, v in Q.items()}); lg("per-row forecasts written"); sys.exit(0)
     L = {m: {a: pin(Y, q[:, j], a) for j, a in enumerate(AL)} for m, q in Q.items()}
     def dm(d, mask):
         s = pd.Series(d[mask], index=dates[mask]).groupby(level=0).mean().values; s = s[np.isfinite(s)]
