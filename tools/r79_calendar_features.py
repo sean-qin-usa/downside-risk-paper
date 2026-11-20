@@ -110,6 +110,8 @@ if __name__ == "__main__":
     for m, nm in (("param_bteg", "Beta-t-EGARCH"), ("body", "trees, stored"), ("body_bteg", "trees on robust scale, stored"), ("neural", "neural network, stored")):
         q = Rw["q__" + m].astype(float)[:, JT][pi]; q[~has] = np.nan; Q[nm] = q
     U = has & np.isfinite(CAL).all(1) & np.all([np.isfinite(q).all(1) for q in Q.values()], axis=0); dates = pd.to_datetime(DATE); TOP = rk == 10; RW = R0 | R1
+    if os.environ.get("CAL_DUMP"):   # per-row forecasts for tools/r82_two_fix_garch.py (not committed); nothing is scored in this mode
+        np.savez_compressed(os.path.join(ROOT, "data", "panels", WHAT + "_calrows.npz"), name=NAME.astype(str), date=DATE.astype(str), y=Y, cal=CAL, rk=rk, U=U, **{"q__" + k: v for k, v in Q.items()}); lg("per-row forecasts written"); sys.exit(0)
     L = {m: {a: pin(Y, q[:, j], a) for j, a in enumerate(AL)} for m, q in Q.items()}
     def dm(d, mask):
         s = pd.Series(d[mask], index=dates[mask]).groupby(level=0).mean().values; s = s[np.isfinite(s)]

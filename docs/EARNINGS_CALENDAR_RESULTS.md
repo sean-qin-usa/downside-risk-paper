@@ -643,3 +643,88 @@ shorter, later test period.
 | J4 | With the calendar in both, trees on the robust scale and the network beat the masked model by 0.5% to 2.5%, DM above 2 for the trees | Holds: 1.6% (4.7) and 1.7% (4.8) |
 | J5 | The calendar delivers at least three quarters of the best model's gain | Holds: 86% |
 | J6 | At 1% the masked model is within 1.5% of each flexible model with calendar inputs | Fails: 0.2% for the plain trees, but 1.7% to 2.0% for the other three |
+
+## 8. Fifth pass: both fixes in one GARCH-t, against every model, each given the calendar
+
+Two questions. Does a GARCH-t that has both corrections (the earnings calendar and the shock correction) match the
+flexible models once they have the calendar too? And does the calendar result hold against every model of the
+paper, not only GARCH-t? Script: `tools/r82_two_fix_garch.py`; output: `results/paper/diagnostics/r82/`. Seven
+predictions (T1 to T7) are in the script header, written before the run.
+
+The two-fix GARCH-t is the masked calendar GARCH-t with one more step: the share of today's variance that comes from
+the largest shock of the last 63 days is scaled down by a real share that depends on the shock's origin,
+`lambda_f` for a firm-specific shock and `lambda_m` for a market-wide one. Both numbers are chosen on pre-test rows.
+The parametric rivals (GARCH-t, GJR-skew-t, Beta-t-EGARCH, SAV-CAViaR, FHS) get the calendar as two multipliers on
+their VaR, also chosen on pre-test rows.
+
+### 8.1 The calendar is worth the same to every model
+
+Gain from the calendar over the same model without it, all days:
+
+| Model | CRSP, 2.5% | CRSP, 1% | US large caps, 2.5% | US large caps, 1% |
+|---|---|---|---|---|
+| GARCH-t | 7.8 | 12.9 | 5.5 | 9.5 |
+| GJR-skew-t | 8.0 | 13.2 | 5.6 | 9.7 |
+| Beta-t-EGARCH | 7.7 | 12.4 | 5.6 | 9.6 |
+| SAV-CAViaR | 7.8 | 12.8 | 5.6 | 9.6 |
+| FHS | 8.3 | 13.9 | 5.7 | 9.9 |
+| Trees, trees on the robust scale, neural network (calendar as an input) | 7.9 to 8.5 | 14.2 to 15.0 | 5.6 to 5.8 | 9 to 10 |
+
+(Percentage points of GARCH-t's loss for the parametric models; percent of the model's own loss for the flexible
+ones.) No model without the calendar comes within 7.5% of the two-fix GARCH-t on the CRSP panel or within 4.5% on
+US large caps. Every model without the calendar is breached on 23% to 25% of reaction days at the 2.5% level.
+
+### 8.2 The two fixes together (gain over GARCH-t, all days)
+
+| | CRSP, 2.5% | CRSP, 1% | US large caps, 2.5% | US large caps, 1% |
+|---|---|---|---|---|
+| Shock correction only | 1.4 | 1.7 | 0.5 | 0.6 |
+| Calendar only (masked calendar GARCH-t) | 9.2 | 15.8 | 6.5 | 10.6 |
+| Both (two-fix GARCH-t) | 9.9 | 16.6 | 6.6 | 10.5 |
+| Best flexible model with the calendar | 10.7 | 17.4 | 7.7 | 12.0 |
+| Share of the remaining gap that the shock correction closes | 47% | 48% | 3% | none |
+
+The pre-test real shares on the masked filter are `lambda_f` = 0.30 and `lambda_m` = 1.50 on both panels (0.10 and
+0.05 for `lambda_f` on the plain filter); 1.50 is the edge of the grid.
+
+On the CRSP panel the shock correction adds 0.8% to the calendar model (DM 7.5), 3.4% in the top decile of the score
+on ordinary days. On US large caps it adds nothing over all days (0.0%, DM 0.5) and 1.0% in the top decile on
+ordinary days. Once the earnings days are masked, little of the over-reaction is left on large caps: most of it was
+the earnings shocks themselves.
+
+The two-fix GARCH-t does not match the flexible models. With the calendar in both, it is behind the trees on the
+robust scale by 0.8% (DM -2.8) and the neural network by 0.9% (-2.7) on the CRSP panel, and by 1.2% (-3.6) and 1.1%
+(-2.9) on US large caps. Empirical quantiles in place of the Student-t change little: -0.2% on the CRSP panel (not
+significant), +0.4% on US large caps (DM 2.7).
+
+Among the parametric models with the calendar, the two-fix GARCH-t is the best on the CRSP panel, but not
+significantly better than Beta-t-EGARCH with multipliers at 2.5% (+0.7%, DM 1.8; +3.0%, DM 6.0 at 1%). On US large
+caps it is level with GJR-skew-t, Beta-t-EGARCH and SAV-CAViaR with multipliers (differences of 0.2% or less).
+
+The 90% model confidence set over all days. CRSP panel, both levels: the trees on the robust scale, the trees on
+the masked scale and the neural network, all with calendar inputs, and nothing else. US large caps, 2.5%: the four
+flexible models with calendar inputs, Beta-t-EGARCH, GJR-skew-t and SAV-CAViaR with multipliers, and both two-fix
+models. No model without the calendar is in any set.
+
+### 8.3 What this says
+
+1. The calendar result does not depend on the benchmark. It is worth 5.5 to 8.5 points to every model at 2.5%.
+2. A GARCH-t with the two corrections gets 92% of the best model's gain at 2.5% and 95% at 1% on the CRSP panel
+   (85% and 88% on US large caps). It does not get all of it. "Two pieces of information are enough" is false as
+   stated.
+3. The flexible models keep 0.8% to 1.2% over the best parametric model with the calendar, significant on both
+   panels. That margin is on ordinary days and is not explained by the shock correction or by the tail shape.
+4. The shock correction is a separate effect only where shocks other than earnings matter: it holds on the CRSP
+   panel, which has small companies, and not on US large caps.
+
+### 8.4 Predictions of this pass
+
+| | Prediction | CRSP panel | US large caps |
+|---|---|---|---|
+| T1 | `lambda_f` at most 0.30; `lambda_m` at least 0.30 above it | Holds (0.30, 1.50) | Holds (0.30, 1.50) |
+| T2 | Two-fix beats the masked model by 0.3% to 1.2% (DM above 2); at least 2% in the top decile on ordinary days | Holds (0.8%, 7.5; 3.4%) | Fails (0.0%, 0.5; 1.0%) |
+| T3 | Both fixes together fall short of the sum of the two by 0.3 to 1.2 points | Holds (0.7) | Holds (0.5) |
+| T4 | Two-fix stays 0.4% to 1.4% behind the trees on the robust scale and the network with the calendar, DM below -2; it closes a quarter to two thirds of the gap | Holds (0.8%, 0.9%; 47%) | Behind as predicted (1.2%, 1.1%); closes 3%, not a quarter |
+| T5 | Empirical quantiles 0.2% to 1.0% better than the Student-t, and within 1.0% of the best flexible model | Fails (-0.2%; 1.1% behind) | Holds (+0.4%; 0.8% behind) |
+| T6 | Two-fix beats every parametric model with multipliers (DM above 2) and every model without the calendar by 5% (CRSP), 3.5% (US) | Fails for Beta-t-EGARCH (DM 1.8); holds for the rest | Fails for GJR-skew-t, Beta-t-EGARCH and SAV-CAViaR; holds for the rest |
+| T7 | The confidence set holds no model without the calendar, holds a flexible model with it, and (CRSP) not the two-fix model | Holds | Holds for the first two parts |
