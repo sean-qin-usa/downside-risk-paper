@@ -1047,3 +1047,49 @@ defined by the day's own return, so it describes where breaches fall; it is not 
 | B1 | Market-wide down days carry at least 25% of GARCH-t's 2.5% breaches | Holds (29.5%) | Holds (28.4%) |
 | B2 | Reaction days carry 12% to 16% (2.5%) and 24% to 32% (1%) of GARCH-t's breaches; under 3% with the calendar | Holds | 12.9% holds; 21.7% at 1% is below the band; 3.2% at 1% is just over |
 | B3 | More than half of the masked model's breaches are on days that are neither | Holds | Holds |
+
+## 13. Tenth pass: a ceiling on what any model can gain from a set of inputs (`tools/r90_ceiling.py`)
+
+Write the standardized return of a benchmark as z = s * eps, with eps of the benchmark's shape and s the ratio of the
+true scale to the benchmark's. Expanding the expected pinball loss of 9.1 to second order around s = 1, the relative
+gain from knowing s is (1/2) kappa E[(log s)^2], with `kappa(a, nu) = q^2 f(q) / EL(q)`. Inputs I reveal only
+E[log s | I], so the most any model can gain from them, however flexible, is
+
+    ceiling(I) = (1/2) kappa(a, nu) Var( E[log s | I] ).
+
+E[log s | I] is the regression of log|z| on the inputs: a mean regression, with no quantile model in it. Predictions
+U1 to U4 are in the script header.
+
+The exchange rate. kappa is 2.3 (CRSP) and 2.6 (US large caps) at 2.5%, and 2.8 and 3.3 at 1%. A 1% gain in loss needs
+a predictable scale error with a standard deviation of about 9% (2.5%) or 8% (1%).
+
+Checked at three sizes (2.5% level):
+
+| Information | Variance of the predictable log scale | Ceiling | Exact V | Realized |
+|---|---|---|---|---|
+| Shock share and origin, CRSP | 0.0024 | 0.27% | 0.35% | 0.33% |
+| Shock share and origin, US large caps | 0.0024 | 0.31% | 0.30% | 0.29% |
+| Six past-return inputs, CRSP | 0.0102 | 1.16% | | 1.50% as a multiplier; 1.1% to 1.8% for the flexible quantile models |
+| Six past-return inputs, US large caps | 0.0046 | 0.61% | | 0.72% as a multiplier; 1.0% to 1.2% for the flexible quantile models |
+| Earnings calendar, CRSP | 0.0247 | 2.8% | 7.2% | 7.8% |
+| Earnings calendar, US large caps | 0.0168 | 2.2% | 5.3% | 5.5% |
+
+What it shows.
+
+1. Past returns predict very little of the scale of a GARCH residual: 0.8% of the variance of log|z| out of sample
+   on the CRSP panel and 0.4% on US large caps. Through kappa that is a gain of about 1%. This is the size of the
+   flexible models' margin, and it explains why it is small.
+2. The flexible quantile models' margin needs no quantile machinery. A mean regression of log|z| on the same inputs,
+   used as a multiplier on the calendar GARCH-t, gains 1.50% on the CRSP panel (DM 7.6), which is inside the range
+   of the trees and the network (1.1% to 1.8%), and 0.72% on US large caps (DM 1.9), against 1.0% to 1.2%.
+3. The second-order form works for diffuse information and fails for the calendar, where the scale changes by a
+   factor of three on a few days; there the exact V of 9.1 is needed.
+4. The variance entered is what one regression explains out of sample, so the number is a floor on the true
+   ceiling; the realized gains are 0% to 50% above it.
+
+| | Prediction | CRSP panel | US large caps |
+|---|---|---|---|
+| U1 | kappa at 2.5% between 3 and 8; a 1% gain needs a scale error of 4% to 9% | kappa is 2.3, below the band; 9.3% | kappa is 2.6; 8.7% |
+| U2 | Second-order ceiling within 30% of the exact V for shock share and origin, not for the calendar | Holds | Holds |
+| U3 | Past-return inputs explain 0.3% to 3% of the variance of log abs z; ceiling 0.5% to 3% | Holds (0.8%; 1.2%) | Holds (0.4%; 0.6%) |
+| U4 | The fitted scale as a multiplier gains within 40% of the formula; the flexible models' margin is 0.5 to 1.5 times the ceiling | Multiplier holds (1.50% against 1.16%); the network is at 1.6 times | Multiplier holds (0.72% against 0.61%); the flexible models are at 1.4 to 1.9 times |
