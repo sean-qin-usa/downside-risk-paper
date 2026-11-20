@@ -971,3 +971,69 @@ half is still theirs.
 | N4 | Distillation: R-squared at least 0.3 and half of the margin recovered (CRSP) | Recovery holds (87%, 84%); R-squared 0.26 for the network, 0.50 for the trees | |
 | N5 | Two-fix GARCH-t with panel shrinkage closes 70% of the ordinary-day gap and is within 0.5% of the best flexible model (CRSP) | Fails (55%; 0.8% behind) | |
 | N6 | Stand-alone correction closes 60% (CRSP), 30% (US); firm-shock coefficient -0.6 to -0.1; level coefficient negative | Coefficients hold; closes 48% | Holds (42%) |
+
+## 12. Ninth pass: gaps closed before writing
+
+No new claim here. Three checks the paper needs, each with predictions in its script header.
+
+### 12.1 The earlier CRSP steps on the I/B/E/S calendar
+
+Sections 1 to 5 (r71, r76, r78) used calendars looked up under old tickers, 147 names. They were rerun on the
+I/B/E/S calendar of Section 7 (186 names; `R71_EARN_DIR=earnings_ibes36`), with the two-day announcement window
+those scripts use. The result files in `results/paper/diagnostics/r71`, `r76` and `r78` for the CRSP panel are now
+the I/B/E/S versions; the tables printed in Section 5 are the old ones.
+
+| | Old calendar | I/B/E/S calendar |
+|---|---|---|
+| Names with a calendar | 147 | 186 |
+| GARCH-t 2.5% breach in the two-day announcement window | 14.4% | 14.3% |
+| GARCH-t 1% breach in the window | 10.0% | 10.0% |
+| Mean squared GARCH-t residual: announcement date, day after | 6.1, 8.5 | 6.2, 8.4 |
+| Real share of an earnings shock, top decile | 0.10 [0.05, 0.15] | 0.10 [0.05, 0.10] |
+| Real share of a firm-specific shock that is not earnings | 0.20 [0.05, 0.25] | 0.10 [0.05, 0.25] |
+| Masked calendar GARCH-t over GARCH-t, all days, 2.5% | +7.2% (DM 8.1) | +7.2% (8.8) |
+| Masked model against trees on the robust scale, other days | -1.7% (-5.8) | -2.1% (-7.6) |
+| Median nu, masked fit and control | 5.0, 3.9 | 5.0, 3.9 |
+
+Nothing changes. The four wrong calendars and the 45 missing ones did not drive any number.
+
+### 12.2 The joint VaR and expected shortfall loss (`tools/r88_joint_var_es.py`)
+
+Every model with an ES forecast, scored on the FZ0 loss at 1% and 2.5%, without the calendar and with it as two
+multipliers on VaR and ES alike. The trees and the network retrained with calendar inputs have no ES forecast and
+are not in this comparison.
+
+- Every model has a lower FZ0 with the calendar than without it: DM 8.1 to 9.0 on the CRSP panel, 12.8 to 13.5 on
+  US large caps, at both levels.
+- No model without the calendar is in the 90% model confidence set, on either panel at either level.
+- The two-fix GARCH-t beats the masked calendar GARCH-t on the CRSP panel (DM 2.1 at 1%, 2.9 at 2.5%) and is worse
+  on US large caps (-2.5, -1.8), as on quantile loss.
+- The lowest FZ0 on both panels at both levels belongs to the trees on the robust scale with calendar multipliers;
+  against the masked calendar GARCH-t the DM is 4.1 (CRSP, 2.5%), 0.7 (CRSP, 1%), 3.9 and 3.6 (US large caps).
+
+All four predictions (Z1 to Z4) hold. The calendar result is the same on the joint loss as on quantile loss.
+
+### 12.3 Where the breaches are (`tools/r89_breach_table.py`)
+
+Each test day is an earnings reaction day, the day after, a market-wide down day (the panel's equal-weighted return
+at or below the 5th percentile of pre-test days), or any other day. Share of all breaches at 2.5% (1% in brackets):
+
+| | Share of days | GARCH-t | Masked calendar GARCH-t | Neural network with calendar |
+|---|---|---|---|---|
+| CRSP: reaction day | 1.6% | 13.9% (27.7%) | 1.6% (2.1%) | 2.7% (4.1%) |
+| CRSP: market-wide down day | 4.9% | 29.5% (27.9%) | 33.4% (37.8%) | 32.4% (35.2%) |
+| CRSP: any other day | 91.9% | 54.2% (42.2%) | 63.8% (58.9%) | 63.2% (59.2%) |
+| US large caps: reaction day | 1.6% | 12.9% (21.7%) | 2.8% (3.2%) | 2.3% (2.5%) |
+| US large caps: market-wide down day | 3.0% | 28.4% (30.8%) | 29.4% (35.5%) | 29.5% (34.9%) |
+| US large caps: any other day | 93.8% | 56.5% (45.6%) | 65.8% (59.5%) | 66.8% (61.4%) |
+
+Under GARCH-t, one day in sixty carries an eighth of the 2.5% breaches and a quarter of the 1% breaches. The
+calendar removes that. Market-wide down days carry about 30% of breaches for every model, flexible or not: on those
+days the 2.5% VaR is breached 16% to 19% of the time on the CRSP panel and 27% to 30% on US large caps. That type is
+defined by the day's own return, so it describes where breaches fall; it is not something a model could have known.
+
+| | Prediction | CRSP panel | US large caps |
+|---|---|---|---|
+| B1 | Market-wide down days carry at least 25% of GARCH-t's 2.5% breaches | Holds (29.5%) | Holds (28.4%) |
+| B2 | Reaction days carry 12% to 16% (2.5%) and 24% to 32% (1%) of GARCH-t's breaches; under 3% with the calendar | Holds | 12.9% holds; 21.7% at 1% is below the band; 3.2% at 1% is just over |
+| B3 | More than half of the masked model's breaches are on days that are neither | Holds | Holds |

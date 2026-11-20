@@ -139,7 +139,8 @@ for k in names:
     PRE.append(pd.DataFrame({"y": YS[k][i], "sig": r["sig"][i], "mu": r["mu"], "nu": r["nu"], "D": r["D"][i], "mk": r["mk"][i]}))
 PRE = pd.concat(PRE, ignore_index=True)
 # earnings windows: announcement date and the next trading day; EARN = 1 earnings shock, 0 other shock, nan unknown
-EARN = np.full(n, np.nan); EDIR = os.path.join(ROOT, "data", "panels", "earnings"); ecov = 0; ebase = []
+EARN = np.full(n, np.nan); EDIR = os.path.join(ROOT, "data", "panels", os.environ.get("R71_EARN_DIR", "earnings")); ecov = 0; ebase = []
+if WHAT == "canon" and os.environ.get("R71_EARN_DIR"): TICK = {pn: str(pn) for pn in names}   # R71_EARN_DIR=earnings_ibes36: the I/B/E/S calendar of tools/r81_canon_calendar.py, one file per permno (186 names)
 if WHAT in ("canon", "us_largecap") and os.path.isdir(EDIR):
     for k in names:
         fn = os.path.join(EDIR, TICK[k] + ".csv")
