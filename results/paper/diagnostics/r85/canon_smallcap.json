@@ -1,0 +1,389 @@
+{
+ "universe": "canon",
+ "reaction_days": {
+  "pre-test": 2413,
+  "test": 1947,
+  "test with option data": 1699
+ },
+ "predictions_written_before_run": "see the script header (W1-W6; W7 written after W6 failed with the standardized options)",
+ "parameters_pre_test": {
+  "M0": {
+   "c0": 4.2
+  },
+  "M1": {
+   "theta": 12.0
+  },
+  "M2": {
+   "theta": 13.5,
+   "w": 0.7
+  },
+  "M3": {
+   "c0": 3.8,
+   "w": 0.5
+  },
+  "M4s": {
+   "b": 1.3,
+   "share_zero": 0.169,
+   "median_sd": 5.99
+  },
+  "M4t": {
+   "b": 0.8,
+   "share_zero": 0.072,
+   "median_sd": 10.66
+  },
+  "M4 one expiry": {
+   "share_zero": 0.056,
+   "median_sd": 10.98,
+   "median_realized_abs_move": 4.82
+  },
+  "M4": {
+   "b": 0.7
+  },
+  "M5": {
+   "v": 0.0
+  }
+ },
+ "mean_squared_standardized_residual_by_relative_volatility": {
+  "pre-test": {
+   "lowest third": 22.78,
+   "middle third": 15.85,
+   "highest third": 12.36
+  },
+  "test": {
+   "lowest third": 20.11,
+   "middle third": 15.57,
+   "highest third": 11.58
+  }
+ },
+ "regression_test_log_u2_on_log_relative_volatility": {
+  "slope": -1.078,
+  "se": 0.194,
+  "note": "a pure multiple gives 0; a pure addition gives about -2 when the announcement variance dominates"
+ },
+ "0.01": {
+  "vs_M0_on_reaction_days": {
+   "M1 addition, constant": {
+    "edge_pct": 4.28,
+    "DM": 0.5,
+    "rows": 1947
+   },
+   "M2 addition, firm history": {
+    "edge_pct": 6.46,
+    "DM": -0.28,
+    "rows": 1947
+   },
+   "M3 multiple, firm history": {
+    "edge_pct": 2.38,
+    "DM": -0.29,
+    "rows": 1947
+   },
+   "M4s option-implied, standardized 30/60": {
+    "edge_pct": -94.8,
+    "DM": -5.87,
+    "rows": 1947
+   },
+   "M4t option-implied, two expiries": {
+    "edge_pct": -19.74,
+    "DM": -3.66,
+    "rows": 1947
+   },
+   "M4 addition, option-implied": {
+    "edge_pct": -16.37,
+    "DM": -3.38,
+    "rows": 1947
+   },
+   "M5 addition, history and options": {
+    "edge_pct": 6.46,
+    "DM": -0.28,
+    "rows": 1947
+   }
+  },
+  "M2_vs": {
+   "M0 constant multiple": {
+    "edge_pct": 6.46,
+    "DM": -0.28,
+    "rows": 1947
+   },
+   "M1 addition, constant": {
+    "edge_pct": 2.27,
+    "DM": -0.78,
+    "rows": 1947
+   },
+   "M3 multiple, firm history": {
+    "edge_pct": 4.18,
+    "DM": -0.05,
+    "rows": 1947
+   },
+   "M4s option-implied, standardized 30/60": {
+    "edge_pct": 51.98,
+    "DM": 6.39,
+    "rows": 1947
+   },
+   "M4t option-implied, two expiries": {
+    "edge_pct": 21.88,
+    "DM": 1.84,
+    "rows": 1947
+   },
+   "M4 addition, option-implied": {
+    "edge_pct": 19.61,
+    "DM": 1.98,
+    "rows": 1947
+   },
+   "M5 addition, history and options": {
+    "edge_pct": -0.0,
+    "DM": 0.0,
+    "rows": 1947
+   }
+  },
+  "M2_vs_flexible_on_reaction_days": {
+   "trees, calendar inputs": {
+    "edge_pct": 9.25,
+    "DM": 0.71,
+    "rows": 1947
+   },
+   "trees on robust scale, calendar inputs": {
+    "edge_pct": 3.99,
+    "DM": -0.73,
+    "rows": 1947
+   },
+   "trees on masked scale, calendar inputs": {
+    "edge_pct": 5.16,
+    "DM": -0.6,
+    "rows": 1947
+   },
+   "neural network, calendar inputs": {
+    "edge_pct": 9.88,
+    "DM": 0.91,
+    "rows": 1947
+   }
+  },
+  "M0_vs_flexible_on_reaction_days": {
+   "trees, calendar inputs": {
+    "edge_pct": 2.99,
+    "DM": 0.72,
+    "rows": 1947
+   },
+   "trees on robust scale, calendar inputs": {
+    "edge_pct": -2.63,
+    "DM": -0.42,
+    "rows": 1947
+   },
+   "trees on masked scale, calendar inputs": {
+    "edge_pct": -1.38,
+    "DM": -0.34,
+    "rows": 1947
+   },
+   "neural network, calendar inputs": {
+    "edge_pct": 3.67,
+    "DM": 0.7,
+    "rows": 1947
+   }
+  },
+  "all_days_gain_over_masked_calendar_garch_t_pct": {
+   "M1 addition, constant": 0.26,
+   "M2 addition, firm history": 0.39,
+   "M3 multiple, firm history": 0.14,
+   "M4s option-implied, standardized 30/60": -5.74,
+   "M4t option-implied, two expiries": -1.19,
+   "M4 addition, option-implied": -0.99,
+   "M5 addition, history and options": 0.39
+  },
+  "reaction_days_share_of_total_loss_pct": 6.1,
+  "breach_pct_reaction_days": {
+   "M0 constant multiple": 1.08,
+   "M1 addition, constant": 1.39,
+   "M2 addition, firm history": 1.18,
+   "M3 multiple, firm history": 1.39,
+   "M4s option-implied, standardized 30/60": 5.96,
+   "M4t option-implied, two expiries": 2.47,
+   "M4 addition, option-implied": 1.75,
+   "M5 addition, history and options": 1.18
+  },
+  "on_reaction_days_with_option_data": {
+   "M4_vs_M2": {
+    "edge_pct": -25.55,
+    "DM": -1.94,
+    "rows": 1699
+   },
+   "M5_vs_M4": {
+    "edge_pct": 20.35,
+    "DM": 1.94,
+    "rows": 1699
+   },
+   "M5_vs_M2": {
+    "edge_pct": 0.0,
+    "DM": -0.0,
+    "rows": 1699
+   },
+   "M4_vs_M0": {
+    "edge_pct": -19.8,
+    "DM": -3.44,
+    "rows": 1699
+   }
+  }
+ },
+ "0.025": {
+  "vs_M0_on_reaction_days": {
+   "M1 addition, constant": {
+    "edge_pct": 2.63,
+    "DM": 0.66,
+    "rows": 1947
+   },
+   "M2 addition, firm history": {
+    "edge_pct": 8.35,
+    "DM": 0.77,
+    "rows": 1947
+   },
+   "M3 multiple, firm history": {
+    "edge_pct": 3.58,
+    "DM": 0.28,
+    "rows": 1947
+   },
+   "M4s option-implied, standardized 30/60": {
+    "edge_pct": -54.66,
+    "DM": -6.71,
+    "rows": 1947
+   },
+   "M4t option-implied, two expiries": {
+    "edge_pct": -15.42,
+    "DM": -3.47,
+    "rows": 1947
+   },
+   "M4 addition, option-implied": {
+    "edge_pct": -13.81,
+    "DM": -2.76,
+    "rows": 1947
+   },
+   "M5 addition, history and options": {
+    "edge_pct": 8.35,
+    "DM": 0.77,
+    "rows": 1947
+   }
+  },
+  "M2_vs": {
+   "M0 constant multiple": {
+    "edge_pct": 8.35,
+    "DM": 0.77,
+    "rows": 1947
+   },
+   "M1 addition, constant": {
+    "edge_pct": 5.87,
+    "DM": 0.26,
+    "rows": 1947
+   },
+   "M3 multiple, firm history": {
+    "edge_pct": 4.95,
+    "DM": 0.83,
+    "rows": 1947
+   },
+   "M4s option-implied, standardized 30/60": {
+    "edge_pct": 40.74,
+    "DM": 6.85,
+    "rows": 1947
+   },
+   "M4t option-implied, two expiries": {
+    "edge_pct": 20.6,
+    "DM": 3.34,
+    "rows": 1947
+   },
+   "M4 addition, option-implied": {
+    "edge_pct": 19.47,
+    "DM": 3.22,
+    "rows": 1947
+   },
+   "M5 addition, history and options": {
+    "edge_pct": -0.0,
+    "DM": 0.0,
+    "rows": 1947
+   }
+  },
+  "M2_vs_flexible_on_reaction_days": {
+   "trees, calendar inputs": {
+    "edge_pct": 10.18,
+    "DM": 1.74,
+    "rows": 1947
+   },
+   "trees on robust scale, calendar inputs": {
+    "edge_pct": 5.08,
+    "DM": 0.28,
+    "rows": 1947
+   },
+   "trees on masked scale, calendar inputs": {
+    "edge_pct": 5.48,
+    "DM": 0.0,
+    "rows": 1947
+   },
+   "neural network, calendar inputs": {
+    "edge_pct": 8.65,
+    "DM": 1.01,
+    "rows": 1947
+   }
+  },
+  "M0_vs_flexible_on_reaction_days": {
+   "trees, calendar inputs": {
+    "edge_pct": 2.0,
+    "DM": 0.61,
+    "rows": 1947
+   },
+   "trees on robust scale, calendar inputs": {
+    "edge_pct": -3.56,
+    "DM": -0.69,
+    "rows": 1947
+   },
+   "trees on masked scale, calendar inputs": {
+    "edge_pct": -3.13,
+    "DM": -1.59,
+    "rows": 1947
+   },
+   "neural network, calendar inputs": {
+    "edge_pct": 0.33,
+    "DM": 0.15,
+    "rows": 1947
+   }
+  },
+  "all_days_gain_over_masked_calendar_garch_t_pct": {
+   "M1 addition, constant": 0.16,
+   "M2 addition, firm history": 0.51,
+   "M3 multiple, firm history": 0.22,
+   "M4s option-implied, standardized 30/60": -3.34,
+   "M4t option-implied, two expiries": -0.94,
+   "M4 addition, option-implied": -0.84,
+   "M5 addition, history and options": 0.51
+  },
+  "reaction_days_share_of_total_loss_pct": 6.1,
+  "breach_pct_reaction_days": {
+   "M0 constant multiple": 2.52,
+   "M1 addition, constant": 3.39,
+   "M2 addition, firm history": 3.6,
+   "M3 multiple, firm history": 3.8,
+   "M4s option-implied, standardized 30/60": 9.04,
+   "M4t option-implied, two expiries": 4.47,
+   "M4 addition, option-implied": 3.29,
+   "M5 addition, history and options": 3.6
+  },
+  "on_reaction_days_with_option_data": {
+   "M4_vs_M2": {
+    "edge_pct": -24.1,
+    "DM": -3.22,
+    "rows": 1699
+   },
+   "M5_vs_M4": {
+    "edge_pct": 19.42,
+    "DM": 3.22,
+    "rows": 1699
+   },
+   "M5_vs_M2": {
+    "edge_pct": 0.0,
+    "DM": -0.0,
+    "rows": 1699
+   },
+   "M4_vs_M0": {
+    "edge_pct": -16.42,
+    "DM": -2.87,
+    "rows": 1699
+   }
+  }
+ },
+ "cohort": "smallcap",
+ "names": 112
+}
