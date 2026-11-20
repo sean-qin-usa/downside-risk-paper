@@ -1,0 +1,45 @@
+{
+ "what": "Earnings announcement dates and times from the free source (code/panels/download_earnings.py) checked against I/B/E/S Detail History Actuals (quarterly EPS, US file, announce date and time), 2016-01 to 2026-08. Aggregates only; the I/B/E/S records are licensed and are not stored here.",
+ "checked_on": "2026-11-19",
+ "tickers": [
+  "AAL",
+  "ADM",
+  "ALL",
+  "AMZN",
+  "AZO",
+  "CAH",
+  "CSX",
+  "DIS",
+  "GE",
+  "IBM",
+  "KO",
+  "NKE",
+  "NVDA",
+  "PEP",
+  "SBUX",
+  "TXN",
+  "WM"
+ ],
+ "selection": "17 of the 201 us_largecap names: every fifth ticker in alphabetical order gave 41; these 17 were taken from that list before any comparison (the first five and twelve spread over the rest)",
+ "free_source_events": 729,
+ "exact_date_match": 724,
+ "match_within_5_days": 2,
+ "no_match": 3,
+ "ibes_events": 728,
+ "ibes_events_without_free_source_event_within_5_days": 2,
+ "time_class": {
+  "definition": "before 09:30 Eastern = before the open; 16:00 or later = after the close; otherwise during hours",
+  "agree": 719,
+  "of": 724,
+  "free_source_to_ibes": {
+   "before>before": 331,
+   "after>after": 387,
+   "during>during": 1,
+   "during>after": 1,
+   "during>before": 2,
+   "before>during": 1,
+   "after>during": 1
+  }
+ },
+ "date_mismatches": "AAL (4 days), ALL (1 day), ADM, AZO, NVDA (no I/B/E/S date within 5 days)"
+}
