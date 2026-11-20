@@ -1,0 +1,137 @@
+{
+ "names": 199,
+ "rows_test": 279199,
+ "test_from": "2008-01-25",
+ "test_to": "2013-12-31",
+ "predictions_written_before_run": "see the script header (E1-E4)",
+ "day_types_pre_test": {
+  "reaction day": {
+   "tau": 1.868096485098987,
+   "nu": 4.459145775993642,
+   "p": 0.015676990247099738,
+   "m": 1.0043844810258735,
+   "variance_ratio": 6.114162911226444,
+   "rows": 6315
+  },
+  "day after": {
+   "tau": 0.956054109485825,
+   "nu": 6.230345752634282,
+   "p": 0.015676990247099738,
+   "m": 1.0774192555599973,
+   "variance_ratio": 1.3557586588804313,
+   "rows": 6316
+  },
+  "other days": {
+   "tau": 0.8039098480634936,
+   "nu": 6.733499293272093,
+   "p": 0.9686460195058005,
+   "m": 0.9986432001770088,
+   "variance_ratio": 0.9370195871324428,
+   "rows": 380799
+  }
+ },
+ "implied_multipliers": {
+  "reaction day": 2.5,
+  "day after": 1.17
+ },
+ "multipliers_chosen_on_pre_test_rows": {
+  "reaction day": 2.4,
+  "day after": 1.0
+ },
+ "mean_squared_residual_test": {
+  "reaction day": 6.27,
+  "day after": 1.14,
+  "other days": 0.93
+ },
+ "0.01": {
+  "V_pct": 6.01,
+  "realized_pct": 5.12,
+  "DM": 8.22,
+  "breach_garch_t_pct": {
+   "reaction day": 12.59,
+   "day after": 1.3,
+   "other days": 0.87
+  },
+  "breach_with_multipliers_pct": {
+   "reaction day": 1.46,
+   "day after": 1.3,
+   "other days": 0.87
+  },
+  "share_of_garch_t_breaches_on_reaction_days_pct": 18.7
+ },
+ "0.025": {
+  "V_pct": 3.56,
+  "realized_pct": 3.08,
+  "DM": 8.08,
+  "breach_garch_t_pct": {
+   "reaction day": 18.39,
+   "day after": 3.24,
+   "other days": 2.22
+  },
+  "breach_with_multipliers_pct": {
+   "reaction day": 3.18,
+   "day after": 3.24,
+   "other days": 2.22
+  },
+  "share_of_garch_t_breaches_on_reaction_days_pct": 11.6
+ },
+ "portfolios": {
+  "names": 186,
+  "variance_ratio_pre_test": [
+   6.07,
+   1.37
+  ],
+  "by_N": {
+   "1": {
+    "0.01": {
+     "gain_pct": 5.01,
+     "V_pct": 6.11
+    },
+    "0.025": {
+     "gain_pct": 3.05,
+     "V_pct": 3.82
+    }
+   },
+   "5": {
+    "0.01": {
+     "gain_pct": 0.69,
+     "V_pct": 0.93
+    },
+    "0.025": {
+     "gain_pct": 0.34,
+     "V_pct": 0.64
+    }
+   },
+   "10": {
+    "0.01": {
+     "gain_pct": 0.29,
+     "V_pct": 0.25
+    },
+    "0.025": {
+     "gain_pct": -0.0,
+     "V_pct": 0.18
+    }
+   },
+   "20": {
+    "0.01": {
+     "gain_pct": 0.1,
+     "V_pct": 0.07
+    },
+    "0.025": {
+     "gain_pct": 0.02,
+     "V_pct": 0.05
+    }
+   },
+   "50": {
+    "0.01": {
+     "gain_pct": 0.05,
+     "V_pct": 0.01
+    },
+    "0.025": {
+     "gain_pct": -0.01,
+     "V_pct": 0.01
+    }
+   }
+  }
+ }
+}
