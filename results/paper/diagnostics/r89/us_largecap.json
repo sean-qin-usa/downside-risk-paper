@@ -1,0 +1,142 @@
+{
+ "universe": "us_largecap",
+ "rows": 543867,
+ "market_wide_threshold_pct": -1.96,
+ "predictions_written_before_run": "see the script header (B1-B3)",
+ "share_of_days_pct": {
+  "any other day": 93.8,
+  "day after": 1.6,
+  "earnings reaction day": 1.6,
+  "market-wide down day": 3.0
+ },
+ "0.01": {
+  "GARCH-t": {
+   "breach_rate_all_days_pct": 1.3,
+   "by_type": {
+    "any other day": {
+     "breach_rate_pct": 0.63,
+     "share_of_breaches_pct": 45.6
+    },
+    "day after": {
+     "breach_rate_pct": 1.52,
+     "share_of_breaches_pct": 1.9
+    },
+    "earnings reaction day": {
+     "breach_rate_pct": 17.7,
+     "share_of_breaches_pct": 21.7
+    },
+    "market-wide down day": {
+     "breach_rate_pct": 13.34,
+     "share_of_breaches_pct": 30.8
+    }
+   }
+  },
+  "masked calendar GARCH-t": {
+   "breach_rate_all_days_pct": 1.38,
+   "by_type": {
+    "any other day": {
+     "breach_rate_pct": 0.87,
+     "share_of_breaches_pct": 59.5
+    },
+    "day after": {
+     "breach_rate_pct": 1.5,
+     "share_of_breaches_pct": 1.7
+    },
+    "earnings reaction day": {
+     "breach_rate_pct": 2.79,
+     "share_of_breaches_pct": 3.2
+    },
+    "market-wide down day": {
+     "breach_rate_pct": 16.29,
+     "share_of_breaches_pct": 35.5
+    }
+   }
+  },
+  "neural network, calendar inputs": {
+   "breach_rate_all_days_pct": 1.33,
+   "by_type": {
+    "any other day": {
+     "breach_rate_pct": 0.87,
+     "share_of_breaches_pct": 61.4
+    },
+    "day after": {
+     "breach_rate_pct": 1.02,
+     "share_of_breaches_pct": 1.2
+    },
+    "earnings reaction day": {
+     "breach_rate_pct": 2.11,
+     "share_of_breaches_pct": 2.5
+    },
+    "market-wide down day": {
+     "breach_rate_pct": 15.47,
+     "share_of_breaches_pct": 34.9
+    }
+   }
+  }
+ },
+ "0.025": {
+  "GARCH-t": {
+   "breach_rate_all_days_pct": 2.85,
+   "by_type": {
+    "any other day": {
+     "breach_rate_pct": 1.72,
+     "share_of_breaches_pct": 56.5
+    },
+    "day after": {
+     "breach_rate_pct": 3.94,
+     "share_of_breaches_pct": 2.2
+    },
+    "earnings reaction day": {
+     "breach_rate_pct": 22.96,
+     "share_of_breaches_pct": 12.9
+    },
+    "market-wide down day": {
+     "breach_rate_pct": 26.97,
+     "share_of_breaches_pct": 28.4
+    }
+   }
+  },
+  "masked calendar GARCH-t": {
+   "breach_rate_all_days_pct": 3.04,
+   "by_type": {
+    "any other day": {
+     "breach_rate_pct": 2.13,
+     "share_of_breaches_pct": 65.8
+    },
+    "day after": {
+     "breach_rate_pct": 3.89,
+     "share_of_breaches_pct": 2.0
+    },
+    "earnings reaction day": {
+     "breach_rate_pct": 5.34,
+     "share_of_breaches_pct": 2.8
+    },
+    "market-wide down day": {
+     "breach_rate_pct": 29.76,
+     "share_of_breaches_pct": 29.4
+    }
+   }
+  },
+  "neural network, calendar inputs": {
+   "breach_rate_all_days_pct": 2.84,
+   "by_type": {
+    "any other day": {
+     "breach_rate_pct": 2.02,
+     "share_of_breaches_pct": 66.8
+    },
+    "day after": {
+     "breach_rate_pct": 2.52,
+     "share_of_breaches_pct": 1.4
+    },
+    "earnings reaction day": {
+     "breach_rate_pct": 4.12,
+     "share_of_breaches_pct": 2.3
+    },
+    "market-wide down day": {
+     "breach_rate_pct": 27.92,
+     "share_of_breaches_pct": 29.5
+    }
+   }
+  }
+ }
+}
