@@ -850,11 +850,20 @@ pre-test weight on the firm's own history is 0.7 (CRSP) and 0.4 (US large caps).
 A constant addition per firm is no better than the constant multiplier (+0.5%, -1.9%): the gain is the firm's own
 history, not the additive form. Reaction days are 5% to 6% of total loss, so the all-days gain is half a percent.
 
-The option benchmark (CRSP panel, OptionMetrics). The announcement variance implied by the 30-day and 60-day
-at-the-money implied volatilities the evening before is available for 90% of reaction days, is zero for 11% of
-those (the 30-day volatility is not above the 60-day one) and has a median standard deviation of 4.3%, about half
-of what the returns show. A VaR built on it is far worse than the second clock (-54% on reaction days). Adding it to the second clock changes nothing (+1.2%, DM 0.5). This two-maturity estimate is too crude to
-serve as the benchmark; a proper one needs the option chain around each announcement. Open.
+The option benchmark (CRSP panel, OptionMetrics, 2,978 test reaction days with option data). Three estimates of the
+announcement variance implied by option prices the evening before, each scaled by one pre-test number:
+
+| Estimate | Zero for | Median implied s.d. | Reaction-day loss against the second clock (2.5%) |
+|---|---|---|---|
+| Standardized 30-day and 60-day volatilities | 11% | 4.4% | 34% worse (DM 5.6) |
+| Two nearest actual expiries | 4% | 6.3% | 15% worse (3.0) |
+| Nearest expiry less the ordinary variance to that expiry | 4% | 6.9% | 14% worse (3.1) |
+
+The standardized volatilities are interpolations and too crude. The two estimates from the option chain are sensible
+in size (the median absolute move is 3.7%), but a VaR built on either is worse than the firm's own history, and the
+pre-test weight on the options in a combination is zero. On this panel the firm's announcement history is the better
+input for the reaction-day VaR. The panel holds 126 small companies whose options are thin; the comparison has not
+been split by size.
 
 | | Prediction | CRSP panel | US large caps |
 |---|---|---|---|
@@ -863,4 +872,51 @@ serve as the benchmark; a proper one needs the option chain around each announce
 | W3 | Firm history beats the constant addition by 1.5% (DM above 2), weight at least 0.3 | +7.2%, weight 0.7, DM 1.97 | Holds (+12.1%, 6.8; 0.4) |
 | W4 | Addition with history beats multiple with history | In sign only (+4.2%, DM 1.0) | In sign only (+3.1%, DM 1.0) |
 | W5 | Not worse than any flexible model on reaction days; 0.1% to 0.6% over all days | Holds | Holds |
-| W6 | Option-implied variance beats firm history by 3%; the two together beat both | Fails as implemented | not run |
+| W6 | Option-implied variance (standardized volatilities) beats firm history by 3%; the two together beat both | Fails (34% worse) | not run |
+| W7 | From the option chain: beats the constant multiplier by 5%, within 5% of the second clock, and the combination beats the second clock by 2% | Fails (7% worse than the multiplier, not significant; 14% worse than the second clock; weight on options zero) | not run |
+
+## 10. Seventh pass: the equation applied to other information (`tools/r86_price_partitions.py`)
+
+The equation of 9.1 prices any information that sorts days into types. Base model: the masked calendar GARCH-t on
+ordinary days. For each partition, V from pre-test rows and the realized gain on test rows of one multiplier per type
+chosen on pre-test rows (2.5% level; DM in brackets). Predictions Q1 to Q6 are in the script header.
+
+| Partition | CRSP: V | CRSP: realized | US large caps: V | US large caps: realized |
+|---|---|---|---|---|
+| Earnings calendar (9.1, for scale) | 7.2% | 7.8% | 5.3% | 5.5% |
+| Weekday (placebo) | 0.06% | -0.43% (-1.8) | 0.11% | 0.14% (0.7) |
+| Fed decision days | 0.05% | 0.09% (0.4) | no pre-test dates | |
+| Shock share, six bins | 0.10% | 0.17% (5.3) | 0.06% | -0.02% (-0.2) |
+| Shock share and origin | 0.35% | 0.33% (3.2) | 0.30% | 0.29% (2.0) |
+| Today's volatility against the usual, quintiles | 0.01% | 0.21% (4.0) | 0.02% | 0.01% (0.1) |
+| Recent residual scale, quintiles | 0.04% | 0.03% (1.1) | 0.05% | -0.04% (-1.7) |
+
+What the table says:
+
+1. The equation separates information that matters from information that does not: a placebo and Fed days price at
+   about zero and deliver about zero; the calendar prices at 5% to 7% and delivers that.
+2. The size of a recent shock alone carries almost nothing. Its origin does, on both panels. In the bin with the
+   largest shock share the multiplier is 0.81 after a firm-specific shock and 1.19 after a market-wide one on the
+   CRSP panel (0.74 and 1.46 chosen on pre-test rows), and 0.80 and 1.21 on US large caps (0.82 and 1.20). GARCH-t is
+   too wide after a firm-specific shock and too narrow after a market-wide one, and the two errors cancel if the
+   origin is ignored. This is why a single real share failed on US large caps in Section 8.
+3. The volatility state, which carries the flexible models' margin on the CRSP panel (9.2), prices at zero. That
+   margin is not a scale or tail-index difference between volatility states that this equation can see.
+4. Among the small partitions the equation ranks roughly, not finely: over all 26 cells (partitions, panels, levels,
+   with the calendar) V and the realized gain correlate 0.998 with a mean absolute gap of 0.23 points; without the
+   calendar the correlation is 0.45 and the gap 0.12 points. On the CRSP panel the weekday multipliers fitted on
+   pre-test rows lose 0.4% out of sample: a partition that prices at zero should not be used.
+
+| | Prediction | Result |
+|---|---|---|
+| Q1 | Weekday: V below 0.15%, realized within 0.15 points of zero | V holds on both panels; realized holds on US large caps, fails on CRSP (-0.43%) |
+| Q2 | Fed days (CRSP): V below 0.3%, realized within 0.3 points | Holds |
+| Q3 | Shock share: V 0.4% to 1.5% on CRSP, below 0.6% on US large caps; realized within 0.4 and 0.3 points | Fails on CRSP (V 0.10%); holds on US large caps |
+| Q4 | Knowing the origin raises V by at least 0.1 points on CRSP and the realized gain with it | Holds on both panels |
+| Q5 | Volatility-state partitions: V 0.2% to 1.2% on CRSP | Fails (0.01%, 0.04%) |
+| Q6 | Correlation above 0.95 and mean gap under 0.4 points over all cells | Holds with the calendar in (0.998; 0.23); 0.45 without it |
+
+Prior work on the idea. Holzmann and Eulert (2014, Annals of Applied Statistics) show that a larger information set
+lowers the expected score of an ideal forecast and relate the average VaR score to expected shortfall. That is the
+principle. A search did not find the closed form used here, or its use to predict a gain before a model is run; the
+search was two queries and the closest papers on quantile scores have not been read.
