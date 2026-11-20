@@ -432,3 +432,125 @@ Breach rates (0.01 nominal), other days: CRSP stocks (canonical): GARCH-t 0.77%,
 | International large caps, screened | 0.05 | decile 9 | +1.0% (1.8) | +0.000 | 4.84% | 4.83% | 0.12 |
 | International large caps, screened | 0.05 | deciles 1-8 | +0.7% (1.98) | -0.008 | 5.14% | 5.22% | 0.71 |
 | International large caps, screened | 0.05 | all days | +0.8% (2.09) | -0.007 | 5.09% | 5.15% | 1.00 |
+
+## 6. Third pass (same day): timing, calendar inputs, a second source, Fed days, prior work
+
+Scripts: `tools/r79_calendar_features.py` (US large caps), `tools/r80_fed_days.py` (seven universes). Result files:
+`results/paper/diagnostics/r79/`, `r80/`, `results/panels/earnings_dates_validation.json`.
+
+### 6.1 The announcement timed
+
+Sections 1 to 5 used the announcement date and the next day as a two-day window. The source also gives the hour.
+The reaction day is the announcement date for a release before 16:00 Eastern and the next trading day otherwise.
+On US large caps (199 names, 543,867 test rows):
+
+- The reaction day is 1.6% of days. The mean squared GARCH-t residual on it is 10.5, against 1.3 on the day after and
+  0.9 on other days.
+- GARCH-t's 2.5% VaR is breached on 23.0% of reaction days and its 1% VaR on 17.7%. Beta-t-EGARCH: 23.3% and 17.9%.
+- A GARCH-t fitted with the reaction day and the day after masked, with scale multipliers of 2.7 and 1.2 from pre-test
+  rows, gains 6.5% over GARCH-t over all days at 2.5% (DM 12.9) and 10.6% at 1% (DM 13.1). Its breach rates on the
+  reaction day are 5.3% and 2.8%.
+
+### 6.2 The flexible models given the calendar as an input
+
+The pooled trees (on the GARCH-t scale and on the Beta-t-EGARCH scale) and the neural network were retrained with
+three inputs known the evening before: tomorrow is a reaction day, tomorrow is the day after one, and trading days
+since the last one. Each was also retrained without them on identical rows; those retrains reproduce the stored
+forecasts (differences of 0.0% to 0.1% over all days).
+
+| Model | Over GARCH-t, all days, 2.5% | 1% | Calendar inputs against own retrain, 2.5% | Masked calendar GARCH-t against it, 2.5% | 1% |
+|---|---|---|---|---|---|
+| Beta-t-EGARCH, no calendar | +0.9% (3.6) | +0.6% (1.7) | | +5.7% (9.3) | +10.0% (11.6) |
+| Pooled trees, no calendar | +1.4% (5.0) | +1.6% (3.8) | | | |
+| Trees on robust scale, no calendar | +2.1% (4.1) | +2.0% (3.2) | | | |
+| Neural network, no calendar | +2.1% (3.5) | +2.2% (2.8) | | | |
+| Masked calendar GARCH-t | +6.5% (12.9) | +10.6% (13.1) | | | |
+| Pooled trees, calendar inputs | +7.0% (14.6) | +10.6% (12.1) | +5.6% (11.1) | -0.4% (-1.2) | -0.0% (-0.0) |
+| Trees on robust scale, calendar inputs | +7.7% (12.5) | +11.5% (12.4) | +5.8% (12.8) | -1.2% (-3.7) | -1.1% (-2.2) |
+| Trees on masked scale, calendar inputs | +7.6% (10.1) | +11.4% (12.7) | | -1.1% (-2.4) | -1.0% (-2.3) |
+| Neural network, calendar inputs | +7.6% (11.8) | +12.0% (11.8) | +5.7% (11.5) | -1.2% (-3.0) | -1.6% (-2.4) |
+
+Reading of the table:
+
+- The calendar inputs are worth 5.6% to 5.8% to each flexible model at 2.5% and 9% to 10% at 1%, all of it on the
+  reaction day. On other days they change nothing (-0.1% to -0.3%).
+- Of the best model's 7.7% gain over GARCH-t, a five-parameter GARCH-t with the calendar delivers 6.5%. Without the
+  calendar the same flexible model delivers 2.1%.
+- With the calendar in both, the flexible models beat the masked GARCH-t by about 1.2% at 2.5% (DM 3.0 to 3.7) and
+  1.0% to 1.6% at 1% (DM 2.2 to 2.4); the pooled trees on the GARCH-t scale do not beat it. This replaces the
+  "like for like" test of Section 1, which gave the flexible models only two multipliers.
+- With calendar inputs every model is still breached too often on the reaction day (4.1% to 5.6% against 2.5%), and
+  on other days (2.8% to 3.0%).
+
+### 6.3 A second source for the dates
+
+For 17 US large caps the free source's announcement dates and times were checked against I/B/E/S Detail History
+Actuals (quarterly EPS, 2016-01 to 2026-08). Of 729 events, 724 have the same date in I/B/E/S, 2 are within five
+days and 3 have no match; the before-open, during-hours or after-close class agrees for 719 of the 724. I/B/E/S has 2
+events of 728 that the free source lacks. Only these counts are stored; the I/B/E/S records are licensed. Not yet
+done: the 49 canonical names without dates in the free source, and years before 2016.
+
+### 6.4 Scheduled Federal Reserve decision days
+
+87 scheduled decision dates, 2016 to 2026. On the two ETF panels the mean squared GARCH-t residual on a decision day
+is 1.2 and 1.4 and the 2.5% breach rate 4.2% and 3.9% (5.6% and 5.1% the day after), against 3.0% and 2.5% on other
+days. Calendar multipliers chosen on the first half of the test dates gain nothing in the second half on any of the
+seven universes (between -0.4% and +0.2%). The Fed calendar is not for these panels what the earnings calendar is for
+stocks: the event is an order of magnitude smaller.
+
+One result ran against the prediction. On equity ETFs, large shocks that fell on a decision day or the day after are
+13% of top-decile rows and have lambda 0.40 [-0.20, 0.68], against 0.95 [0.40, 1.50] for other shocks; on the other
+ETFs 0.10 [-0.40, 1.10] against 1.05. The intervals are wide and overlap, so this is a lead, not a finding: shocks on
+scheduled days may be one-offs on ETFs too.
+
+### 6.5 Predictions of this pass
+
+| | Prediction | Outcome |
+|---|---|---|
+| F1 | mean squared residual above 10 on the reaction day, below 2.5 on the day after | holds (10.5; 1.3) |
+| F2 | calendar inputs give each flexible model at least 3% at 2.5% (DM > 5); reaction-day breach below 6% | holds (5.6% to 5.8%, DM 11 to 13; 4.1% to 5.6%) |
+| F3 | trees on the robust scale and the neural network, with calendar inputs, beat the masked calendar GARCH-t by under 2% | holds (1.2% and 1.2%) |
+| F4 | at 1% the masked calendar GARCH-t is within 1.5% of each flexible model with calendar inputs | holds for the three tree models (0.0%, 1.1%, 1.0%); **fails narrowly** for the neural network (1.6%) |
+| F5 | trees on the masked scale have the lowest 2.5% loss; beat the masked GARCH-t by under 3% | first part **fails** (trees on the robust scale are lowest; the neural network at 1%); second holds (1.1%) |
+| G1 | Fed decision day: mean squared residual between 1.0 and 2.5, breach below 6%, on equity ETFs, other ETFs, currencies | holds on both ETF panels; **fails** on currencies (0.79 on the day, 1.42 the day after; time zones) |
+| G2 | Fed-day multipliers gain under 0.5% over all days | holds on all seven universes |
+| G3 | equity ETFs: Fed-day shocks under 10% of top-decile rows, lambda at least 0.5 | **fails** (12.8%; 0.40) |
+
+### 6.6 Prior work found in a search pass
+
+A search of the literature was run on the same day. Read levels are stated because several publishers refused
+automated access; nothing below has been checked beyond that level, and no citation search was run.
+
+Established before us:
+
+- Earnings days carry extra, anticipated variance: Patell and Wolfson (1979, 1981), Donders and Vorst (1996),
+  Dubinsky, Johannes, Kaeck and Seeger (2019, option pricing with jumps at earnings dates; full text read).
+- Announcement multipliers in GARCH with separate persistence for announcement shocks, for macro news: Jones, Lamont
+  and Lumsdaine (1998; abstract), Li and Engle (1998, "filtered GARCH", working paper; full text). For single stocks:
+  an earnings dummy in a robustness section of Maheu and McCurdy (2004; working-paper version read), and a
+  dissertation chapter (Deng 2008; not read).
+- Jump or news shocks feed less into later variance than ordinary shocks: Maheu and McCurdy (2004), Andersen,
+  Bollerslev and Diebold (2007; indices, currencies, bonds), the outlier-correction papers (Franses and Ghijsels
+  1999, Charles 2008). Corsi, Pirino and Reno (2010) find the opposite for jumps measured differently and must be
+  addressed.
+- Earnings as a predictor in a machine-learning volatility comparison on single stocks: Christensen, Siggaard and
+  Veliyev (2023; full text), where it is one indicator among nine extra predictors.
+- Idiosyncratic against systematic jumps and later volatility is named as open by Patton and Sheppard (2015; full
+  text); two working papers close to it were not accessible.
+
+Not found: a backtest of single-stock VaR or ES on earnings days; the share of the carried variance that is real;
+the attribution of flexible models' gains over GARCH to it; a calendar-aware GARCH compared with machine-learning
+quantile models. Of six machine-learning-against-GARCH or HAR comparisons on single stocks that were read, one uses
+an earnings indicator and five do not mention earnings.
+
+### 6.7 What the three passes add up to, on US large caps at the 2.5% level
+
+| Step | Gain over GARCH-t, all days |
+|---|---|
+| Flexible model, no calendar (best of three) | 2.1% |
+| GARCH-t with the earnings calendar | 6.5% |
+| Flexible model with the earnings calendar (best of four) | 7.7% |
+
+The question "when do flexible models beat GARCH" has three answers of unequal size. Without a calendar they win
+after earnings shocks, by discarding variance that GARCH carries. That gain is a third of what the calendar itself
+gives. With the calendar in both they win by about 1%.
