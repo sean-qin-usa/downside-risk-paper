@@ -36,7 +36,7 @@ Evidence for steps 4 and 5 and for the origin split is in `docs/EARNINGS_CALENDA
 belongs in one table or the appendix: the other asset classes (they show lambda near 1 where nothing beats GARCH-t),
 the Federal Reserve days (the calendar effect is specific to earnings), the simulation (the estimator of lambda
 works), the multi-model tests (the comparisons survive a formal test). No further breadth is planned. What is open
-is depth on the five steps (items 7.7, 7.9, 7.11, 7.12) and then the writing.
+is depth on the five steps (items 7.7, 7.9, 7.11) and then the writing.
 
 DECIDE: whether steps 4 and 5 are the paper's main result or a section of it (see 1.12).
 
@@ -149,6 +149,6 @@ Several of these sit in sections that the rewrite may drop. Fix what stays; for 
 | 7.8 | Flexible models with the calendar as a training feature | DONE on US large caps (`r79/`) | Not possible on the CRSP panel without rerunning its training pipeline; DECIDE whether to do that |
 | 7.9 | Literature on announcement effects in volatility and VaR models | search pass DONE (`docs/EARNINGS_CALENDAR_RESULTS.md`, 6.6), reading OPEN | Read in full: Maheu and McCurdy (2004, published version), Li and Engle (1998), Christensen, Siggaard and Veliyev (2023), Corsi, Pirino and Reno (2010), Deng (2008), and the two working papers on idiosyncratic jumps; run a forward-citation search on the first three |
 | 7.10 | Scheduled one-offs outside stocks | DONE for Federal Reserve decision days (`r80/`) | Small effect; one paragraph. Not pursued further |
-| 7.12 | The earnings result on the CRSP panel with full coverage | OPEN | Dates for the 49 names the free source lacks, and the timed reaction day on that panel |
+| 7.12 | The earnings result on the CRSP panel with full coverage | DONE | `tools/r81_canon_calendar.py`: 186 names with an I/B/E/S calendar, the announcement timed, every model retrained with the calendar. Same answer as US large caps (results note, Section 7). Open: rerun r71, r76 and r78 for this panel on the I/B/E/S calendar so one calendar is used throughout |
 | 7.11 | What the flexible models' remaining 1 to 2% on ordinary days is | OPEN | Not explained by shock age, D, the score or the volatility level (`r76/`, block S) |
 | 7.7 | Earnings result needs a second source | DONE on a sample (`results/panels/earnings_dates_validation.json`) | 724 of 729 dates and 719 of 724 time classes agree with I/B/E/S for 17 US large caps, 2016 to 2026. OPEN: years before 2016 |

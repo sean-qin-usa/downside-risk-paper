@@ -1,0 +1,2505 @@
+{
+ "universe": "canon",
+ "names": 186,
+ "names_in_panel": 200,
+ "left_out": {
+  "no calendar": 9,
+  "fewer than 36 announcements in 2014-2024": 5
+ },
+ "rows": 206088,
+ "training_rows_trees": 230066,
+ "predictions_written_before_run": "see the script header (J1-J6)",
+ "c0_reaction_day": 3.9,
+ "c1_day_after": 1.6,
+ "share_of_days": {
+  "reaction day": 0.0157,
+  "day after": 0.0157
+ },
+ "mean_squared_garch_residual": {
+  "reaction day": 13.35,
+  "day after": 1.33,
+  "other days": 0.99,
+  "pre-test reaction day": 11.24,
+  "pre-test day after": 1.36
+ },
+ "median_nu": {
+  "GARCH-t": 3.94,
+  "masked": 5.11
+ },
+ "0.01": {
+  "vs_garch_t": {
+   "trees, retrained": {
+    "all days": {
+     "edge_pct": 2.09,
+     "DM": 5.79,
+     "rows": 206088
+    },
+    "reaction day": {
+     "edge_pct": -6.63,
+     "DM": -6.29,
+     "rows": 3226
+    },
+    "day after": {
+     "edge_pct": 3.6,
+     "DM": 5.84,
+     "rows": 3234
+    },
+    "other days": {
+     "edge_pct": 4.0,
+     "DM": 9.5,
+     "rows": 199628
+    },
+    "top decile": {
+     "edge_pct": 8.42,
+     "DM": 8.67,
+     "rows": 20679
+    },
+    "top decile, other days": {
+     "edge_pct": 10.95,
+     "DM": 9.27,
+     "rows": 20088
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": 2.56,
+     "DM": 6.03,
+     "rows": 159235
+    }
+   },
+   "trees, calendar inputs": {
+    "all days": {
+     "edge_pct": 15.99,
+     "DM": 9.47,
+     "rows": 206088
+    },
+    "reaction day": {
+     "edge_pct": 70.24,
+     "DM": 9.67,
+     "rows": 3226
+    },
+    "day after": {
+     "edge_pct": 6.61,
+     "DM": 7.32,
+     "rows": 3234
+    },
+    "other days": {
+     "edge_pct": 4.11,
+     "DM": 5.48,
+     "rows": 199628
+    },
+    "top decile": {
+     "edge_pct": 21.61,
+     "DM": 7.91,
+     "rows": 20679
+    },
+    "top decile, other days": {
+     "edge_pct": 11.96,
+     "DM": 7.76,
+     "rows": 20088
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": 2.45,
+     "DM": 3.05,
+     "rows": 159235
+    }
+   },
+   "trees on robust scale, retrained": {
+    "all days": {
+     "edge_pct": 3.33,
+     "DM": 9.11,
+     "rows": 206088
+    },
+    "reaction day": {
+     "edge_pct": -3.9,
+     "DM": -3.76,
+     "rows": 3226
+    },
+    "day after": {
+     "edge_pct": 3.03,
+     "DM": 3.16,
+     "rows": 3234
+    },
+    "other days": {
+     "edge_pct": 4.95,
+     "DM": 11.02,
+     "rows": 199628
+    },
+    "top decile": {
+     "edge_pct": 10.38,
+     "DM": 6.85,
+     "rows": 20679
+    },
+    "top decile, other days": {
+     "edge_pct": 13.91,
+     "DM": 7.59,
+     "rows": 20088
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": 3.06,
+     "DM": 9.07,
+     "rows": 159235
+    }
+   },
+   "trees on robust scale, calendar inputs": {
+    "all days": {
+     "edge_pct": 17.44,
+     "DM": 10.12,
+     "rows": 206088
+    },
+    "reaction day": {
+     "edge_pct": 72.07,
+     "DM": 9.5,
+     "rows": 3226
+    },
+    "day after": {
+     "edge_pct": 10.41,
+     "DM": 4.63,
+     "rows": 3234
+    },
+    "other days": {
+     "edge_pct": 5.42,
+     "DM": 7.75,
+     "rows": 199628
+    },
+    "top decile": {
+     "edge_pct": 24.58,
+     "DM": 7.77,
+     "rows": 20679
+    },
+    "top decile, other days": {
+     "edge_pct": 14.53,
+     "DM": 6.65,
+     "rows": 20088
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": 3.52,
+     "DM": 5.22,
+     "rows": 159235
+    }
+   },
+   "trees on masked scale, calendar inputs": {
+    "all days": {
+     "edge_pct": 17.43,
+     "DM": 10.08,
+     "rows": 206088
+    },
+    "reaction day": {
+     "edge_pct": 71.58,
+     "DM": 9.34,
+     "rows": 3226
+    },
+    "day after": {
+     "edge_pct": 10.89,
+     "DM": 4.12,
+     "rows": 3234
+    },
+    "other days": {
+     "edge_pct": 5.51,
+     "DM": 8.44,
+     "rows": 199628
+    },
+    "top decile": {
+     "edge_pct": 24.15,
+     "DM": 8.01,
+     "rows": 20679
+    },
+    "top decile, other days": {
+     "edge_pct": 14.63,
+     "DM": 9.07,
+     "rows": 20088
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": 3.54,
+     "DM": 5.21,
+     "rows": 159235
+    }
+   },
+   "neural network, retrained": {
+    "all days": {
+     "edge_pct": 2.66,
+     "DM": 6.94,
+     "rows": 206088
+    },
+    "reaction day": {
+     "edge_pct": -0.71,
+     "DM": -0.61,
+     "rows": 3226
+    },
+    "day after": {
+     "edge_pct": 3.46,
+     "DM": 3.02,
+     "rows": 3234
+    },
+    "other days": {
+     "edge_pct": 3.39,
+     "DM": 7.85,
+     "rows": 199628
+    },
+    "top decile": {
+     "edge_pct": 8.88,
+     "DM": 6.76,
+     "rows": 20679
+    },
+    "top decile, other days": {
+     "edge_pct": 10.44,
+     "DM": 7.5,
+     "rows": 20088
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": 1.77,
+     "DM": 4.46,
+     "rows": 159235
+    }
+   },
+   "neural network, calendar inputs": {
+    "all days": {
+     "edge_pct": 17.22,
+     "DM": 10.54,
+     "rows": 206088
+    },
+    "reaction day": {
+     "edge_pct": 70.85,
+     "DM": 9.9,
+     "rows": 3226
+    },
+    "day after": {
+     "edge_pct": 11.12,
+     "DM": 4.56,
+     "rows": 3234
+    },
+    "other days": {
+     "edge_pct": 5.4,
+     "DM": 11.5,
+     "rows": 199628
+    },
+    "top decile": {
+     "edge_pct": 23.39,
+     "DM": 8.78,
+     "rows": 20679
+    },
+    "top decile, other days": {
+     "edge_pct": 13.75,
+     "DM": 9.39,
+     "rows": 20088
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": 3.59,
+     "DM": 8.0,
+     "rows": 159235
+    }
+   },
+   "masked calendar GARCH-t": {
+    "all days": {
+     "edge_pct": 15.79,
+     "DM": 9.08,
+     "rows": 206088
+    },
+    "reaction day": {
+     "edge_pct": 71.77,
+     "DM": 8.9,
+     "rows": 3226
+    },
+    "day after": {
+     "edge_pct": 5.3,
+     "DM": 1.36,
+     "rows": 3234
+    },
+    "other days": {
+     "edge_pct": 3.55,
+     "DM": 10.41,
+     "rows": 199628
+    },
+    "top decile": {
+     "edge_pct": 20.03,
+     "DM": 6.82,
+     "rows": 20679
+    },
+    "top decile, other days": {
+     "edge_pct": 9.65,
+     "DM": 9.49,
+     "rows": 20088
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": 2.19,
+     "DM": 6.76,
+     "rows": 159235
+    }
+   },
+   "Beta-t-EGARCH": {
+    "all days": {
+     "edge_pct": 1.55,
+     "DM": 4.37,
+     "rows": 206088
+    },
+    "reaction day": {
+     "edge_pct": 3.41,
+     "DM": 2.65,
+     "rows": 3226
+    },
+    "day after": {
+     "edge_pct": 7.84,
+     "DM": 3.95,
+     "rows": 3234
+    },
+    "other days": {
+     "edge_pct": 0.98,
+     "DM": 2.59,
+     "rows": 199628
+    },
+    "top decile": {
+     "edge_pct": 7.39,
+     "DM": 5.78,
+     "rows": 20679
+    },
+    "top decile, other days": {
+     "edge_pct": 9.48,
+     "DM": 6.04,
+     "rows": 20088
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": -0.75,
+     "DM": -2.08,
+     "rows": 159235
+    }
+   },
+   "trees, stored": {
+    "all days": {
+     "edge_pct": 2.14,
+     "DM": 5.42,
+     "rows": 206088
+    },
+    "reaction day": {
+     "edge_pct": -7.75,
+     "DM": -6.73,
+     "rows": 3226
+    },
+    "day after": {
+     "edge_pct": 4.14,
+     "DM": 5.44,
+     "rows": 3234
+    },
+    "other days": {
+     "edge_pct": 4.3,
+     "DM": 9.44,
+     "rows": 199628
+    },
+    "top decile": {
+     "edge_pct": 8.73,
+     "DM": 7.95,
+     "rows": 20679
+    },
+    "top decile, other days": {
+     "edge_pct": 11.53,
+     "DM": 8.63,
+     "rows": 20088
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": 2.82,
+     "DM": 6.23,
+     "rows": 159235
+    }
+   },
+   "trees on robust scale, stored": {
+    "all days": {
+     "edge_pct": 3.41,
+     "DM": 9.45,
+     "rows": 206088
+    },
+    "reaction day": {
+     "edge_pct": -4.45,
+     "DM": -4.11,
+     "rows": 3226
+    },
+    "day after": {
+     "edge_pct": 3.58,
+     "DM": 3.01,
+     "rows": 3234
+    },
+    "other days": {
+     "edge_pct": 5.16,
+     "DM": 11.81,
+     "rows": 199628
+    },
+    "top decile": {
+     "edge_pct": 10.34,
+     "DM": 6.86,
+     "rows": 20679
+    },
+    "top decile, other days": {
+     "edge_pct": 14.08,
+     "DM": 7.66,
+     "rows": 20088
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": 3.28,
+     "DM": 9.98,
+     "rows": 159235
+    }
+   },
+   "neural network, stored": {
+    "all days": {
+     "edge_pct": 2.94,
+     "DM": 8.02,
+     "rows": 206088
+    },
+    "reaction day": {
+     "edge_pct": -1.96,
+     "DM": -1.69,
+     "rows": 3226
+    },
+    "day after": {
+     "edge_pct": 2.98,
+     "DM": 2.48,
+     "rows": 3234
+    },
+    "other days": {
+     "edge_pct": 4.04,
+     "DM": 9.62,
+     "rows": 199628
+    },
+    "top decile": {
+     "edge_pct": 9.78,
+     "DM": 7.65,
+     "rows": 20679
+    },
+    "top decile, other days": {
+     "edge_pct": 12.07,
+     "DM": 8.79,
+     "rows": 20088
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": 2.25,
+     "DM": 5.85,
+     "rows": 159235
+    }
+   }
+  },
+  "masked_calendar_garch_t_vs": {
+   "trees, retrained": {
+    "all days": {
+     "edge_pct": 13.99,
+     "DM": 7.5,
+     "rows": 206088
+    },
+    "reaction day": {
+     "edge_pct": 73.53,
+     "DM": 9.28,
+     "rows": 3226
+    },
+    "day after": {
+     "edge_pct": 1.77,
+     "DM": -1.46,
+     "rows": 3234
+    },
+    "other days": {
+     "edge_pct": -0.47,
+     "DM": -1.14,
+     "rows": 199628
+    },
+    "top decile": {
+     "edge_pct": 12.67,
+     "DM": 3.45,
+     "rows": 20679
+    },
+    "top decile, other days": {
+     "edge_pct": -1.46,
+     "DM": -1.91,
+     "rows": 20088
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": -0.38,
+     "DM": -0.98,
+     "rows": 159235
+    }
+   },
+   "trees, calendar inputs": {
+    "all days": {
+     "edge_pct": -0.24,
+     "DM": -0.4,
+     "rows": 206088
+    },
+    "reaction day": {
+     "edge_pct": 5.16,
+     "DM": 2.11,
+     "rows": 3226
+    },
+    "day after": {
+     "edge_pct": -1.4,
+     "DM": -1.84,
+     "rows": 3234
+    },
+    "other days": {
+     "edge_pct": -0.58,
+     "DM": -0.96,
+     "rows": 199628
+    },
+    "top decile": {
+     "edge_pct": -2.01,
+     "DM": -1.77,
+     "rows": 20679
+    },
+    "top decile, other days": {
+     "edge_pct": -2.62,
+     "DM": -2.26,
+     "rows": 20088
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": -0.27,
+     "DM": -0.45,
+     "rows": 159235
+    }
+   },
+   "trees on robust scale, retrained": {
+    "all days": {
+     "edge_pct": 12.89,
+     "DM": 7.03,
+     "rows": 206088
+    },
+    "reaction day": {
+     "edge_pct": 72.83,
+     "DM": 8.99,
+     "rows": 3226
+    },
+    "day after": {
+     "edge_pct": 2.34,
+     "DM": -1.59,
+     "rows": 3234
+    },
+    "other days": {
+     "edge_pct": -1.48,
+     "DM": -3.01,
+     "rows": 199628
+    },
+    "top decile": {
+     "edge_pct": 10.77,
+     "DM": 2.54,
+     "rows": 20679
+    },
+    "top decile, other days": {
+     "edge_pct": -4.95,
+     "DM": -2.91,
+     "rows": 20088
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": -0.9,
+     "DM": -2.32,
+     "rows": 159235
+    }
+   },
+   "trees on robust scale, calendar inputs": {
+    "all days": {
+     "edge_pct": -2.0,
+     "DM": -3.93,
+     "rows": 206088
+    },
+    "reaction day": {
+     "edge_pct": -1.05,
+     "DM": 0.82,
+     "rows": 3226
+    },
+    "day after": {
+     "edge_pct": -5.7,
+     "DM": -3.21,
+     "rows": 3234
+    },
+    "other days": {
+     "edge_pct": -1.97,
+     "DM": -3.57,
+     "rows": 199628
+    },
+    "top decile": {
+     "edge_pct": -6.03,
+     "DM": -3.28,
+     "rows": 20679
+    },
+    "top decile, other days": {
+     "edge_pct": -5.71,
+     "DM": -2.74,
+     "rows": 20088
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": -1.37,
+     "DM": -2.87,
+     "rows": 159235
+    }
+   },
+   "trees on masked scale, calendar inputs": {
+    "all days": {
+     "edge_pct": -1.99,
+     "DM": -4.75,
+     "rows": 206088
+    },
+    "reaction day": {
+     "edge_pct": 0.66,
+     "DM": 0.95,
+     "rows": 3226
+    },
+    "day after": {
+     "edge_pct": -6.27,
+     "DM": -5.15,
+     "rows": 3234
+    },
+    "other days": {
+     "edge_pct": -2.07,
+     "DM": -4.61,
+     "rows": 199628
+    },
+    "top decile": {
+     "edge_pct": -5.43,
+     "DM": -4.74,
+     "rows": 20679
+    },
+    "top decile, other days": {
+     "edge_pct": -5.83,
+     "DM": -4.62,
+     "rows": 20088
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": -1.4,
+     "DM": -3.04,
+     "rows": 159235
+    }
+   },
+   "neural network, retrained": {
+    "all days": {
+     "edge_pct": 13.49,
+     "DM": 7.67,
+     "rows": 206088
+    },
+    "reaction day": {
+     "edge_pct": 71.97,
+     "DM": 8.98,
+     "rows": 3226
+    },
+    "day after": {
+     "edge_pct": 1.9,
+     "DM": -0.28,
+     "rows": 3234
+    },
+    "other days": {
+     "edge_pct": 0.17,
+     "DM": 0.33,
+     "rows": 199628
+    },
+    "top decile": {
+     "edge_pct": 12.24,
+     "DM": 3.39,
+     "rows": 20679
+    },
+    "top decile, other days": {
+     "edge_pct": -0.88,
+     "DM": -1.06,
+     "rows": 20088
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": 0.43,
+     "DM": 0.6,
+     "rows": 159235
+    }
+   },
+   "neural network, calendar inputs": {
+    "all days": {
+     "edge_pct": -1.73,
+     "DM": -3.66,
+     "rows": 206088
+    },
+    "reaction day": {
+     "edge_pct": 3.17,
+     "DM": 0.84,
+     "rows": 3226
+    },
+    "day after": {
+     "edge_pct": -6.55,
+     "DM": -2.62,
+     "rows": 3234
+    },
+    "other days": {
+     "edge_pct": -1.95,
+     "DM": -4.92,
+     "rows": 199628
+    },
+    "top decile": {
+     "edge_pct": -4.39,
+     "DM": -2.99,
+     "rows": 20679
+    },
+    "top decile, other days": {
+     "edge_pct": -4.76,
+     "DM": -3.54,
+     "rows": 20088
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": -1.45,
+     "DM": -3.86,
+     "rows": 159235
+    }
+   },
+   "GARCH-t": {
+    "all days": {
+     "edge_pct": 15.79,
+     "DM": 9.08,
+     "rows": 206088
+    },
+    "reaction day": {
+     "edge_pct": 71.77,
+     "DM": 8.9,
+     "rows": 3226
+    },
+    "day after": {
+     "edge_pct": 5.3,
+     "DM": 1.36,
+     "rows": 3234
+    },
+    "other days": {
+     "edge_pct": 3.55,
+     "DM": 10.41,
+     "rows": 199628
+    },
+    "top decile": {
+     "edge_pct": 20.03,
+     "DM": 6.82,
+     "rows": 20679
+    },
+    "top decile, other days": {
+     "edge_pct": 9.65,
+     "DM": 9.49,
+     "rows": 20088
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": 2.19,
+     "DM": 6.76,
+     "rows": 159235
+    }
+   },
+   "Beta-t-EGARCH": {
+    "all days": {
+     "edge_pct": 14.46,
+     "DM": 8.64,
+     "rows": 206088
+    },
+    "reaction day": {
+     "edge_pct": 70.77,
+     "DM": 8.62,
+     "rows": 3226
+    },
+    "day after": {
+     "edge_pct": -2.76,
+     "DM": -2.64,
+     "rows": 3234
+    },
+    "other days": {
+     "edge_pct": 2.6,
+     "DM": 4.75,
+     "rows": 199628
+    },
+    "top decile": {
+     "edge_pct": 13.64,
+     "DM": 3.58,
+     "rows": 20679
+    },
+    "top decile, other days": {
+     "edge_pct": 0.18,
+     "DM": -0.68,
+     "rows": 20088
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": 2.92,
+     "DM": 5.42,
+     "rows": 159235
+    }
+   },
+   "trees, stored": {
+    "all days": {
+     "edge_pct": 13.95,
+     "DM": 7.41,
+     "rows": 206088
+    },
+    "reaction day": {
+     "edge_pct": 73.8,
+     "DM": 9.34,
+     "rows": 3226
+    },
+    "day after": {
+     "edge_pct": 1.21,
+     "DM": -1.6,
+     "rows": 3234
+    },
+    "other days": {
+     "edge_pct": -0.78,
+     "DM": -1.87,
+     "rows": 199628
+    },
+    "top decile": {
+     "edge_pct": 12.38,
+     "DM": 3.29,
+     "rows": 20679
+    },
+    "top decile, other days": {
+     "edge_pct": -2.12,
+     "DM": -2.27,
+     "rows": 20088
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": -0.65,
+     "DM": -1.65,
+     "rows": 159235
+    }
+   },
+   "trees on robust scale, stored": {
+    "all days": {
+     "edge_pct": 12.82,
+     "DM": 6.94,
+     "rows": 206088
+    },
+    "reaction day": {
+     "edge_pct": 72.97,
+     "DM": 9.03,
+     "rows": 3226
+    },
+    "day after": {
+     "edge_pct": 1.78,
+     "DM": -1.49,
+     "rows": 3234
+    },
+    "other days": {
+     "edge_pct": -1.69,
+     "DM": -3.55,
+     "rows": 199628
+    },
+    "top decile": {
+     "edge_pct": 10.81,
+     "DM": 2.51,
+     "rows": 20679
+    },
+    "top decile, other days": {
+     "edge_pct": -5.16,
+     "DM": -3.01,
+     "rows": 20088
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": -1.13,
+     "DM": -2.95,
+     "rows": 159235
+    }
+   },
+   "neural network, stored": {
+    "all days": {
+     "edge_pct": 13.24,
+     "DM": 7.4,
+     "rows": 206088
+    },
+    "reaction day": {
+     "edge_pct": 72.31,
+     "DM": 9.0,
+     "rows": 3226
+    },
+    "day after": {
+     "edge_pct": 2.39,
+     "DM": -0.06,
+     "rows": 3234
+    },
+    "other days": {
+     "edge_pct": -0.51,
+     "DM": -0.97,
+     "rows": 199628
+    },
+    "top decile": {
+     "edge_pct": 11.36,
+     "DM": 3.04,
+     "rows": 20679
+    },
+    "top decile, other days": {
+     "edge_pct": -2.76,
+     "DM": -2.29,
+     "rows": 20088
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": -0.06,
+     "DM": -0.29,
+     "rows": 159235
+    }
+   }
+  },
+  "pairs_first_vs_second": {
+   "trees, calendar inputs | trees, retrained": {
+    "all days": {
+     "edge_pct": 14.2,
+     "DM": 8.2,
+     "rows": 206088
+    },
+    "reaction day": {
+     "edge_pct": 72.09,
+     "DM": 10.02,
+     "rows": 3226
+    },
+    "day after": {
+     "edge_pct": 3.13,
+     "DM": 0.31,
+     "rows": 3234
+    },
+    "other days": {
+     "edge_pct": 0.12,
+     "DM": 0.24,
+     "rows": 199628
+    },
+    "top decile": {
+     "edge_pct": 14.4,
+     "DM": 4.94,
+     "rows": 20679
+    },
+    "top decile, other days": {
+     "edge_pct": 1.13,
+     "DM": 1.38,
+     "rows": 20088
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": -0.11,
+     "DM": -0.19,
+     "rows": 159235
+    }
+   },
+   "trees on robust scale, calendar inputs | trees on robust scale, retrained": {
+    "all days": {
+     "edge_pct": 14.59,
+     "DM": 8.36,
+     "rows": 206088
+    },
+    "reaction day": {
+     "edge_pct": 73.11,
+     "DM": 9.55,
+     "rows": 3226
+    },
+    "day after": {
+     "edge_pct": 7.61,
+     "DM": 0.72,
+     "rows": 3234
+    },
+    "other days": {
+     "edge_pct": 0.49,
+     "DM": 0.97,
+     "rows": 199628
+    },
+    "top decile": {
+     "edge_pct": 15.84,
+     "DM": 4.98,
+     "rows": 20679
+    },
+    "top decile, other days": {
+     "edge_pct": 0.72,
+     "DM": 0.51,
+     "rows": 20088
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": 0.47,
+     "DM": 0.83,
+     "rows": 159235
+    }
+   },
+   "neural network, calendar inputs | neural network, retrained": {
+    "all days": {
+     "edge_pct": 14.96,
+     "DM": 9.29,
+     "rows": 206088
+    },
+    "reaction day": {
+     "edge_pct": 71.05,
+     "DM": 10.03,
+     "rows": 3226
+    },
+    "day after": {
+     "edge_pct": 7.94,
+     "DM": 2.26,
+     "rows": 3234
+    },
+    "other days": {
+     "edge_pct": 2.08,
+     "DM": 5.72,
+     "rows": 199628
+    },
+    "top decile": {
+     "edge_pct": 15.92,
+     "DM": 6.06,
+     "rows": 20679
+    },
+    "top decile, other days": {
+     "edge_pct": 3.71,
+     "DM": 8.18,
+     "rows": 20088
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": 1.85,
+     "DM": 4.61,
+     "rows": 159235
+    }
+   },
+   "trees, retrained | trees, stored": {
+    "all days": {
+     "edge_pct": -0.05,
+     "DM": -0.67,
+     "rows": 206088
+    },
+    "reaction day": {
+     "edge_pct": 1.04,
+     "DM": 5.09,
+     "rows": 3226
+    },
+    "day after": {
+     "edge_pct": -0.57,
+     "DM": -1.2,
+     "rows": 3234
+    },
+    "other days": {
+     "edge_pct": -0.31,
+     "DM": -3.58,
+     "rows": 199628
+    },
+    "top decile": {
+     "edge_pct": -0.34,
+     "DM": -1.47,
+     "rows": 20679
+    },
+    "top decile, other days": {
+     "edge_pct": -0.65,
+     "DM": -2.19,
+     "rows": 20088
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": -0.27,
+     "DM": -3.14,
+     "rows": 159235
+    }
+   },
+   "trees on robust scale, retrained | trees on robust scale, stored": {
+    "all days": {
+     "edge_pct": -0.08,
+     "DM": -1.22,
+     "rows": 206088
+    },
+    "reaction day": {
+     "edge_pct": 0.52,
+     "DM": 2.19,
+     "rows": 3226
+    },
+    "day after": {
+     "edge_pct": -0.57,
+     "DM": 0.52,
+     "rows": 3234
+    },
+    "other days": {
+     "edge_pct": -0.22,
+     "DM": -3.0,
+     "rows": 199628
+    },
+    "top decile": {
+     "edge_pct": 0.05,
+     "DM": -0.03,
+     "rows": 20679
+    },
+    "top decile, other days": {
+     "edge_pct": -0.2,
+     "DM": -1.05,
+     "rows": 20088
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": -0.22,
+     "DM": -2.55,
+     "rows": 159235
+    }
+   },
+   "neural network, retrained | neural network, stored": {
+    "all days": {
+     "edge_pct": -0.29,
+     "DM": -5.31,
+     "rows": 206088
+    },
+    "reaction day": {
+     "edge_pct": 1.22,
+     "DM": 5.92,
+     "rows": 3226
+    },
+    "day after": {
+     "edge_pct": 0.49,
+     "DM": 2.56,
+     "rows": 3234
+    },
+    "other days": {
+     "edge_pct": -0.68,
+     "DM": -12.44,
+     "rows": 199628
+    },
+    "top decile": {
+     "edge_pct": -1.0,
+     "DM": -5.61,
+     "rows": 20679
+    },
+    "top decile, other days": {
+     "edge_pct": -1.86,
+     "DM": -9.33,
+     "rows": 20088
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": -0.5,
+     "DM": -9.19,
+     "rows": 159235
+    }
+   }
+  },
+  "breach_pct": {
+   "trees, retrained": {
+    "all days": 1.3,
+    "reaction day": 19.37,
+    "day after": 2.13,
+    "other days": 0.99,
+    "top decile": 1.08,
+    "top decile, other days": 0.85,
+    "deciles 1-8, other days": 1.02
+   },
+   "trees, calendar inputs": {
+    "all days": 1.37,
+    "reaction day": 2.76,
+    "day after": 1.39,
+    "other days": 1.35,
+    "top decile": 1.1,
+    "top decile, other days": 1.05,
+    "deciles 1-8, other days": 1.41
+   },
+   "trees on robust scale, retrained": {
+    "all days": 1.17,
+    "reaction day": 18.97,
+    "day after": 2.01,
+    "other days": 0.87,
+    "top decile": 1.09,
+    "top decile, other days": 0.84,
+    "deciles 1-8, other days": 0.88
+   },
+   "trees on robust scale, calendar inputs": {
+    "all days": 1.26,
+    "reaction day": 2.23,
+    "day after": 1.27,
+    "other days": 1.24,
+    "top decile": 1.18,
+    "top decile, other days": 1.13,
+    "deciles 1-8, other days": 1.27
+   },
+   "trees on masked scale, calendar inputs": {
+    "all days": 1.29,
+    "reaction day": 2.17,
+    "day after": 1.02,
+    "other days": 1.28,
+    "top decile": 1.21,
+    "top decile, other days": 1.17,
+    "deciles 1-8, other days": 1.32
+   },
+   "neural network, retrained": {
+    "all days": 0.99,
+    "reaction day": 18.32,
+    "day after": 1.48,
+    "other days": 0.7,
+    "top decile": 0.8,
+    "top decile, other days": 0.56,
+    "deciles 1-8, other days": 0.72
+   },
+   "neural network, calendar inputs": {
+    "all days": 1.04,
+    "reaction day": 2.7,
+    "day after": 0.96,
+    "other days": 1.01,
+    "top decile": 0.89,
+    "top decile, other days": 0.83,
+    "deciles 1-8, other days": 1.04
+   },
+   "masked calendar GARCH-t": {
+    "all days": 1.09,
+    "reaction day": 1.46,
+    "day after": 0.87,
+    "other days": 1.09,
+    "top decile": 1.01,
+    "top decile, other days": 0.95,
+    "deciles 1-8, other days": 1.12
+   },
+   "GARCH-t": {
+    "all days": 1.06,
+    "reaction day": 18.75,
+    "day after": 1.45,
+    "other days": 0.77,
+    "top decile": 0.78,
+    "top decile, other days": 0.55,
+    "deciles 1-8, other days": 0.82
+   },
+   "Beta-t-EGARCH": {
+    "all days": 0.99,
+    "reaction day": 18.26,
+    "day after": 1.73,
+    "other days": 0.7,
+    "top decile": 0.89,
+    "top decile, other days": 0.6,
+    "deciles 1-8, other days": 0.72
+   },
+   "trees, stored": {
+    "all days": 1.33,
+    "reaction day": 19.81,
+    "day after": 2.2,
+    "other days": 1.02,
+    "top decile": 1.11,
+    "top decile, other days": 0.87,
+    "deciles 1-8, other days": 1.05
+   },
+   "trees on robust scale, stored": {
+    "all days": 1.19,
+    "reaction day": 19.31,
+    "day after": 2.01,
+    "other days": 0.88,
+    "top decile": 1.13,
+    "top decile, other days": 0.85,
+    "deciles 1-8, other days": 0.89
+   },
+   "neural network, stored": {
+    "all days": 1.02,
+    "reaction day": 18.38,
+    "day after": 1.45,
+    "other days": 0.74,
+    "top decile": 0.88,
+    "top decile, other days": 0.64,
+    "deciles 1-8, other days": 0.76
+   }
+  },
+  "lowest_loss_all_days": "trees on robust scale, calendar inputs"
+ },
+ "0.025": {
+  "vs_garch_t": {
+   "trees, retrained": {
+    "all days": {
+     "edge_pct": 1.45,
+     "DM": 4.96,
+     "rows": 206088
+    },
+    "reaction day": {
+     "edge_pct": -3.51,
+     "DM": -6.05,
+     "rows": 3226
+    },
+    "day after": {
+     "edge_pct": 1.96,
+     "DM": 4.32,
+     "rows": 3234
+    },
+    "other days": {
+     "edge_pct": 2.21,
+     "DM": 6.44,
+     "rows": 199628
+    },
+    "top decile": {
+     "edge_pct": 7.31,
+     "DM": 8.69,
+     "rows": 20679
+    },
+    "top decile, other days": {
+     "edge_pct": 8.58,
+     "DM": 8.75,
+     "rows": 20088
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": 1.01,
+     "DM": 3.14,
+     "rows": 159235
+    }
+   },
+   "trees, calendar inputs": {
+    "all days": {
+     "edge_pct": 9.25,
+     "DM": 8.82,
+     "rows": 206088
+    },
+    "reaction day": {
+     "edge_pct": 57.42,
+     "DM": 10.43,
+     "rows": 3226
+    },
+    "day after": {
+     "edge_pct": 7.16,
+     "DM": 6.26,
+     "rows": 3234
+    },
+    "other days": {
+     "edge_pct": 1.78,
+     "DM": 3.18,
+     "rows": 199628
+    },
+    "top decile": {
+     "edge_pct": 14.76,
+     "DM": 8.57,
+     "rows": 20679
+    },
+    "top decile, other days": {
+     "edge_pct": 9.35,
+     "DM": 8.0,
+     "rows": 20088
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": 0.35,
+     "DM": 0.63,
+     "rows": 159235
+    }
+   },
+   "trees on robust scale, retrained": {
+    "all days": {
+     "edge_pct": 2.53,
+     "DM": 9.74,
+     "rows": 206088
+    },
+    "reaction day": {
+     "edge_pct": -1.95,
+     "DM": -3.14,
+     "rows": 3226
+    },
+    "day after": {
+     "edge_pct": 3.4,
+     "DM": 3.45,
+     "rows": 3234
+    },
+    "other days": {
+     "edge_pct": 3.21,
+     "DM": 10.39,
+     "rows": 199628
+    },
+    "top decile": {
+     "edge_pct": 9.66,
+     "DM": 8.15,
+     "rows": 20679
+    },
+    "top decile, other days": {
+     "edge_pct": 11.51,
+     "DM": 8.19,
+     "rows": 20088
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": 1.66,
+     "DM": 7.02,
+     "rows": 159235
+    }
+   },
+   "trees on robust scale, calendar inputs": {
+    "all days": {
+     "edge_pct": 10.6,
+     "DM": 9.75,
+     "rows": 206088
+    },
+    "reaction day": {
+     "edge_pct": 59.53,
+     "DM": 10.19,
+     "rows": 3226
+    },
+    "day after": {
+     "edge_pct": 8.87,
+     "DM": 4.67,
+     "rows": 3234
+    },
+    "other days": {
+     "edge_pct": 3.0,
+     "DM": 6.38,
+     "rows": 199628
+    },
+    "top decile": {
+     "edge_pct": 17.42,
+     "DM": 8.47,
+     "rows": 20679
+    },
+    "top decile, other days": {
+     "edge_pct": 11.51,
+     "DM": 7.46,
+     "rows": 20088
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": 1.4,
+     "DM": 3.34,
+     "rows": 159235
+    }
+   },
+   "trees on masked scale, calendar inputs": {
+    "all days": {
+     "edge_pct": 10.24,
+     "DM": 9.57,
+     "rows": 206088
+    },
+    "reaction day": {
+     "edge_pct": 59.35,
+     "DM": 9.99,
+     "rows": 3226
+    },
+    "day after": {
+     "edge_pct": 9.11,
+     "DM": 4.61,
+     "rows": 3234
+    },
+    "other days": {
+     "edge_pct": 2.6,
+     "DM": 5.26,
+     "rows": 199628
+    },
+    "top decile": {
+     "edge_pct": 16.3,
+     "DM": 8.44,
+     "rows": 20679
+    },
+    "top decile, other days": {
+     "edge_pct": 10.5,
+     "DM": 8.69,
+     "rows": 20088
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": 1.08,
+     "DM": 2.32,
+     "rows": 159235
+    }
+   },
+   "neural network, retrained": {
+    "all days": {
+     "edge_pct": 2.39,
+     "DM": 8.01,
+     "rows": 206088
+    },
+    "reaction day": {
+     "edge_pct": 0.2,
+     "DM": 0.89,
+     "rows": 3226
+    },
+    "day after": {
+     "edge_pct": 3.62,
+     "DM": 2.83,
+     "rows": 3234
+    },
+    "other days": {
+     "edge_pct": 2.7,
+     "DM": 7.92,
+     "rows": 199628
+    },
+    "top decile": {
+     "edge_pct": 8.22,
+     "DM": 7.74,
+     "rows": 20679
+    },
+    "top decile, other days": {
+     "edge_pct": 9.21,
+     "DM": 7.88,
+     "rows": 20088
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": 1.38,
+     "DM": 4.48,
+     "rows": 159235
+    }
+   },
+   "neural network, calendar inputs": {
+    "all days": {
+     "edge_pct": 10.71,
+     "DM": 10.72,
+     "rows": 206088
+    },
+    "reaction day": {
+     "edge_pct": 58.54,
+     "DM": 10.77,
+     "rows": 3226
+    },
+    "day after": {
+     "edge_pct": 10.25,
+     "DM": 5.94,
+     "rows": 3234
+    },
+    "other days": {
+     "edge_pct": 3.26,
+     "DM": 8.89,
+     "rows": 199628
+    },
+    "top decile": {
+     "edge_pct": 16.09,
+     "DM": 9.82,
+     "rows": 20679
+    },
+    "top decile, other days": {
+     "edge_pct": 10.57,
+     "DM": 8.89,
+     "rows": 20088
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": 1.81,
+     "DM": 5.57,
+     "rows": 159235
+    }
+   },
+   "masked calendar GARCH-t": {
+    "all days": {
+     "edge_pct": 9.18,
+     "DM": 8.84,
+     "rows": 206088
+    },
+    "reaction day": {
+     "edge_pct": 58.93,
+     "DM": 9.45,
+     "rows": 3226
+    },
+    "day after": {
+     "edge_pct": 6.73,
+     "DM": 2.11,
+     "rows": 3234
+    },
+    "other days": {
+     "edge_pct": 1.47,
+     "DM": 6.07,
+     "rows": 199628
+    },
+    "top decile": {
+     "edge_pct": 12.41,
+     "DM": 6.8,
+     "rows": 20679
+    },
+    "top decile, other days": {
+     "edge_pct": 6.37,
+     "DM": 7.17,
+     "rows": 20088
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": 0.52,
+     "DM": 2.57,
+     "rows": 159235
+    }
+   },
+   "Beta-t-EGARCH": {
+    "all days": {
+     "edge_pct": 1.58,
+     "DM": 5.96,
+     "rows": 206088
+    },
+    "reaction day": {
+     "edge_pct": 2.59,
+     "DM": 3.94,
+     "rows": 3226
+    },
+    "day after": {
+     "edge_pct": 4.71,
+     "DM": 3.46,
+     "rows": 3234
+    },
+    "other days": {
+     "edge_pct": 1.34,
+     "DM": 4.73,
+     "rows": 199628
+    },
+    "top decile": {
+     "edge_pct": 7.56,
+     "DM": 6.59,
+     "rows": 20679
+    },
+    "top decile, other days": {
+     "edge_pct": 9.0,
+     "DM": 6.61,
+     "rows": 20088
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": -0.07,
+     "DM": -0.06,
+     "rows": 159235
+    }
+   },
+   "trees, stored": {
+    "all days": {
+     "edge_pct": 1.49,
+     "DM": 4.65,
+     "rows": 206088
+    },
+    "reaction day": {
+     "edge_pct": -4.01,
+     "DM": -6.57,
+     "rows": 3226
+    },
+    "day after": {
+     "edge_pct": 2.15,
+     "DM": 3.9,
+     "rows": 3234
+    },
+    "other days": {
+     "edge_pct": 2.33,
+     "DM": 6.26,
+     "rows": 199628
+    },
+    "top decile": {
+     "edge_pct": 8.11,
+     "DM": 9.01,
+     "rows": 20679
+    },
+    "top decile, other days": {
+     "edge_pct": 9.53,
+     "DM": 9.06,
+     "rows": 20088
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": 0.98,
+     "DM": 2.8,
+     "rows": 159235
+    }
+   },
+   "trees on robust scale, stored": {
+    "all days": {
+     "edge_pct": 2.54,
+     "DM": 9.64,
+     "rows": 206088
+    },
+    "reaction day": {
+     "edge_pct": -2.33,
+     "DM": -3.74,
+     "rows": 3226
+    },
+    "day after": {
+     "edge_pct": 3.89,
+     "DM": 3.56,
+     "rows": 3234
+    },
+    "other days": {
+     "edge_pct": 3.27,
+     "DM": 10.57,
+     "rows": 199628
+    },
+    "top decile": {
+     "edge_pct": 9.8,
+     "DM": 8.35,
+     "rows": 20679
+    },
+    "top decile, other days": {
+     "edge_pct": 11.69,
+     "DM": 8.46,
+     "rows": 20088
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": 1.69,
+     "DM": 7.17,
+     "rows": 159235
+    }
+   },
+   "neural network, stored": {
+    "all days": {
+     "edge_pct": 2.54,
+     "DM": 8.47,
+     "rows": 206088
+    },
+    "reaction day": {
+     "edge_pct": 0.0,
+     "DM": 0.56,
+     "rows": 3226
+    },
+    "day after": {
+     "edge_pct": 2.95,
+     "DM": 2.37,
+     "rows": 3234
+    },
+    "other days": {
+     "edge_pct": 2.92,
+     "DM": 8.46,
+     "rows": 199628
+    },
+    "top decile": {
+     "edge_pct": 8.7,
+     "DM": 8.36,
+     "rows": 20679
+    },
+    "top decile, other days": {
+     "edge_pct": 9.87,
+     "DM": 8.56,
+     "rows": 20088
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": 1.55,
+     "DM": 4.9,
+     "rows": 159235
+    }
+   }
+  },
+  "masked_calendar_garch_t_vs": {
+   "trees, retrained": {
+    "all days": {
+     "edge_pct": 7.85,
+     "DM": 7.24,
+     "rows": 206088
+    },
+    "reaction day": {
+     "edge_pct": 60.32,
+     "DM": 9.66,
+     "rows": 3226
+    },
+    "day after": {
+     "edge_pct": 4.86,
+     "DM": 0.0,
+     "rows": 3234
+    },
+    "other days": {
+     "edge_pct": -0.75,
+     "DM": -2.73,
+     "rows": 199628
+    },
+    "top decile": {
+     "edge_pct": 5.51,
+     "DM": 2.4,
+     "rows": 20679
+    },
+    "top decile, other days": {
+     "edge_pct": -2.42,
+     "DM": -3.28,
+     "rows": 20088
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": -0.5,
+     "DM": -1.92,
+     "rows": 159235
+    }
+   },
+   "trees, calendar inputs": {
+    "all days": {
+     "edge_pct": -0.08,
+     "DM": -0.17,
+     "rows": 206088
+    },
+    "reaction day": {
+     "edge_pct": 3.56,
+     "DM": 1.36,
+     "rows": 3226
+    },
+    "day after": {
+     "edge_pct": -0.47,
+     "DM": -1.37,
+     "rows": 3234
+    },
+    "other days": {
+     "edge_pct": -0.32,
+     "DM": -0.7,
+     "rows": 199628
+    },
+    "top decile": {
+     "edge_pct": -2.76,
+     "DM": -2.82,
+     "rows": 20679
+    },
+    "top decile, other days": {
+     "edge_pct": -3.28,
+     "DM": -3.65,
+     "rows": 20088
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": 0.17,
+     "DM": 0.38,
+     "rows": 159235
+    }
+   },
+   "trees on robust scale, retrained": {
+    "all days": {
+     "edge_pct": 6.83,
+     "DM": 6.48,
+     "rows": 206088
+    },
+    "reaction day": {
+     "edge_pct": 59.72,
+     "DM": 9.45,
+     "rows": 3226
+    },
+    "day after": {
+     "edge_pct": 3.44,
+     "DM": -0.41,
+     "rows": 3234
+    },
+    "other days": {
+     "edge_pct": -1.79,
+     "DM": -6.57,
+     "rows": 199628
+    },
+    "top decile": {
+     "edge_pct": 3.05,
+     "DM": 1.05,
+     "rows": 20679
+    },
+    "top decile, other days": {
+     "edge_pct": -5.81,
+     "DM": -4.56,
+     "rows": 20088
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": -1.16,
+     "DM": -5.24,
+     "rows": 159235
+    }
+   },
+   "trees on robust scale, calendar inputs": {
+    "all days": {
+     "edge_pct": -1.58,
+     "DM": -4.68,
+     "rows": 206088
+    },
+    "reaction day": {
+     "edge_pct": -1.47,
+     "DM": -0.11,
+     "rows": 3226
+    },
+    "day after": {
+     "edge_pct": -2.35,
+     "DM": -1.32,
+     "rows": 3234
+    },
+    "other days": {
+     "edge_pct": -1.57,
+     "DM": -4.55,
+     "rows": 199628
+    },
+    "top decile": {
+     "edge_pct": -6.07,
+     "DM": -4.71,
+     "rows": 20679
+    },
+    "top decile, other days": {
+     "edge_pct": -5.81,
+     "DM": -4.18,
+     "rows": 20088
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": -0.9,
+     "DM": -2.95,
+     "rows": 159235
+    }
+   },
+   "trees on masked scale, calendar inputs": {
+    "all days": {
+     "edge_pct": -1.18,
+     "DM": -3.58,
+     "rows": 206088
+    },
+    "reaction day": {
+     "edge_pct": -1.02,
+     "DM": -0.93,
+     "rows": 3226
+    },
+    "day after": {
+     "edge_pct": -2.62,
+     "DM": -4.19,
+     "rows": 3234
+    },
+    "other days": {
+     "edge_pct": -1.16,
+     "DM": -3.35,
+     "rows": 199628
+    },
+    "top decile": {
+     "edge_pct": -4.65,
+     "DM": -6.3,
+     "rows": 20679
+    },
+    "top decile, other days": {
+     "edge_pct": -4.61,
+     "DM": -5.81,
+     "rows": 20088
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": -0.57,
+     "DM": -1.72,
+     "rows": 159235
+    }
+   },
+   "neural network, retrained": {
+    "all days": {
+     "edge_pct": 6.95,
+     "DM": 6.7,
+     "rows": 206088
+    },
+    "reaction day": {
+     "edge_pct": 58.85,
+     "DM": 9.47,
+     "rows": 3226
+    },
+    "day after": {
+     "edge_pct": 3.22,
+     "DM": 0.46,
+     "rows": 3234
+    },
+    "other days": {
+     "edge_pct": -1.27,
+     "DM": -3.33,
+     "rows": 199628
+    },
+    "top decile": {
+     "edge_pct": 4.56,
+     "DM": 1.69,
+     "rows": 20679
+    },
+    "top decile, other days": {
+     "edge_pct": -3.13,
+     "DM": -3.17,
+     "rows": 20088
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": -0.87,
+     "DM": -2.51,
+     "rows": 159235
+    }
+   },
+   "neural network, calendar inputs": {
+    "all days": {
+     "edge_pct": -1.72,
+     "DM": -4.82,
+     "rows": 206088
+    },
+    "reaction day": {
+     "edge_pct": 0.95,
+     "DM": 0.27,
+     "rows": 3226
+    },
+    "day after": {
+     "edge_pct": -3.93,
+     "DM": -2.53,
+     "rows": 3234
+    },
+    "other days": {
+     "edge_pct": -1.84,
+     "DM": -5.8,
+     "rows": 199628
+    },
+    "top decile": {
+     "edge_pct": -4.39,
+     "DM": -3.96,
+     "rows": 20679
+    },
+    "top decile, other days": {
+     "edge_pct": -4.7,
+     "DM": -4.48,
+     "rows": 20088
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": -1.32,
+     "DM": -4.48,
+     "rows": 159235
+    }
+   },
+   "GARCH-t": {
+    "all days": {
+     "edge_pct": 9.18,
+     "DM": 8.84,
+     "rows": 206088
+    },
+    "reaction day": {
+     "edge_pct": 58.93,
+     "DM": 9.45,
+     "rows": 3226
+    },
+    "day after": {
+     "edge_pct": 6.73,
+     "DM": 2.11,
+     "rows": 3234
+    },
+    "other days": {
+     "edge_pct": 1.47,
+     "DM": 6.07,
+     "rows": 199628
+    },
+    "top decile": {
+     "edge_pct": 12.41,
+     "DM": 6.8,
+     "rows": 20679
+    },
+    "top decile, other days": {
+     "edge_pct": 6.37,
+     "DM": 7.17,
+     "rows": 20088
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": 0.52,
+     "DM": 2.57,
+     "rows": 159235
+    }
+   },
+   "Beta-t-EGARCH": {
+    "all days": {
+     "edge_pct": 7.72,
+     "DM": 7.69,
+     "rows": 206088
+    },
+    "reaction day": {
+     "edge_pct": 57.84,
+     "DM": 9.19,
+     "rows": 3226
+    },
+    "day after": {
+     "edge_pct": 2.12,
+     "DM": -0.92,
+     "rows": 3234
+    },
+    "other days": {
+     "edge_pct": 0.13,
+     "DM": 0.32,
+     "rows": 199628
+    },
+    "top decile": {
+     "edge_pct": 5.25,
+     "DM": 2.12,
+     "rows": 20679
+    },
+    "top decile, other days": {
+     "edge_pct": -2.89,
+     "DM": -2.47,
+     "rows": 20088
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": 0.58,
+     "DM": 1.38,
+     "rows": 159235
+    }
+   },
+   "trees, stored": {
+    "all days": {
+     "edge_pct": 7.81,
+     "DM": 7.13,
+     "rows": 206088
+    },
+    "reaction day": {
+     "edge_pct": 60.51,
+     "DM": 9.69,
+     "rows": 3226
+    },
+    "day after": {
+     "edge_pct": 4.67,
+     "DM": -0.09,
+     "rows": 3234
+    },
+    "other days": {
+     "edge_pct": -0.88,
+     "DM": -2.97,
+     "rows": 199628
+    },
+    "top decile": {
+     "edge_pct": 4.68,
+     "DM": 1.84,
+     "rows": 20679
+    },
+    "top decile, other days": {
+     "edge_pct": -3.5,
+     "DM": -4.16,
+     "rows": 20088
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": -0.47,
+     "DM": -1.68,
+     "rows": 159235
+    }
+   },
+   "trees on robust scale, stored": {
+    "all days": {
+     "edge_pct": 6.81,
+     "DM": 6.42,
+     "rows": 206088
+    },
+    "reaction day": {
+     "edge_pct": 59.87,
+     "DM": 9.52,
+     "rows": 3226
+    },
+    "day after": {
+     "edge_pct": 2.95,
+     "DM": -0.49,
+     "rows": 3234
+    },
+    "other days": {
+     "edge_pct": -1.86,
+     "DM": -6.9,
+     "rows": 199628
+    },
+    "top decile": {
+     "edge_pct": 2.89,
+     "DM": 0.92,
+     "rows": 20679
+    },
+    "top decile, other days": {
+     "edge_pct": -6.02,
+     "DM": -4.81,
+     "rows": 20088
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": -1.19,
+     "DM": -5.57,
+     "rows": 159235
+    }
+   },
+   "neural network, stored": {
+    "all days": {
+     "edge_pct": 6.82,
+     "DM": 6.52,
+     "rows": 206088
+    },
+    "reaction day": {
+     "edge_pct": 58.93,
+     "DM": 9.44,
+     "rows": 3226
+    },
+    "day after": {
+     "edge_pct": 3.89,
+     "DM": 0.71,
+     "rows": 3234
+    },
+    "other days": {
+     "edge_pct": -1.5,
+     "DM": -3.91,
+     "rows": 199628
+    },
+    "top decile": {
+     "edge_pct": 4.06,
+     "DM": 1.43,
+     "rows": 20679
+    },
+    "top decile, other days": {
+     "edge_pct": -3.89,
+     "DM": -3.81,
+     "rows": 20088
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": -1.05,
+     "DM": -2.9,
+     "rows": 159235
+    }
+   }
+  },
+  "pairs_first_vs_second": {
+   "trees, calendar inputs | trees, retrained": {
+    "all days": {
+     "edge_pct": 7.92,
+     "DM": 7.98,
+     "rows": 206088
+    },
+    "reaction day": {
+     "edge_pct": 58.86,
+     "DM": 10.64,
+     "rows": 3226
+    },
+    "day after": {
+     "edge_pct": 5.3,
+     "DM": 2.68,
+     "rows": 3234
+    },
+    "other days": {
+     "edge_pct": -0.44,
+     "DM": -1.71,
+     "rows": 199628
+    },
+    "top decile": {
+     "edge_pct": 8.04,
+     "DM": 5.07,
+     "rows": 20679
+    },
+    "top decile, other days": {
+     "edge_pct": 0.84,
+     "DM": 1.64,
+     "rows": 20088
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": -0.67,
+     "DM": -2.43,
+     "rows": 159235
+    }
+   },
+   "trees on robust scale, calendar inputs | trees on robust scale, retrained": {
+    "all days": {
+     "edge_pct": 8.28,
+     "DM": 7.95,
+     "rows": 206088
+    },
+    "reaction day": {
+     "edge_pct": 60.3,
+     "DM": 10.19,
+     "rows": 3226
+    },
+    "day after": {
+     "edge_pct": 5.66,
+     "DM": 0.97,
+     "rows": 3234
+    },
+    "other days": {
+     "edge_pct": -0.21,
+     "DM": -0.87,
+     "rows": 199628
+    },
+    "top decile": {
+     "edge_pct": 8.59,
+     "DM": 4.79,
+     "rows": 20679
+    },
+    "top decile, other days": {
+     "edge_pct": -0.0,
+     "DM": -0.46,
+     "rows": 20088
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": -0.26,
+     "DM": -0.98,
+     "rows": 159235
+    }
+   },
+   "neural network, calendar inputs | neural network, retrained": {
+    "all days": {
+     "edge_pct": 8.52,
+     "DM": 9.1,
+     "rows": 206088
+    },
+    "reaction day": {
+     "edge_pct": 58.45,
+     "DM": 10.9,
+     "rows": 3226
+    },
+    "day after": {
+     "edge_pct": 6.88,
+     "DM": 3.58,
+     "rows": 3234
+    },
+    "other days": {
+     "edge_pct": 0.57,
+     "DM": 2.97,
+     "rows": 199628
+    },
+    "top decile": {
+     "edge_pct": 8.57,
+     "DM": 5.87,
+     "rows": 20679
+    },
+    "top decile, other days": {
+     "edge_pct": 1.5,
+     "DM": 6.12,
+     "rows": 20088
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": 0.44,
+     "DM": 2.12,
+     "rows": 159235
+    }
+   },
+   "trees, retrained | trees, stored": {
+    "all days": {
+     "edge_pct": -0.04,
+     "DM": -0.91,
+     "rows": 206088
+    },
+    "reaction day": {
+     "edge_pct": 0.48,
+     "DM": 4.42,
+     "rows": 3226
+    },
+    "day after": {
+     "edge_pct": -0.2,
+     "DM": -0.56,
+     "rows": 3234
+    },
+    "other days": {
+     "edge_pct": -0.13,
+     "DM": -2.35,
+     "rows": 199628
+    },
+    "top decile": {
+     "edge_pct": -0.87,
+     "DM": -5.79,
+     "rows": 20679
+    },
+    "top decile, other days": {
+     "edge_pct": -1.05,
+     "DM": -5.77,
+     "rows": 20088
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": 0.03,
+     "DM": 0.57,
+     "rows": 159235
+    }
+   },
+   "trees on robust scale, retrained | trees on robust scale, stored": {
+    "all days": {
+     "edge_pct": -0.01,
+     "DM": -0.41,
+     "rows": 206088
+    },
+    "reaction day": {
+     "edge_pct": 0.37,
+     "DM": 3.35,
+     "rows": 3226
+    },
+    "day after": {
+     "edge_pct": -0.5,
+     "DM": -0.86,
+     "rows": 3234
+    },
+    "other days": {
+     "edge_pct": -0.07,
+     "DM": -1.73,
+     "rows": 199628
+    },
+    "top decile": {
+     "edge_pct": -0.16,
+     "DM": -1.84,
+     "rows": 20679
+    },
+    "top decile, other days": {
+     "edge_pct": -0.2,
+     "DM": -2.12,
+     "rows": 20088
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": -0.04,
+     "DM": -0.98,
+     "rows": 159235
+    }
+   },
+   "neural network, retrained | neural network, stored": {
+    "all days": {
+     "edge_pct": -0.15,
+     "DM": -5.0,
+     "rows": 206088
+    },
+    "reaction day": {
+     "edge_pct": 0.2,
+     "DM": 2.13,
+     "rows": 3226
+    },
+    "day after": {
+     "edge_pct": 0.69,
+     "DM": 5.46,
+     "rows": 3234
+    },
+    "other days": {
+     "edge_pct": -0.23,
+     "DM": -6.73,
+     "rows": 199628
+    },
+    "top decile": {
+     "edge_pct": -0.52,
+     "DM": -5.18,
+     "rows": 20679
+    },
+    "top decile, other days": {
+     "edge_pct": -0.74,
+     "DM": -6.18,
+     "rows": 20088
+    },
+    "deciles 1-8, other days": {
+     "edge_pct": -0.17,
+     "DM": -4.66,
+     "rows": 159235
+    }
+   }
+  },
+  "breach_pct": {
+   "trees, retrained": {
+    "all days": 3.22,
+    "reaction day": 25.26,
+    "day after": 5.07,
+    "other days": 2.83,
+    "top decile": 2.69,
+    "top decile, other days": 2.4,
+    "deciles 1-8, other days": 2.91
+   },
+   "trees, calendar inputs": {
+    "all days": 3.37,
+    "reaction day": 5.36,
+    "day after": 3.87,
+    "other days": 3.33,
+    "top decile": 2.88,
+    "top decile, other days": 2.8,
+    "deciles 1-8, other days": 3.43
+   },
+   "trees on robust scale, retrained": {
+    "all days": 2.97,
+    "reaction day": 24.8,
+    "day after": 4.85,
+    "other days": 2.59,
+    "top decile": 2.93,
+    "top decile, other days": 2.62,
+    "deciles 1-8, other days": 2.61
+   },
+   "trees on robust scale, calendar inputs": {
+    "all days": 3.06,
+    "reaction day": 4.49,
+    "day after": 2.81,
+    "other days": 3.04,
+    "top decile": 2.93,
+    "top decile, other days": 2.87,
+    "deciles 1-8, other days": 3.08
+   },
+   "trees on masked scale, calendar inputs": {
+    "all days": 3.21,
+    "reaction day": 4.15,
+    "day after": 2.88,
+    "other days": 3.2,
+    "top decile": 3.05,
+    "top decile, other days": 2.97,
+    "deciles 1-8, other days": 3.25
+   },
+   "neural network, retrained": {
+    "all days": 2.68,
+    "reaction day": 24.15,
+    "day after": 4.27,
+    "other days": 2.31,
+    "top decile": 2.12,
+    "top decile, other days": 1.84,
+    "deciles 1-8, other days": 2.39
+   },
+   "neural network, calendar inputs": {
+    "all days": 2.71,
+    "reaction day": 4.68,
+    "day after": 2.84,
+    "other days": 2.68,
+    "top decile": 2.31,
+    "top decile, other days": 2.22,
+    "deciles 1-8, other days": 2.76
+   },
+   "masked calendar GARCH-t": {
+    "all days": 2.86,
+    "reaction day": 2.98,
+    "day after": 2.01,
+    "other days": 2.88,
+    "top decile": 2.69,
+    "top decile, other days": 2.61,
+    "deciles 1-8, other days": 2.94
+   },
+   "GARCH-t": {
+    "all days": 2.76,
+    "reaction day": 24.55,
+    "day after": 4.14,
+    "other days": 2.38,
+    "top decile": 1.98,
+    "top decile, other days": 1.73,
+    "deciles 1-8, other days": 2.52
+   },
+   "Beta-t-EGARCH": {
+    "all days": 2.52,
+    "reaction day": 23.68,
+    "day after": 5.07,
+    "other days": 2.14,
+    "top decile": 2.27,
+    "top decile, other days": 1.91,
+    "deciles 1-8, other days": 2.19
+   },
+   "trees, stored": {
+    "all days": 3.29,
+    "reaction day": 25.33,
+    "day after": 5.19,
+    "other days": 2.9,
+    "top decile": 2.83,
+    "top decile, other days": 2.55,
+    "deciles 1-8, other days": 2.98
+   },
+   "trees on robust scale, stored": {
+    "all days": 3.0,
+    "reaction day": 24.86,
+    "day after": 4.95,
+    "other days": 2.61,
+    "top decile": 2.88,
+    "top decile, other days": 2.56,
+    "deciles 1-8, other days": 2.64
+   },
+   "neural network, stored": {
+    "all days": 2.69,
+    "reaction day": 24.4,
+    "day after": 4.21,
+    "other days": 2.31,
+    "top decile": 2.21,
+    "top decile, other days": 1.93,
+    "deciles 1-8, other days": 2.38
+   }
+  },
+  "lowest_loss_all_days": "neural network, calendar inputs"
+ }
+}

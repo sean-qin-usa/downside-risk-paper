@@ -41,5 +41,33 @@
    "after>during": 1
   }
  },
- "date_mismatches": "AAL (4 days), ALL (1 day), ADM, AZO, NVDA (no I/B/E/S date within 5 days)"
+ "date_mismatches": "AAL (4 days), ALL (1 day), ADM, AZO, NVDA (no I/B/E/S date within 5 days)",
+ "canonical_panel_check": {
+  "what": "The calendars used for the canonical CRSP panel in r71-r78 (free source, looked up under the ticker in crsp_panel_chars.csv) against the I/B/E/S record linked by CRSP header CUSIP and I/B/E/S ticker, 2014-2024. Aggregates only.",
+  "checked_on": "2026-11-19",
+  "names_in_panel": 200,
+  "status": {
+   "no file under the panel's ticker": 45,
+   "file with fewer than 8 dates in 2014-2024": 11,
+   "no I/B/E/S record": 2,
+   "compared": 142
+  },
+  "names_where_under_half_of_the_dates_are_in_ibes (another company's calendar)": 4,
+  "names_that_agree": 138,
+  "free_source_events_in_agreeing_names": 5812,
+  "exact_date_match": 5745,
+  "share": 0.9885,
+  "before_or_after_1600_class": {
+   "agree": 5671,
+   "of": 5745,
+   "share": 0.9871
+  },
+  "ibes_events_in_agreeing_names": 6056,
+  "ibes_events_missing_from_free_source": 311,
+  "ibes_coverage": {
+   "names_with_a_record": 195,
+   "names_with_36_or_more_announcements_2014_2024": 186,
+   "announcements_2013_10_to_2025_02": 8728
+  }
+ }
 }

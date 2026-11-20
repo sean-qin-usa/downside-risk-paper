@@ -554,3 +554,92 @@ an earnings indicator and five do not mention earnings.
 The question "when do flexible models beat GARCH" has three answers of unequal size. Without a calendar they win
 after earnings shocks, by discarding variance that GARCH carries. That gain is a third of what the calendar itself
 gives. With the calendar in both they win by about 1%.
+
+## 7. Fourth pass (same day): the same test on the CRSP panel
+
+Section 6 ran the fair test (every model given the calendar) on US large caps only. This pass runs it on the
+paper's main panel, the 200 CRSP stocks, under that panel's own protocol: per name, the first 60% of days estimates
+the GARCH models, the first 45% trains the trees and the network, and the last 40% (August 2020 to December 2024)
+is the test. Script: `tools/r81_canon_calendar.py`; output: `results/paper/diagnostics/r81/canon.json`. The six
+predictions (J1 to J6) are in the script header and were written before the calendar or the run was seen.
+
+### 7.1 The calendar for this panel
+
+The CRSP file carries an old ticker for each stock (LOWE, NIKE, AEXP), so the earlier passes looked up this panel's
+calendars under tickers that are often no longer the company's. Of the 200 names, 45 had no calendar at all, 11 had
+a file with too few dates, and 4 had another company's calendar. This pass replaces all of them with the I/B/E/S
+record of quarterly announcements (date and time), linked through the CRSP header CUSIP. 195 names have a record and
+186 have at least 36 announcements between 2014 and 2024; those 186 are the panel here. The 14 left out are small
+companies without analyst coverage.
+
+The same link gives a larger check of the free source than Section 6.3 had. On the 138 names where both sources
+describe the same company, 5,745 of 5,812 free-source dates (98.9%) are the I/B/E/S date exactly, and the
+before-or-after-16:00 class agrees for 98.7% of them. The free source misses 311 of 6,056 I/B/E/S announcements
+(5.1%). Counts: `results/panels/earnings_dates_validation.json`.
+
+The numbers for this panel in Sections 1 to 5 (r71, r76, r78) used the old calendars, without the announcement time.
+The four wrong calendars and the missing names weaken those numbers; they do not create them. They have not been
+rerun.
+
+### 7.2 Results (186 names, 206,088 stock-days)
+
+The reaction day is 1.6% of days. On it the mean squared GARCH-t residual is 13.4 (1.3 on the day after, 1.0 on
+other days), and the 2.5% VaR is breached on 24.6% of days by GARCH-t, 23.7% by Beta-t-EGARCH, 24.9% by the trees
+on the robust scale and 24.4% by the neural network. At 1% the breach rates are 18.3% to 19.8%.
+
+Gain over GARCH-t, all days (DM in brackets):
+
+| Model | 2.5% | 1% |
+|---|---|---|
+| Beta-t-EGARCH | +1.6% (6.0) | +1.6% (4.4) |
+| Trees, no calendar | +1.5% (4.7) | +2.1% (5.4) |
+| Trees on robust scale, no calendar | +2.5% (9.6) | +3.4% (9.5) |
+| Neural network, no calendar | +2.5% (8.5) | +2.9% (8.0) |
+| Masked calendar GARCH-t | +9.2% (8.8) | +15.8% (9.1) |
+| Trees, calendar inputs | +9.2% (8.8) | +16.0% (9.5) |
+| Trees on robust scale, calendar inputs | +10.6% (9.8) | +17.4% (10.1) |
+| Trees on masked scale, calendar inputs | +10.2% (9.6) | +17.4% (10.1) |
+| Neural network, calendar inputs | +10.7% (10.7) | +17.2% (10.5) |
+
+The calendar inputs are worth 7.9% to 8.5% to each flexible model at 2.5% (DM 8.0 to 9.1) and 14.2% to 15.0% at 1%.
+All of it is on the reaction day and the day after; on other days the change is between -0.4% and +0.6%.
+
+With the calendar in both, the flexible models beat the masked calendar GARCH-t over all days by 0.1% (trees, DM 0.2),
+1.6% (trees on the robust scale, DM 4.7), 1.2% (trees on the masked scale, DM 3.6) and 1.7% (neural network, DM 4.8)
+at 2.5%, and by 0.2%, 2.0%, 2.0% and 1.7% at 1%. The margin is on ordinary days and is largest in the top decile of
+the score (3% to 6%).
+
+The calendar delivers 9.2 of the best model's 10.7 points at 2.5% (86%) and 15.8 of 17.4 at 1% (91%).
+
+Breach rates with the calendar: the masked GARCH-t is breached on 3.0% of reaction days at 2.5% and 2.9% of all
+days; the flexible models with calendar inputs on 4.2% to 5.4% of reaction days and 2.7% to 3.4% of all days.
+
+The retrained models without the calendar reproduce the stored forecasts of the paper (differences of 0.0% to 0.1%
+over all days), and the refitted GARCH-t reproduces the stored VaR to seven digits.
+
+### 7.3 The two panels side by side (2.5%, all days)
+
+| | CRSP panel (186 names, 2020-2024) | US large caps (199 names, 2016-2026) |
+|---|---|---|
+| Calendar source | I/B/E/S | free source, checked against I/B/E/S |
+| Mean squared GARCH-t residual on the reaction day | 13.4 | 10.5 |
+| GARCH-t 2.5% breach on the reaction day | 24.6% | 23.0% |
+| Best flexible model without a calendar, over GARCH-t | +2.5% | +2.1% |
+| Masked calendar GARCH-t, over GARCH-t | +9.2% | +6.5% |
+| Best model with calendar inputs, over GARCH-t | +10.7% | +7.7% |
+| Share of the best model's gain that the calendar delivers | 86% | 84% |
+| Best flexible model with the calendar, over the masked calendar GARCH-t | +1.7% (4.8) | +1.2% (3.7) |
+
+The two panels give the same answer. The effect is larger on the CRSP panel, which holds small companies and a
+shorter, later test period.
+
+### 7.4 Predictions of this pass
+
+| | Prediction | Result |
+|---|---|---|
+| J1 | Reaction day: mean squared residual above 11, GARCH-t 2.5% breach above 20%; day after below 2.5 | Holds: 13.4, 24.6%, 1.3 |
+| J2 | Calendar inputs worth at least 4% to each flexible model (DM above 5); other days within 0.5% | Holds for the size (7.9% to 8.5%, DM 8.0 to 9.1). Other days: -0.4%, -0.2%, and +0.6% for the network, 0.1 outside the band |
+| J3 | Masked calendar GARCH-t at least 6% over GARCH-t and at least 3% over every flexible model without a calendar | Holds: 9.2%; 6.8% to 7.8% |
+| J4 | With the calendar in both, trees on the robust scale and the network beat the masked model by 0.5% to 2.5%, DM above 2 for the trees | Holds: 1.6% (4.7) and 1.7% (4.8) |
+| J5 | The calendar delivers at least three quarters of the best model's gain | Holds: 86% |
+| J6 | At 1% the masked model is within 1.5% of each flexible model with calendar inputs | Fails: 0.2% for the plain trees, but 1.7% to 2.0% for the other three |
