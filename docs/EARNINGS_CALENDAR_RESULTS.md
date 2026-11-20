@@ -920,3 +920,54 @@ Prior work on the idea. Holzmann and Eulert (2014, Annals of Applied Statistics)
 lowers the expected score of an ideal forecast and relate the average VaR score to expected shortfall. That is the
 principle. A search did not find the closed form used here, or its use to predict a gain before a model is run; the
 search was two queries and the closest papers on quantile scores have not been read.
+
+## 11. Eighth pass: the flexible models' last 1%, two other ways (`tools/r87_last_percent_2.py`)
+
+Base model: the masked calendar GARCH-t on ordinary days. Predictions N1 to N4 were written before the run; N5 and N6
+are follow-ups, each written before its own run.
+
+Reading it off. Ordinary days sorted into deciles of the absolute volatility level, one multiplier per decile chosen
+on pre-test rows. On the CRSP panel the multipliers fall from 1.10 in the calmest decile to 0.95 in the most
+volatile: the GARCH-t VaR is too narrow when volatility is low and too wide when it is high. They gain 0.72% at 2.5%
+(DM 8.9) and 0.97% at 1%. On US large caps they run from 1.04 to 0.97 and gain 0.13% (not significant). A
+one-parameter version, sigma multiplied by (sigma / panel level)^delta, chooses delta = -0.07 on the CRSP panel and
+gains 0.73% (DM 7.4); half of that comes from the name's usual level alone. Shrinking toward the name's own usual
+level did nothing in 9.2; shrinking toward the panel's level works, because each GARCH-t is fitted to one name and
+the pooled models see all names on one scale.
+
+Distilling the flexible models. The log ratio of a flexible model's 2.5% VaR to the GARCH-t's was regressed on six
+state variables on the first half of the test dates, and the fitted correction applied on the second half:
+
+| | CRSP panel | US large caps |
+|---|---|---|
+| Neural network's second-half margin | 1.75% | 0.46% |
+| Linear correction fitted to it | 1.51% (87%) | 0.43% (93%) |
+| Trees on the robust scale: margin, linear correction | 1.81%, 1.52% (84%) | 0.40%, 0.12% (29%) |
+
+Most of what the flexible models add on ordinary days is linear in six variables. The largest coefficient is on the
+firm part of the shock share (-0.34 to -0.40 in all four fits): narrower after a firm-specific shock.
+
+The same correction with no flexible model. Sigma multiplied by exp(x'beta), beta chosen on pre-test rows by 2.5%
+pinball loss:
+
+| | CRSP panel | US large caps |
+|---|---|---|
+| Coefficient: firm part of the shock share | -0.53 | -0.44 |
+| Coefficient: market part of the shock share | +1.12 | +0.59 |
+| Coefficient: today's level less the panel level | -0.08 | -0.06 |
+| Gain over the masked calendar GARCH-t, ordinary days, 2.5% | 0.86% (DM 5.2) | 0.49% (4.1) |
+| Share of the gap to the best flexible model closed (2.5%, 1%) | 48%, 57% | 42%, 45% |
+| Against the best flexible model, 2.5% | -0.96% (-2.7) | -0.69% (-2.4) |
+
+About half of the flexible models' last 1% is a six-coefficient rescaling that a classical model can carry: narrower
+after a firm-specific shock, wider after a market-wide one, and pulled toward the panel's volatility level. The other
+half is still theirs.
+
+| | Prediction | CRSP panel | US large caps |
+|---|---|---|---|
+| N1 | Decile multipliers fall from above 1.03 to below 0.97 and gain 0.5% (CRSP); all within 0.97 to 1.03, gain below 0.2% (US) | Holds | Gain holds; one multiplier is 1.04 |
+| N2 | Panel shrinkage: delta -0.15 to -0.02, gain 0.4% to 1.0% (CRSP); delta within 0.03 of zero, gain below 0.2% (US) | Holds (-0.07, 0.73%) | Gain holds; delta is -0.04 |
+| N3 | The name's usual level alone gets 40% of that gain (CRSP) | Holds (49%) | |
+| N4 | Distillation: R-squared at least 0.3 and half of the margin recovered (CRSP) | Recovery holds (87%, 84%); R-squared 0.26 for the network, 0.50 for the trees | |
+| N5 | Two-fix GARCH-t with panel shrinkage closes 70% of the ordinary-day gap and is within 0.5% of the best flexible model (CRSP) | Fails (55%; 0.8% behind) | |
+| N6 | Stand-alone correction closes 60% (CRSP), 30% (US); firm-shock coefficient -0.6 to -0.1; level coefficient negative | Coefficients hold; closes 48% | Holds (42%) |

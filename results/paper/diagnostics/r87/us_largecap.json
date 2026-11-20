@@ -1,0 +1,196 @@
+{
+ "universe": "us_largecap",
+ "rows_pre_test": 503058,
+ "rows_test": 526493,
+ "predictions_written_before_run": "see the script header (N1-N4)",
+ "panel_level_of_log_sigma": 0.431,
+ "deciles of volatility level today": {
+  "multipliers_calmest_to_most_volatile": [
+   1.04,
+   1.02,
+   1.03,
+   1.0,
+   1.01,
+   1.02,
+   1.01,
+   1.01,
+   0.98,
+   0.97
+  ],
+  "median_sigma_by_decile": [
+   0.83,
+   0.99,
+   1.11,
+   1.23,
+   1.37,
+   1.52,
+   1.72,
+   1.98,
+   2.41,
+   3.57
+  ],
+  "0.01": {
+   "gain_pct": 0.17,
+   "DM": 0.69
+  },
+  "0.025": {
+   "gain_pct": 0.13,
+   "DM": 0.91
+  }
+ },
+ "deciles of the name's usual volatility level": {
+  "multipliers_calmest_to_most_volatile": [
+   1.0,
+   1.03,
+   1.02,
+   1.01,
+   1.01,
+   0.99,
+   1.0,
+   1.0,
+   0.98,
+   0.97
+  ],
+  "median_sigma_by_decile": [
+   1.0,
+   1.14,
+   1.27,
+   1.37,
+   1.48,
+   1.59,
+   1.69,
+   1.85,
+   2.02,
+   2.45
+  ],
+  "0.01": {
+   "gain_pct": 0.05,
+   "DM": 1.46
+  },
+  "0.025": {
+   "gain_pct": 0.02,
+   "DM": 0.83
+  }
+ },
+ "panel shrinkage, today's level": {
+  "delta": -0.04,
+  "0.01": {
+   "gain_pct": 0.04,
+   "DM": 0.16
+  },
+  "0.025": {
+   "gain_pct": 0.07,
+   "DM": 0.38
+  }
+ },
+ "panel shrinkage, the name's usual level": {
+  "delta": -0.05,
+  "0.01": {
+   "gain_pct": 0.06,
+   "DM": 1.5
+  },
+  "0.025": {
+   "gain_pct": 0.04,
+   "DM": 1.29
+  }
+ },
+ "distillation": {
+  "second_half_from": "2021-06-08",
+  "neural network, calendar inputs": {
+   "coefficients": {
+    "constant": 0.043,
+    "level today less panel level": -0.106,
+    "usual level less panel level": 0.086,
+    "log recent residual scale": 0.038,
+    "shock share, firm part": -0.36,
+    "shock share, market part": 0.039,
+    "days since the last reaction day / 63": -0.028
+   },
+   "r2_first_half": 0.131,
+   "second_half_gain_of_flexible_pct": 0.46,
+   "second_half_gain_of_linear_correction_pct": 0.43,
+   "DM_linear_correction": 3.32,
+   "share_recovered": 0.93
+  },
+  "trees on robust scale, calendar inputs": {
+   "coefficients": {
+    "constant": 0.032,
+    "level today less panel level": -0.066,
+    "usual level less panel level": 0.007,
+    "log recent residual scale": 0.066,
+    "shock share, firm part": -0.403,
+    "shock share, market part": -0.105,
+    "days since the last reaction day / 63": -0.038
+   },
+   "r2_first_half": 0.196,
+   "second_half_gain_of_flexible_pct": 0.4,
+   "second_half_gain_of_linear_correction_pct": 0.12,
+   "DM_linear_correction": 0.52,
+   "share_recovered": 0.29
+  }
+ },
+ "two-fix with panel shrinkage": {
+  "delta": -0.03,
+  "0.01": {
+   "best_flexible": "neural network, calendar inputs",
+   "gain_over_masked_pct": {
+    "best flexible": 1.48,
+    "two-fix": 0.07,
+    "panel shrinkage alone": 0.04,
+    "two-fix with panel shrinkage": 0.07
+   },
+   "share_of_gap_closed": 0.04,
+   "against_best_flexible": {
+    "edge_pct": -1.44,
+    "DM": -1.63
+   }
+  },
+  "0.025": {
+   "best_flexible": "trees on robust scale, calendar inputs",
+   "gain_over_masked_pct": {
+    "best flexible": 1.17,
+    "two-fix": 0.1,
+    "panel shrinkage alone": 0.07,
+    "two-fix with panel shrinkage": 0.14
+   },
+   "share_of_gap_closed": 0.12,
+   "against_best_flexible": {
+    "edge_pct": -1.04,
+    "DM": -2.53
+   }
+  }
+ },
+ "stand-alone log-linear correction": {
+  "coefficients": {
+   "constant": -0.002,
+   "level today less panel level": -0.056,
+   "usual level less panel level": 0.017,
+   "log recent residual scale": 0.025,
+   "shock share, firm part": -0.441,
+   "shock share, market part": 0.592,
+   "days since the last reaction day / 63": 0.034
+  },
+  "0.01": {
+   "gain_over_masked_pct": 0.66,
+   "DM": 4.08,
+   "best_flexible_gain_pct": 1.48,
+   "share_of_gap_closed": 0.45,
+   "against_best_flexible": {
+    "edge_pct": -0.84,
+    "DM": -1.38
+   },
+   "breach_pct": 1.32
+  },
+  "0.025": {
+   "gain_over_masked_pct": 0.49,
+   "DM": 4.05,
+   "best_flexible_gain_pct": 1.17,
+   "share_of_gap_closed": 0.42,
+   "against_best_flexible": {
+    "edge_pct": -0.69,
+    "DM": -2.39
+   },
+   "breach_pct": 2.96
+  }
+ }
+}
