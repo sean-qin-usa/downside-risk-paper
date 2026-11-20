@@ -862,8 +862,18 @@ announcement variance implied by option prices the evening before, each scaled b
 The standardized volatilities are interpolations and too crude. The two estimates from the option chain are sensible
 in size (the median absolute move is 3.7%), but a VaR built on either is worse than the firm's own history, and the
 pre-test weight on the options in a combination is zero. On this panel the firm's announcement history is the better
-input for the reaction-day VaR. The panel holds 126 small companies whose options are thin; the comparison has not
-been split by size.
+input for the reaction-day VaR, but the result belongs to the small companies. Split by size (`R85_COHORT`, every
+parameter chosen again within the cohort; prediction W8 in the script header):
+
+| Reaction-day loss at 2.5% | Large companies (74 names, 1,279 test days) | Small companies (112 names, 1,699 test days with options) |
+|---|---|---|
+| Option-implied (one expiry) against the second clock | 4.6% better (DM 0.4) | 24% worse (-3.2) |
+| Option-implied against the constant multiplier | 13.0% better (1.9) | 16% worse (-2.9) |
+| Pre-test weight on the options in the combination | 0.9 | 0.0 |
+
+For large companies the option-implied variance is as good as the firm's history or better, as Govindaraj, Jin,
+Livnat and Zhao find; for small companies, whose options are thin, it is much worse. "History beats options" is not
+a general result.
 
 | | Prediction | CRSP panel | US large caps |
 |---|---|---|---|

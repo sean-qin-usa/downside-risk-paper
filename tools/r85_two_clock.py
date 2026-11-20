@@ -43,13 +43,23 @@
 #  W7. With the one-expiry estimate M4 beats the constant multiplier on reaction days by at least 5% (DM above 2) and is
 #      within 5% of the second clock M2 either way; M5 beats M2 by at least 2% (DM above 2) with a weight v on the
 #      options between 0.3 and 0.7.
+#
+# SIZE SPLIT, WRITTEN BEFORE IT WAS RUN (2026-11-20). W7 failed on the whole CRSP panel, where 126 of 186 names are small
+# companies with thin options, and the result runs against Govindaraj, Jin, Livnat and Zhao, who find that an
+# option-implied measure adds to the firm's announcement history. R85_COHORT=largecap or smallcap restricts the panel
+# (cohorts of crsp_panel_chars.csv); every parameter is chosen again on that cohort's pre-test reaction days.
+#  W8. Large companies: the option-implied model M4 is within 5% of the second clock M2 on reaction days either way,
+#      and the combination M5 puts a weight of at least 0.3 on the options and beats M2 (DM above 2). Small companies:
+#      M4 is worse than M2 by more than 10% and the weight on the options is zero.
 # Usage: python tools/r85_two_clock.py canon | us_largecap
 import os, sys, json, math, time, warnings; warnings.filterwarnings("ignore")
 import numpy as np, pandas as pd
 from scipy import stats
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."); WHAT = sys.argv[1]; AL = (0.01, 0.025); OUTD = os.path.join(ROOT, "results", "paper", "diagnostics", "r85"); os.makedirs(OUTD, exist_ok=True)
 tq = lambda a, nu: stats.t.ppf(a, nu) / np.sqrt(nu / (nu - 2)); pin = lambda y, q, t: np.where(y - q >= 0, t * (y - q), (t - 1) * (y - q))
-A = pd.read_pickle(os.path.join(ROOT, "data", "panels", WHAT + "_calcache.pkl")); A = A[np.isfinite(A.r0)].reset_index(drop=True); R82 = json.load(open(os.path.join(ROOT, "results", "paper", "diagnostics", "r82", WHAT + ".json")))
+A = pd.read_pickle(os.path.join(ROOT, "data", "panels", WHAT + "_calcache.pkl")); A = A[np.isfinite(A.r0)].reset_index(drop=True)
+COH = os.environ.get("R85_COHORT")
+if COH: ch = pd.read_csv(os.path.join(os.environ["GBC_PROJ"], "crsp_panel_chars.csv")); A = A[A["name"].isin(set(ch.loc[ch.cohort == COH, "permno"].astype(str)))].reset_index(drop=True); R82 = json.load(open(os.path.join(ROOT, "results", "paper", "diagnostics", "r82", WHAT + ".json")))
 ordv = A[(A.r0 != 1) & (A.r1 != 1) & ~A.test]; sbar2 = ordv.groupby("name")["msig"].apply(lambda s: float(np.mean(s ** 2))); smed = ordv.groupby("name")["msig"].median()
 E = A[A.r0 == 1].copy(); E["e2"] = (E.y - E.mmu) ** 2; E["s2"] = E.msig ** 2; E["u2"] = E.e2 / E.s2; E["sbar2"] = E["name"].map(sbar2); E["rel"] = E.msig / E["name"].map(smed)
 g = E.groupby("name"); E["H"] = g["e2"].transform(lambda s: s.shift(1).rolling(8, min_periods=3).mean()) - g["s2"].transform(lambda s: s.shift(1).rolling(8, min_periods=3).mean()); E["H"] = E.H.clip(lower=0); E["U"] = g["u2"].transform(lambda s: s.shift(1).rolling(8, min_periods=3).mean())
@@ -97,7 +107,7 @@ for j, a in enumerate(AL):
                    "breach_pct_reaction_days": {m: round(100 * float((y <= mu + sd * ba)[te].mean()), 2) for m, sd in SD.items()}}
     if ho.any():
         f = te & ho; OUT[str(a)]["on_reaction_days_with_option_data"] = {"M4_vs_M2": edge(Lm["M2 addition, firm history"], Lm["M4 addition, option-implied"], f), "M5_vs_M4": edge(Lm["M4 addition, option-implied"], Lm["M5 addition, history and options"], f), "M5_vs_M2": edge(Lm["M2 addition, firm history"], Lm["M5 addition, history and options"], f), "M4_vs_M0": edge(Lm["M0 constant multiple"], Lm["M4 addition, option-implied"], f)}
-json.dump(OUT, open(os.path.join(OUTD, WHAT + ".json"), "w"), indent=1); f_ = lambda e: "%+.1f%% (%s)" % (e["edge_pct"], e["DM"])
+OUT["cohort"] = COH; OUT["names"] = int(A["name"].nunique()); json.dump(OUT, open(os.path.join(OUTD, WHAT + ("_" + COH if COH else "") + ".json"), "w"), indent=1); f_ = lambda e: "%+.1f%% (%s)" % (e["edge_pct"], e["DM"])
 print("######## %s: %s; parameters %s" % (WHAT, OUT["reaction_days"], PAR)); print("u2 by relative volatility:", OUT["mean_squared_standardized_residual_by_relative_volatility"], OUT["regression_test_log_u2_on_log_relative_volatility"])
 for a in ("0.025", "0.01"):
     B = OUT[a]; print("--- %s reaction days, against M0: %s" % (a, {m[:3]: f_(v) for m, v in B["vs_M0_on_reaction_days"].items()})); print("    M2 against: %s" % {m[:3]: f_(v) for m, v in B["M2_vs"].items()})
