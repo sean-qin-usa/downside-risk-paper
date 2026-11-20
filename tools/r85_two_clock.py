@@ -33,6 +33,16 @@
 #  W5. On reaction days M2 is not worse than any flexible model with calendar inputs (DM above -2), and over all days
 #      it gains 0.1% to 0.6% over the masked calendar GARCH-t.
 #  W6. (CRSP) M4 beats M2 on reaction days by at least 3% (DM above 2), and M5 beats both.
+#
+# FOLLOW-UP ON THE BENCHMARK, WRITTEN AFTER W6 FAILED WITH THE STANDARDIZED OPTIONS AND BEFORE THIS WAS RUN (2026-11-20).
+# The 30-day and 60-day standardized volatilities are interpolations and gave an announcement standard deviation about
+# half of what the returns show. Two estimates from the option chain itself replace them: "one expiry" = the implied
+# variance to the nearest expiry on or after the reaction day less the ordinary variance of the days to that expiry,
+# max(IV1^2 T1 - n1 s2_t, 0); "two expiries" = the term-structure formula with the two nearest actual expiries.
+# M4 and M5 use the one-expiry estimate; the two-expiry estimate is reported beside it.
+#  W7. With the one-expiry estimate M4 beats the constant multiplier on reaction days by at least 5% (DM above 2) and is
+#      within 5% of the second clock M2 either way; M5 beats M2 by at least 2% (DM above 2) with a weight v on the
+#      options between 0.3 and 0.7.
 # Usage: python tools/r85_two_clock.py canon | us_largecap
 import os, sys, json, math, time, warnings; warnings.filterwarnings("ignore")
 import numpy as np, pandas as pd
@@ -44,8 +54,9 @@ ordv = A[(A.r0 != 1) & (A.r1 != 1) & ~A.test]; sbar2 = ordv.groupby("name")["msi
 E = A[A.r0 == 1].copy(); E["e2"] = (E.y - E.mmu) ** 2; E["s2"] = E.msig ** 2; E["u2"] = E.e2 / E.s2; E["sbar2"] = E["name"].map(sbar2); E["rel"] = E.msig / E["name"].map(smed)
 g = E.groupby("name"); E["H"] = g["e2"].transform(lambda s: s.shift(1).rolling(8, min_periods=3).mean()) - g["s2"].transform(lambda s: s.shift(1).rolling(8, min_periods=3).mean()); E["H"] = E.H.clip(lower=0); E["U"] = g["u2"].transform(lambda s: s.shift(1).rolling(8, min_periods=3).mean())
 if WHAT == "canon":
-    O = pd.read_pickle(os.path.join(ROOT, "data", "panels", "optionm_earnings_canon.pkl")); O["J2_opt"] = pd.to_numeric(O["J2_opt"], errors="coerce").astype(float); E = E.merge(O[["name", "date", "J2_opt"]], on=["name", "date"], how="left"); E["J2_opt"] = E["J2_opt"].astype(float)
-else: E["J2_opt"] = np.nan
+    O = pd.read_pickle(os.path.join(ROOT, "data", "panels", "optionm_earnings_canon.pkl")); O = O.assign(**{c_: pd.to_numeric(O[c_], errors="coerce").astype(float) for c_ in ("J2_opt", "J2_ts", "iv1", "T1")})
+    E = E.merge(O[["name", "date", "J2_opt", "J2_ts", "iv1", "T1"]], on=["name", "date"], how="left"); E["J2_std"] = E["J2_opt"]; E["J2_opt"] = np.maximum(1e4 * E.iv1 ** 2 * E.T1 - np.round(E.T1 * 252) * E.s2, 0)   # one expiry
+else: E["J2_opt"] = np.nan; E["J2_std"] = np.nan; E["J2_ts"] = np.nan
 E = E[np.isfinite(E.H) & np.isfinite(E.U)].reset_index(drop=True); pre = ~E.test.values; te = E.test.values
 y, mu, nu, s2, sb, H, U, Jo = (E[c].values for c in ("y", "mmu", "mnu", "s2", "sbar2", "H", "U", "J2_opt")); ho = np.isfinite(Jo); b25 = tq(0.025, nu)
 loss = lambda sd, f: pin(y[f], mu[f] + sd[f] * b25[f], 0.025).sum()
@@ -61,6 +72,9 @@ m0 = lambda c: c * np.sqrt(s2); m1 = lambda th: np.sqrt(s2 + th * sb); m2 = lamb
 PAR = {"M0": {"c0": c0}, "M1": {"theta": th1}, "M2": {"theta": th2, "w": w2}, "M3": {"c0": c3, "w": w3}}
 if ho.any():
     m4 = lambda b: np.where(ho, np.sqrt(s2 + b * np.nan_to_num(Jo)), m1(th1)); (b4,) = grid(m4, [BG]); m5 = lambda v: np.where(ho, np.sqrt(s2 + (1 - v) * ((1 - w2) * th2 * sb + w2 * H) + v * b4 * np.nan_to_num(Jo)), m2(th2, w2)); (v5,) = grid(m5, [WG])
+    for lab_, col_ in (("M4s option-implied, standardized 30/60", "J2_std"), ("M4t option-implied, two expiries", "J2_ts")):
+        jj = E[col_].values; hh = np.isfinite(jj); mm = lambda b: np.where(hh, np.sqrt(s2 + b * np.nan_to_num(jj)), m1(th1)); (bb,) = grid(mm, [BG]); SD[lab_] = mm(bb); PAR[lab_[:3]] = {"b": bb, "share_zero": round(float((jj[hh] == 0).mean()), 3), "median_sd": round(float(np.sqrt(np.median(jj[hh]))), 2)}
+    PAR["M4 one expiry"] = {"share_zero": round(float((Jo[ho] == 0).mean()), 3), "median_sd": round(float(np.sqrt(np.median(Jo[ho]))), 2), "median_realized_abs_move": round(float(np.median(np.sqrt(E.e2.values[ho]))), 2)}
     SD["M4 addition, option-implied"] = m4(b4); SD["M5 addition, history and options"] = m5(v5); PAR["M4"] = {"b": b4}; PAR["M5"] = {"v": v5}
 dates = pd.DatetimeIndex(E.date.values)
 def dm(d, mask):
@@ -69,7 +83,7 @@ def dm(d, mask):
     return round(float(s.mean() / math.sqrt(max(v / len(s), 1e-18))), 2)
 edge = lambda Lr, Lm, mask: {"edge_pct": round(100 * float((Lr - Lm)[mask].sum() / Lr[mask].sum()), 2), "DM": dm(Lr - Lm, mask), "rows": int(mask.sum())}
 ter = lambda f: {lab: round(float(E.u2.values[f & m_].mean()), 2) for lab, m_ in zip(("lowest third", "middle third", "highest third"), (lambda r, q: (r <= q[0], (r > q[0]) & (r <= q[1]), r > q[1]))(E.rel.values, np.quantile(E.rel.values[f], [1 / 3, 2 / 3])))}
-OUT = {"universe": WHAT, "reaction_days": {"pre-test": int(pre.sum()), "test": int(te.sum()), "test with option data": int((te & ho).sum())}, "predictions_written_before_run": "see the script header (W1-W6)", "parameters_pre_test": PAR,
+OUT = {"universe": WHAT, "reaction_days": {"pre-test": int(pre.sum()), "test": int(te.sum()), "test with option data": int((te & ho).sum())}, "predictions_written_before_run": "see the script header (W1-W6; W7 written after W6 failed with the standardized options)", "parameters_pre_test": PAR,
        "mean_squared_standardized_residual_by_relative_volatility": {"pre-test": ter(pre), "test": ter(te)}, "regression_test_log_u2_on_log_relative_volatility": None}
 ok = te & (E.u2.values > 0); sl = stats.linregress(np.log(E.rel.values[ok]), np.log(E.u2.values[ok])); OUT["regression_test_log_u2_on_log_relative_volatility"] = {"slope": round(float(sl.slope), 3), "se": round(float(sl.stderr), 3), "note": "a pure multiple gives 0; a pure addition gives about -2 when the announcement variance dominates"}
 # all-days effect: reaction days' share of the masked calendar model's total loss on the common test rows
@@ -86,7 +100,7 @@ for j, a in enumerate(AL):
 json.dump(OUT, open(os.path.join(OUTD, WHAT + ".json"), "w"), indent=1); f_ = lambda e: "%+.1f%% (%s)" % (e["edge_pct"], e["DM"])
 print("######## %s: %s; parameters %s" % (WHAT, OUT["reaction_days"], PAR)); print("u2 by relative volatility:", OUT["mean_squared_standardized_residual_by_relative_volatility"], OUT["regression_test_log_u2_on_log_relative_volatility"])
 for a in ("0.025", "0.01"):
-    B = OUT[a]; print("--- %s reaction days, against M0: %s" % (a, {m[:2]: f_(v) for m, v in B["vs_M0_on_reaction_days"].items()})); print("    M2 against: %s" % {m[:2]: f_(v) for m, v in B["M2_vs"].items()})
+    B = OUT[a]; print("--- %s reaction days, against M0: %s" % (a, {m[:3]: f_(v) for m, v in B["vs_M0_on_reaction_days"].items()})); print("    M2 against: %s" % {m[:3]: f_(v) for m, v in B["M2_vs"].items()})
     print("    M2 against flexible: %s | M0 against flexible: %s" % ({m: f_(v) for m, v in B["M2_vs_flexible_on_reaction_days"].items()}, {m: f_(v) for m, v in B["M0_vs_flexible_on_reaction_days"].items()}))
     print("    all-days gain over the masked calendar GARCH-t: %s; reaction days are %s%% of its loss; breach %s" % (B["all_days_gain_over_masked_calendar_garch_t_pct"], B["reaction_days_share_of_total_loss_pct"], B["breach_pct_reaction_days"]))
     if "on_reaction_days_with_option_data" in B: print("    with option data: %s" % {k: f_(v) for k, v in B["on_reaction_days_with_option_data"].items()})
