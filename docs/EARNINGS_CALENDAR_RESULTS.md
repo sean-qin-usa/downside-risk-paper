@@ -1093,3 +1093,35 @@ What it shows.
 | U2 | Second-order ceiling within 30% of the exact V for shock share and origin, not for the calendar | Holds | Holds |
 | U3 | Past-return inputs explain 0.3% to 3% of the variance of log abs z; ceiling 0.5% to 3% | Holds (0.8%; 1.2%) | Holds (0.4%; 0.6%) |
 | U4 | The fitted scale as a multiplier gains within 40% of the formula; the flexible models' margin is 0.5 to 1.5 times the ceiling | Multiplier holds (1.50% against 1.16%); the network is at 1.6 times | Multiplier holds (0.72% against 0.61%); the flexible models are at 1.4 to 1.9 times |
+
+## 14. Eleventh pass: the equation in a different decade (`tools/r92_holdout_era.py`)
+
+A panel that nothing in Sections 1 to 13 has seen: the 200 CRSP stocks of the paper's earlier-era sample, 2000 to
+2013, with I/B/E/S announcement dates and times pulled for the purpose (`code/panels/download_ibes_dates.py`). 199
+names have at least 44 announcements. The test period runs from January 2008 to December 2013 and contains the
+financial crisis. No flexible model is fitted; the test is of the calendar and of the equation of 9.1. Predictions
+E1 to E4 were written before the run, knowing only the number of announcements per name.
+
+| | 2.5% | 1% |
+|---|---|---|
+| GARCH-t breach rate on the reaction day | 18.4% | 12.6% |
+| Share of all GARCH-t breaches that fall on reaction days | 11.6% | 18.7% |
+| Gain of two calendar multipliers chosen on pre-test rows | 3.1% (DM 8.1) | 5.1% (DM 8.2) |
+| V, from pre-test rows only | 3.6% | 6.0% |
+| Reaction-day multiplier: implied by the equation, chosen on pre-test rows | 2.5, 2.4 | |
+
+The calendar effect is there in the earlier decade and is about half the size it has after 2016: the mean squared
+GARCH-t residual on the reaction day is 6.3 in this test period, against 10.5 (US large caps, 2016 to 2026) and 13.4
+(CRSP panel, 2020 to 2024). The prediction written by hand before the run, a gain of 4% to 9% at 2.5%, was too high.
+The equation, using only the 2000 to 2007 rows, said 3.6% and the realized gain is 3.1%.
+
+Portfolios of N names (gain of the informed VaR at 2.5%, V in brackets): 3.1% (3.8%) at N = 1, 0.3% (0.6%) at N = 5,
+0.0% (0.2%) at N = 10, 0.0% (0.1%) at N = 20, 0.0% (0.0%) at N = 50. The calendar stops mattering at about five
+names in this period, which the equation also says.
+
+| | Prediction | Result |
+|---|---|---|
+| E1 | GARCH-t breached on 15% to 30% of reaction days at 2.5%, 10% to 22% at 1% | Holds (18.4%, 12.6%) |
+| E2 | Calendar multipliers gain 4% to 9% at 2.5% and 8% to 16% at 1% (DM above 5) | Fails on size: 3.1% and 5.1% (DM 8.1, 8.2) |
+| E3 | V within 1.0 point at 2.5% and 2.0 points at 1%; implied multiplier within 0.3 of the chosen | Holds (0.5; 0.9; 2.5 against 2.4) |
+| E4 | Portfolios: gain falls with N, 0.3% to 3% at N = 10, below 0.6% at N = 50; V within 0.5 points or a factor of 1.5 | Falls, and V holds at every N; the gain at N = 10 is 0.0%, below the band |
