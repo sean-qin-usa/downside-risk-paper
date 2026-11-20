@@ -1,0 +1,95 @@
+{
+ "universe": "us_largecap",
+ "predictions_written_before_run": "see the script header (U1-U4)",
+ "kappa": {
+  "0.01": {
+   "mean_over_names": 3.33,
+   "at_nu_4_6_8": [
+    2.33,
+    3.11,
+    3.58
+   ]
+  },
+  "0.025": {
+   "mean_over_names": 2.64,
+   "at_nu_4_6_8": [
+    1.98,
+    2.5,
+    2.8
+   ]
+  }
+ },
+ "sd_of_predictable_log_scale_error_for_a_1pct_gain": {
+  "0.01": 0.077,
+  "0.025": 0.087
+ },
+ "partitions": {
+  "earnings calendar": {
+   "var_log_scale": 0.01678,
+   "0.01": {
+    "ceiling_pct": 2.8,
+    "exact_V_pct": 8.55
+   },
+   "0.025": {
+    "ceiling_pct": 2.21,
+    "exact_V_pct": 5.27
+   }
+  },
+  "shock share and origin": {
+   "var_log_scale": 0.00236,
+   "0.01": {
+    "ceiling_pct": 0.39,
+    "exact_V_pct": 0.34,
+    "realized_pct": 0.31
+   },
+   "0.025": {
+    "ceiling_pct": 0.31,
+    "exact_V_pct": 0.3,
+    "realized_pct": 0.29
+   }
+  }
+ },
+ "past_return_inputs": {
+  "rows_train": 407524,
+  "rows_test": 526493,
+  "var_log_abs_z_test": 1.2006,
+  "explained_share_out_of_sample": 0.0038,
+  "var_of_conditional_mean_log_scale": {
+   "covariance_estimate": 0.00544,
+   "explained_variance (lower)": 0.00461,
+   "variance_of_fitted": 0.00628
+  },
+  "0.01": {
+   "ceiling_pct": {
+    "from the covariance": 0.91,
+    "from the explained variance (lower)": 0.77
+   },
+   "fitted_scale_as_multiplier": {
+    "predicted_pct": 0.77,
+    "realized_pct": 0.78,
+    "DM": 1.45
+   },
+   "flexible_quantile_models_realized_margin_pct": {
+    "neural network, calendar inputs": 1.48,
+    "trees on robust scale, calendar inputs": 1.22,
+    "trees on masked scale, calendar inputs": 0.96
+   }
+  },
+  "0.025": {
+   "ceiling_pct": {
+    "from the covariance": 0.72,
+    "from the explained variance (lower)": 0.61
+   },
+   "fitted_scale_as_multiplier": {
+    "predicted_pct": 0.61,
+    "realized_pct": 0.72,
+    "DM": 1.9
+   },
+   "flexible_quantile_models_realized_margin_pct": {
+    "neural network, calendar inputs": 1.0,
+    "trees on robust scale, calendar inputs": 1.17,
+    "trees on masked scale, calendar inputs": 1.12
+   }
+  }
+ }
+}
