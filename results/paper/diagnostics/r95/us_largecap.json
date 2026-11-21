@@ -1,0 +1,625 @@
+{
+ "universe": "us_largecap",
+ "bootstrap_draws": 200,
+ "predictions": "see the script header (A1-A2, B1-B4); written after r94's first results",
+ "A_after_the_fact": {
+  "GARCH-t, all days": {
+   "weekday (placebo)": {
+    "slope_on_calibration_rows_r94": 0.0,
+    "slope_on_test_rows": 0.455,
+    "tail_index_test": 4.19,
+    "tau_test": 0.748,
+    "multiplier of r94": {
+     "0.01": {
+      "expression_pct": 0.0,
+      "realized_pct": 0.0,
+      "DM": 0.0
+     },
+     "0.025": {
+      "expression_pct": 0.0,
+      "realized_pct": 0.0,
+      "DM": 0.0
+     }
+    },
+    "unshrunk fit": {
+     "0.01": {
+      "expression_pct": -0.26,
+      "realized_pct": -0.24,
+      "DM": -1.11
+     },
+     "0.025": {
+      "expression_pct": -0.12,
+      "realized_pct": -0.09,
+      "DM": -0.61
+     }
+    }
+   },
+   "earnings calendar": {
+    "slope_on_calibration_rows_r94": 1.138,
+    "slope_on_test_rows": 1.2,
+    "tail_index_test": 5.21,
+    "tau_test": 0.749,
+    "multiplier of r94": {
+     "0.01": {
+      "expression_pct": 11.43,
+      "realized_pct": 9.77,
+      "DM": 12.46
+     },
+     "0.025": {
+      "expression_pct": 6.87,
+      "realized_pct": 5.78,
+      "DM": 12.45
+     }
+    },
+    "unshrunk fit": {
+     "0.01": {
+      "expression_pct": 11.26,
+      "realized_pct": 9.71,
+      "DM": 12.8
+     },
+     "0.025": {
+      "expression_pct": 6.73,
+      "realized_pct": 5.68,
+      "DM": 12.92
+     }
+    }
+   },
+   "calendar and days since the last report": {
+    "slope_on_calibration_rows_r94": 1.166,
+    "slope_on_test_rows": 1.17,
+    "tail_index_test": 5.23,
+    "tau_test": 0.751,
+    "multiplier of r94": {
+     "0.01": {
+      "expression_pct": 11.12,
+      "realized_pct": 9.95,
+      "DM": 12.55
+     },
+     "0.025": {
+      "expression_pct": 6.77,
+      "realized_pct": 5.99,
+      "DM": 12.62
+     }
+    },
+    "unshrunk fit": {
+     "0.01": {
+      "expression_pct": 11.0,
+      "realized_pct": 9.92,
+      "DM": 13.01
+     },
+     "0.025": {
+      "expression_pct": 6.67,
+      "realized_pct": 5.89,
+      "DM": 13.23
+     }
+    }
+   },
+   "calendar, days since and the state of past returns": {
+    "slope_on_calibration_rows_r94": 1.146,
+    "slope_on_test_rows": 1.071,
+    "tail_index_test": 5.43,
+    "tau_test": 0.77,
+    "multiplier of r94": {
+     "0.01": {
+      "expression_pct": 10.57,
+      "realized_pct": 11.45,
+      "DM": 8.92
+     },
+     "0.025": {
+      "expression_pct": 6.9,
+      "realized_pct": 7.28,
+      "DM": 8.23
+     }
+    },
+    "unshrunk fit": {
+     "0.01": {
+      "expression_pct": 10.62,
+      "realized_pct": 11.45,
+      "DM": 9.42
+     },
+     "0.025": {
+      "expression_pct": 6.94,
+      "realized_pct": 7.23,
+      "DM": 8.79
+     }
+    }
+   }
+  },
+  "masked calendar GARCH-t, ordinary days": {
+   "weekday (placebo)": {
+    "slope_on_calibration_rows_r94": 0.0,
+    "slope_on_test_rows": 0.388,
+    "tail_index_test": 5.42,
+    "tau_test": 0.811,
+    "multiplier of r94": {
+     "0.01": {
+      "expression_pct": 0.0,
+      "realized_pct": 0.0,
+      "DM": 0.0
+     },
+     "0.025": {
+      "expression_pct": 0.0,
+      "realized_pct": 0.0,
+      "DM": 0.0
+     }
+    },
+    "unshrunk fit": {
+     "0.01": {
+      "expression_pct": -0.22,
+      "realized_pct": -0.4,
+      "DM": -1.85
+     },
+     "0.025": {
+      "expression_pct": -0.11,
+      "realized_pct": -0.19,
+      "DM": -1.34
+     }
+    }
+   },
+   "shock share and origin": {
+    "slope_on_calibration_rows_r94": 1.117,
+    "slope_on_test_rows": 0.822,
+    "tail_index_test": 5.46,
+    "tau_test": 0.818,
+    "multiplier of r94": {
+     "0.01": {
+      "expression_pct": 0.02,
+      "realized_pct": 0.1,
+      "DM": 0.6
+     },
+     "0.025": {
+      "expression_pct": 0.11,
+      "realized_pct": 0.14,
+      "DM": 1.39
+     }
+    },
+    "unshrunk fit": {
+     "0.01": {
+      "expression_pct": 0.08,
+      "realized_pct": 0.15,
+      "DM": 1.07
+     },
+     "0.025": {
+      "expression_pct": 0.14,
+      "realized_pct": 0.17,
+      "DM": 1.94
+     }
+    }
+   },
+   "state of past returns": {
+    "slope_on_calibration_rows_r94": 1.214,
+    "slope_on_test_rows": 0.867,
+    "tail_index_test": 5.53,
+    "tau_test": 0.813,
+    "multiplier of r94": {
+     "0.01": {
+      "expression_pct": 0.82,
+      "realized_pct": 0.54,
+      "DM": 0.95
+     },
+     "0.025": {
+      "expression_pct": 0.64,
+      "realized_pct": 0.6,
+      "DM": 1.42
+     }
+    },
+    "unshrunk fit": {
+     "0.01": {
+      "expression_pct": 0.96,
+      "realized_pct": 0.76,
+      "DM": 1.43
+     },
+     "0.025": {
+      "expression_pct": 0.74,
+      "realized_pct": 0.71,
+      "DM": 1.9
+     }
+    }
+   },
+   "state of past returns, shock share and origin": {
+    "slope_on_calibration_rows_r94": 1.127,
+    "slope_on_test_rows": 0.856,
+    "tail_index_test": 5.56,
+    "tau_test": 0.815,
+    "multiplier of r94": {
+     "0.01": {
+      "expression_pct": 1.12,
+      "realized_pct": 1.07,
+      "DM": 1.01
+     },
+     "0.025": {
+      "expression_pct": 0.85,
+      "realized_pct": 0.95,
+      "DM": 1.25
+     }
+    },
+    "unshrunk fit": {
+     "0.01": {
+      "expression_pct": 1.21,
+      "realized_pct": 1.18,
+      "DM": 1.19
+     },
+     "0.025": {
+      "expression_pct": 0.92,
+      "realized_pct": 1.02,
+      "DM": 1.44
+     }
+    }
+   }
+  }
+ },
+ "B_before_the_fact": {
+  "GARCH-t, all days": {
+   "weekday (placebo)": {
+    "shrink_b": 0.0,
+    "b_band_90": [
+     0.0,
+     0.68
+    ],
+    "b_by_block": [
+     1.69,
+     0.81,
+     1.03,
+     1.06,
+     0.0
+    ],
+    "slope_of_applied_fit_on_test_rows": 0.591,
+    "tail_index": 5.15,
+    "tau": 0.783,
+    "sd_of_log_scale_pre_test": 0.0,
+    "0.01": {
+     "V_pct": 0.0,
+     "V_band_90": [
+      -0.01,
+      0.09
+     ],
+     "second_order_pct": 0.0,
+     "realized_pct": 0.0,
+     "DM": 0.0,
+     "realized_se": null,
+     "z_of_realized_minus_V": null
+    },
+    "0.025": {
+     "V_pct": 0.0,
+     "V_band_90": [
+      -0.01,
+      0.07
+     ],
+     "second_order_pct": 0.0,
+     "realized_pct": 0.0,
+     "DM": 0.0,
+     "realized_se": null,
+     "z_of_realized_minus_V": null
+    }
+   },
+   "earnings calendar": {
+    "shrink_b": 0.945,
+    "b_band_90": [
+     0.906,
+     1.028
+    ],
+    "b_by_block": [
+     1.06,
+     0.77,
+     0.97,
+     1.09,
+     1.17
+    ],
+    "slope_of_applied_fit_on_test_rows": 1.185,
+    "tail_index": 6.38,
+    "tau": 0.794,
+    "sd_of_log_scale_pre_test": 0.1261,
+    "0.01": {
+     "V_pct": 7.04,
+     "V_band_90": [
+      5.96,
+      8.22
+     ],
+     "second_order_pct": 2.31,
+     "realized_pct": 9.62,
+     "DM": 12.91,
+     "realized_se": 0.75,
+     "z_of_realized_minus_V": 2.55
+    },
+    "0.025": {
+     "V_pct": 4.43,
+     "V_band_90": [
+      3.77,
+      5.13
+     ],
+     "second_order_pct": 1.88,
+     "realized_pct": 5.61,
+     "DM": 13.04,
+     "realized_se": 0.43,
+     "z_of_realized_minus_V": 1.99
+    }
+   },
+   "calendar and days since the last report": {
+    "shrink_b": 0.936,
+    "b_band_90": [
+     0.893,
+     1.022
+    ],
+    "b_by_block": [
+     1.04,
+     0.78,
+     0.89,
+     1.09,
+     1.19
+    ],
+    "slope_of_applied_fit_on_test_rows": 1.164,
+    "tail_index": 6.39,
+    "tau": 0.795,
+    "sd_of_log_scale_pre_test": 0.1315,
+    "0.01": {
+     "V_pct": 7.17,
+     "V_band_90": [
+      6.01,
+      8.53
+     ],
+     "second_order_pct": 2.51,
+     "realized_pct": 9.78,
+     "DM": 13.07,
+     "realized_se": 0.75,
+     "z_of_realized_minus_V": 2.44
+    },
+    "0.025": {
+     "V_pct": 4.56,
+     "V_band_90": [
+      3.85,
+      5.37
+     ],
+     "second_order_pct": 2.04,
+     "realized_pct": 5.79,
+     "DM": 13.28,
+     "realized_se": 0.44,
+     "z_of_realized_minus_V": 1.92
+    }
+   },
+   "calendar, days since and the state of past returns": {
+    "shrink_b": 0.974,
+    "b_band_90": [
+     0.927,
+     1.015
+    ],
+    "b_by_block": [
+     0.97,
+     0.8,
+     0.95,
+     1.0,
+     1.18
+    ],
+    "slope_of_applied_fit_on_test_rows": 1.048,
+    "tail_index": 6.68,
+    "tau": 0.798,
+    "sd_of_log_scale_pre_test": 0.1659,
+    "0.01": {
+     "V_pct": 8.61,
+     "V_band_90": [
+      7.52,
+      9.83
+     ],
+     "second_order_pct": 4.0,
+     "realized_pct": 11.46,
+     "DM": 10.11,
+     "realized_se": 1.13,
+     "z_of_realized_minus_V": 2.13
+    },
+    "0.025": {
+     "V_pct": 5.74,
+     "V_band_90": [
+      5.08,
+      6.48
+     ],
+     "second_order_pct": 3.25,
+     "realized_pct": 7.24,
+     "DM": 9.55,
+     "realized_se": 0.76,
+     "z_of_realized_minus_V": 1.73
+    }
+   }
+  },
+  "masked calendar GARCH-t, ordinary days": {
+   "weekday (placebo)": {
+    "shrink_b": 0.0,
+    "b_band_90": [
+     0.0,
+     0.396
+    ],
+    "b_by_block": [
+     1.75,
+     1.03,
+     1.07,
+     0.8,
+     -0.19
+    ],
+    "slope_of_applied_fit_on_test_rows": 0.442,
+    "tail_index": 6.7,
+    "tau": 0.839,
+    "sd_of_log_scale_pre_test": 0.0,
+    "0.01": {
+     "V_pct": 0.0,
+     "V_band_90": [
+      -0.0,
+      0.03
+     ],
+     "second_order_pct": 0.0,
+     "realized_pct": 0.0,
+     "DM": 0.0,
+     "realized_se": null,
+     "z_of_realized_minus_V": null
+    },
+    "0.025": {
+     "V_pct": 0.0,
+     "V_band_90": [
+      -0.0,
+      0.03
+     ],
+     "second_order_pct": 0.0,
+     "realized_pct": 0.0,
+     "DM": 0.0,
+     "realized_se": null,
+     "z_of_realized_minus_V": null
+    }
+   },
+   "shock share and origin": {
+    "shrink_b": 0.675,
+    "b_band_90": [
+     0.535,
+     0.918
+    ],
+    "b_by_block": [
+     0.89,
+     0.71,
+     1.08,
+     0.79,
+     1.17
+    ],
+    "slope_of_applied_fit_on_test_rows": 0.795,
+    "tail_index": 6.73,
+    "tau": 0.845,
+    "sd_of_log_scale_pre_test": 0.0361,
+    "0.01": {
+     "V_pct": 0.25,
+     "V_band_90": [
+      0.12,
+      0.42
+     ],
+     "second_order_pct": 0.22,
+     "realized_pct": 0.26,
+     "DM": 1.92,
+     "realized_se": 0.13,
+     "z_of_realized_minus_V": 0.06
+    },
+    "0.025": {
+     "V_pct": 0.18,
+     "V_band_90": [
+      0.09,
+      0.32
+     ],
+     "second_order_pct": 0.17,
+     "realized_pct": 0.23,
+     "DM": 2.76,
+     "realized_se": 0.08,
+     "z_of_realized_minus_V": 0.4
+    }
+   },
+   "state of past returns": {
+    "shrink_b": 0.722,
+    "b_band_90": [
+     0.565,
+     0.882
+    ],
+    "b_by_block": [
+     0.73,
+     0.63,
+     1.06,
+     0.72,
+     1.32
+    ],
+    "slope_of_applied_fit_on_test_rows": 0.838,
+    "tail_index": 6.81,
+    "tau": 0.844,
+    "sd_of_log_scale_pre_test": 0.0592,
+    "0.01": {
+     "V_pct": 0.74,
+     "V_band_90": [
+      0.47,
+      1.06
+     ],
+     "second_order_pct": 0.58,
+     "realized_pct": 0.89,
+     "DM": 1.96,
+     "realized_se": 0.45,
+     "z_of_realized_minus_V": 0.3
+    },
+    "0.025": {
+     "V_pct": 0.59,
+     "V_band_90": [
+      0.39,
+      0.83
+     ],
+     "second_order_pct": 0.46,
+     "realized_pct": 0.73,
+     "DM": 2.48,
+     "realized_se": 0.3,
+     "z_of_realized_minus_V": 0.44
+    }
+   },
+   "state of past returns, shock share and origin": {
+    "shrink_b": 0.836,
+    "b_band_90": [
+     0.677,
+     0.939
+    ],
+    "b_by_block": [
+     0.82,
+     0.68,
+     1.11,
+     0.78,
+     1.22
+    ],
+    "slope_of_applied_fit_on_test_rows": 0.838,
+    "tail_index": 6.86,
+    "tau": 0.844,
+    "sd_of_log_scale_pre_test": 0.0766,
+    "0.01": {
+     "V_pct": 1.21,
+     "V_band_90": [
+      0.88,
+      1.63
+     ],
+     "second_order_pct": 0.98,
+     "realized_pct": 1.32,
+     "DM": 1.42,
+     "realized_se": 0.93,
+     "z_of_realized_minus_V": 0.12
+    },
+    "0.025": {
+     "V_pct": 0.94,
+     "V_band_90": [
+      0.69,
+      1.26
+     ],
+     "second_order_pct": 0.77,
+     "realized_pct": 1.08,
+     "DM": 1.66,
+     "realized_se": 0.65,
+     "z_of_realized_minus_V": 0.21
+    }
+   }
+  }
+ },
+ "summary": {
+  "A": {
+   "0.01": {
+    "comparisons": 16,
+    "correlation": 0.9913,
+    "mean_absolute_gap_points": 0.5,
+    "largest_gap_points": 1.66,
+    "within_tolerance": 14
+   },
+   "0.025": {
+    "comparisons": 16,
+    "correlation": 0.9917,
+    "mean_absolute_gap_points": 0.3,
+    "largest_gap_points": 1.09,
+    "within_tolerance": 12
+   }
+  },
+  "B": {
+   "0.01": {
+    "cells": 8,
+    "correlation": 0.9996,
+    "mean_absolute_gap_points": 1.04,
+    "cells_where_realized_and_V_agree": 5
+   },
+   "0.025": {
+    "cells": 8,
+    "correlation": 0.9999,
+    "mean_absolute_gap_points": 0.53,
+    "cells_where_realized_and_V_agree": 5
+   }
+  }
+ }
+}
