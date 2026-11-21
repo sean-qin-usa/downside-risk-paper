@@ -101,14 +101,18 @@ mem = (CW > 0) & np.isfinite(R); rank = np.where(mem, (-np.where(mem, CW, -1.0))
 U = R ** 2 / S2; okU = mem & np.isfinite(U) & (S2 > 0); KAP = {}
 for g, lab in enumerate(("20 largest", "next 80", "the rest")):
     b = okU & (grp == g) & pre[:, None]; base = U[b & (F0 == 0) & (F1 == 0)].mean(); KAP[lab] = {"reaction day": float(U[b & (F0 == 1)].mean() / base), "day after": float(U[b & (F1 == 1)].mean() / base), "reaction days pre-test": int((b & (F0 == 1)).sum())}
+KAPT = {}
+for g, lab in enumerate(("20 largest", "next 80", "the rest")):
+    b = okU & (grp == g) & te[:, None]; base = U[b & (F0 == 0) & (F1 == 0)].mean(); KAPT[lab] = {"reaction day": float(U[b & (F0 == 1)].mean() / base), "day after": float(U[b & (F1 == 1)].mean() / base)}
+ET = np.where(okU, S2 * ((np.array([KAPT[l]["reaction day"] for l in KAPT])[grp] - 1) * F0 + (np.array([KAPT[l]["day after"] for l in KAPT])[grp] - 1) * F1), 0.0)
 k0 = np.array([KAP[l]["reaction day"] for l in KAP])[grp]; k1 = np.array([KAP[l]["day after"] for l in KAP])[grp]; E = np.where(okU, S2 * ((k0 - 1) * F0 + (k1 - 1) * F1), 0.0)   # variance a firm adds, before its squared weight
 
 def weights(K=None, gamma=1.0, drop=None):
     b = mem & (rank < (K or M));
     if drop is not None: b = b & ~drop
     w = np.where(b, np.where(b, CW, 1.0) ** gamma, 0.0); return w / np.maximum(w.sum(1, keepdims=True), 1e-300)
-def run(w): return core((w * np.nan_to_num(R)).sum(1)[use], ((w ** 2) * E).sum(1)[use], (w ** 2).sum(1)[use])
-def core(rp, ex, H):
+def run(w): return core((w * np.nan_to_num(R)).sum(1)[use], ((w ** 2) * E).sum(1)[use], (w ** 2).sum(1)[use], ((w ** 2) * ET).sum(1)[use])
+def core(rp, ex, H, ext=None):
     p = pre[use]; t = te[use]
     pr = arch_model(rp[p], vol="GARCH", p=1, q=1, dist="t", rescale=False).fit(disp="off", show_warning=False).params; sig = np.asarray(arch_model(rp, vol="GARCH", p=1, q=1, dist="t", rescale=False).fix(pr.values).conditional_volatility)
     mu, nu = float(pr["mu"]), float(pr["nu"]); v = sig ** 2; c = ex[p].mean() / v[p].mean(); vi = np.maximum(v + ex - c * v, 0.25 * v); s = np.sqrt(vi / v); z2 = (rp - mu) ** 2 / v
@@ -120,15 +124,20 @@ def core(rp, ex, H):
         q = tq(a, nu); Lu = pin(rp, mu + sig * q, a); Li = pin(rp, mu + sig * s * q, a); k = math.sqrt(nu / (nu - 2)); lu = sig * s * EL(q / s, 1 / k, nu, a); li = sig * s * EL(q, 1 / k, nu, a)
         out[str(a)] = {"gain_pct": round(100 * float((Lu - Li)[t].sum() / Lu[t].sum()), 2), "DM": round(nw((Lu - Li)[t]), 2), "V_pct": round(100 * float((lu - li)[t].sum() / lu[t].sum()), 2),
                        "breach_plain_pct": round(100 * float((rp <= mu + sig * q)[t].mean()), 2), "breach_informed_pct": round(100 * float((rp <= mu + sig * s * q)[t].mean()), 2)}
+    # consistency check added 2026-11-20 (r98; no predictions): the expression against the realized gain on the pre-test days, and on the test days with kappa measured there
+    out["check"] = {}
+    for lab, e_, m in (("pre-test days", ex, p),) + ((("test days, kappa of the test days", ext, t),) if ext is not None else ()):
+        s_ = np.sqrt(np.maximum(v + e_ - e_[m].mean() / v[m].mean() * v, 0.25 * v) / v); out["check"][lab] = {}
+        for a in AL: q = tq(a, nu); Lu = pin(rp, mu + sig * q, a); Li = pin(rp, mu + sig * s_ * q, a); k = math.sqrt(nu / (nu - 2)); lu = sig * s_ * EL(q / s_, 1 / k, nu, a); out["check"][lab][str(a)] = {"gain": 100 * float((Lu - Li)[m].sum() / Lu[m].sum()), "V": 100 * float((lu - sig * s_ * EL(q, 1 / k, nu, a))[m].sum() / lu[m].sum())}
     return out, dict(rp=rp, mu=mu, nu=nu, sig=sig, s=s, ex=ex, v=v, c=c, z2=z2, t=t, p=p)
 
 PORT = {"index (all members, value-weighted)": weights()}
 for K in (1, 2, 5, 10, 20, 50, 100): PORT["top %d, equal-weighted" % K] = weights(K, 0.0)
 for K in (5, 10, 20, 50, 100): PORT["top %d, value-weighted" % K] = weights(K, 1.0)
 for g in (0.0, 0.5, 1.5, 2.0, 3.0): PORT["all members, weight = value^%.1f" % g] = weights(None, g)
-RES = {}; KEEP = {}
+RES = {}; KEEP = {}; CHK = {}
 for name, w in PORT.items():
-    RES[name], KEEP[name] = run(w); r = RES[name]; print("%-38s eff %6.1f  share %6.3f%%  2.5%%: gain %5.2f (DM %5.2f) V %5.2f | 1%%: gain %5.2f V %5.2f | slope %s" % (name, r["effective_names_test"], r["law_share_of_variance_test_pct"], r["0.025"]["gain_pct"], r["0.025"]["DM"], r["0.025"]["V_pct"], r["0.01"]["gain_pct"], r["0.01"]["V_pct"], r["slope_of_excess_squared_return_on_law"]), flush=True)
+    RES[name], KEEP[name] = run(w); CHK[name] = RES[name].pop("check"); r = RES[name]; print("%-38s eff %6.1f  share %6.3f%%  2.5%%: gain %5.2f (DM %5.2f) V %5.2f | 1%%: gain %5.2f V %5.2f | slope %s" % (name, r["effective_names_test"], r["law_share_of_variance_test_pct"], r["0.025"]["gain_pct"], r["0.025"]["DM"], r["0.025"]["V_pct"], r["0.01"]["gain_pct"], r["0.01"]["V_pct"], r["slope_of_excess_squared_return_on_law"]), flush=True)
 # ---- checks and summaries
 I = pd.read_csv(os.path.join(ROOT, "data", "panels", "sp500", "index.csv"), parse_dates=["date"]).set_index("date").reindex(dates[use]); ix = KEEP["index (all members, value-weighted)"]; okI = np.isfinite(I.vwretd.values)
 names = list(RES); gV = np.array([RES[n]["0.025"]["V_pct"] for n in names]); gR = np.array([RES[n]["0.025"]["gain_pct"] for n in names]); gV1 = np.array([RES[n]["0.01"]["V_pct"] for n in names]); gR1 = np.array([RES[n]["0.01"]["gain_pct"] for n in names])
@@ -163,8 +172,9 @@ S["second_follow_up"] = G2_; print(json.dumps(G2_, indent=1), flush=True)
 full = np.flatnonzero(np.isfinite(R[use]).all(0) & np.isfinite(CAPL[use]).all(0))
 rall = np.array([np.searchsorted(np.sort(-CW[i][mem[i]]), -np.nan_to_num(CAPL[i]), side="left") for i in range(T)])   # for every firm, the number of members with a larger market value
 ga = np.where(rall < 20, 0, np.where(rall < 100, 1, 2)); EA = np.where(np.isfinite(U) & (S2 > 0) & np.isfinite(CAPL), S2 * ((np.array([KAP[l]["reaction day"] for l in KAP])[ga] - 1) * F0 + (np.array([KAP[l]["day after"] for l in KAP])[ga] - 1) * F1), 0.0)
+EAT = np.where(np.isfinite(U) & (S2 > 0) & np.isfinite(CAPL), S2 * ((np.array([KAPT[l]["reaction day"] for l in KAPT])[ga] - 1) * F0 + (np.array([KAPT[l]["day after"] for l in KAPT])[ga] - 1) * F1), 0.0)
 def book(cols, gamma):
-    w = np.ones((T, len(cols))) if gamma == 0 else CAPL[:, cols] ** gamma; w = w / w.sum(1, keepdims=True); return core((w * R[:, cols]).sum(1)[use], ((w ** 2) * EA[:, cols]).sum(1)[use], (w ** 2).sum(1)[use])[0]
+    w = np.ones((T, len(cols))) if gamma == 0 else CAPL[:, cols] ** gamma; w = w / w.sum(1, keepdims=True); return core((w * R[:, cols]).sum(1)[use], ((w ** 2) * EA[:, cols]).sum(1)[use], (w ** 2).sum(1)[use], ((w ** 2) * EAT[:, cols]).sum(1)[use])[0]
 CELLS = [("equal-weighted", 0, K) for K in (1, 2, 5, 10, 20, 60)] + [("value-weighted", 1, K) for K in (5, 20, 60)] + [("value-squared-weighted", 2, K) for K in (5, 20, 60)]; RB = {}; DR = []
 for lab, g, K in CELLS:
     rr = []
@@ -173,6 +183,9 @@ for lab, g, K in CELLS:
         except Exception: pass
     gn = np.array([r["0.025"]["gain_pct"] for r in rr]); RB["%s, %d firms" % (lab, K)] = {"draws": len(rr), "effective_names": round(float(np.mean([r["effective_names_test"] for r in rr])), 1), "gain_pct": round(float(gn.mean()), 2), "se_across_draws": round(float(gn.std() / math.sqrt(len(gn))), 2), "V_pct": round(float(np.mean([r["0.025"]["V_pct"] for r in rr])), 2),
         "gain_1pct": round(float(np.mean([r["0.01"]["gain_pct"] for r in rr])), 2), "V_1pct": round(float(np.mean([r["0.01"]["V_pct"] for r in rr])), 2), "slope_of_excess_squared_return_on_law": round(float(np.median([r["slope_of_excess_squared_return_on_law"] for r in rr])), 2)}
+    CHK["%s, %d firms" % (lab, K)] = {"draws": len(rr), "test days, kappa of the pre-test days": {str(a): {"gain_pct": round(float(np.mean([r[str(a)]["gain_pct"] for r in rr])), 2), "V_pct": round(float(np.mean([r[str(a)]["V_pct"] for r in rr])), 2)} for a in AL},
+        **{l: {str(a): {"gain_pct": round(float(np.mean([r["check"][l][str(a)]["gain"] for r in rr])), 2), "V_pct": round(float(np.mean([r["check"][l][str(a)]["V"] for r in rr])), 2), "se_of_gain_minus_V": round(float(np.std([r["check"][l][str(a)]["gain"] - r["check"][l][str(a)]["V"] for r in rr]) / math.sqrt(len(rr))), 2)} for a in AL} for l in ("pre-test days", "test days, kappa of the test days")}}
+    print("r98 %-32s %s" % ("%s, %d firms" % (lab, K), {l: (v["0.025"]["gain_pct"], v["0.025"]["V_pct"]) for l, v in CHK["%s, %d firms" % (lab, K)].items() if l != "draws"}), flush=True)
     DR += [(lab, r["effective_names_test"], r["0.025"]["gain_pct"], r["0.025"]["V_pct"], K) for r in rr]; print("%-32s %s" % ("%s, %d firms" % (lab, K), RB["%s, %d firms" % (lab, K)]), flush=True)
 ewc = sorted((v["effective_names"], v["gain_pct"]) for k_, v in RB.items() if k_.startswith("equal")); cv = lambda n: float(np.interp(math.log(n), [math.log(a) for a, _ in ewc], [b for _, b in ewc]))
 for lab, g, K in CELLS:   # the equal-weighted curve read at each draw's effective names, for the weighted cells
@@ -180,6 +193,7 @@ for lab, g, K in CELLS:   # the equal-weighted curve read at each draw's effecti
 dg = np.array([r_[2] for r_ in DR]); dv = np.array([r_[3] for r_ in DR]); RBS = {"firms_with_a_full_history": int(len(full)), "draws_in_all": len(DR), "correlation_of_gain_and_V_across_draws": round(float(np.corrcoef(dg, dv)[0, 1]), 3), "slope_of_gain_on_V": round(float(np.polyfit(dv, dg, 1)[0]), 2),
        "correlation_across_cell_means": round(float(np.corrcoef([v["gain_pct"] for v in RB.values()], [v["V_pct"] for v in RB.values()])[0, 1]), 3)}
 yr = pd.DatetimeIndex(dates[use]).year; H_ix = (PORT["index (all members, value-weighted)"] ** 2).sum(1)[use]; BYY = {int(y_): {"effective_names": round(float(1 / H_ix[yr == y_].mean()), 1), "law_share_of_variance_pct": round(100 * float(ix["ex"][yr == y_].sum() / ix["v"][yr == y_].sum()), 3)} for y_ in sorted(set(yr))}
+os.makedirs(os.path.join(ROOT, "results", "paper", "diagnostics", "r98"), exist_ok=True); json.dump({"universe": "S&P 500 members, CRSP", "note": "consistency check of the portfolio expression, added after r97; no predictions", "variance_ratio_by_size_group": {"pre-test days": KAP, "test days": KAPT}, "books": CHK}, open(os.path.join(ROOT, "results", "paper", "diagnostics", "r98", "sp500.json"), "w"), indent=1)
 OUT = {"universe": "S&P 500 members, CRSP", "firms": int(M), "firms_without_a_calendar": nocal, "days_used": int(use.sum()), "pre_test_days": int(pre.sum()), "test_days": int(te.sum()), "test_from": str(dates[te][0].date()), "test_to": str(dates[te][-1].date()),
        "predictions_written_before_run": "see the script header (I1-I7)", "correlation_with_crsp_sp500_value_weighted_return": round(float(np.corrcoef(ix["rp"][okI], I.vwretd.values[okI])[0, 1]), 5), "mean_absolute_daily_gap_pct": round(float(np.abs(ix["rp"][okI] - I.vwretd.values[okI]).mean()), 4),
        "variance_ratio_pre_test_by_size_group": KAP, "portfolios": RES, "V_against_realized": {"0.025": {"correlation": round(float(np.corrcoef(gV, gR)[0, 1]), 3), "mean_absolute_gap_points": round(float(np.abs(gV - gR).mean()), 2)}, "0.01": {"correlation": round(float(np.corrcoef(gV1, gR1)[0, 1]), 3), "mean_absolute_gap_points": round(float(np.abs(gV1 - gR1).mean()), 2)}},
