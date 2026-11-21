@@ -736,6 +736,10 @@ panel built by `tools/calpanel.py`.
 
 ### 9.1 What a piece of information is worth to a VaR model (`tools/r83_information_value.py`)
 
+Read with Section 16.4: on the rows it is fitted to this equation runs 0.6 (CRSP) and 1.4 (US large caps) points
+high, and the calendar's value grew between the estimation and test periods, so part of the agreement below is two
+errors cancelling.
+
 Both errors of GARCH-t are errors of scale on an identifiable set of days. If the standardized return on a day of
 type d is `tau_d` times a Student-t with `nu_d` degrees of freedom, the expected pinball loss at level a of a forecast
 q is
@@ -1096,6 +1100,8 @@ What it shows.
 
 ## 14. Eleventh pass: the equation in a different decade (`tools/r92_holdout_era.py`)
 
+Read with Section 16.4: the equation's 0.5-point overshoot here is the direction of an error found later.
+
 A panel that nothing in Sections 1 to 13 has seen: the 200 CRSP stocks of the paper's earlier-era sample, 2000 to
 2013, with I/B/E/S announcement dates and times pulled for the purpose (`code/panels/download_ibes_dates.py`). 199
 names have at least 44 announcements. The test period runs from January 2008 to December 2013 and contains the
@@ -1247,3 +1253,138 @@ breach rate on those 266 days from 2.6% to 0.8%. The gain is not significant.
 | G2 | With Fed decision days the coefficient stays above 4 with t above 2 | Holds (6.0, t = 2.2) |
 | G3 | Index VaR with the spillover term gains 0.1% to 0.6% at 2.5%, DM 1.6 to 2.5 | Fails: 0.7%, DM 0.95 |
 | G4 | Variance ratio on megacap days larger in 2020-2024 than in 2016-2019 | Holds (1.42 against 0.86), but the 2016-2019 ratio is below one |
+
+## 16. Thirteenth pass: one formula for information of any size, uncertainty bands, and a check the equation fails
+
+The aim was one expression that prices lumpy information (the calendar, Section 9.1) and diffuse information (the
+state of past returns, Section 13) alike, with a band around each value. Four scripts, in the order they were run;
+each later one was written after the results of the one before and says so in its header. The pass ends with a
+correction to Sections 9.1 and 14.
+
+### 16.1 A single scale family (`tools/r94_unified_value.py`): fails as specified
+
+Write the benchmark's standardized return as z = s(I) eps, with one Student-t for eps whatever the information I.
+Then
+
+    V(I) = sum_t sigma_t s_t [ EL(q_t / s_t) - EL(q_t) ] / sum_t sigma_t s_t EL(q_t / s_t),
+
+whose second-order expansion is the ceiling of Section 13. log s(I) is a regression of log|z| on I on the training
+rows, shrunk by its slope on a calibration slice of the pre-test rows; the band is a block bootstrap of that slice.
+Eight information sets per panel, 2.5% level, V with its 90% band against the realized gain:
+
+| Information | CRSP: V | CRSP: realized | US: V | US: realized |
+|---|---|---|---|---|
+| Weekday (placebo) | 0.0 | 0.0 | 0.0 | 0.0 |
+| Earnings calendar | 6.0 [4.6, 7.7] | 7.6 | 6.0 [5.4, 6.7] | 5.8 |
+| Calendar and days since the last report | 5.2 [3.5, 7.4] | 7.8 | 6.7 [5.9, 7.6] | 6.0 |
+| Calendar, days since, state of past returns | 5.3 [2.7, 8.4] | 9.0 | 7.6 [6.6, 8.8] | 7.3 |
+| Ordinary days: weekday (placebo) | 0.0 | 0.0 | 0.0 | 0.0 |
+| Ordinary days: shock share and origin | 0.0 [-0.2, 0.4] | 0.6 | 0.4 [0.3, 0.6] | 0.1 |
+| Ordinary days: state of past returns | -0.1 [-0.2, 1.0] | 0.8 | 1.7 [1.0, 2.6] | 0.6 |
+| Ordinary days: both | 0.3 [-0.1, 1.0] | 1.4 | 1.8 [1.2, 2.4] | 1.0 |
+
+It tracks US large caps on the calendar and misses elsewhere: too low on the CRSP panel, too high for small
+information on US large caps. Realized and V agree within their joint error in 9 of 16 cells. The cause on the CRSP
+panel is the calibration slice, which is December 2018 to August 2020: the slope of log|z| on the fitted scale is
+0.31 there against 1.05 in the test period and 0.8 to 1.5 in every other year.
+
+### 16.2 The formula and its inputs taken apart (`tools/r95_unified_value_followup.py`)
+
+After the fact (the slope and the tail measured on the test rows, the multiplier as applied): the expression is
+within 0.3 points of the realized gain in all 20 comparisons that do not contain the calendar, for gains from 0.0%
+to 1.5%. With the calendar it is off by 10% to 20% in either direction (CRSP 6.9% against 7.6% to 7.8%, US 6.7% to
+6.9% against 5.7% to 5.8%). One tail for all days does not describe reaction days.
+
+Before the fact, calibrated on all pre-test rows by cross-fitting over five blocks of dates, band from 63-day blocks:
+
+| Information, 2.5% | CRSP: V | CRSP: realized | US: V | US: realized |
+|---|---|---|---|---|
+| Earnings calendar | 6.2 [5.2, 7.4] | 7.7 | 4.4 [3.8, 5.1] | 5.6 |
+| Calendar, days since, state of past returns | 6.7 [5.1, 7.9] | 8.7 | 5.7 [5.1, 6.5] | 7.2 |
+| Ordinary days: shock share and origin | 0.2 [0.1, 0.4] | 0.6 | 0.2 [0.1, 0.3] | 0.2 |
+| Ordinary days: state of past returns | 0.3 [0.0, 0.7] | 0.7 | 0.6 [0.4, 0.8] | 0.7 |
+| Ordinary days: both | 0.7 [0.4, 1.0] | 1.1 | 0.9 [0.7, 1.3] | 1.1 |
+
+Small information is priced within 0.15 points on US large caps and 0.4 points low on the CRSP panel (the 2019-2020
+block again: its slope is 0.25 for past-return state). Everything that contains the calendar is 1.2 to 2.0 points
+low on both panels.
+
+### 16.3 The nested form (`tools/r96_nested_value.py`)
+
+Day types with their own tails as in Section 9.1, and a continuous scale within each type:
+
+    z_t = s_t eps_t,  eps_t ~ Student-t(tau_d, nu_d),
+    V = sum_t sigma_t s_t [ EL_d(q_t / s_t) - EL_d(c_d q_t) ] / sum_t sigma_t s_t EL_d(q_t / s_t).
+
+With s = 1 it is the partition form of 9.1; with one type it is 16.1. Information: the calendar, days since the last
+report and the state of past returns; benchmark GARCH-t on all days.
+
+| 2.5% | CRSP: partition form | CRSP: nested | US: partition form | US: nested |
+|---|---|---|---|---|
+| V before the fact, 90% band | 7.5 [6.5, 8.3] | 8.0 [6.8, 8.9] | 5.2 [4.8, 5.6] | 6.0 [5.6, 6.5] |
+| Realized gain on test rows (DM) | 7.7 (8.2) | 8.8 (8.7) | 5.7 (13.0) | 7.2 (9.4) |
+| Expression after the fact | 7.9 | 8.7 | 6.9 | 7.9 |
+| Gain of the same multipliers on the pre-test rows | 6.8 | 7.2 | 3.8 | 4.2 |
+
+The nested multiplier (three numbers and a regression of log|z|) realizes 8.8% and 7.2% over GARCH-t, against 9.3%
+to 10.7% and 7.0% to 7.7% for the flexible quantile models given the same inputs. Before the fact the nested V is
+0.8 points low on the CRSP panel and 1.2 points low on US large caps.
+
+### 16.4 The check the equation fails (`tools/r97_equation_consistency.py`)
+
+The last row above is the finding of this pass. An expression that is right returns the gain of its own sample. The
+partition form says 7.5% and 5.2% on the pre-test rows it was fitted to; the same multipliers gain 6.8% and 3.8% on
+those rows. Two of its assumptions fail on reaction days. The standardized return is not symmetric (on US large caps
+before 2016 the loss side alone has a scale of 2.14 where both sides together give 2.31). And it is smaller when the day's
+volatility is high (correlation of sigma and |z| of -0.04 to -0.17; the fact behind the second clock of 9.3), while
+the loss sum weights each day by its volatility. The expression against the gain on the same rows, 2.5%:
+
+| Tails fitted | CRSP pre-test | CRSP test | US pre-test | US test |
+|---|---|---|---|---|
+| Gain of the multipliers on these rows | 6.82 | 7.74 | 3.83 | 5.68 |
+| Both sides, equal weights (Section 9.1) | +0.64 | +0.17 | +1.40 | +1.17 |
+| Both sides, weighted by sigma | +0.15 | -0.61 | +0.86 | +0.23 |
+| Loss side only, equal weights | -0.01 | +0.18 | +0.65 | +0.67 |
+| Loss side only, weighted by sigma | -0.31 | -0.53 | +0.09 | -0.20 |
+
+Fitting each type's tail on the loss side with sigma weights cuts the largest error from 1.4 to 0.5 points. No
+variant is exact on both panels.
+
+What this does to Sections 9.1 and 14. The value of the calendar is not a constant: the same multipliers gain 6.8%
+before the test period and 7.7% in it on the CRSP panel, 3.8% and 5.7% on US large caps, and the reaction-day gap
+in mean log|z| moves between 0.8 (2008, 2020) and 1.5 (2017, 2024) by year. The equation of 9.1 forecast the test
+period within about half a point at 2.5% (0.6 and 0.2 in 9.1; 0.3 and 0.5 with the multipliers of 16.3) because it runs 0.6 and 1.4 points high on its own sample and the effect
+then grew by 0.9 and 1.9 points. A version that is right about its own sample would have been 1.3 and 1.8 points
+low. On the 2000-2013 panel of Section 14 the equation was 0.5 points high, the direction of the same error. So:
+
+1. The equation converts scale ratios into a loss gain to within about half a point once the tails are fitted on
+   the loss side with sigma weights. That is what it can be claimed to do.
+2. How well it forecasts is set by how stable the ratios are, and the announcement effect is not stable. The
+   bootstrap bands (0.3 to 1.2 points either side) are sampling error only and are narrower than the drift
+   between periods (0.9 and 1.9 points).
+3. The agreement reported in 9.1 for the two recent panels was in part two errors cancelling and should not be
+   described as the equation predicting the calendar's value in advance.
+4. Not re-examined here: the portfolio results of 9.1, 14 and 15, which use a different estimate of V (the
+   benchmark's own tail and a variance ratio) and matched cell by cell in 720 random books; the partition values of
+   Section 10.
+
+| | Prediction | Result |
+|---|---|---|
+| K1 | Calendar alone: V within 1.0 point of the partition value and of the realized gain | US holds (6.0 against 5.3 and 5.8); CRSP fails (6.0 against 7.2 and 7.6) |
+| K2 | Calendar, days since, past-return state: V 8.5% to 11.5% (CRSP), 5.5% to 8.0% (US); realized and the flexible models within 1.5 points | US holds (7.6; 7.3; 7.0 to 7.7); CRSP fails (5.3 against 9.0) |
+| K3 | Placebo: V under 0.1%, realized within 0.2 points of zero | Holds |
+| K4 | Ordinary days: past-return state V 0.8% to 1.8% (CRSP), 0.3% to 1.0% (US); shock share and origin 0.2% to 0.8% | Fails: -0.1 and 1.7; 0.0 and 0.4 |
+| K5 | 16 cells: correlation above 0.99, mean absolute gap under 0.5 points | Fails: 0.98 and 0.99 by panel, gap 0.9 points |
+| K6 | Agreement in at least 13 of 16 cells; calendar band under 1.0 point either side | Fails: 9 of 16; the CRSP band is 1.5 points either side |
+| K7 | Second-order form within 25% of V where V is 0.2% to 2%; under half of V with the calendar | Partly: two of four small cells; five of six calendar cells |
+| A1 | After the fact: within the larger of 0.5 points and 10% in every comparison | Holds in all 20 comparisons without the calendar and the 4 with everything; fails in 7 of the 8 with the calendar alone or with days since |
+| A2 | Correlation above 0.995 on each panel | CRSP holds (0.999); US fails (0.992) |
+| B1 | Calendar alone before the fact: V within 1.0 point; band under 1.2 points | Fails on V (1.5 and 1.2 points low); the band holds |
+| B2 | Calendar, days since, past-return state: V low by less than 2.0 points | US holds (1.5); CRSP is 2.0 |
+| B3 | Past-return state: V at least 0.3 points low on CRSP, within 0.4 on US | Holds (0.4; 0.1) |
+| B4 | Agreement in at least 12 of 16 cells | Holds (12) |
+| M1 | With s = 1 the machinery returns the partition form | Holds (7.5 and 5.2 against 7.2 and 5.3) |
+| M2 | Nested V within 1.0 point at 2.5% and 2.0 points at 1% | CRSP holds (0.8; 1.6); US fails (1.2; 2.2) |
+| M3 | Nested multiplier realizes 8.5% to 10% (CRSP), 6.5% to 8% (US) | Holds (8.8; 7.2) |
+| M4 | After the fact within the larger of 0.5 points and 10% | Holds (8.7 against 8.8; 7.9 against 7.2, at the edge) |
+| M5 | Band under 1.5 points either side | Holds |

@@ -1,0 +1,262 @@
+{
+ "universe": "canon",
+ "note": "written after r96's consistency check; no predictions",
+ "multipliers_from_r96_pre_test": {
+  "reaction day": 3.51,
+  "day after": 1.19,
+  "other days": 1.0
+ },
+ "gain_of_the_multipliers_pct": {
+  "pre-test rows": {
+   "0.025": 6.82,
+   "0.01": 11.22
+  },
+  "test rows": {
+   "0.025": 7.74,
+   "0.01": 12.85
+  }
+ },
+ "expression_on_its_own_rows_pct": {
+  "both sides, equal weights (r83)": {
+   "pre-test rows": {
+    "0.025": 7.46,
+    "0.01": 11.73,
+    "gap_points": {
+     "0.025": 0.64,
+     "0.01": 0.51
+    },
+    "tails": {
+     "reaction day": {
+      "tail_index": 4.54,
+      "tau": 2.574
+     },
+     "day after": {
+      "tail_index": 3.86,
+      "tau": 0.818
+     },
+     "other days": {
+      "tail_index": 4.77,
+      "tau": 0.703
+     }
+    }
+   },
+   "test rows": {
+    "0.025": 7.91,
+    "0.01": 12.95,
+    "gap_points": {
+     "0.025": 0.17,
+     "0.01": 0.1
+    },
+    "tails": {
+     "reaction day": {
+      "tail_index": 3.77,
+      "tau": 2.623
+     },
+     "day after": {
+      "tail_index": 4.12,
+      "tau": 0.845
+     },
+     "other days": {
+      "tail_index": 5.05,
+      "tau": 0.756
+     }
+    }
+   }
+  },
+  "both sides, sigma weights": {
+   "pre-test rows": {
+    "0.025": 6.97,
+    "0.01": 11.09,
+    "gap_points": {
+     "0.025": 0.15,
+     "0.01": -0.13
+    },
+    "tails": {
+     "reaction day": {
+      "tail_index": 3.94,
+      "tau": 2.441
+     },
+     "day after": {
+      "tail_index": 3.47,
+      "tau": 0.708
+     },
+     "other days": {
+      "tail_index": 4.55,
+      "tau": 0.69
+     }
+    }
+   },
+   "test rows": {
+    "0.025": 7.13,
+    "0.01": 11.67,
+    "gap_points": {
+     "0.025": -0.61,
+     "0.01": -1.18
+    },
+    "tails": {
+     "reaction day": {
+      "tail_index": 3.41,
+      "tau": 2.419
+     },
+     "day after": {
+      "tail_index": 3.71,
+      "tau": 0.728
+     },
+     "other days": {
+      "tail_index": 4.73,
+      "tau": 0.718
+     }
+    }
+   }
+  },
+  "loss side, equal weights": {
+   "pre-test rows": {
+    "0.025": 6.81,
+    "0.01": 10.74,
+    "gap_points": {
+     "0.025": -0.01,
+     "0.01": -0.48
+    },
+    "tails": {
+     "reaction day": {
+      "tail_index": 4.11,
+      "tau": 2.442
+     },
+     "day after": {
+      "tail_index": 4.57,
+      "tau": 0.852
+     },
+     "other days": {
+      "tail_index": 4.53,
+      "tau": 0.702
+     }
+    }
+   },
+   "test rows": {
+    "0.025": 7.92,
+    "0.01": 13.13,
+    "gap_points": {
+     "0.025": 0.18,
+     "0.01": 0.28
+    },
+    "tails": {
+     "reaction day": {
+      "tail_index": 3.41,
+      "tau": 2.544
+     },
+     "day after": {
+      "tail_index": 4.42,
+      "tau": 0.847
+     },
+     "other days": {
+      "tail_index": 5.37,
+      "tau": 0.757
+     }
+    }
+   }
+  },
+  "loss side, sigma weights": {
+   "pre-test rows": {
+    "0.025": 6.51,
+    "0.01": 10.4,
+    "gap_points": {
+     "0.025": -0.31,
+     "0.01": -0.82
+    },
+    "tails": {
+     "reaction day": {
+      "tail_index": 3.72,
+      "tau": 2.331
+     },
+     "day after": {
+      "tail_index": 4.08,
+      "tau": 0.743
+     },
+     "other days": {
+      "tail_index": 4.58,
+      "tau": 0.689
+     }
+    }
+   },
+   "test rows": {
+    "0.025": 7.21,
+    "0.01": 11.91,
+    "gap_points": {
+     "0.025": -0.53,
+     "0.01": -0.94
+    },
+    "tails": {
+     "reaction day": {
+      "tail_index": 3.26,
+      "tau": 2.353
+     },
+     "day after": {
+      "tail_index": 3.81,
+      "tau": 0.706
+     },
+     "other days": {
+      "tail_index": 5.31,
+      "tau": 0.715
+     }
+    }
+   }
+  }
+ },
+ "expression_fitted_on_pre_test_rows_as_a_forecast_for_the_test_rows_pct": {
+  "both sides, equal weights (r83)": {
+   "0.025": 7.43,
+   "0.01": 11.67,
+   "gap_points": {
+    "0.025": -0.31,
+    "0.01": -1.18
+   }
+  },
+  "both sides, sigma weights": {
+   "0.025": 6.93,
+   "0.01": 11.03,
+   "gap_points": {
+    "0.025": -0.81,
+    "0.01": -1.82
+   }
+  },
+  "loss side, equal weights": {
+   "0.025": 6.78,
+   "0.01": 10.68,
+   "gap_points": {
+    "0.025": -0.96,
+    "0.01": -2.17
+   }
+  },
+  "loss side, sigma weights": {
+   "0.025": 6.48,
+   "0.01": 10.34,
+   "gap_points": {
+    "0.025": -1.26,
+    "0.01": -2.51
+   }
+  }
+ },
+ "reaction_day_gap_in_mean_log_abs_z_by_year": {
+  "2014": 1.14,
+  "2015": 1.21,
+  "2016": 1.36,
+  "2017": 1.38,
+  "2018": 1.36,
+  "2019": 1.38,
+  "2020": 0.86,
+  "2021": 0.99,
+  "2022": 1.17,
+  "2023": 1.4,
+  "2024": 1.46
+ },
+ "reaction_days": {
+  "correlation_of_sigma_and_abs_z": {
+   "pre-test": -0.038,
+   "test": -0.099
+  },
+  "mean_z": {
+   "pre-test": 0.126,
+   "test": -0.041
+  }
+ }
+}

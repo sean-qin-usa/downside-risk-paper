@@ -1,0 +1,396 @@
+{
+ "universe": "canon",
+ "bootstrap_draws": 200,
+ "predictions_written_before_run": "see the script header (K1-K7)",
+ "partition_form_r83_calendar": {
+  "0.01": {
+   "V_pct": 11.49,
+   "realized_pct": 12.93
+  },
+  "0.025": {
+   "V_pct": 7.24,
+   "realized_pct": 7.77
+  }
+ },
+ "blocks": {
+  "GARCH-t, all days": {
+   "rows_train": 208104,
+   "rows_calibration": 77190,
+   "rows_test": 206088,
+   "calibration_from": "2018-12-12",
+   "calibration_to": "2020-08-05",
+   "kappa": {
+    "0.01": 2.32,
+    "0.025": 1.96
+   },
+   "cells": {
+    "weekday (placebo)": {
+     "inputs": [
+      "dow"
+     ],
+     "shrink_b": 0.0,
+     "tail_index": 3.96,
+     "tau": 0.748,
+     "sd_of_log_scale_pre_test": 0.0,
+     "largest_and_smallest_scale_1st_99th_percentile": [
+      1.0,
+      1.0
+     ],
+     "0.01": {
+      "V_pct": 0.0,
+      "V_band_90": [
+       -0.01,
+       0.0
+      ],
+      "second_order_pct": 0.0,
+      "realized_pct": 0.0,
+      "DM": 0.0,
+      "realized_se": NaN,
+      "z_of_realized_minus_V": null
+     },
+     "0.025": {
+      "V_pct": 0.0,
+      "V_band_90": [
+       -0.01,
+       0.0
+      ],
+      "second_order_pct": 0.0,
+      "realized_pct": 0.0,
+      "DM": 0.0,
+      "realized_se": NaN,
+      "z_of_realized_minus_V": null
+     }
+    },
+    "earnings calendar": {
+     "inputs": [
+      "r0",
+      "r1"
+     ],
+     "shrink_b": 0.895,
+     "tail_index": 4.71,
+     "tau": 0.754,
+     "sd_of_log_scale_pre_test": 0.1464,
+     "largest_and_smallest_scale_1st_99th_percentile": [
+      1.0,
+      3.186
+     ],
+     "0.01": {
+      "V_pct": 9.31,
+      "V_band_90": [
+       6.88,
+       12.08
+      ],
+      "second_order_pct": 2.49,
+      "realized_pct": 12.71,
+      "DM": 7.91,
+      "realized_se": 1.61,
+      "z_of_realized_minus_V": 1.51
+     },
+     "0.025": {
+      "V_pct": 5.99,
+      "V_band_90": [
+       4.56,
+       7.65
+      ],
+      "second_order_pct": 2.1,
+      "realized_pct": 7.64,
+      "DM": 8.39,
+      "realized_se": 0.91,
+      "z_of_realized_minus_V": 1.26
+     }
+    },
+    "calendar and days since the last report": {
+     "inputs": [
+      "r0",
+      "r1",
+      "ds"
+     ],
+     "shrink_b": 0.831,
+     "tail_index": 4.66,
+     "tau": 0.765,
+     "sd_of_log_scale_pre_test": 0.1433,
+     "largest_and_smallest_scale_1st_99th_percentile": [
+      0.905,
+      2.933
+     ],
+     "0.01": {
+      "V_pct": 8.08,
+      "V_band_90": [
+       5.26,
+       11.55
+      ],
+      "second_order_pct": 2.39,
+      "realized_pct": 13.03,
+      "DM": 8.32,
+      "realized_se": 1.57,
+      "z_of_realized_minus_V": 2.0
+     },
+     "0.025": {
+      "V_pct": 5.19,
+      "V_band_90": [
+       3.45,
+       7.41
+      ],
+      "second_order_pct": 2.01,
+      "realized_pct": 7.78,
+      "DM": 8.74,
+      "realized_se": 0.89,
+      "z_of_realized_minus_V": 1.73
+     }
+    },
+    "calendar, days since and the state of past returns": {
+     "inputs": [
+      "r0",
+      "r1",
+      "ds",
+      "logsig",
+      "zl1",
+      "absz5",
+      "zstd21",
+      "fracdn5",
+      "Dc",
+      "wm"
+     ],
+     "shrink_b": 0.822,
+     "tail_index": 4.68,
+     "tau": 0.766,
+     "sd_of_log_scale_pre_test": 0.1582,
+     "largest_and_smallest_scale_1st_99th_percentile": [
+      0.732,
+      2.875
+     ],
+     "0.01": {
+      "V_pct": 8.21,
+      "V_band_90": [
+       4.4,
+       12.87
+      ],
+      "second_order_pct": 2.91,
+      "realized_pct": 14.35,
+      "DM": 8.97,
+      "realized_se": 1.6,
+      "z_of_realized_minus_V": 2.03
+     },
+     "0.025": {
+      "V_pct": 5.32,
+      "V_band_90": [
+       2.72,
+       8.43
+      ],
+      "second_order_pct": 2.45,
+      "realized_pct": 8.99,
+      "DM": 9.74,
+      "realized_se": 0.92,
+      "z_of_realized_minus_V": 1.87
+     }
+    }
+   },
+   "flexible_quantile_models_with_the_calendar_realized_pct": {
+    "trees, calendar inputs": {
+     "0.01": 15.99,
+     "0.025": 9.25
+    },
+    "trees on robust scale, calendar inputs": {
+     "0.01": 17.44,
+     "0.025": 10.6
+    },
+    "trees on masked scale, calendar inputs": {
+     "0.01": 17.43,
+     "0.025": 10.24
+    },
+    "neural network, calendar inputs": {
+     "0.01": 17.22,
+     "0.025": 10.71
+    }
+   }
+  },
+  "masked calendar GARCH-t, ordinary days": {
+   "rows_train": 201432,
+   "rows_calibration": 74712,
+   "rows_test": 199628,
+   "calibration_from": "2018-12-12",
+   "calibration_to": "2020-08-05",
+   "kappa": {
+    "0.01": 2.8,
+    "0.025": 2.29
+   },
+   "cells": {
+    "weekday (placebo)": {
+     "inputs": [
+      "dow"
+     ],
+     "shrink_b": 0.644,
+     "tail_index": 5.05,
+     "tau": 0.818,
+     "sd_of_log_scale_pre_test": 0.009,
+     "largest_and_smallest_scale_1st_99th_percentile": [
+      0.989,
+      1.016
+     ],
+     "0.01": {
+      "V_pct": 0.03,
+      "V_band_90": [
+       -0.0,
+       0.34
+      ],
+      "second_order_pct": 0.01,
+      "realized_pct": 0.01,
+      "DM": 0.38,
+      "realized_se": 0.04,
+      "z_of_realized_minus_V": -0.16
+     },
+     "0.025": {
+      "V_pct": 0.03,
+      "V_band_90": [
+       -0.0,
+       0.26
+      ],
+      "second_order_pct": 0.01,
+      "realized_pct": 0.03,
+      "DM": 0.81,
+      "realized_se": 0.03,
+      "z_of_realized_minus_V": -0.01
+     }
+    },
+    "shock share and origin": {
+     "inputs": [
+      "Dc",
+      "wm"
+     ],
+     "shrink_b": 0.765,
+     "tail_index": 5.07,
+     "tau": 0.827,
+     "sd_of_log_scale_pre_test": 0.0461,
+     "largest_and_smallest_scale_1st_99th_percentile": [
+      0.824,
+      1.028
+     ],
+     "0.01": {
+      "V_pct": 0.2,
+      "V_band_90": [
+       -0.16,
+       0.68
+      ],
+      "second_order_pct": 0.3,
+      "realized_pct": 0.76,
+      "DM": 5.59,
+      "realized_se": 0.14,
+      "z_of_realized_minus_V": 1.93
+     },
+     "0.025": {
+      "V_pct": 0.04,
+      "V_band_90": [
+       -0.23,
+       0.37
+      ],
+      "second_order_pct": 0.24,
+      "realized_pct": 0.58,
+      "DM": 6.31,
+      "realized_se": 0.09,
+      "z_of_realized_minus_V": 2.62
+     }
+    },
+    "state of past returns": {
+     "inputs": [
+      "logsig",
+      "zl1",
+      "absz5",
+      "zstd21",
+      "fracdn5",
+      "ds"
+     ],
+     "shrink_b": 0.308,
+     "tail_index": 5.05,
+     "tau": 0.825,
+     "sd_of_log_scale_pre_test": 0.0293,
+     "largest_and_smallest_scale_1st_99th_percentile": [
+      0.904,
+      1.069
+     ],
+     "0.01": {
+      "V_pct": 0.03,
+      "V_band_90": [
+       -0.14,
+       1.37
+      ],
+      "second_order_pct": 0.12,
+      "realized_pct": 0.94,
+      "DM": 10.09,
+      "realized_se": 0.09,
+      "z_of_realized_minus_V": 1.96
+     },
+     "0.025": {
+      "V_pct": -0.06,
+      "V_band_90": [
+       -0.18,
+       0.98
+      ],
+      "second_order_pct": 0.1,
+      "realized_pct": 0.77,
+      "DM": 11.22,
+      "realized_se": 0.07,
+      "z_of_realized_minus_V": 2.3
+     }
+    },
+    "state of past returns, shock share and origin": {
+     "inputs": [
+      "logsig",
+      "zl1",
+      "absz5",
+      "zstd21",
+      "fracdn5",
+      "ds",
+      "Dc",
+      "wm"
+     ],
+     "shrink_b": 0.68,
+     "tail_index": 5.12,
+     "tau": 0.827,
+     "sd_of_log_scale_pre_test": 0.0653,
+     "largest_and_smallest_scale_1st_99th_percentile": [
+      0.801,
+      1.165
+     ],
+     "0.01": {
+      "V_pct": 0.62,
+      "V_band_90": [
+       0.07,
+       1.45
+      ],
+      "second_order_pct": 0.6,
+      "realized_pct": 1.63,
+      "DM": 9.33,
+      "realized_se": 0.17,
+      "z_of_realized_minus_V": 2.23
+     },
+     "0.025": {
+      "V_pct": 0.33,
+      "V_band_90": [
+       -0.07,
+       0.99
+      ],
+      "second_order_pct": 0.49,
+      "realized_pct": 1.36,
+      "DM": 10.07,
+      "realized_se": 0.13,
+      "z_of_realized_minus_V": 2.94
+     }
+    }
+   }
+  }
+ },
+ "summary": {
+  "0.01": {
+   "cells": 8,
+   "correlation_V_realized": 0.9896,
+   "mean_absolute_gap_points": 2.12,
+   "cells_where_realized_and_V_agree": 3
+  },
+  "0.025": {
+   "cells": 8,
+   "correlation_V_realized": 0.9845,
+   "mean_absolute_gap_points": 1.29,
+   "cells_where_realized_and_V_agree": 3
+  }
+ }
+}

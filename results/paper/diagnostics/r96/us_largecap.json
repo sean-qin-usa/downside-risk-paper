@@ -1,0 +1,147 @@
+{
+ "universe": "us_largecap",
+ "bootstrap_draws": 200,
+ "predictions": "see the script header (M1-M5); written after r94 and r95",
+ "rows_pre_test": 521147,
+ "rows_test": 543867,
+ "forms": {
+  "partition form (s = 1)": {
+   "slope_within_type_b": 0.0,
+   "slope_within_type_on_test_rows": 0.0,
+   "by_type_pre_test": {
+    "reaction day": {
+     "tail_index": 6.44,
+     "tau": 2.312,
+     "multiplier": 2.8
+    },
+    "day after": {
+     "tail_index": 6.08,
+     "tau": 0.908,
+     "multiplier": 1.11
+    },
+    "other days": {
+     "tail_index": 6.46,
+     "tau": 0.789,
+     "multiplier": 1.0
+    }
+   },
+   "by_type_test": {
+    "reaction day": {
+     "tail_index": 5.96,
+     "tau": 2.653,
+     "best_multiplier": 3.27
+    },
+    "day after": {
+     "tail_index": 6.25,
+     "tau": 0.936,
+     "best_multiplier": 1.14
+    },
+    "other days": {
+     "tail_index": 5.18,
+     "tau": 0.748,
+     "best_multiplier": 1.0
+    }
+   },
+   "sd_of_log_scale_within_type_pre_test": 0.0,
+   "0.01": {
+    "V_pct": 8.47,
+    "gain_on_the_pre_test_rows_themselves_pct": 6.17,
+    "V_band_90": [
+     7.77,
+     9.04
+    ],
+    "realized_pct": 9.72,
+    "DM": 12.82,
+    "realized_se": 0.76,
+    "z_of_realized_minus_V": 1.47,
+    "expression_after_the_fact_pct": 11.36,
+    "realized_on_reaction_days_pct": 70.02,
+    "realized_on_other_days_pct": 0.0
+   },
+   "0.025": {
+    "V_pct": 5.23,
+    "gain_on_the_pre_test_rows_themselves_pct": 3.83,
+    "V_band_90": [
+     4.81,
+     5.55
+    ],
+    "realized_pct": 5.68,
+    "DM": 12.97,
+    "realized_se": 0.44,
+    "z_of_realized_minus_V": 0.91,
+    "expression_after_the_fact_pct": 6.85,
+    "realized_on_reaction_days_pct": 55.58,
+    "realized_on_other_days_pct": 0.0
+   }
+  },
+  "nested form": {
+   "slope_within_type_b": 0.922,
+   "slope_within_type_on_test_rows": 0.919,
+   "by_type_pre_test": {
+    "reaction day": {
+     "tail_index": 6.57,
+     "tau": 2.308,
+     "multiplier": 2.78
+    },
+    "day after": {
+     "tail_index": 6.69,
+     "tau": 0.912,
+     "multiplier": 1.1
+    },
+    "other days": {
+     "tail_index": 6.69,
+     "tau": 0.789,
+     "multiplier": 1.0
+    }
+   },
+   "by_type_test": {
+    "reaction day": {
+     "tail_index": 6.26,
+     "tau": 2.624,
+     "best_multiplier": 3.2
+    },
+    "day after": {
+     "tail_index": 6.75,
+     "tau": 0.957,
+     "best_multiplier": 1.15
+    },
+    "other days": {
+     "tail_index": 5.44,
+     "tau": 0.762,
+     "best_multiplier": 1.0
+    }
+   },
+   "sd_of_log_scale_within_type_pre_test": 0.0982,
+   "0.01": {
+    "V_pct": 9.23,
+    "gain_on_the_pre_test_rows_themselves_pct": 6.8,
+    "V_band_90": [
+     8.51,
+     9.95
+    ],
+    "realized_pct": 11.45,
+    "DM": 9.97,
+    "realized_se": 1.15,
+    "z_of_realized_minus_V": 1.81,
+    "expression_after_the_fact_pct": 12.47,
+    "realized_on_reaction_days_pct": 70.76,
+    "realized_on_other_days_pct": 1.89
+   },
+   "0.025": {
+    "V_pct": 6.04,
+    "gain_on_the_pre_test_rows_themselves_pct": 4.24,
+    "V_band_90": [
+     5.62,
+     6.51
+    ],
+    "realized_pct": 7.23,
+    "DM": 9.45,
+    "realized_se": 0.76,
+    "z_of_realized_minus_V": 1.46,
+    "expression_after_the_fact_pct": 7.92,
+    "realized_on_reaction_days_pct": 56.64,
+    "realized_on_other_days_pct": 1.6
+   }
+  }
+ }
+}
