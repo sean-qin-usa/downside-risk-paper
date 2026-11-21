@@ -1125,3 +1125,125 @@ names in this period, which the equation also says.
 | E2 | Calendar multipliers gain 4% to 9% at 2.5% and 8% to 16% at 1% (DM above 5) | Fails on size: 3.1% and 5.1% (DM 8.1, 8.2) |
 | E3 | V within 1.0 point at 2.5% and 2.0 points at 1%; implied multiplier within 0.3 of the chosen | Holds (0.5; 0.9; 2.5 against 2.4) |
 | E4 | Portfolios: gain falls with N, 0.3% to 3% at N = 10, below 0.6% at N = 50; V within 0.5 points or a factor of 1.5 | Falls, and V holds at every N; the gain at N = 10 is 0.0%, below the band |
+
+## 15. Twelfth pass: unequal weights, the S&P 500 and books cut from it (`tools/r93_sp500_weights.py`)
+
+Sections 9.1 and 14 tested the calendar's value in equal-weighted portfolios and found it gone by 10 to 50 names. An
+index is not equal-weighted, and the S&P 500 has become concentrated in a few firms. With weights w_i the variance a
+reporting firm adds to a portfolio is (kappa - 1) w_i^2 sigma_i^2, so the law says the count that matters is one over
+the sum of squared weights ("effective names"), not the number of firms.
+
+Data: the 965 firms that were in the S&P 500 between 2004 and 2024 (CRSP membership, returns and market values, with
+share classes of one firm merged; `code/panels/download_sp500.py`) and 59,646 announcement times from I/B/E/S. The
+rebuilt value-weighted return has a correlation of 1.000 with CRSP's own S&P 500 return (mean absolute daily gap
+0.0003%). A firm's variance is its mean squared return over its last 63 ordinary days, so no parameter is fitted per
+firm; kappa comes from 2005 to 2015 for three size groups (8.5 for the 20 largest members, 7.0 for the next 80, 9.3
+for the rest). Each portfolio has its own GARCH-t fitted on 2005 to 2015, and the informed VaR adds the law's
+variance on the days it is due. The test period is 2016 to 2024 (2,264 days). Predictions I1 to I7 were written
+before any return of this panel was scored; F1, F2 and G1 to G4 are follow-ups, each written after the results
+before it, and are labelled so in the script.
+
+### 15.1 The index
+
+| | 2016 | 2020 | 2024 | Test period |
+|---|---|---|---|---|
+| Effective names in the S&P 500 | 140 | 73 | 53 | 81 |
+| Earnings share of the index's variance, by the law | 0.19% | 0.27% | 1.13% | 0.39% |
+
+The law's share rose about sixfold as the index concentrated, and it is still about 1%. V for the index is 0.02% at
+2.5%; the realized gain of the informed VaR is 0.21% (DM 1.6) at 2.5% and 0.50% (DM 1.9) at 1%. The index does not
+need the earnings calendar, at 2024 concentration included.
+
+### 15.2 Is "effective names" the right count? Random books (follow-up F1)
+
+The index and the books of its largest firms are single time series: no gain there is more than two standard errors
+from zero or from V. The test with power is 720 random books of firms with a full 2005 to 2024 history (481 firms),
+60 draws per cell. Gain of the informed VaR at 2.5%, mean over draws:
+
+| Book | Effective names | Realized gain (s.e.) | V | Equal-weighted books at the same effective names |
+|---|---|---|---|---|
+| 1 firm | 1.0 | 5.9% (0.7) | 5.5% | |
+| 2 firms, equal weights | 2.0 | 4.0% (0.4) | 3.9% | |
+| 5 firms, equal weights | 5.0 | 1.3% (0.2) | 1.6% | |
+| 10 firms, equal weights | 10.0 | 0.3% (0.1) | 0.6% | |
+| 20 firms, equal weights | 20.0 | 0.0% (0.0) | 0.2% | |
+| 60 firms, equal weights | 60.0 | 0.0% (0.0) | 0.0% | |
+| 5 firms, value weights | 2.8 | 2.7% (0.4) | 2.8% | 3.2% |
+| 20 firms, value weights | 7.0 | 1.2% (0.2) | 1.1% | 1.1% |
+| 60 firms, value weights | 14.0 | 0.7% (0.1) | 0.7% | 0.4% |
+| 5 firms, value-squared weights | 1.9 | 3.8% (0.5) | 3.9% | 4.3% |
+| 20 firms, value-squared weights | 2.8 | 2.8% (0.4) | 2.8% | 3.2% |
+| 60 firms, value-squared weights | 4.1 | 2.3% (0.3) | 2.6% | 2.6% |
+
+V is within 0.4 points of the realized gain in all twelve cells (correlation 0.995 across cell means). At 1% the
+largest gap is 1.1 points, for single firms (9.9% realized, 8.8% predicted). A 60-firm value-weighted book gains what the equation
+says, 0.7%, where 60 equal-weighted firms gain nothing. The slope of a book's excess squared standardized return on
+the law's added variance has a median of 0.8 to 1.2 in every cell but the last equal-weighted one, where the law adds
+almost nothing: for ordinary firms the news is their own. Effective names as a single count is a rule of thumb good
+to about half a point: it runs 0.3 to 0.6 points high for the most concentrated books.
+
+### 15.3 Books of the largest firms, and what the largest firms do to the rest of the index
+
+Single series, 2.5%:
+
+| Book | Effective names | Realized gain (DM) | V | Slope on the law |
+|---|---|---|---|---|
+| Largest firm | 1.0 | 3.1% (1.2) | 6.9% | 0.7 |
+| Top 5, value-weighted | 4.6 | 1.5% (1.4) | 0.9% | 2.1 |
+| Top 10, value-weighted | 7.6 | 1.1% (1.6) | 0.5% | 2.2 |
+| Top 20, value-weighted | 12.9 | 0.7% (1.6) | 0.3% | 2.0 |
+| Top 50, value-weighted | 25.1 | 0.5% (1.6) | 0.1% | 2.1 |
+| Top 100, value-weighted | 39.4 | 0.4% (1.7) | 0.1% | 2.6 |
+| The index | 81.3 | 0.2% (1.6) | 0.0% | 4.2 |
+
+In every book of five or more of the largest firms the realized gain is above V and the slope is about 2, where the
+random books gave 1. None of these differences is significant on its own, and the books share the same days. The
+reason shows in the index with the day's reporting firms removed, which the law says has an ordinary day:
+
+| Squared standardized return, reaction days of the ten largest firms against other days | 2005-2015 | 2016-2019 | 2020-2024 |
+|---|---|---|---|
+| Days | 365 | 118 | 148 |
+| Mean index weight of the reporting large firms | 2.4% | 2.8% | 4.1% |
+| The index | 1.27 | 0.86 | 1.42 |
+| The index without that day's reporters | 1.28 | 0.87 | 1.32 |
+
+Over the test period the two ratios are 1.19 and 1.14, and the law gives 1.04 for the index.
+
+Regression over all days 2005 to 2024 of the squared standardized return of the index without reporters on the index
+weight of the day's reporting firms: coefficient 7.0 (t = 2.9) on the weight of the ten largest, 0.3 (t = 0.2) on
+the weight of all other reporters. At the mean weight of 2.9% the rest of the index is about 20% more variable when
+one of the ten largest firms reports, and no more variable when other firms do. The same weight moved five trading
+days later or earlier has coefficients of 0.8 (t = 0.5) and 0.2 (t = 0.1); with a dummy for Fed decision days in the
+test period the coefficient is 6.0 (t = 2.2). The effect is not stable by period (it is absent in 2016 to 2019).
+
+An index VaR that scales variance by one coefficient on the reporting weight of the ten largest, estimated on 2005
+to 2015 (10.4), gains 0.7% at 2.5% (DM 0.95) and 1.5% at 1% (DM 1.2) in the test period, and takes the index's 1%
+breach rate on those 266 days from 2.6% to 0.8%. The gain is not significant.
+
+### 15.4 What this pass shows
+
+1. The portfolio law holds with any weights: across 720 random books V matches the realized gain cell by cell, and
+   value-weighting moves the gain as the equation says.
+2. The S&P 500 does not need the earnings calendar. By the law, earnings add about 1% of its variance in 2024, up
+   from 0.2% in 2016. A book needs the calendar when it has fewer than about ten effective names.
+3. The law's one assumption, that the news is the firm's own, holds for ordinary firms and is doubtful for the ten
+   largest: on their reaction days the rest of the index is about 20% more variable (t about 3 over twenty years,
+   clean placebo, not stable by period). That reports by large firms carry market-wide news is in the literature
+   (Patton and Verardo 2012; Savor and Wilson 2016; neither read for this note yet, see `docs/WORKLIST.md` 7.9), so
+   the contribution here would be its size in VaR terms, which is small and not significant for the index.
+
+| | Prediction | Result |
+|---|---|---|
+| I1 | Rebuilt index return correlates above 0.999 with CRSP's | Holds (1.000) |
+| I2 | kappa rises as firms get smaller: 4 to 8 for the 20 largest, 7 to 12 for the rest | Fails: 8.5, 7.0, 9.3; no order |
+| I3 | Index: 50 to 130 effective names, fewer after 2020; law's share under 0.6% and at least 1.5 times larger after 2020; V under 0.1%; realized gain within 0.2 points of zero | Holds but for the last: 81 (121, then 64); 0.39% (0.26%, then 0.44%); V 0.02%; realized 0.21% |
+| I4 | Top 5 gains 0.5% to 2.0%, top 10 0.2% to 1.0%, top 50 under 0.2%, largest firm 3% to 6%, value cubed 0.5% to 2.0% | Partly: 1.5% and 3.1% hold; top 10 is 1.1%, top 50 is 0.5%, value cubed is 0.4% |
+| I5 | Over all portfolios V and realized gain correlate above 0.9, mean absolute gap under 0.5 points | Fails: 0.84 and 0.68 points (single series; the largest firms' books run above V) |
+| I6 | Every weighted portfolio within 0.7 points of the equal-weighted top-K curve at its effective names | Nine of ten; value cubed is 0.9 points below |
+| I7 | Index without reporters 0.95 to 1.25 times as variable on megacap reaction days; the index 1.05 to 1.30, above the law's 1.02 to 1.06 | Holds (1.14, t = 1.1; 1.19; 1.04) |
+| F1 | Random books: weighted cells within 0.3 points of the equal-weighted curve; V within 0.4 points of the gain from five effective names, 1.0 below | Second half holds in all twelve cells; the first fails in four of six cells (gaps 0.3 to 0.6) |
+| F2 | Coefficient on the ten largest firms' weight positive with t above 2, larger than the others' | Holds (7.0, t = 2.9; 0.3, t = 0.2) |
+| G1 | Placebo five days either side: under half the main coefficient, t below 2 | Holds (0.8 and 0.2) |
+| G2 | With Fed decision days the coefficient stays above 4 with t above 2 | Holds (6.0, t = 2.2) |
+| G3 | Index VaR with the spillover term gains 0.1% to 0.6% at 2.5%, DM 1.6 to 2.5 | Fails: 0.7%, DM 0.95 |
+| G4 | Variance ratio on megacap days larger in 2020-2024 than in 2016-2019 | Holds (1.42 against 0.86), but the 2016-2019 ratio is below one |

@@ -1,0 +1,873 @@
+{
+ "universe": "S&P 500 members, CRSP",
+ "firms": 965,
+ "firms_without_a_calendar": 1,
+ "days_used": 5033,
+ "pre_test_days": 2769,
+ "test_days": 2264,
+ "test_from": "2016-01-04",
+ "test_to": "2024-12-31",
+ "predictions_written_before_run": "see the script header (I1-I7)",
+ "correlation_with_crsp_sp500_value_weighted_return": 1.0,
+ "mean_absolute_daily_gap_pct": 0.0003,
+ "variance_ratio_pre_test_by_size_group": {
+  "20 largest": {
+   "reaction day": 8.50415277231901,
+   "day after": 1.476517482090391,
+   "reaction days pre-test": 882
+  },
+  "next 80": {
+   "reaction day": 6.9782434902292225,
+   "day after": 1.571322825773129,
+   "reaction days pre-test": 3508
+  },
+  "the rest": {
+   "reaction day": 9.305373258888132,
+   "day after": 1.6155729773826557,
+   "reaction days pre-test": 17538
+  }
+ },
+ "portfolios": {
+  "index (all members, value-weighted)": {
+   "effective_names_test": 81.3,
+   "effective_names_2016_2019": 121.3,
+   "effective_names_2020_2024": 64.4,
+   "law_share_of_variance_test_pct": 0.393,
+   "law_share_2016_2019_pct": 0.255,
+   "law_share_2020_2024_pct": 0.44,
+   "law_share_pre_test_pct": 0.189,
+   "slope_of_excess_squared_return_on_law": 4.16,
+   "0.01": {
+    "gain_pct": 0.5,
+    "DM": 1.89,
+    "V_pct": 0.02,
+    "breach_plain_pct": 1.5,
+    "breach_informed_pct": 1.46
+   },
+   "0.025": {
+    "gain_pct": 0.21,
+    "DM": 1.59,
+    "V_pct": 0.02,
+    "breach_plain_pct": 3.18,
+    "breach_informed_pct": 3.18
+   }
+  },
+  "top 1, equal-weighted": {
+   "effective_names_test": 1.0,
+   "effective_names_2016_2019": 1.0,
+   "effective_names_2020_2024": 1.0,
+   "law_share_of_variance_test_pct": 13.472,
+   "law_share_2016_2019_pct": 11.148,
+   "law_share_2020_2024_pct": 14.637,
+   "law_share_pre_test_pct": 12.335,
+   "slope_of_excess_squared_return_on_law": 0.71,
+   "0.01": {
+    "gain_pct": 5.01,
+    "DM": 1.27,
+    "V_pct": 11.52,
+    "breach_plain_pct": 1.37,
+    "breach_informed_pct": 1.5
+   },
+   "0.025": {
+    "gain_pct": 3.11,
+    "DM": 1.2,
+    "V_pct": 6.88,
+    "breach_plain_pct": 3.36,
+    "breach_informed_pct": 3.36
+   }
+  },
+  "top 2, equal-weighted": {
+   "effective_names_test": 2.0,
+   "effective_names_2016_2019": 2.0,
+   "effective_names_2020_2024": 2.0,
+   "law_share_of_variance_test_pct": 8.414,
+   "law_share_2016_2019_pct": 7.779,
+   "law_share_2020_2024_pct": 8.699,
+   "law_share_pre_test_pct": 8.351,
+   "slope_of_excess_squared_return_on_law": 0.61,
+   "0.01": {
+    "gain_pct": 1.56,
+    "DM": 0.6,
+    "V_pct": 5.82,
+    "breach_plain_pct": 1.55,
+    "breach_informed_pct": 1.41
+   },
+   "0.025": {
+    "gain_pct": 1.29,
+    "DM": 0.78,
+    "V_pct": 3.67,
+    "breach_plain_pct": 3.62,
+    "breach_informed_pct": 3.58
+   }
+  },
+  "top 5, equal-weighted": {
+   "effective_names_test": 5.0,
+   "effective_names_2016_2019": 5.0,
+   "effective_names_2020_2024": 5.0,
+   "law_share_of_variance_test_pct": 3.657,
+   "law_share_2016_2019_pct": 3.609,
+   "law_share_2020_2024_pct": 3.674,
+   "law_share_pre_test_pct": 4.145,
+   "slope_of_excess_squared_return_on_law": 2.53,
+   "0.01": {
+    "gain_pct": 2.07,
+    "DM": 1.47,
+    "V_pct": 1.15,
+    "breach_plain_pct": 1.86,
+    "breach_informed_pct": 1.72
+   },
+   "0.025": {
+    "gain_pct": 1.32,
+    "DM": 1.57,
+    "V_pct": 0.81,
+    "breach_plain_pct": 3.93,
+    "breach_informed_pct": 3.8
+   }
+  },
+  "top 10, equal-weighted": {
+   "effective_names_test": 10.0,
+   "effective_names_2016_2019": 10.0,
+   "effective_names_2020_2024": 10.0,
+   "law_share_of_variance_test_pct": 2.479,
+   "law_share_2016_2019_pct": 2.323,
+   "law_share_2020_2024_pct": 2.529,
+   "law_share_pre_test_pct": 2.534,
+   "slope_of_excess_squared_return_on_law": 2.28,
+   "0.01": {
+    "gain_pct": 1.87,
+    "DM": 1.63,
+    "V_pct": 0.41,
+    "breach_plain_pct": 1.55,
+    "breach_informed_pct": 1.41
+   },
+   "0.025": {
+    "gain_pct": 1.18,
+    "DM": 1.87,
+    "V_pct": 0.3,
+    "breach_plain_pct": 3.62,
+    "breach_informed_pct": 3.49
+   }
+  },
+  "top 20, equal-weighted": {
+   "effective_names_test": 20.0,
+   "effective_names_2016_2019": 20.0,
+   "effective_names_2020_2024": 20.0,
+   "law_share_of_variance_test_pct": 1.43,
+   "law_share_2016_2019_pct": 1.303,
+   "law_share_2020_2024_pct": 1.472,
+   "law_share_pre_test_pct": 1.325,
+   "slope_of_excess_squared_return_on_law": 2.83,
+   "0.01": {
+    "gain_pct": 0.87,
+    "DM": 1.42,
+    "V_pct": 0.1,
+    "breach_plain_pct": 1.46,
+    "breach_informed_pct": 1.41
+   },
+   "0.025": {
+    "gain_pct": 0.35,
+    "DM": 1.17,
+    "V_pct": 0.08,
+    "breach_plain_pct": 3.14,
+    "breach_informed_pct": 3.05
+   }
+  },
+  "top 50, equal-weighted": {
+   "effective_names_test": 50.0,
+   "effective_names_2016_2019": 50.0,
+   "effective_names_2020_2024": 50.0,
+   "law_share_of_variance_test_pct": 0.52,
+   "law_share_2016_2019_pct": 0.514,
+   "law_share_2020_2024_pct": 0.522,
+   "law_share_pre_test_pct": 0.484,
+   "slope_of_excess_squared_return_on_law": 2.46,
+   "0.01": {
+    "gain_pct": -0.01,
+    "DM": -0.09,
+    "V_pct": 0.01,
+    "breach_plain_pct": 1.37,
+    "breach_informed_pct": 1.41
+   },
+   "0.025": {
+    "gain_pct": 0.09,
+    "DM": 1.06,
+    "V_pct": 0.01,
+    "breach_plain_pct": 3.27,
+    "breach_informed_pct": 3.27
+   }
+  },
+  "top 100, equal-weighted": {
+   "effective_names_test": 100.0,
+   "effective_names_2016_2019": 100.0,
+   "effective_names_2020_2024": 100.0,
+   "law_share_of_variance_test_pct": 0.259,
+   "law_share_2016_2019_pct": 0.273,
+   "law_share_2020_2024_pct": 0.254,
+   "law_share_pre_test_pct": 0.245,
+   "slope_of_excess_squared_return_on_law": 4.49,
+   "0.01": {
+    "gain_pct": 0.04,
+    "DM": 0.56,
+    "V_pct": 0.0,
+    "breach_plain_pct": 1.46,
+    "breach_informed_pct": 1.46
+   },
+   "0.025": {
+    "gain_pct": 0.02,
+    "DM": 0.63,
+    "V_pct": 0.0,
+    "breach_plain_pct": 3.22,
+    "breach_informed_pct": 3.18
+   }
+  },
+  "top 5, value-weighted": {
+   "effective_names_test": 4.6,
+   "effective_names_2016_2019": 4.7,
+   "effective_names_2020_2024": 4.5,
+   "law_share_of_variance_test_pct": 3.803,
+   "law_share_2016_2019_pct": 3.685,
+   "law_share_2020_2024_pct": 3.849,
+   "law_share_pre_test_pct": 4.736,
+   "slope_of_excess_squared_return_on_law": 2.05,
+   "0.01": {
+    "gain_pct": 1.73,
+    "DM": 1.24,
+    "V_pct": 1.27,
+    "breach_plain_pct": 1.77,
+    "breach_informed_pct": 1.63
+   },
+   "0.025": {
+    "gain_pct": 1.46,
+    "DM": 1.43,
+    "V_pct": 0.89,
+    "breach_plain_pct": 4.11,
+    "breach_informed_pct": 3.93
+   }
+  },
+  "top 10, value-weighted": {
+   "effective_names_test": 7.6,
+   "effective_names_2016_2019": 8.6,
+   "effective_names_2020_2024": 7.0,
+   "law_share_of_variance_test_pct": 2.795,
+   "law_share_2016_2019_pct": 2.581,
+   "law_share_2020_2024_pct": 2.865,
+   "law_share_pre_test_pct": 2.757,
+   "slope_of_excess_squared_return_on_law": 2.15,
+   "0.01": {
+    "gain_pct": 2.21,
+    "DM": 1.57,
+    "V_pct": 0.64,
+    "breach_plain_pct": 1.68,
+    "breach_informed_pct": 1.59
+   },
+   "0.025": {
+    "gain_pct": 1.08,
+    "DM": 1.55,
+    "V_pct": 0.47,
+    "breach_plain_pct": 3.62,
+    "breach_informed_pct": 3.45
+   }
+  },
+  "top 20, value-weighted": {
+   "effective_names_test": 12.9,
+   "effective_names_2016_2019": 15.7,
+   "effective_names_2020_2024": 11.3,
+   "law_share_of_variance_test_pct": 1.973,
+   "law_share_2016_2019_pct": 1.669,
+   "law_share_2020_2024_pct": 2.069,
+   "law_share_pre_test_pct": 1.478,
+   "slope_of_excess_squared_return_on_law": 1.99,
+   "0.01": {
+    "gain_pct": 1.58,
+    "DM": 1.6,
+    "V_pct": 0.34,
+    "breach_plain_pct": 1.37,
+    "breach_informed_pct": 1.33
+   },
+   "0.025": {
+    "gain_pct": 0.73,
+    "DM": 1.55,
+    "V_pct": 0.25,
+    "breach_plain_pct": 3.27,
+    "breach_informed_pct": 3.09
+   }
+  },
+  "top 50, value-weighted": {
+   "effective_names_test": 25.1,
+   "effective_names_2016_2019": 33.4,
+   "effective_names_2020_2024": 21.0,
+   "law_share_of_variance_test_pct": 1.149,
+   "law_share_2016_2019_pct": 0.836,
+   "law_share_2020_2024_pct": 1.253,
+   "law_share_pre_test_pct": 0.701,
+   "slope_of_excess_squared_return_on_law": 2.1,
+   "0.01": {
+    "gain_pct": 1.27,
+    "DM": 1.88,
+    "V_pct": 0.13,
+    "breach_plain_pct": 1.41,
+    "breach_informed_pct": 1.37
+   },
+   "0.025": {
+    "gain_pct": 0.54,
+    "DM": 1.63,
+    "V_pct": 0.1,
+    "breach_plain_pct": 3.05,
+    "breach_informed_pct": 2.96
+   }
+  },
+  "top 100, value-weighted": {
+   "effective_names_test": 39.4,
+   "effective_names_2016_2019": 54.3,
+   "effective_names_2020_2024": 32.3,
+   "law_share_of_variance_test_pct": 0.768,
+   "law_share_2016_2019_pct": 0.533,
+   "law_share_2020_2024_pct": 0.848,
+   "law_share_pre_test_pct": 0.429,
+   "slope_of_excess_squared_return_on_law": 2.55,
+   "0.01": {
+    "gain_pct": 0.82,
+    "DM": 1.82,
+    "V_pct": 0.07,
+    "breach_plain_pct": 1.41,
+    "breach_informed_pct": 1.37
+   },
+   "0.025": {
+    "gain_pct": 0.39,
+    "DM": 1.66,
+    "V_pct": 0.05,
+    "breach_plain_pct": 3.05,
+    "breach_informed_pct": 3.0
+   }
+  },
+  "all members, weight = value^0.0": {
+   "effective_names_test": 500.0,
+   "effective_names_2016_2019": 499.9,
+   "effective_names_2020_2024": 500.0,
+   "law_share_of_variance_test_pct": 0.072,
+   "law_share_2016_2019_pct": 0.088,
+   "law_share_2020_2024_pct": 0.066,
+   "law_share_pre_test_pct": 0.068,
+   "slope_of_excess_squared_return_on_law": -1.98,
+   "0.01": {
+    "gain_pct": 0.01,
+    "DM": 0.68,
+    "V_pct": 0.0,
+    "breach_plain_pct": 1.63,
+    "breach_informed_pct": 1.63
+   },
+   "0.025": {
+    "gain_pct": 0.0,
+    "DM": 0.3,
+    "V_pct": 0.0,
+    "breach_plain_pct": 3.27,
+    "breach_informed_pct": 3.27
+   }
+  },
+  "all members, weight = value^0.5": {
+   "effective_names_test": 335.4,
+   "effective_names_2016_2019": 355.6,
+   "effective_names_2020_2024": 320.9,
+   "law_share_of_variance_test_pct": 0.091,
+   "law_share_2016_2019_pct": 0.095,
+   "law_share_2020_2024_pct": 0.09,
+   "law_share_pre_test_pct": 0.075,
+   "slope_of_excess_squared_return_on_law": 19.5,
+   "0.01": {
+    "gain_pct": 0.02,
+    "DM": 0.71,
+    "V_pct": 0.0,
+    "breach_plain_pct": 1.63,
+    "breach_informed_pct": 1.63
+   },
+   "0.025": {
+    "gain_pct": 0.03,
+    "DM": 1.61,
+    "V_pct": 0.0,
+    "breach_plain_pct": 3.49,
+    "breach_informed_pct": 3.49
+   }
+  },
+  "all members, weight = value^1.5": {
+   "effective_names_test": 19.5,
+   "effective_names_2016_2019": 37.1,
+   "effective_names_2020_2024": 14.1,
+   "law_share_of_variance_test_pct": 1.464,
+   "law_share_2016_2019_pct": 0.81,
+   "law_share_2020_2024_pct": 1.671,
+   "law_share_pre_test_pct": 0.595,
+   "slope_of_excess_squared_return_on_law": 1.48,
+   "0.01": {
+    "gain_pct": 1.23,
+    "DM": 1.47,
+    "V_pct": 0.28,
+    "breach_plain_pct": 1.46,
+    "breach_informed_pct": 1.41
+   },
+   "0.025": {
+    "gain_pct": 0.74,
+    "DM": 1.57,
+    "V_pct": 0.21,
+    "breach_plain_pct": 3.22,
+    "breach_informed_pct": 3.14
+   }
+  },
+  "all members, weight = value^2.0": {
+   "effective_names_test": 8.4,
+   "effective_names_2016_2019": 15.6,
+   "effective_names_2020_2024": 6.2,
+   "law_share_of_variance_test_pct": 2.788,
+   "law_share_2016_2019_pct": 1.704,
+   "law_share_2020_2024_pct": 3.121,
+   "law_share_pre_test_pct": 1.491,
+   "slope_of_excess_squared_return_on_law": 1.12,
+   "0.01": {
+    "gain_pct": 1.62,
+    "DM": 1.35,
+    "V_pct": 0.82,
+    "breach_plain_pct": 1.41,
+    "breach_informed_pct": 1.33
+   },
+   "0.025": {
+    "gain_pct": 0.75,
+    "DM": 1.15,
+    "V_pct": 0.58,
+    "breach_plain_pct": 3.53,
+    "breach_informed_pct": 3.36
+   }
+  },
+  "all members, weight = value^3.0": {
+   "effective_names_test": 4.2,
+   "effective_names_2016_2019": 6.2,
+   "effective_names_2020_2024": 3.3,
+   "law_share_of_variance_test_pct": 4.516,
+   "law_share_2016_2019_pct": 3.27,
+   "law_share_2020_2024_pct": 4.946,
+   "law_share_pre_test_pct": 4.586,
+   "slope_of_excess_squared_return_on_law": 0.98,
+   "0.01": {
+    "gain_pct": 0.99,
+    "DM": 0.81,
+    "V_pct": 1.98,
+    "breach_plain_pct": 1.46,
+    "breach_informed_pct": 1.46
+   },
+   "0.025": {
+    "gain_pct": 0.41,
+    "DM": 0.48,
+    "V_pct": 1.34,
+    "breach_plain_pct": 3.89,
+    "breach_informed_pct": 3.8
+   }
+  }
+ },
+ "V_against_realized": {
+  "0.025": {
+   "correlation": 0.844,
+   "mean_absolute_gap_points": 0.68
+  },
+  "0.01": {
+   "correlation": 0.797,
+   "mean_absolute_gap_points": 1.24
+  }
+ },
+ "weighted_against_equal_weighted_curve": {
+  "index (all members, value-weighted)": {
+   "effective_names": 81.3,
+   "gain_pct": 0.21,
+   "equal_weighted_curve_at_effective_names_pct": 0.04
+  },
+  "top 5, value-weighted": {
+   "effective_names": 4.6,
+   "gain_pct": 1.46,
+   "equal_weighted_curve_at_effective_names_pct": 1.32
+  },
+  "top 10, value-weighted": {
+   "effective_names": 7.6,
+   "gain_pct": 1.08,
+   "equal_weighted_curve_at_effective_names_pct": 1.24
+  },
+  "top 20, value-weighted": {
+   "effective_names": 12.9,
+   "gain_pct": 0.73,
+   "equal_weighted_curve_at_effective_names_pct": 0.88
+  },
+  "top 50, value-weighted": {
+   "effective_names": 25.1,
+   "gain_pct": 0.54,
+   "equal_weighted_curve_at_effective_names_pct": 0.29
+  },
+  "top 100, value-weighted": {
+   "effective_names": 39.4,
+   "gain_pct": 0.39,
+   "equal_weighted_curve_at_effective_names_pct": 0.16
+  },
+  "all members, weight = value^0.5": {
+   "effective_names": 335.4,
+   "gain_pct": 0.03,
+   "equal_weighted_curve_at_effective_names_pct": 0.0
+  },
+  "all members, weight = value^1.5": {
+   "effective_names": 19.5,
+   "gain_pct": 0.74,
+   "equal_weighted_curve_at_effective_names_pct": 0.38
+  },
+  "all members, weight = value^2.0": {
+   "effective_names": 8.4,
+   "gain_pct": 0.75,
+   "equal_weighted_curve_at_effective_names_pct": 1.22
+  },
+  "all members, weight = value^3.0": {
+   "effective_names": 4.2,
+   "gain_pct": 0.41,
+   "equal_weighted_curve_at_effective_names_pct": 1.31
+  }
+ },
+ "index_by_year": {
+  "2005": {
+   "effective_names": 123.1,
+   "law_share_of_variance_pct": 0.245
+  },
+  "2006": {
+   "effective_names": 132.7,
+   "law_share_of_variance_pct": 0.23
+  },
+  "2007": {
+   "effective_names": 130.9,
+   "law_share_of_variance_pct": 0.145
+  },
+  "2008": {
+   "effective_names": 120.4,
+   "law_share_of_variance_pct": 0.145
+  },
+  "2009": {
+   "effective_names": 114.7,
+   "law_share_of_variance_pct": 0.338
+  },
+  "2010": {
+   "effective_names": 131.3,
+   "law_share_of_variance_pct": 0.159
+  },
+  "2011": {
+   "effective_names": 132.3,
+   "law_share_of_variance_pct": 0.114
+  },
+  "2012": {
+   "effective_names": 118.4,
+   "law_share_of_variance_pct": 0.25
+  },
+  "2013": {
+   "effective_names": 141.9,
+   "law_share_of_variance_pct": 0.213
+  },
+  "2014": {
+   "effective_names": 146.7,
+   "law_share_of_variance_pct": 0.168
+  },
+  "2015": {
+   "effective_names": 143.7,
+   "law_share_of_variance_pct": 0.162
+  },
+  "2016": {
+   "effective_names": 140.0,
+   "law_share_of_variance_pct": 0.191
+  },
+  "2017": {
+   "effective_names": 130.9,
+   "law_share_of_variance_pct": 0.303
+  },
+  "2018": {
+   "effective_names": 113.8,
+   "law_share_of_variance_pct": 0.209
+  },
+  "2019": {
+   "effective_names": 106.3,
+   "law_share_of_variance_pct": 0.358
+  },
+  "2020": {
+   "effective_names": 73.0,
+   "law_share_of_variance_pct": 0.265
+  },
+  "2021": {
+   "effective_names": 69.0,
+   "law_share_of_variance_pct": 0.652
+  },
+  "2022": {
+   "effective_names": 68.3,
+   "law_share_of_variance_pct": 0.391
+  },
+  "2023": {
+   "effective_names": 62.8,
+   "law_share_of_variance_pct": 0.734
+  },
+  "2024": {
+   "effective_names": 52.9,
+   "law_share_of_variance_pct": 1.132
+  }
+ },
+ "spillover": {
+  "megacap_reaction_days_test": 266,
+  "megacap_reaction_days_pre_test": 365,
+  "index, test": {
+   "mean_squared_standardized_return_megacap_days": 1.121,
+   "other_days": 0.944,
+   "ratio": 1.187,
+   "t_of_difference": 1.41
+  },
+  "index, pre_test": {
+   "mean_squared_standardized_return_megacap_days": 1.204,
+   "other_days": 0.951,
+   "ratio": 1.266,
+   "t_of_difference": 2.36
+  },
+  "index without the day's reporting firms, test": {
+   "mean_squared_standardized_return_megacap_days": 1.076,
+   "other_days": 0.947,
+   "ratio": 1.136,
+   "t_of_difference": 1.06
+  },
+  "index without the day's reporting firms, pre_test": {
+   "mean_squared_standardized_return_megacap_days": 1.216,
+   "other_days": 0.949,
+   "ratio": 1.281,
+   "t_of_difference": 2.5
+  },
+  "law_for_the_index_on_megacap_days_test": 1.039,
+  "index_breach_on_megacap_days_test_0.01": {
+   "plain_pct": 2.63,
+   "informed_pct": 2.26
+  },
+  "index_breach_on_megacap_days_test_0.025": {
+   "plain_pct": 3.76,
+   "informed_pct": 3.76
+  },
+  "regression_on_reporting_weight": {
+   "mean_weight_of_ten_largest_reporting_on_their_days": 0.0286,
+   "mean_weight_of_other_reporters": 0.0123,
+   "index, all days": {
+    "ten_largest": 8.57,
+    "t": 3.3,
+    "others": -0.13,
+    "t_others": -0.09
+   },
+   "index, test": {
+    "ten_largest": 8.9,
+    "t": 2.95,
+    "others": -2.05,
+    "t_others": -0.85
+   },
+   "index, pre_test": {
+    "ten_largest": 9.58,
+    "t": 1.98,
+    "others": 0.85,
+    "t_others": 0.44
+   },
+   "index without the day's reporting firms, all days": {
+    "ten_largest": 6.99,
+    "t": 2.92,
+    "others": 0.27,
+    "t_others": 0.19
+   },
+   "index without the day's reporting firms, test": {
+    "ten_largest": 6.69,
+    "t": 2.51,
+    "others": -1.79,
+    "t_others": -0.78
+   },
+   "index without the day's reporting firms, pre_test": {
+    "ten_largest": 9.89,
+    "t": 2.06,
+    "others": 1.12,
+    "t_others": 0.58
+   }
+  },
+  "second_follow_up": {
+   "placebo_all_days_index_without_reporters": {
+    "ten_largest": 7.04,
+    "t": 2.94,
+    "five_days_later": 0.82,
+    "t_later": 0.47,
+    "five_days_earlier": 0.24,
+    "t_earlier": 0.11
+   },
+   "with_fed_decision_days_test_index_without_reporters": {
+    "ten_largest": 5.98,
+    "t": 2.22,
+    "fed_day": 0.58,
+    "t_fed": 1.35,
+    "fed_days": 71,
+    "fed_days_that_are_megacap_days": 22
+   },
+   "index_var_with_spillover_term": {
+    "b_pre_test": 10.43,
+    "0.01": {
+     "gain_pct": 1.53,
+     "DM": 1.23,
+     "breach_megacap_days_plain_pct": 2.63,
+     "breach_megacap_days_informed_pct": 0.75
+    },
+    "0.025": {
+     "gain_pct": 0.69,
+     "DM": 0.95,
+     "breach_megacap_days_plain_pct": 3.76,
+     "breach_megacap_days_informed_pct": 2.26
+    }
+   },
+   "megacap_days_2005-2015": {
+    "days": 365,
+    "mean_reporting_weight_pct": 2.38,
+    "index_variance_ratio": 1.266,
+    "without_reporters_variance_ratio": 1.281
+   },
+   "megacap_days_2016-2019": {
+    "days": 118,
+    "mean_reporting_weight_pct": 2.84,
+    "index_variance_ratio": 0.86,
+    "without_reporters_variance_ratio": 0.874
+   },
+   "megacap_days_2020-2024": {
+    "days": 148,
+    "mean_reporting_weight_pct": 4.06,
+    "index_variance_ratio": 1.421,
+    "without_reporters_variance_ratio": 1.321
+   }
+  }
+ },
+ "random_books_follow_up": {
+  "summary": {
+   "firms_with_a_full_history": 481,
+   "draws_in_all": 720,
+   "correlation_of_gain_and_V_across_draws": 0.503,
+   "slope_of_gain_on_V": 0.83,
+   "correlation_across_cell_means": 0.995
+  },
+  "cells": {
+   "equal-weighted, 1 firms": {
+    "draws": 60,
+    "effective_names": 1.0,
+    "gain_pct": 5.91,
+    "se_across_draws": 0.65,
+    "V_pct": 5.48,
+    "gain_1pct": 9.89,
+    "V_1pct": 8.79,
+    "slope_of_excess_squared_return_on_law": 0.93
+   },
+   "equal-weighted, 2 firms": {
+    "draws": 60,
+    "effective_names": 2.0,
+    "gain_pct": 4.02,
+    "se_across_draws": 0.44,
+    "V_pct": 3.94,
+    "gain_1pct": 6.74,
+    "V_1pct": 6.22,
+    "slope_of_excess_squared_return_on_law": 0.96
+   },
+   "equal-weighted, 5 firms": {
+    "draws": 60,
+    "effective_names": 5.0,
+    "gain_pct": 1.25,
+    "se_across_draws": 0.18,
+    "V_pct": 1.63,
+    "gain_1pct": 1.93,
+    "V_1pct": 2.54,
+    "slope_of_excess_squared_return_on_law": 1.02
+   },
+   "equal-weighted, 10 firms": {
+    "draws": 60,
+    "effective_names": 10.0,
+    "gain_pct": 0.33,
+    "se_across_draws": 0.07,
+    "V_pct": 0.58,
+    "gain_1pct": 0.14,
+    "V_1pct": 0.87,
+    "slope_of_excess_squared_return_on_law": 0.81
+   },
+   "equal-weighted, 20 firms": {
+    "draws": 60,
+    "effective_names": 20.0,
+    "gain_pct": 0.04,
+    "se_across_draws": 0.03,
+    "V_pct": 0.16,
+    "gain_1pct": -0.11,
+    "V_1pct": 0.24,
+    "slope_of_excess_squared_return_on_law": 0.86
+   },
+   "equal-weighted, 60 firms": {
+    "draws": 60,
+    "effective_names": 60.0,
+    "gain_pct": -0.01,
+    "se_across_draws": 0.01,
+    "V_pct": 0.02,
+    "gain_1pct": -0.06,
+    "V_1pct": 0.02,
+    "slope_of_excess_squared_return_on_law": 0.23
+   },
+   "value-weighted, 5 firms": {
+    "draws": 60,
+    "effective_names": 2.8,
+    "gain_pct": 2.7,
+    "se_across_draws": 0.38,
+    "V_pct": 2.84,
+    "gain_1pct": 4.26,
+    "V_1pct": 4.62,
+    "slope_of_excess_squared_return_on_law": 1.0,
+    "equal_weighted_curve_at_effective_names_pct": 3.17
+   },
+   "value-weighted, 20 firms": {
+    "draws": 60,
+    "effective_names": 7.0,
+    "gain_pct": 1.17,
+    "se_across_draws": 0.24,
+    "V_pct": 1.14,
+    "gain_1pct": 2.02,
+    "V_1pct": 1.82,
+    "slope_of_excess_squared_return_on_law": 1.14,
+    "equal_weighted_curve_at_effective_names_pct": 1.11
+   },
+   "value-weighted, 60 firms": {
+    "draws": 60,
+    "effective_names": 14.0,
+    "gain_pct": 0.67,
+    "se_across_draws": 0.14,
+    "V_pct": 0.68,
+    "gain_1pct": 1.2,
+    "V_1pct": 1.09,
+    "slope_of_excess_squared_return_on_law": 1.2,
+    "equal_weighted_curve_at_effective_names_pct": 0.4
+   },
+   "value-squared-weighted, 5 firms": {
+    "draws": 60,
+    "effective_names": 1.9,
+    "gain_pct": 3.75,
+    "se_across_draws": 0.5,
+    "V_pct": 3.92,
+    "gain_1pct": 6.35,
+    "V_1pct": 6.43,
+    "slope_of_excess_squared_return_on_law": 0.92,
+    "equal_weighted_curve_at_effective_names_pct": 4.31
+   },
+   "value-squared-weighted, 20 firms": {
+    "draws": 60,
+    "effective_names": 2.8,
+    "gain_pct": 2.76,
+    "se_across_draws": 0.42,
+    "V_pct": 2.79,
+    "gain_1pct": 4.52,
+    "V_1pct": 4.52,
+    "slope_of_excess_squared_return_on_law": 1.08,
+    "equal_weighted_curve_at_effective_names_pct": 3.22
+   },
+   "value-squared-weighted, 60 firms": {
+    "draws": 60,
+    "effective_names": 4.1,
+    "gain_pct": 2.26,
+    "se_across_draws": 0.32,
+    "V_pct": 2.6,
+    "gain_1pct": 3.84,
+    "V_1pct": 4.25,
+    "slope_of_excess_squared_return_on_law": 0.94,
+    "equal_weighted_curve_at_effective_names_pct": 2.59
+   }
+  }
+ }
+}
