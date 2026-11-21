@@ -58,7 +58,22 @@ def port(job):   # one equal-weighted portfolio: its own GARCH-t, and the same V
         q = tq(a, nu); Lu = pin(rp, mu + sig * q, a); Li = pin(rp, mu + sig * s * q, a); k = math.sqrt(nu / (nu - 2)); lu = sig * s * EL(q / s, 1 / k, nu, a); li = sig * s * EL(q, 1 / k, nu, a)
         out[str(a)] = {"gain": 100 * float((Lu - Li)[te].sum() / Lu[te].sum()), "V": 100 * float((lu - li)[te].sum() / lu[te].sum()), "breach_top5_plain": 100 * float((rp <= mu + sig * q)[top].mean()), "breach_top5_informed": 100 * float((rp <= mu + sig * s * q)[top].mean()),
                        "breach_plain": 100 * float((rp <= mu + sig * q)[te].mean()), "breach_informed": 100 * float((rp <= mu + sig * s * q)[te].mean())}
+    # consistency check added 2026-11-20 (r98; no predictions): the same expression against the same realized gain
+    # (a) on the pre-test days, where kappa was measured; (b) on the test days with kappa measured on the test days
+    for lab, ka, kb, m in (("pre-test days", k0, k1, pre),) + ((("test days, kappa of the test days", G["k0t"], G["k1t"], te),) if "k0t" in G else ()):
+        ex = ((ka - 1) * (S2[:, cols] * F0[:, cols]).sum(1) + (kb - 1) * (S2[:, cols] * F1[:, cols]).sum(1)) / N ** 2; s_ = np.sqrt(np.maximum(v + ex - ex[m].mean() / v[m].mean() * v, 0.25 * v) / v); out[lab] = {}
+        for a in AL: q = tq(a, nu); Lu = pin(rp, mu + sig * q, a); Li = pin(rp, mu + sig * s_ * q, a); k = math.sqrt(nu / (nu - 2)); lu = sig * s_ * EL(q / s_, 1 / k, nu, a); li = sig * s_ * EL(q, 1 / k, nu, a); out[lab][str(a)] = {"gain": 100 * float((Lu - Li)[m].sum() / Lu[m].sum()), "V": 100 * float((lu - li)[m].sum() / lu[m].sum())}
     return out
+def check_table(res, sizes, what, extra=None):   # r98: writes results/paper/diagnostics/r98/<what>.json
+    T = {"universe": what, "note": "consistency check of the portfolio expression, added after r97; no predictions", **(extra or {}), "by_N": {}}
+    for N in sizes:
+        rr = [r for r in res if r["N"] == N]; T["by_N"][str(N)] = {"portfolios": len(rr)}
+        for lab in ("pre-test days", "test days, kappa of the pre-test days", "test days, kappa of the test days"):
+            get = (lambda r, a, f: r[str(a)][f]) if lab == "test days, kappa of the pre-test days" else (lambda r, a, f: r[lab][str(a)][f])
+            if lab != "test days, kappa of the pre-test days" and lab not in rr[0]: continue
+            T["by_N"][str(N)][lab] = {str(a): {"gain_pct": round(float(np.mean([get(r, a, "gain") for r in rr])), 2), "V_pct": round(float(np.mean([get(r, a, "V") for r in rr])), 2), "se_of_gain_minus_V": round(float(np.std([get(r, a, "gain") - get(r, a, "V") for r in rr]) / math.sqrt(len(rr))), 2) if len(rr) > 1 else None} for a in AL}
+        print("r98 N=%-4d %s" % (N, {l: (v["0.025"]["gain_pct"], v["0.025"]["V_pct"]) for l, v in T["by_N"][str(N)].items() if l != "portfolios"}), flush=True)
+    d = os.path.join(ROOT, "results", "paper", "diagnostics", "r98"); os.makedirs(d, exist_ok=True); json.dump(T, open(os.path.join(d, what + ".json"), "w"), indent=1)
 
 if __name__ == "__main__":
     sys.path.insert(0, os.path.join(ROOT, "tools")); A = pd.read_pickle(os.path.join(ROOT, "data", "panels", WHAT + "_calcache.pkl")); A = A[np.isfinite(A.r0)]; R82 = json.load(open(os.path.join(ROOT, "results", "paper", "diagnostics", "r82", WHAT + ".json")))
@@ -85,7 +100,7 @@ if __name__ == "__main__":
     S2 = piv("msig") ** 2; F0 = (piv("r0") == 1).astype(float); F1 = ((piv("r1") == 1) & (F0 == 0)).astype(float); tst = B.groupby("date")["test"].first().reindex(R.index).values.astype(bool); prem = ~tst
     um = (piv("y") - piv("mmu")) ** 2 / S2; k0 = float(um[prem][F0[prem] == 1].mean()); k1 = float(um[prem][F1[prem] == 1].mean()); M = R.shape[1]
     Z = (R.values - R.values[prem].mean(0)) / R.values[prem].std(0); ordn = prem & (F0.sum(1) + F1.sum(1) < 0.02 * M); cc = np.corrcoef(Z[ordn].T); rho = float((cc.sum() - M) / (M * (M - 1))); x = float(F0[tst].mean() * (k0 - 1) + F1[tst].mean() * (k1 - 1))
-    G.update(R=R.values, S2=S2, F0=F0, F1=F1, pre=prem, k0=k0, k1=k1); SIZES = [n for n in (1, 2, 5, 10, 20, 50) if n < M] + [M]; K = int(os.environ.get("R83_DRAWS", "40"))
+    G.update(R=R.values, S2=S2, F0=F0, F1=F1, pre=prem, k0=k0, k1=k1, k0t=float(um[tst][F0[tst] == 1].mean()), k1t=float(um[tst][F1[tst] == 1].mean())); SIZES = [n for n in (1, 2, 5, 10, 20, 50) if n < M] + [M]; K = int(os.environ.get("R83_DRAWS", "40"))
     jobs = [(N, s) for N in SIZES for s in (range(M) if N == 1 else ([0] if N == M else range(K)))]
     with Pool(int(os.environ.get("R83_WORKERS", "12"))) as pool: res = [r for r in pool.map(port, jobs, chunksize=4) if r is not None]
     OUT["C"] = {"names": M, "days": int(len(R)), "test_days": int(tst.sum()), "from": str(R.index[0].date()), "variance_ratio_pre_test": {"reaction day": round(k0, 2), "day after": round(k1, 2)}, "mean_pairwise_correlation_pre_test": round(rho, 3), "x": round(x, 4), "by_N": {}}
@@ -96,3 +111,4 @@ if __name__ == "__main__":
                                                                           **{k_: round(float(np.mean([r[str(a)][k_] for r in rr])), 2) for k_ in ("V", "breach_top5_plain", "breach_top5_informed", "breach_plain", "breach_informed")}}
         OUT["C"]["by_N"][str(N)] = row; lg("N=%d %s" % (N, json.dumps(row)))
     json.dump(OUT, open(os.path.join(OUTD, WHAT + ".json"), "w"), indent=1); lg("wrote %s" % os.path.join(OUTD, WHAT + ".json"))
+    check_table(res, SIZES, WHAT, {"variance_ratio_reaction_day_and_day_after": {"pre-test days": [round(k0, 2), round(k1, 2)], "test days": [round(G["k0t"], 2), round(G["k1t"], 2)]}})

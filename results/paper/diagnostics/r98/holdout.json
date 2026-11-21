@@ -1,0 +1,211 @@
+{
+ "universe": "holdout",
+ "note": "consistency check of the portfolio expression, added after r97; no predictions",
+ "variance_ratio_reaction_day_and_day_after": {
+  "pre-test days": [
+   6.07,
+   1.37
+  ],
+  "test days": [
+   6.23,
+   1.15
+  ]
+ },
+ "by_N": {
+  "1": {
+   "portfolios": 186,
+   "pre-test days": {
+    "0.01": {
+     "gain_pct": 4.69,
+     "V_pct": 6.37,
+     "se_of_gain_minus_V": 0.45
+    },
+    "0.025": {
+     "gain_pct": 2.81,
+     "V_pct": 3.98,
+     "se_of_gain_minus_V": 0.27
+    }
+   },
+   "test days, kappa of the pre-test days": {
+    "0.01": {
+     "gain_pct": 5.01,
+     "V_pct": 6.11,
+     "se_of_gain_minus_V": 0.51
+    },
+    "0.025": {
+     "gain_pct": 3.05,
+     "V_pct": 3.82,
+     "se_of_gain_minus_V": 0.3
+    }
+   },
+   "test days, kappa of the test days": {
+    "0.01": {
+     "gain_pct": 4.98,
+     "V_pct": 6.26,
+     "se_of_gain_minus_V": 0.51
+    },
+    "0.025": {
+     "gain_pct": 3.05,
+     "V_pct": 3.89,
+     "se_of_gain_minus_V": 0.3
+    }
+   }
+  },
+  "5": {
+   "portfolios": 40,
+   "pre-test days": {
+    "0.01": {
+     "gain_pct": 1.78,
+     "V_pct": 1.51,
+     "se_of_gain_minus_V": 0.3
+    },
+    "0.025": {
+     "gain_pct": 1.2,
+     "V_pct": 1.01,
+     "se_of_gain_minus_V": 0.21
+    }
+   },
+   "test days, kappa of the pre-test days": {
+    "0.01": {
+     "gain_pct": 0.69,
+     "V_pct": 0.93,
+     "se_of_gain_minus_V": 0.29
+    },
+    "0.025": {
+     "gain_pct": 0.34,
+     "V_pct": 0.64,
+     "se_of_gain_minus_V": 0.16
+    }
+   },
+   "test days, kappa of the test days": {
+    "0.01": {
+     "gain_pct": 0.86,
+     "V_pct": 0.95,
+     "se_of_gain_minus_V": 0.29
+    },
+    "0.025": {
+     "gain_pct": 0.52,
+     "V_pct": 0.64,
+     "se_of_gain_minus_V": 0.16
+    }
+   }
+  },
+  "10": {
+   "portfolios": 40,
+   "pre-test days": {
+    "0.01": {
+     "gain_pct": 0.21,
+     "V_pct": 0.52,
+     "se_of_gain_minus_V": 0.12
+    },
+    "0.025": {
+     "gain_pct": 0.21,
+     "V_pct": 0.36,
+     "se_of_gain_minus_V": 0.07
+    }
+   },
+   "test days, kappa of the pre-test days": {
+    "0.01": {
+     "gain_pct": 0.29,
+     "V_pct": 0.25,
+     "se_of_gain_minus_V": 0.12
+    },
+    "0.025": {
+     "gain_pct": -0.0,
+     "V_pct": 0.18,
+     "se_of_gain_minus_V": 0.07
+    }
+   },
+   "test days, kappa of the test days": {
+    "0.01": {
+     "gain_pct": 0.48,
+     "V_pct": 0.26,
+     "se_of_gain_minus_V": 0.12
+    },
+    "0.025": {
+     "gain_pct": 0.19,
+     "V_pct": 0.18,
+     "se_of_gain_minus_V": 0.07
+    }
+   }
+  },
+  "20": {
+   "portfolios": 40,
+   "pre-test days": {
+    "0.01": {
+     "gain_pct": 0.24,
+     "V_pct": 0.12,
+     "se_of_gain_minus_V": 0.06
+    },
+    "0.025": {
+     "gain_pct": 0.21,
+     "V_pct": 0.08,
+     "se_of_gain_minus_V": 0.03
+    }
+   },
+   "test days, kappa of the pre-test days": {
+    "0.01": {
+     "gain_pct": 0.1,
+     "V_pct": 0.07,
+     "se_of_gain_minus_V": 0.05
+    },
+    "0.025": {
+     "gain_pct": 0.02,
+     "V_pct": 0.05,
+     "se_of_gain_minus_V": 0.03
+    }
+   },
+   "test days, kappa of the test days": {
+    "0.01": {
+     "gain_pct": 0.22,
+     "V_pct": 0.07,
+     "se_of_gain_minus_V": 0.05
+    },
+    "0.025": {
+     "gain_pct": 0.14,
+     "V_pct": 0.05,
+     "se_of_gain_minus_V": 0.03
+    }
+   }
+  },
+  "50": {
+   "portfolios": 40,
+   "pre-test days": {
+    "0.01": {
+     "gain_pct": 0.14,
+     "V_pct": 0.01,
+     "se_of_gain_minus_V": 0.02
+    },
+    "0.025": {
+     "gain_pct": 0.1,
+     "V_pct": 0.01,
+     "se_of_gain_minus_V": 0.01
+    }
+   },
+   "test days, kappa of the pre-test days": {
+    "0.01": {
+     "gain_pct": 0.05,
+     "V_pct": 0.01,
+     "se_of_gain_minus_V": 0.01
+    },
+    "0.025": {
+     "gain_pct": -0.01,
+     "V_pct": 0.01,
+     "se_of_gain_minus_V": 0.01
+    }
+   },
+   "test days, kappa of the test days": {
+    "0.01": {
+     "gain_pct": 0.11,
+     "V_pct": 0.01,
+     "se_of_gain_minus_V": 0.01
+    },
+    "0.025": {
+     "gain_pct": 0.06,
+     "V_pct": 0.01,
+     "se_of_gain_minus_V": 0.01
+    }
+   }
+  }
+ }
+}

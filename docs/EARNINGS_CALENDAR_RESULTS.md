@@ -1162,6 +1162,9 @@ need the earnings calendar, at 2024 concentration included.
 
 ### 15.2 Is "effective names" the right count? Random books (follow-up F1)
 
+Read with Section 17: the agreement of V and the realized gain in this table depends on kappa having risen between
+the estimation and test periods.
+
 The index and the books of its largest firms are single time series: no gain there is more than two standard errors
 from zero or from V. The test with power is 720 random books of firms with a full 2005 to 2024 history (481 firms),
 60 draws per cell. Gain of the informed VaR at 2.5%, mean over draws:
@@ -1388,3 +1391,41 @@ low. On the 2000-2013 panel of Section 14 the equation was 0.5 points high, the 
 | M3 | Nested multiplier realizes 8.5% to 10% (CRSP), 6.5% to 8% (US) | Holds (8.8; 7.2) |
 | M4 | After the fact within the larger of 0.5 points and 10% | Holds (8.7 against 8.8; 7.9 against 7.2, at the edge) |
 | M5 | Band under 1.5 points either side | Holds |
+
+## 17. The same check on the portfolio results (`results/paper/diagnostics/r98/`)
+
+Section 16.4 left the portfolio results unexamined. They use a different estimate of V: the portfolio's own
+Student-t, scaled by the square root of the variance the law adds, with the variance ratio kappa measured before the
+test period. The check, added to `tools/r83_information_value.py`, `r92_holdout_era.py` and `r93_sp500_weights.py`
+(no predictions; the earlier result files are unchanged): the realized gain against V (a) on the pre-test days,
+where kappa was measured, and (b) on the test days with kappa measured on the test days. In both, kappa matches the
+sample, so an expression that is right returns the realized gain. Mean over portfolios, 2.5%, realized then V:
+
+| Portfolio | Test days, kappa from before (as reported) | Pre-test days | Test days, kappa of the test days |
+|---|---|---|---|
+| CRSP panel, 1 name | 7.2, 8.2 | 5.3, 8.2 | 6.8, 9.2 |
+| CRSP panel, 5 names | 3.6, 3.9 | 2.4, 3.7 | 3.4, 4.5 |
+| CRSP panel, 10 names | 1.6, 1.9 | 1.2, 1.7 | 1.5, 2.2 |
+| US large caps, 1 name | 5.3, 5.4 | 3.7, 5.6 | 5.1, 8.0 |
+| US large caps, 5 names | 1.2, 1.3 | 0.4, 1.1 | 1.1, 2.2 |
+| US large caps, 10 names | 0.4, 0.4 | 0.2, 0.4 | 0.3, 0.8 |
+| 2000-2013 panel, 1 name | 3.1, 3.8 | 2.8, 4.0 | 3.1, 3.9 |
+| 2000-2013 panel, 5 names | 0.3, 0.6 | 1.2, 1.0 | 0.5, 0.6 |
+| S&P 500 firms, 1 firm | 5.9, 5.5 | 5.0, 5.4 | 5.8, 7.6 |
+| S&P 500 firms, 5 equal-weighted | 1.3, 1.6 | 0.5, 1.3 | 1.2, 2.5 |
+| S&P 500 firms, 20 value-weighted | 1.2, 1.1 | 0.6, 0.8 | 1.1, 1.8 |
+| S&P 500 firms, 60 value-weighted | 0.7, 0.7 | 0.5, 0.2 | 0.6, 1.0 |
+
+The portfolio expression has the same fault as the single-name equation. Where kappa matches the sample it runs
+high: for single names the realized gain is 0.65 to 0.78 of V on the three stock panels and 0.76 to 0.93 for S&P 500
+firms, and the shortfall is larger for small books. The close agreement reported in Sections 9.1 and 15.2 (and the
+correlation of 0.995 over 720 random books) came from kappa measured before the test period being lower than kappa
+in it (reaction day: 14.4 against 15.6 on the CRSP panel, 8.5 against 11.7 on US large caps, 7.0 to 9.3 against 10.1
+to 11.8 for S&P 500 firms), which offset the overshoot. On the 2000-2013 panel kappa did not move (6.1 and 6.2) and
+V was a quarter too high, as Section 14 reported.
+
+What stands, because it is in the realized gains and does not depend on V: the calendar's value falls with the
+number of names and is gone between 10 and 50 of them, in three periods; unequal weights bring it back (60
+value-weighted S&P 500 firms gain 0.6% to 0.7%, 60 equal-weighted gain nothing); the index gains nothing
+measurable. What does not stand as stated: that V predicts these gains. It gives their order and their decay with
+size, and overstates their level by a quarter to a half when kappa is right.

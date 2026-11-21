@@ -64,7 +64,8 @@ if __name__ == "__main__":
     # portfolios (names with the full history)
     full = A.groupby("name").size(); keep = full[full == full.max()].index; B = A[A["name"].isin(keep)]; R = B.pivot(index="date", columns="name", values="y"); piv = lambda c: B.pivot(index="date", columns="name", values=c).reindex(R.index).values
     S2 = piv("sig") ** 2; F0 = (piv("r0") == 1).astype(float); F1 = ((piv("r1") == 1) & (F0 == 0)).astype(float); tst = B.groupby("date")["test"].first().reindex(R.index).values.astype(bool); um = (piv("y") - piv("mu")) ** 2 / S2; k0 = float(um[~tst][F0[~tst] == 1].mean()); k1 = float(um[~tst][F1[~tst] == 1].mean()); M = R.shape[1]
-    R83.G.update(R=R.values, S2=S2, F0=F0, F1=F1, pre=~tst, k0=k0, k1=k1); SIZES = (1, 5, 10, 20, 50)
+    R83.G.update(R=R.values, S2=S2, F0=F0, F1=F1, pre=~tst, k0=k0, k1=k1, k0t=float(um[tst][F0[tst] == 1].mean()), k1t=float(um[tst][F1[tst] == 1].mean())); SIZES = (1, 5, 10, 20, 50)
     with Pool(12) as pool: res = [r for r in pool.map(R83.port, [(N, s) for N in SIZES for s in (range(M) if N == 1 else range(40))], chunksize=4) if r is not None]
     OUT["portfolios"] = {"names": M, "variance_ratio_pre_test": [round(k0, 2), round(k1, 2)], "by_N": {str(N): {str(a): {"gain_pct": round(float(np.mean([r[str(a)]["gain"] for r in res if r["N"] == N])), 2), "V_pct": round(float(np.mean([r[str(a)]["V"] for r in res if r["N"] == N])), 2)} for a in AL} for N in SIZES}}
+    R83.check_table(res, SIZES, "holdout", {"variance_ratio_reaction_day_and_day_after": {"pre-test days": [round(k0, 2), round(k1, 2)], "test days": [round(R83.G["k0t"], 2), round(R83.G["k1t"], 2)]}})   # consistency check added 2026-11-20 (r98)
     json.dump(OUT, open(os.path.join(OUTD, "holdout.json"), "w"), indent=1); print(json.dumps({k: v for k, v in OUT.items() if k != "day_types_pre_test"})[:2300]); print({d: (round(v["tau"], 2), round(v["nu"], 1), round(v["variance_ratio"], 1), v["rows"]) for d, v in par.items()})
