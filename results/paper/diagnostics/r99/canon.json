@@ -1,0 +1,291 @@
+{
+ "universe": "canon",
+ "test_and_predictions": "see the script header (the pass rule, D1-D5); written before the run",
+ "second_clock_parameters_r85": {
+  "theta": 11.5,
+  "w": 0.7
+ },
+ "reaction_days_with_the_firm_history": 0.929,
+ "scale_ratio_s": {
+  "reaction day": {
+   "median": 3.355,
+   "p10": 2.243,
+   "p90": 4.942
+  },
+  "day after": {
+   "median": 0.822,
+   "p10": 0.395,
+   "p90": 1.034
+  },
+  "other days": {
+   "median": 0.948,
+   "p10": 0.793,
+   "p90": 1.007
+  }
+ },
+ "variants": {
+  "loss side, weighted (the test)": {
+   "multipliers_c": {
+    "reaction day": 0.978,
+    "day after": 1.536,
+    "other days": 1.0
+   },
+   "tails_pre_test": {
+    "reaction day": {
+     "tail_index": 5.3,
+     "tau": 0.746
+    },
+    "day after": {
+     "tail_index": 4.76,
+     "tau": 1.137
+    },
+    "other days": {
+     "tail_index": 4.8,
+     "tau": 0.764
+    }
+   },
+   "pre-test rows": {
+    "0.025": {
+     "expression_pct": 9.36,
+     "gain_on_these_rows_pct": 8.26,
+     "gap_points": 1.1
+    },
+    "0.01": {
+     "expression_pct": 14.51,
+     "gain_on_these_rows_pct": 13.67,
+     "gap_points": 0.84
+    }
+   },
+   "test rows": {
+    "0.025": {
+     "expression_pct": 10.44,
+     "gain_on_these_rows_pct": 9.39,
+     "gap_points": 1.05
+    },
+    "0.01": {
+     "expression_pct": 16.6,
+     "gain_on_these_rows_pct": 16.17,
+     "gap_points": 0.42
+    }
+   },
+   "forecast_of_test_rows_from_pre_test": {
+    "0.025": {
+     "V_pct": 8.79,
+     "gain_on_test_rows_pct": 9.39,
+     "gap_points": -0.6
+    },
+    "0.01": {
+     "V_pct": 13.4,
+     "gain_on_test_rows_pct": 16.17,
+     "gap_points": -2.77
+    }
+   },
+   "gain_on_reaction_days_test_pct": {
+    "0.025": 61.35,
+    "0.01": 74.27
+   },
+   "PASS": false
+  },
+  "both sides, equal weights": {
+   "multipliers_c": {
+    "reaction day": 1.003,
+    "day after": 1.597,
+    "other days": 1.0
+   },
+   "tails_pre_test": {
+    "reaction day": {
+     "tail_index": 4.99,
+     "tau": 0.751
+    },
+    "day after": {
+     "tail_index": 4.28,
+     "tau": 1.14
+    },
+    "other days": {
+     "tail_index": 4.99,
+     "tau": 0.775
+    }
+   },
+   "pre-test rows": {
+    "0.025": {
+     "expression_pct": 9.61,
+     "gain_on_these_rows_pct": 8.27,
+     "gap_points": 1.34
+    },
+    "0.01": {
+     "expression_pct": 15.11,
+     "gain_on_these_rows_pct": 13.64,
+     "gap_points": 1.47
+    }
+   },
+   "test rows": {
+    "0.025": {
+     "expression_pct": 9.59,
+     "gain_on_these_rows_pct": 9.43,
+     "gap_points": 0.16
+    },
+    "0.01": {
+     "expression_pct": 15.67,
+     "gain_on_these_rows_pct": 16.17,
+     "gap_points": -0.49
+    }
+   },
+   "forecast_of_test_rows_from_pre_test": {
+    "0.025": {
+     "V_pct": 9.03,
+     "gain_on_test_rows_pct": 9.43,
+     "gap_points": -0.4
+    },
+    "0.01": {
+     "V_pct": 13.98,
+     "gain_on_test_rows_pct": 16.17,
+     "gap_points": -2.19
+    }
+   },
+   "gain_on_reaction_days_test_pct": {
+    "0.025": 61.69,
+    "0.01": 74.34
+   }
+  }
+ },
+ "portfolios": {
+  "names": 184,
+  "by_N": {
+   "1": {
+    "portfolios": 184,
+    "pre-test days": {
+     "0.025": {
+      "gain_pct": 6.36,
+      "V_pct": 7.87,
+      "se_of_gain_minus_V": 0.42
+     },
+     "0.01": {
+      "gain_pct": 10.06,
+      "V_pct": 12.82,
+      "se_of_gain_minus_V": 0.62
+     }
+    },
+    "test days": {
+     "0.025": {
+      "gain_pct": 7.86,
+      "V_pct": 7.7,
+      "se_of_gain_minus_V": 0.4
+     },
+     "0.01": {
+      "gain_pct": 13.2,
+      "V_pct": 12.65,
+      "se_of_gain_minus_V": 0.63
+     }
+    }
+   },
+   "2": {
+    "portfolios": 40,
+    "pre-test days": {
+     "0.025": {
+      "gain_pct": 6.99,
+      "V_pct": 6.62,
+      "se_of_gain_minus_V": 0.78
+     },
+     "0.01": {
+      "gain_pct": 10.32,
+      "V_pct": 10.63,
+      "se_of_gain_minus_V": 1.19
+     }
+    },
+    "test days": {
+     "0.025": {
+      "gain_pct": 5.58,
+      "V_pct": 6.05,
+      "se_of_gain_minus_V": 0.62
+     },
+     "0.01": {
+      "gain_pct": 9.51,
+      "V_pct": 9.68,
+      "se_of_gain_minus_V": 0.93
+     }
+    }
+   },
+   "5": {
+    "portfolios": 40,
+    "pre-test days": {
+     "0.025": {
+      "gain_pct": 2.92,
+      "V_pct": 3.78,
+      "se_of_gain_minus_V": 0.38
+     },
+     "0.01": {
+      "gain_pct": 3.16,
+      "V_pct": 5.93,
+      "se_of_gain_minus_V": 0.6
+     }
+    },
+    "test days": {
+     "0.025": {
+      "gain_pct": 3.89,
+      "V_pct": 3.72,
+      "se_of_gain_minus_V": 0.4
+     },
+     "0.01": {
+      "gain_pct": 5.81,
+      "V_pct": 5.75,
+      "se_of_gain_minus_V": 0.64
+     }
+    }
+   },
+   "10": {
+    "portfolios": 40,
+    "pre-test days": {
+     "0.025": {
+      "gain_pct": 1.28,
+      "V_pct": 1.92,
+      "se_of_gain_minus_V": 0.2
+     },
+     "0.01": {
+      "gain_pct": 1.01,
+      "V_pct": 2.97,
+      "se_of_gain_minus_V": 0.31
+     }
+    },
+    "test days": {
+     "0.025": {
+      "gain_pct": 1.77,
+      "V_pct": 1.6,
+      "se_of_gain_minus_V": 0.27
+     },
+     "0.01": {
+      "gain_pct": 2.58,
+      "V_pct": 2.38,
+      "se_of_gain_minus_V": 0.48
+     }
+    }
+   },
+   "20": {
+    "portfolios": 40,
+    "pre-test days": {
+     "0.025": {
+      "gain_pct": 0.28,
+      "V_pct": 0.69,
+      "se_of_gain_minus_V": 0.09
+     },
+     "0.01": {
+      "gain_pct": 0.17,
+      "V_pct": 1.03,
+      "se_of_gain_minus_V": 0.14
+     }
+    },
+    "test days": {
+     "0.025": {
+      "gain_pct": 0.85,
+      "V_pct": 0.48,
+      "se_of_gain_minus_V": 0.13
+     },
+     "0.01": {
+      "gain_pct": 0.98,
+      "V_pct": 0.67,
+      "se_of_gain_minus_V": 0.22
+     }
+    }
+   }
+  }
+ }
+}

@@ -1429,3 +1429,50 @@ number of names and is gone between 10 and 50 of them, in three periods; unequal
 value-weighted S&P 500 firms gain 0.6% to 0.7%, 60 equal-weighted gain nothing); the index gains nothing
 measurable. What does not stand as stated: that V predicts these gains. It gives their order and their decay with
 size, and overstates their level by a quarter to a half when kappa is right.
+
+## 18. One attempt at an equation that returns its own sample: the additive form (`tools/r99_additive_form.py`): fails
+
+Sections 16.4 and 17 found that the equation runs high on the sample it is fitted to, and that one reason is the
+fact behind the second clock of 9.3: the announcement adds a variance of its own, which does not scale with the
+day's ordinary variance. The attempt: make the informed model additive (the masked filter's variance, plus on a
+reaction day the firm's announcement variance from its last eight announcements, with the parameters r85 chose
+before the test period), so that the scale ratio to GARCH-t is known for every day, and put that ratio in the nested
+form of 16.3 with each day type's tail fitted on the loss side and weighted by the day's weight in the loss sum.
+The pass rule was written in the script before the run: the expression within 0.3 points (2.5%) and 0.5 points (1%)
+of the gain on the same rows, on the pre-test rows and the test rows of both panels.
+
+| | CRSP pre-test | CRSP test | US pre-test | US test |
+|---|---|---|---|---|
+| Gain of the additive multipliers over GARCH-t, 2.5% | 8.26 | 9.39 | 5.08 | 7.04 |
+| Expression on the same rows | 9.36 | 10.44 | 5.73 | 6.99 |
+| Gap, 2.5% | +1.10 | +1.05 | +0.65 | -0.04 |
+| Gap, 1% | +0.84 | +0.42 | +1.22 | -0.51 |
+
+It fails: one sample of four is inside the rule at 2.5%. The gaps are no smaller than those of the partition form
+with loss-side weighted tails (16.4: -0.31, -0.53, +0.09, -0.20), which remains the version closest to its own
+sample. Portfolios do not pass either: for single names the realized gain is 0.81 and 1.02 of V on the CRSP panel
+and 0.99 and 1.44 on US large caps (pre-test days, test days).
+
+A reading that was not tested: the expression credits the gain of knowing each day's scale exactly, and the firm's
+announcement variance from eight announcements is a noisy estimate of it.
+
+Two things the attempt shows that do not depend on the expression. The additive multipliers gain 9.4% and 7.0% over
+GARCH-t on the test rows, against 7.7% and 5.7% for one constant multiplier (16.3) and 9.3% to 10.7% and 7.0% to
+7.7% for the flexible quantile models with the calendar; and fitted before the test period the expression is 0.6
+and 0.3 points below the test rows' gain at 2.5%, closer than the constant-multiplier versions, because the firm's
+own history follows the drift in the announcement effect. With the overshoot above, that closeness cannot be
+claimed as accuracy.
+
+Where the equation stands after Sections 16 to 18. It is an accounting of what a known scale difference costs a
+VaR model. Its best version (day types, tails on the loss side, sigma weights) is within about half a point of its
+own sample at 2.5% on two panels. It orders information sets correctly and gives the decay with portfolio size. It
+does not forecast the level of the calendar's value across periods, and no version tried returns its own sample
+within 0.3 points everywhere.
+
+| | Prediction | Result |
+|---|---|---|
+| D1 | Additive multipliers gain 9% to 10.5% (CRSP) and 6.5% to 7.5% (US) on test rows | Holds (9.4; 7.0) |
+| D2 | The pass rule; expected a pass on US large caps and a borderline result on CRSP | Fails on both panels |
+| D3 | With r83's fitting the largest gap is under 0.7 points | Fails (1.3 on each panel) |
+| D4 | As a forecast, within 1.0 point of the test rows' gain at 2.5% | Holds (-0.6; -0.3); at 1% the CRSP gap is -2.8 |
+| D5 | Portfolios: realized 0.85 to 1.15 of V for single names, within 0.3 points for 5 to 20 names | Fails (0.81 to 1.44; gaps up to 0.9 points) |
