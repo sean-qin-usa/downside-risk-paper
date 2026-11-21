@@ -1417,7 +1417,7 @@ sample, so an expression that is right returns the realized gain. Mean over port
 | S&P 500 firms, 60 value-weighted | 0.7, 0.7 | 0.5, 0.2 | 0.6, 1.0 |
 
 The portfolio expression has the same fault as the single-name equation. Where kappa matches the sample it runs
-high: for single names the realized gain is 0.65 to 0.78 of V on the three stock panels and 0.76 to 0.93 for S&P 500
+high: for single names the realized gain is 0.64 to 0.78 of V on the three stock panels and 0.76 to 0.93 for S&P 500
 firms, and the shortfall is larger for small books. The close agreement reported in Sections 9.1 and 15.2 (and the
 correlation of 0.995 over 720 random books) came from kappa measured before the test period being lower than kappa
 in it (reaction day: 14.4 against 15.6 on the CRSP panel, 8.5 against 11.7 on US large caps, 7.0 to 9.3 against 10.1
